@@ -149,6 +149,26 @@ body{
             object-fit: cover;
         }
         }
+        section {
+            padding: 1rem;
+            h3 {
+                border-bottom: 2px dotted var(--color-2);
+            }
+            p {
+                font-size: 1.6rem;
+                margin-bottom: 0.6rem;
+                svg{
+                    width: 40px;
+                }
+            }
+            xmp {
+                color: #43fa43;
+                margin-top: 0.6rem;
+                border-radius: 5px;
+                padding: 0 0.8rem 0.8rem;
+                background-color: #0006;
+            }
+        }
         menu {
             display: flex;
             flex-direction: column;
