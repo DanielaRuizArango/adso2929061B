@@ -152,6 +152,11 @@ body{
         }
         section {
             padding: 1rem;
+            background-color: var(--color-1);
+            border-radius: 4px;
+            margin-block: 1rem;
+            min-height: 25vh;
+            min-width: 400px;
             h3 {
                 border-bottom: 2px dotted var(--color-2);
             }
@@ -204,13 +209,6 @@ body{
             background:linear-gradient(to right, #fffe, #fff6);
             transform: scale(1.05) translateY(-4px);
            }
-        }
-        section {
-            background-color: var(--color-1);
-            border-radius: 4px;
-            margin-block: 1rem;
-            min-height: 25vh;
-            width: 400px;
         }
     }
 }
