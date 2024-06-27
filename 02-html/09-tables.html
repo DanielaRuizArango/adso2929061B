@@ -8,6 +8,31 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/custom.css">
     <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            thead, tfoot {
+                th , td {
+                    background: #fffc;
+                    border: 1px solid #fff9;
+                    text-align: center;
+                    padding: 4px;
+                }
+            }
+            tbody {
+                td {
+                    background: #fff6;
+                    border: 1px solid #fff9;
+                    font-size: 0.8rem;
+                    padding: 4px;
+                }
+            }
+            tr:nth-of-type(even) {
+                td {
+                    background: #fff9;
+                }
+            }
+        }
     </style>
 </head>
 
@@ -24,27 +49,58 @@
     <main>
         <header>
             <h1>09- Tables </h1>
-            <p>This tag allows you to create ordered & unordered lists.</p>
+            <p>This tags allows you to create a table.</p>
         </header>
         <section>
-            <h3>Ordered List:</h3>
-            <ol type="I">
-                <li>Java</li>
-                <li>Python</li>
-                <ol type="A" start="3">
-                    <li>Flask</li>
-                    <li>Django</li>
-                </ol>
-                <li>Ruby</li>
-                <li>C Sharp</li>
-            </ol>
-            <h3>Unordered List:</h3>
-            <ul>
-                <li>kaiju Number 8</li>
-                <li>Magic & Muscles</li>
-                <li>One Punch Man</li>
-                <li>Seven Deadly Signs</li>
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>FullName</th>
+                        <th>Phones</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Homer Simpson</td>
+                        <td>01123001</td>
+                        <td>homer@mail.com</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Marge Simpson</td>
+                        <td>01123002</td>
+                        <td>marge@mail.com</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Barth Simpson</td>
+                        <td>01123003</td>
+                        <td>barth@mail.com</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Lisa Simpson</td>
+                        <td>01123004</td>
+                        <td>lisa@mail.com</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Magie Simpson</td>
+                        <td>01123005</td>
+                        <td>magie@mail.com</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">
+                            Simpson Family
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </section>
     </main>
 </body>
