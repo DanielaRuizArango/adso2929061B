@@ -1,26 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>15- Position</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <style>
+        main ul {
+            color: #fff9;
+        }
+
+        div.parent {
+            border: 2px solid #0009;
+            background-color: #fff6;
+            margin: 2rem auto;
+            padding: 2rem;
+            position: relative;
+            min-height: 130px;
+            width: 260px;
+        }
+
+        div.child {
+            background-color: #666;
+            color: #fff9;
+            padding: 0.4rem;
+            text-align: center;
+            width: 80px;
+        }
+
+        div.relative {
+            position: relative;
+            top: -20px;
+            left: 130px;
+        }
+
+        div.absolute {
+            position: absolute;
+            bottom: 14px;
+            left: 14px;
+
+        }
+
+        div.fixed {
+            position: fixed;
+            top: 680px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9;
+        }
+
+        div.sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 20px;
+            width: 100%;
+        }
+
+        div.parent p {
+            font-size: 0.8rem !important;
+            text-align: justify;
+        }
     </style>
 </head>
+
 <body class="css">
     <nav>
         <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
+                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>15- Position</h1>
+            <ul>
+                <li>Normal/Static</li>
+                <li>Relative</li>
+                <li>Absolute</li>
+                <li>Fixed</li>
+                <li>Sticky</li>
+            </ul>
         </header>
         <section>
+            <h3>Relative</h3>
+            <div class="parent">
+                <div class="child relative">Box <small>Relative</small></div>
+            </div>
+            <h3>Absolute</h3>
+            <div class="parent">
+                <div class="child absolute">Box <small>Absolute</small></div>
+            </div>
+            <h3>Fixed</h3>
+            <div class="parent">
+                <div class="child fixed">Box <small>fixed</small></div>
+            </div>
+            <h3>Sticky</h3>
+            <div class="parent">
+                <div class="child sticky">Box <small>Sticky</small></div>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, rem. Asperiores saepe amet sint autem deleniti voluptatibus officiis quasi ipsum, laudantium totam repudiandae distinctio quos tenetur ex a, at, officia placeat id dolore consequatur nesciunt doloribus optio eaque commodi. Praesentium, rem. Deleniti maxime, ex repudiandae consectetur saepe iure ratione beatae quidem quos facilis voluptatem itaque deserunt nihil nulla quisquam, sit recusandae soluta officiis hic consequatur veniam ea nisi suscipit iste! Sint ducimus ipsam quaerat enim voluptate ipsum? Quidem sit distinctio, repudiandae quod dolore laboriosam adipisci perferendis culpa necessitatibus ducimus quia rem delectus maiores voluptatum molestias. Quia laborum vero quibusdam ab iste. Aliquam est itaque tenetur dolore suscipit! Aperiam impedit, reiciendis, magni sequi magnam velit nihil nobis eos corrupti repudiandae, error provident. Architecto numquam eaque dolorem ab mollitia tempore, autem, similique harum suscipit, sequi deserunt quaerat accusamus aliquam obcaecati quis inventore vel. Odit cumque animi nostrum blanditiis quis expedita ad amet, quo harum quae magni quas mollitia laboriosam at illum quasi porro molestiae possimus numquam ut deleniti corrupti accusamus? Est atque, nostrum, itaque vitae fuga, incidunt obcaecati sint illum molestiae in eveniet? Commodi voluptatem dolorem, nemo dignissimos possimus voluptatum ab, tenetur, expedita ratione tempore eius vel recusandae fuga ipsa natus autem!
+                </p>
+            </div>
         </section>
     </main>
 </body>
-</html>            
+
+</html>

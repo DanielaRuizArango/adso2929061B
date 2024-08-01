@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>22- Cursors</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style> 
+    section div {
+            background-color: #0003;
+            border: 2px solid #0009;
+            height: 100px;
+            margin-block: 0.6rem;
+            margin-inline: auto;
+            width: 280px;
+        }
+        div.cursor-move { cursor: move; }
+        div.cursor-help { cursor: help; }
+        div.cursor-crosshair { cursor: crosshair; }
+        div.cursor-image {
+            cursor: url(images/pointer.png), pointer;
+        }
     </style>
 </head>
 <body class="css">
@@ -16,10 +30,18 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>22- Cursors </h1>
+            <p>Specifies the mouse cursor to be displayed when pointing over an element.</p>
         </header>
         <section>
+            <h3>Move</h3>
+            <div class="cursor-move"></div>
+            <h3>Help</h3>
+            <div class="cursor-help"></div>
+            <h3>Crosshair</h3>
+            <div class="cursor-crosshair"></div>
+            <h3>Image (Custom)</h3>
+            <div class="cursor-image"></div>
         </section>
     </main>
 </body>

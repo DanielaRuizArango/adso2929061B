@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>16- Float</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style> 
+    main section article p {
+        font-size: 0.7rem;
+        text-align: justify;
+    }
+    main section article img {
+        float: left;
+        width: 180px;
+    }
+    main section article p + p {
+        clear: left;
+    }
     </style>
 </head>
 <body class="css">
@@ -16,10 +27,20 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>16- Float </h1>
+            <p>Pushes the element to either the left or right side.</p>
         </header>
         <section>
+            <article>
+                <h4>Super Mario Bross</h4>
+                <img src="images/mario.png" alt="Mario">
+                <p>
+                    super mario bross, Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis deserunt dolor aliquam est aspernatur assumenda rerum inventore excepturi aliquid perspiciatis saepe provident modi quidem neque non tenetur, asperiores iste perferendis doloribus dignissimos harum hic commodi quo blanditiis! Voluptatibus, distinctio consequuntur consequatur, architecto natus ut alias excepturi ipsum soluta sunt laudantium beatae repudiandae enim minus expedita quaerat molestias ipsa quidem eaque reprehenderit impedit accusantium!.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor obcaecati sequi molestias totam unde hic voluptates quisquam, accusamus commodi provident quaerat possimus! Neque ipsum magnam maxime odio vel! Quaerat, earum!
+                </p>
+            </article>
         </section>
     </main>
 </body>

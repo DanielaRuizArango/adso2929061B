@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>21- Lists</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style> 
+    ul {
+            list-style-type: square;
+            padding-left: 1.5rem;
+        }
+        ul ul {
+            list-style-type: circle;
+        }
+        ol {
+            list-style-type: upper-roman;
+            padding-left: 1.5rem;
+        }
+        ol ol {
+            list-style-type: lower-greek;
+        }
+        ul.images {
+            list-style-image: url(images/basketball.png);
+        }
     </style>
 </head>
 <body class="css">
@@ -16,10 +33,49 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>21- Lists </h1>
+            <p>Allows you to set all the list style properties at once.</p>
         </header>
         <section>
+            <h3>Unordered List</h3>
+            <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>
+                    JavaScript
+                    <ul>
+                        <li>React JS</li>
+                        <li>Vue JS</li>
+                        <li>Angular JS</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>Ordered List</h3>
+            <ol>
+                <li>
+                    Goku
+                    <ol>
+                        <li>Gohan</li>
+                        <li>Goten</li>
+                    </ol>
+                </li>
+                <li>
+                    Vegeta
+                    <ol>
+                        <li>Trunks</li>
+                        <li>Brah</li>
+                    </ol>
+                </li>
+                <li>Krillin</li>
+                <li>Yayirobe</li>
+            </ol>
+            <h3>Image List</h3>
+            <ul class="images">
+                <li>Hanamichi Sakuragi</li>
+                <li>Haruko Akagi</li>
+                <li>Ryota Miyagi</li>
+                <li>Kaeda Rukawa</li>
+            </ul>
         </section>
     </main>
 </body>

@@ -1,26 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>17- Visualization</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        ul li {
+            color: #fff9;
+        }
+        div.parent {
+            background-color: #fff6;
+            border: 2px solid #0009;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            gap: 1rem;
+            margin: 20px auto;
+            width: 180px;
+        }
+        div.child {
+            background-color: #fff;
+            border: 2px solid #0009;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            width: 40px;
+        }
+        div.child.none {
+            display: none;
+        }
+        div.child.hidden {
+            visibility: hidden;
+        }
+        div.parent-box {
+            background-color: #fff6;
+            display: flex;
+            margin: 3rem auto;
+            gap: 10px;
+        }
+        div.box {
+            border: 2px solid #0009;
+            height: 180px;
+            padding: 4px;
+        }
+        section div.box p {
+            font-size: 0.6rem;
+            text-align: justify;
+        }
+        section div.box h4 {
+            background-color: #0009;
+            color: #fffc;
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 4px;
+            margin: 0;
+        }
+        div.box2 {
+            overflow: hidden;
+        }
+        div.box3 {
+            overflow: scroll;
+        }
+        div.element {
+            border: 2px solid #0009;
+            width: 200px;
+            font-size: 4.4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 80px;
+        }
+        div.parent-element {
+            display: flex;
+            margin: 20px auto;
+            gap: 10px;
+            padding-bottom: 4rem;
+        }
+        div.element1 {
+            background-color: #e3e3b6;
+            left: 60px;
+            z-index: 1;
+        }
+        div.element2 {
+            background-color: #b8b8f1;
+            left: 0px;
+            top: 30px;
+            z-index: 2;
+        }
+        div.element3 {
+            background-color: #edc8c8;
+            left: -60px;
+            top: 60px;
+            z-index: 3;
+        }
     </style>
 </head>
+
 <body class="css">
     <nav>
         <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>17- Visualization </h1>
+            <ul>
+                <li>Display: block|inline|none|flex|grid</li>
+                <li>Visibility: visible|hidden</li>
+                <li>Overflow: visible|hidden|scroll|auto</li>
+                <li>Z-Index: 1...n</li>
+            </ul>
         </header>
         <section>
+            <h3>Child 5 = display: none</h3>
+            <div class="parent">
+                <div class="child child1">1</div>
+                <div class="child child2">2</div>
+                <div class="child child3">3</div>
+                <div class="child child4">4</div>
+                <div class="child child5 none">5</div>
+                <div class="child child6">6</div>
+            </div>
+            <h3>Child 5 = visibility: hidden </h3>
+            <div class="parent">
+                <div class="child child1">1</div>
+                <div class="child child2">2</div>
+                <div class="child child3">3</div>
+                <div class="child child4">4</div>
+                <div class="child child5 hidden">5</div>
+                <div class="child child6">6</div>
+            </div>
+            <h3> Overflow </h3>
+            <div class="parent-box">
+                <div class="box box1">
+                    <h4>Visible</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione sapiente laudantium minima earum incidunt, quae, asperiores aperiam laborum eveniet repellat vitae laboriosam a nemo ipsam tenetur! Temporibus nulla odit aut vero praesentium accusantium. Similique ad tempora velit nam, voluptate quibusdam sed in quisquam accusamus ipsa commodi hic vel, ea earum quo incidunt repellat officiis. Aut officiis reiciendis alias odio fugit quo sint voluptas voluptatibus provident, quis pariatur impedit delectus mollitia totam vero ut corporis dolorum porro neque sunt? Asperiores, facilis at earum exercitationem dolore non. Optio ullam fuga ipsa eum cum alias excepturi quo? Eligendi voluptatem impedit consequatur dolorum tenetur reprehenderit in blanditiis voluptas, aspernatur magni excepturi fugiat facere dolore officiis totam debitis nemo, commodi, possimus sit molestias laboriosam? Commodi voluptatem magnam beatae eum ex, corporis, aut ipsa architecto rerum eveniet minima similique assumenda voluptates est, harum ducimus hic amet consequuntur nostrum? Id pariatur, recusandae optio in ut commodi accusamus.</p>
+                </div>
+            </div>
+            <div class="parent-box">
+                <div class="box box2">
+                    <h4>Hideen</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione sapiente laudantium minima earum incidunt, quae, asperiores aperiam laborum eveniet repellat vitae laboriosam a nemo ipsam tenetur! Temporibus nulla odit aut vero praesentium accusantium. Similique ad tempora velit nam, voluptate quibusdam sed in quisquam accusamus ipsa commodi hic vel, ea earum quo incidunt repellat officiis. Aut officiis reiciendis alias odio fugit quo sint voluptas voluptatibus provident, quis pariatur impedit delectus mollitia totam vero ut corporis dolorum porro neque sunt? Asperiores, facilis at earum exercitationem dolore non. Optio ullam fuga ipsa eum cum alias excepturi quo? Eligendi voluptatem impedit consequatur dolorum tenetur reprehenderit in blanditiis voluptas, aspernatur magni excepturi fugiat facere dolore officiis totam debitis nemo, commodi, possimus sit molestias laboriosam? Commodi voluptatem magnam beatae eum ex, corporis, aut ipsa architecto rerum eveniet minima similique assumenda voluptates est, harum ducimus hic amet consequuntur nostrum? Id pariatur, recusandae optio in ut commodi accusamus.</p>
+
+                </div>
+            </div>
+            <div class="parent-box">
+                <div class="box box3">
+                    <h4>Scroll</h4>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione sapiente laudantium minima earum incidunt, quae, asperiores aperiam laborum eveniet repellat vitae laboriosam a nemo ipsam tenetur! Temporibus nulla odit aut vero praesentium accusantium. Similique ad tempora velit nam, voluptate quibusdam sed in quisquam accusamus ipsa commodi hic vel, ea earum quo incidunt repellat officiis. Aut officiis reiciendis alias odio fugit quo sint voluptas voluptatibus provident, quis pariatur impedit delectus mollitia totam vero ut corporis dolorum porro neque sunt? Asperiores, facilis at earum exercitationem dolore non. Optio ullam fuga ipsa eum cum alias excepturi quo? Eligendi voluptatem impedit consequatur dolorum tenetur reprehenderit in blanditiis voluptas, aspernatur magni excepturi fugiat facere dolore officiis totam debitis nemo, commodi, possimus sit molestias laboriosam? Commodi voluptatem magnam beatae eum ex, corporis, aut ipsa architecto rerum eveniet minima similique assumenda voluptates est, harum ducimus hic amet consequuntur nostrum? Id pariatur, recusandae optio in ut commodi accusamus.</p>
+
+                </div>
+            </div>
+            <h3>Z-Index</h3>
+            <div class="parent-element">
+                <div class="element element1">1</div>
+                <div class="element element2">2</div>
+                <div class="element element3">3</div>
+            </div>
         </section>
     </main>
 </body>
-</html>            
+
+</html>

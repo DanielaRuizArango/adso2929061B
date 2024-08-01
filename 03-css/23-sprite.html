@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>23- Sprite</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style> 
+            div#sprite {
+            background: url(images/anim-sprite.png) no-repeat;
+            height: 256px;
+            margin: 1rem auto;
+            width: 256px;
+        }
+        div#sprite.sp1 { background-position: calc(-256px * 0) 0; }
+        div#sprite.sp2 { background-position: calc(-256px * 1) 0; }
+        div#sprite.sp3 { background-position: calc(-256px * 2) 0; }
+        div#sprite.sp4 { background-position: calc(-256px * 3) 0; }
+        div#sprite.sp5 { background-position: calc(-256px * 4) 0; }
+        div#sprite.sp6 { background-position: calc(-256px * 5) 0; }
     </style>
 </head>
 <body class="css">
@@ -16,11 +28,26 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>23- Sprite </h1>
+            <p>An image sprite is a collection of images put into a single image.</p>
         </header>
         <section>
+            <div id="sprite" class="sp1"></div>
         </section>
     </main>
+    <script>
+        const sprite    = document.getElementById('sprite')
+        const numSprite = 6
+        let count       = 1
+        setInterval(() => {
+            sprite.className = ''
+            sprite.classList.add('sp' + count)
+            if (count == numSprite) {
+                count = 1
+            } else {
+                count++
+            }
+        }, 80)
+    </script>
 </body>
 </html>            
