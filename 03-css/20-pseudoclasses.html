@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20- Pseudoclasses</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style> 
+    @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+        nav {
+            margin-block: 1rem;
+        }
+        /*
+        nav a:link,
+        nav a:visited
+        */
+        nav a:is(:link, :visited) {
+            background-color: #0009;
+            color: #fff9;
+            padding: 0.4rem 0.8rem;
+            text-decoration: none;
+        }
+        /* 
+        nav a:hover
+        */
+        nav a:is(:hover) {
+            background-color: #000;
+            color: #fff;
+        }
+        /*
+        nav a:active
+        */
+        nav a:is(:active) {
+            background: #a00;
+        }
+        /* 
+            nav a:first-child,
+            nav a:last-child  
+        */
+        nav a:is(:first-child, :last-child) {
+            background-color: #009;
+        }
+        input {
+            margin-block: 0.4rem;
+            padding: 0.4rem 0.8rem;
+            outline: none;
+        }
+        /* input:focus */
+        input:is(:focus) {
+            border: 2px solid #009;
+        }
+        p.paragraph:first-line {
+            background-color: #0904;
+        }
+        p.paragraph:first-letter {
+            color: #060;
+            font-family: Sacramento;
+            font-size: 4rem;
+        }
+        div.heart {
+            background-color: transparent;
+            position: relative;
+            margin-block: 2rem;
+            height: 100px;
+            width: 50px;
+        }
+        div.heart::before {
+            background-color: #c00;
+            border-radius: 25px 25px 0 0;
+            position: absolute;
+            content: "";
+            height: 80px;
+            width: 50px;
+            transform-origin: center;
+            transform: rotate(-45deg) translateX(20px);
+            left: 100px;
+            top: 0;
+        }
+        div.heart::after {
+            background-color: #c00;
+            border-radius: 25px 25px 0 0;
+            position: absolute;
+            content: "";
+            height: 80px;
+            width: 50px;
+            transform-origin: center;
+            transform: rotate(45deg) translateX(-20px);
+            left: 150px;
+            top: 0;
+        }
+    </style>
+</head>
+<body class="css">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>20- Pseudoclasses </h1>
+            <p>Is used to define a special state of an element.</p>
+        </header>
+        <section>
+            <h3>:link|:hover|:active|:visited</h3>
+            <h4>:first-child|:last-child</h4>
+            <nav>
+                <a href="#">Option 1</a>
+                <a href="#">Option 2</a>
+                <a href="#">Option 3</a>
+                <a href="#">Option 4</a>
+            </nav>
+            <h3>:focus</h3>
+            <input type="text" placeholder="Enter your First Name">
+            <br>
+            <input type="text" placeholder="Enter your Last Name">
+            <h3>:first-letter|:first-line</h3>
+            <p class="paragraph">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam est fugit omnis.
+            </p>
+            <h3>:before|:after</h3>
+            <div class="heart"></div>
+        </section>
+    </main>
+</body>
+</html>            

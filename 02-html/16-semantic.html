@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16- Semantic</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        main {
+            main{
+                min-height: 0;
+                border: 2px solid #0009;
+                gap: 0;
+                header {
+                    border: 2px solid #0009;
+                    background-color: #fff9;
+                    width: 100%;
+                    height: 80px;
+                    nav {
+                        position: relative;
+                        height: 80px;
+                    }
+                }
+                section {
+                    border: 1px solid #0009;
+                    border-radius: 0;
+                    display: flex;
+                    padding: 0;
+                    margin-block: 0;
+                    flex-direction: row;
+                    width: 100%;
+                    article {
+                        border: 2px solid #0009;
+                        height: 200px;
+                        width: 70%;
+                    }
+                aside {
+                    border: 2px solid #0009;
+                    width: 30%;
+                }
+                }
+                footer {
+                    background-color: #fff9;
+                    border: 2px solid #0009;
+                    width: 100%;
+                }
+                nav, article, aside, footer {
+                    font-size: 2rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body class="html">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>16- Semantic</h1>
+            <p>This tag allows you to create structure site (new style).</p>
+        </header>
+        <section>
+            <main>
+                <header>
+                    <nav>
+                        Header Navigation
+                    </nav>
+                </header>
+                <section>
+                    <article>
+                        Article
+                    </article>
+                    <aside>
+                        Aside
+                    </aside>
+                </section>
+                <footer>
+                    Footer
+                </footer>
+            </main>
+        </section>
+    </main>
+</body>
+
+</html>

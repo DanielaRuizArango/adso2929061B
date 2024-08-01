@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22- Cursors</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style> 
+    section div {
+            background-color: #0003;
+            border: 2px solid #0009;
+            height: 100px;
+            margin-block: 0.6rem;
+            margin-inline: auto;
+            width: 280px;
+        }
+        div.cursor-move { cursor: move; }
+        div.cursor-help { cursor: help; }
+        div.cursor-crosshair { cursor: crosshair; }
+        div.cursor-image {
+            cursor: url(images/pointer.png), pointer;
+        }
+    </style>
+</head>
+<body class="css">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>22- Cursors </h1>
+            <p>Specifies the mouse cursor to be displayed when pointing over an element.</p>
+        </header>
+        <section>
+            <h3>Move</h3>
+            <div class="cursor-move"></div>
+            <h3>Help</h3>
+            <div class="cursor-help"></div>
+            <h3>Crosshair</h3>
+            <div class="cursor-crosshair"></div>
+            <h3>Image (Custom)</h3>
+            <div class="cursor-image"></div>
+        </section>
+    </main>
+</body>
+</html>            
