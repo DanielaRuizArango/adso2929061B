@@ -1,26 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <title>Sprite</title>
+    <!-- <link rel="stylesheet" href="../css/styles.css"> -->
+    <style>
+        body {
+            background-color: #17a053;
+            /* border: 2px solid white; */
+        }
+
+        div.logo {
+            background: url(images/spriteweb.png) no-repeat;
+            background-position: -10px -400px;
+            height: 190px;
+            margin: 0 auto;
+            width: 190px;
+        }
+
+        menu {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 0;
+        }
+
+        menu a {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            text-decoration: none;
+            border-bottom: 7px white solid;
+        }
+
+        menu a:hover {
+            background-color: rgb(3, 3, 3, 0.692);
+            border-bottom: 7px solid rgb(197, 197, 78);
+        }
+
+        div.images {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            margin: 0 auto;
+            width: 900px;
+            padding: 10px;
+        }
+
+        div.sprites {
+            background: url(images/spriteweb.png) no-repeat;
+            background-position: -480px -5px;
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+            height: 200px;
+            width: 328px;
+            border: 2px solid white;
+        }
+
+        div figcaption {
+            text-align: center;
+            color: black;
+            font-size: x-large;
+            font-weight: bold;
+            background-color: #fff9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+        }
+
+        div figcaption:hover {
+            background-color: rgba(255, 255, 255, 0.808);
+        }
+
+        section.first {
+            background-color: rgba(0, 0, 0, 0.4);
+            margin: 0 auto;
+            width: 900px;
+            padding: 10px;
+        }
+
+        div.info {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px;
+            height: 200px;
+        }
+
+        div aside {
+            background: url(images/spriteweb.png) no-repeat;
+            width: 15%;
+        }
+
+        div p {
+            width: 70%;
+            text-align: justify;
+            margin: 5px;
+        }
+
+        div p:hover {
+            color: #17a053;
+        }
+
+        div aside.first {
+            margin: 15px;
+            background-position: -290px -499px;
+            height: 95px;
+        }
+
+        div aside.second {
+            margin: 20px;
+            background-position: -100px -210px;
+            height: 173px;
+        }
+
+        footer.last {
+            width: 915px;
+        
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            gap: 2.5rem;
+        }
+        div.third {
+            background: url(images/spriteweb.png) no-repeat;
+            background-position: -0px -0px;
+            height: 400px;
+        }
     </style>
 </head>
-<body class="css">
-    <nav>
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        </a>
-    </nav>
+
+<body>
     <main>
-        <header>
-            <h1>00 -Template </h1>
-            <p></p>
-        </header>
+        <div class="logo"></div>
+        <menu>
+            <a href="#">Inicio</a>
+            <a href="#">Nosotros</a>
+            <a href="#">Portafolio</a>
+            <a href="#">Servicios</a>
+            <a href="#">Contacto</a>
+        </menu>
         <section>
+            <div class="images">
+                <div class="sprites">
+                    <figcaption>Sprite 01</figcaption>
+                </div>
+                <div class="sprites">
+                    <figcaption>Sprite 02</figcaption>
+                </div>
+                <div class="sprites">
+                    <figcaption>Sprite 03</figcaption>
+                </div>
+            </div>
         </section>
+        <br>
+        <section class="first">
+            <div class="info">
+                <aside class="first"></aside>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor optio sequi voluptates reiciendis
+                    quisquam dolorem magni expedita unde. Autem nobis adipisci suscipit, quia maxime ut obcaecati
+                    molestias vero labore dolorem, tenetur deserunt laboriosam perferendis accusantium nam
+                    exercitationem odit placeat quod vel atque aut ex, aspernatur facere! Ullam iste nesciunt maiores
+                    doloremque quibusdam non soluta quo, nulla rem quod enim. Quia libero recusandae repellendus? Eum
+                    aliquid officiis quam doloribus mollitia atque.</p>
+                <aside class="second"></aside>
+            </div>
+            <div class="info">
+                <aside class="first"></aside>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor optio sequi voluptates reiciendis
+                    quisquam dolorem magni expedita unde. Autem nobis adipisci suscipit, quia maxime ut obcaecati
+                    molestias vero labore dolorem, tenetur deserunt laboriosam perferendis accusantium nam
+                    exercitationem odit placeat quod vel atque aut ex, aspernatur facere! Ullam iste nesciunt maiores
+                    doloremque quibusdam non soluta quo, nulla rem quod enim. Quia libero recusandae repellendus? Eum
+                    aliquid officiis quam doloribus mollitia atque.</p>
+                <aside class="second"></aside>
+            </div>
+            <div class="info">
+                <aside class="first"></aside>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor optio sequi voluptates reiciendis
+                    quisquam dolorem magni expedita unde. Autem nobis adipisci suscipit, quia maxime ut obcaecati
+                    molestias vero labore dolorem, tenetur deserunt laboriosam perferendis accusantium nam
+                    exercitationem odit placeat quod vel atque aut ex, aspernatur facere! Ullam iste nesciunt maiores
+                    doloremque quibusdam non soluta quo, nulla rem quod enim. Quia libero recusandae repellendus? Eum
+                    aliquid officiis quam doloribus mollitia atque.</p>
+                <aside class="second"></aside>
+            </div>
+        </section>
+        <br>
+        <footer class="last">
+            <div class="third"></div>
+            <div>
+                <a href="#">Inicio</a>
+                <a href="#">Nosotros</a>
+                <a href="#">Portafolio</a>
+                <a href="#">Servicios</a>
+                <a href="#">Contacto</a>
+            </div>
+        </footer>
     </main>
 </body>
-</html>            
+
+</html>
