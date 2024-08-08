@@ -2,14 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sprite</title>
-    <!-- <link rel="stylesheet" href="../css/styles.css"> -->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+        html {
+            border: 7px solid white;
+        }
         body {
             background-color: #17a053;
-            /* border: 2px solid white; */
+            
+            font-family: "Poppins", sans-serif;
         }
 
         div.logo {
@@ -38,6 +43,7 @@
             width: 120px;
             text-decoration: none;
             border-bottom: 7px white solid;
+            text-transform: uppercase;
         }
 
         menu a:hover {
@@ -88,26 +94,30 @@
             margin: 0 auto;
             width: 900px;
             padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         div.info {
             background-color: white;
             display: flex;
+            gap: 35px;
             justify-content: center;
             align-items: center;
-            margin: 15px;
             height: 200px;
+            margin-bottom: 10px 0;
         }
 
         div aside {
             background: url(images/spriteweb.png) no-repeat;
-            width: 15%;
+            width: 20%;
         }
 
         div p {
-            width: 70%;
+            width: 60%;
             text-align: justify;
-            margin: 5px;
+            line-height: 1.5em;
         }
 
         div p:hover {
@@ -115,32 +125,62 @@
         }
 
         div aside.first {
-            margin: 15px;
-            background-position: -290px -499px;
+            background-position: -282px -499px;
             height: 95px;
+            width: 109px;
         }
 
         div aside.second {
-            margin: 20px;
-            background-position: -100px -210px;
+            background-position: -88px -210px;
             height: 173px;
+            width: 109px;
         }
 
-        footer.last {
+        footer {
             width: 915px;
-        
             background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 0 auto;
             gap: 2.5rem;
+            height: 260px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
         }
+
         div.third {
             background: url(images/spriteweb.png) no-repeat;
-            background-position: -0px -0px;
-            height: 400px;
+            background-position: -500px -420px;
+            height: 180px;
+            width: 245px;
         }
+
+        div.link {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            gap: 3.5rem;
+        }
+
+        div.link a {
+            text-decoration: none;
+            color: black;
+            font-size: medium;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            padding-bottom: 10px;
+            border-bottom: 7px solid white
+        }
+
+        div.link a:hover {
+            border-bottom: 7px solid #11743c;
+        }
+    
     </style>
 </head>
 
@@ -167,43 +207,33 @@
                 </div>
             </div>
         </section>
-        <br>
+        <br />
         <section class="first">
             <div class="info">
                 <aside class="first"></aside>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor optio sequi voluptates reiciendis
-                    quisquam dolorem magni expedita unde. Autem nobis adipisci suscipit, quia maxime ut obcaecati
-                    molestias vero labore dolorem, tenetur deserunt laboriosam perferendis accusantium nam
-                    exercitationem odit placeat quod vel atque aut ex, aspernatur facere! Ullam iste nesciunt maiores
-                    doloremque quibusdam non soluta quo, nulla rem quod enim. Quia libero recusandae repellendus? Eum
-                    aliquid officiis quam doloribus mollitia atque.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum fugit aliquam impedit magnam quod, maxime deserunt cupiditate ratione ea saepe odit quasi culpa quam dolor voluptatibus reprehenderit quis a iusto corrupti hic placeat dolores aut! Dolorum ipsam architecto tempora blanditiis, accusantium pariatur omnis sunt enim error dolor quas, consequatur cupiditate eius necessitatibus, quidem corrupti officiis reprehenderit voluptate perspiciatis magni nostrum!
+                </p>
                 <aside class="second"></aside>
             </div>
             <div class="info">
                 <aside class="first"></aside>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor optio sequi voluptates reiciendis
-                    quisquam dolorem magni expedita unde. Autem nobis adipisci suscipit, quia maxime ut obcaecati
-                    molestias vero labore dolorem, tenetur deserunt laboriosam perferendis accusantium nam
-                    exercitationem odit placeat quod vel atque aut ex, aspernatur facere! Ullam iste nesciunt maiores
-                    doloremque quibusdam non soluta quo, nulla rem quod enim. Quia libero recusandae repellendus? Eum
-                    aliquid officiis quam doloribus mollitia atque.</p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum fugit aliquam impedit magnam quod, maxime deserunt cupiditate ratione ea saepe odit quasi culpa quam dolor voluptatibus reprehenderit quis a iusto corrupti hic placeat dolores aut! Dolorum ipsam architecto tempora blanditiis, accusantium pariatur omnis sunt enim error dolor quas, consequatur cupiditate eius necessitatibus, quidem corrupti officiis reprehenderit voluptate perspiciatis magni nostrum!
+                </p>
                 <aside class="second"></aside>
             </div>
             <div class="info">
                 <aside class="first"></aside>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor optio sequi voluptates reiciendis
-                    quisquam dolorem magni expedita unde. Autem nobis adipisci suscipit, quia maxime ut obcaecati
-                    molestias vero labore dolorem, tenetur deserunt laboriosam perferendis accusantium nam
-                    exercitationem odit placeat quod vel atque aut ex, aspernatur facere! Ullam iste nesciunt maiores
-                    doloremque quibusdam non soluta quo, nulla rem quod enim. Quia libero recusandae repellendus? Eum
-                    aliquid officiis quam doloribus mollitia atque.</p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum fugit aliquam impedit magnam quod, maxime deserunt cupiditate ratione ea saepe odit quasi culpa quam dolor voluptatibus reprehenderit quis a iusto corrupti hic placeat dolores aut! Dolorum ipsam architecto tempora blanditiis, accusantium pariatur omnis sunt enim error dolor quas, consequatur cupiditate eius necessitatibus, quidem corrupti officiis reprehenderit voluptate perspiciatis magni nostrum!
+                </p>
                 <aside class="second"></aside>
             </div>
         </section>
-        <br>
-        <footer class="last">
+        <br />
+        <footer>
             <div class="third"></div>
-            <div>
+            <div class="link">
                 <a href="#">Inicio</a>
                 <a href="#">Nosotros</a>
                 <a href="#">Portafolio</a>
