@@ -1,26 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title> 28- Challenge Shadow</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        figure.frame {
+            height: calc(30 * 20px);
+            margin: 2rem auto;
+            width: calc(28 * 20px);
+            zoom: 0.6;
+        }
+
+        div.squares {
+            background: url(images/square.png);
+            opacity: 0.4;
+            z-index: 2;
+            margin-top: -20px;
+            height: calc(30 * 20px);
+        }
+
+        div.hellokitty {
+            background-color: #fff;
+            height: 20px;
+            width: 20px;
+            box-shadow: 20px 0 0 0 #fff,
+                40px 0 0 0 #fff,
+                60px 0 0 0 #fff,
+                80px 0 0 0 #fff,
+                90px 0 0 0 #fff,
+                100px 0 0 0 #fff,
+                110px 0 0 0 #fff,
+                120px 0 0 0 #fff,
+                140px 0 0 0 #fff,
+                160px 0 0 0 #fff,
+                180px 0 0 0 #302e30,
+                200px 0 0 0 #302e30,
+                220px 0 0 0 #302e30,
+                240px 0 0 0 #302e30,
+                260px 0 0 0 #302e30,
+                280px 0 0 0 #302e30,
+                290px 0 0 0 #302e30,
+                300px 0 0 0 #302e30,
+                320px 0 0 0 #302e30,
+                340px 0 0 0 #302e30,
+                360px 0 0 0 #302e30,
+                380px 0 0 0 #fff,
+                400px 0 0 0 #fff,
+                420px 0 0 0 #fff,
+                440px 0 0 0 #fff,
+                460px 0 0 0 #fff,
+                480px 0 0 0 #fff,
+                500px 0 0 0 #fff,
+                520px 0 0 0 #fff,
+                540px 0 0 0 #fff,
+
+            /* segunda linea */
+            0px 20px 0 0 #fff,
+            20px 20px 0 0 #fff;
+
+            40px 0 0 0 #fff,
+            60px 0 0 0 #fff,
+            80px 0 0 0 #fff,
+            90px 0 0 0 #fff,
+            100px 0 0 0 #fff,
+            110px 0 0 0 #fff,
+            120px 0 0 0 #fff,
+            140px 0 0 0 #fff,
+            160px 0 0 0 #fff,
+            180px 0 0 0 #302e30,
+            200px 0 0 0 #302e30,
+            220px 0 0 0 #302e30,
+            240px 0 0 0 #302e30,
+            260px 0 0 0 #302e30,
+            280px 0 0 0 #302e30,
+            290px 0 0 0 #302e30,
+            300px 0 0 0 #302e30,
+            320px 0 0 0 #302e30,
+            340px 0 0 0 #302e30,
+            360px 0 0 0 #302e30,
+            380px 0 0 0 #fff,
+            400px 0 0 0 #fff,
+            420px 0 0 0 #fff,
+            440px 0 0 0 #fff,
+            460px 0 0 0 #fff,
+            480px 0 0 0 #fff,
+            500px 0 0 0 #fff,
+            520px 0 0 0 #fff,
+            540px 0 0 0 #fff;
+
+
+
+
+
+
+        }
     </style>
 </head>
+
 <body class="css">
     <nav>
         <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1> 28- Challenge Shadow </h1>
+            <p>Box Shadow - Pixel Art (Hello Kitty).
+            </p>
         </header>
         <section>
+            <figure class="frame">
+                <div class="hellokitty"></div>
+                <div class="squares"></div>
+            </figure>
         </section>
     </main>
 </body>
-</html>            
+
+</html>
