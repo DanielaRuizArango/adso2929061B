@@ -5,7 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>35- Transformations</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        section img {
+            display: block;
+            margin-block: 1rem;
+            margin-inline: auto;
+        }
+        img.transform1 {
+            transform: rotate(90deg);
+        }
+        img.transform2 {
+            transform: scale(0.5);
+        }
+        img.transform3 {
+            transform: TranslateX(-100px);
+        }
+        img.transform4 {
+            transform: skew(30deg);
+        }
+        img.transform5 {
+            transform: rotate(45deg) scale(1.2);
+        }
     </style>
 </head>
 <body class="css">
@@ -18,9 +38,19 @@
     <main>
         <header>
             <h1>35- Transformations </h1>
-            <p></p>
+            <p>Property lets you rotate, scale, skew, or translate an element.</p>
         </header>
         <section>
+            <h3>Rotate: 90deg</h3>
+            <img class="transform1" src="images/mario.png" width="180px">
+            <h3>Scale: 0.5</h3>
+            <img class="transform2" src="images/mario.png" width="180px">
+            <h3>TranslateX: -100px</h3>
+            <img class="transform3" src="images/mario.png" width="180px">
+            <h3>Skew: 30deg</h3>
+            <img class="transform4" src="images/mario.png" width="180px">
+            <h3>Rotate Scale:</h3>
+            <img class="transform5" src="images/mario.png" width="180px">
         </section>
     </main>
 </body>

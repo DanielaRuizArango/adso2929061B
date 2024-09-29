@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>32- Clip Path</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        div.clip {
+            background: url(images/pittsburgh.jpg) no-repeat center;
+            background-size: cover;
+            height: 280px;
+            margin-block: 1rem;
+            margin-inline: auto;
+            width: 320px;
+        }
+        div.clip1 {
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        div.clip2 {
+            clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+        }
     </style>
 </head>
 <body class="css">
@@ -18,9 +32,13 @@
     <main>
         <header>
             <h1>32- Clip Path </h1>
-            <p></p>
+            <p>Property lets you clip an element to a basic shape.</p>
         </header>
         <section>
+            <h3>Example 01:</h3>
+            <div class="clip clip1"></div>
+            <h3>Example 02:</h3>
+            <div class="clip clip2"></div>
         </section>
     </main>
 </body>

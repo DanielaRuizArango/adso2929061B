@@ -5,7 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>34- Variables</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+    :root {
+       --bg-box: #0009;
+       --color-txt: #fffa;
+       --fz-h4: 1.6rem;  
+    }
+    article {
+        background-color: var(--bg-box);
+        color: var(--color-txt);
+        padding: 1rem;
+    }
+    article h4 {
+        background-color: var(--bg-box);
+        font-size: var(--fz-h4);
+        text-align: center;
+        margin: 1rem 0;
+    }
+    main section article p {
+        font-size: 1rem;
+        text-align: justify;
+    }
     </style>
 </head>
 <body class="css">
@@ -21,6 +41,12 @@
             <p>The var() function is used to insert the value of a CSS variable.</p>
         </header>
         <section>
+            <article>
+                <h4>Lorem Ipsum Dolor</h4>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa ut ad quas! Quidem incidunt aliquam porro minus molestiae, eius itaque corrupti labore, nostrum laboriosam assumenda saepe! Adipisci, similique rem ratione, id soluta magni incidunt iusto molestiae unde, earum nisi velit.
+                </p>
+            </article>
         </section>
     </main>
 </body>

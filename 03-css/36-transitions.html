@@ -3,9 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>36- Transitions </title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        section img {
+            display: block;
+            margin: 1rem auto;
+        }
+        div.box {
+            background-color: #000c;
+            margin: 1rem auto;
+            width: 200px;
+            height: 200px;
+        }
+        img.trans1 {
+            transition: transform 0.5s ease-in;
+        }
+        img.trans1:hover {
+            transform: scale(1.4);
+        }
+        /* - - - */
+        img.trans2 {
+            transition: transform 1s ease-out;
+        }
+        img.trans2:hover {
+            transform: rotate(-180deg);
+        }
+        /* - - - */
+        img.trans3 {
+            transition: all 1s ease-in-out;
+        }
+        img.trans3:hover {
+            transform: rotateY(180deg);
+        }
+        /* - - - */
+        img.trans4 {
+            transition: all 0.5s linear;
+        }
+        img.trans4:hover {
+            transform: translateX(100px);
+        }
+        /* - - - */
+        div.box {
+            transition: width 1s, 
+                        height 1s 1s, 
+                        background-color 2s 1s;
+        }
+        div.box:hover {
+            background-color: #9009;
+            height: 120px;
+            width: 300px;
+        }
     </style>
 </head>
 <body class="css">
@@ -17,10 +65,20 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>36- Transitions </h1>
+            <p>Enable you to define the transition between two states of an element.</p>
         </header>
         <section>
+            <h3>Example 01:</h3>
+            <img class="trans1" src="images/dk.png">
+            <h3>Example 02:</h3>
+            <img class="trans2" src="images/dk.png">
+            <h3>Example 03:</h3>
+            <img class="trans3" src="images/dk.png">
+            <h3>Example 04:</h3>
+            <img class="trans4" src="images/dk.png">
+            <h3>Example 05:</h3>
+            <div class="box"></div>
         </section>
     </main>
 </body>

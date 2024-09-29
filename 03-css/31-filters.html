@@ -5,7 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>31- Filters</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        img.filter {
+            display: block;
+            margin-inline: auto;
+            transition: all 0.6s ease-in;
+            width: 160px;
+        }
+        img.filter:hover {
+            filter: none;
+        }
+        img.filter1 {
+            filter: grayscale(1);
+        }
+        img.filter2 {
+            filter: blur(6px);
+        }
+        img.filter3 {
+            filter: sepia(1);
+        }
+        img.filter4 {
+            filter: brightness(50%);
+        }
+        img.filter5 {
+            filter: invert(1);
+        }
     </style>
 </head>
 <body class="css">
@@ -21,6 +45,16 @@
             <p>Defines visual effects (like blur and saturation).</p>
         </header>
         <section>
+            <h3>GrayScale</h3>
+            <img class="filter filter1" src="images/inosuke.png" alt="Inosuke">
+            <h3>Blur</h3>
+            <img class="filter filter2" src="images/inosuke.png" alt="Inosuke">
+            <h3>Sepia</h3>
+            <img class="filter filter3" src="images/inosuke.png" alt="Inosuke">
+            <h3>Brightness</h3>
+            <img class="filter filter4" src="images/inosuke.png" alt="Inosuke">
+            <h3>Invert</h3>
+            <img class="filter filter5" src="images/inosuke.png" alt="Inosuke">
         </section>
     </main>
 </body>

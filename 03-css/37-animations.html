@@ -3,9 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>37- Animation</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        div.jungle {
+            background: url(images/jungle.png) no-repeat center;
+            border-radius: 4px;
+            position: relative;
+            margin-block: 1rem;
+            height: 471px;
+            width: 380px;
+        }
+        div.jungle img {
+            position: absolute;
+        }
+        div.jungle img.logo {
+            top: 35px;
+            left: 30px;
+            animation: 2s animLogo ease-out infinite;
+        }
+        div.jungle img.dk {
+            width: 140px;
+            left: 120px;
+            top: 190px;
+            animation: 2s animDK ease-in infinite;
+        }
+        div.jungle div.move {
+            position: absolute;
+            height: 105px;
+            width: 140px;
+            left: 0px;
+            top: 305px;
+            animation: 4s animRyno ease-out infinite;
+        }
+        div.jungle img.ryno {
+            position: relative;
+            width: 140px;
+            left: 0px;
+            top: 0px;
+            animation: 0.4s animMove ease-in-out infinite;
+        }
+    
+        @keyframes animLogo {
+            0%,100% { transform: scale(1); }
+            50%     { transform: scale(1.2); }
+        }
+    
+        @keyframes animDK {
+            0%  { top: 190px; transform: rotateX(0deg);   }
+            40% { top: 100px; transform: rotateX(0deg);   }
+            50% { top: 100px; transform: rotateX(360deg); }
+            60% { top: 100px; transform: rotateX(360deg); }
+           100% { top: 190px; transform: rotateX(360deg); }
+        }
+    
+        @keyframes animMove {
+            0%,100% { top: 0px; }
+            50%     { top: -40px; }
+        }
+    
+        @keyframes animRyno {
+            0% {  left: 0px; transform: rotateY(0deg);  }
+            40% { left: 240px; transform: rotateY(0deg) }
+            50% { left: 240px; transform: rotateY(180deg) }
+            80% { left: 0px; transform: rotateY(180deg) }
+        }
     </style>
 </head>
 <body class="css">
@@ -17,10 +79,18 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>37- Animation </h1>
+            <p>Lets an element gradually change from one style to another.</p>
         </header>
         <section>
+            <h3>Example:</h3>
+            <div class="jungle">
+                <img class="logo" src="images/logo-dk.png">
+                <img class="dk" src="images/dk.png">
+                <div class="move">
+                    <img class="ryno" src="images/ryno.png">
+                </div>
+            </div>
         </section>
     </main>
 </body>
