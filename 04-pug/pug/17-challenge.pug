@@ -8,7 +8,6 @@ html(lang="en")
         style. 
             section {
                 padding: 0.5rem !important;
-                width: 660px !important;
             }
 
     body.pug
@@ -23,5 +22,5 @@ html(lang="en")
             section
                     ul
                     each val, key in {1:'#08fafa', 2:'#17c8fa', 3:'#3296fa', 4:'#4b64fa', 5:'#6432fa', 6:'#7d01fa', 7:'#9601fa', 8:'#af01fa', 9:'#c801fa', 10:'#e101fa' }
-                        li(style="height: 110px; list-style: none; margin:5px; background-color:"+val)
-                            div(style="display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); color: white; font-size:30px; height: 110px; width: 90px;")=key
+                        li(style="height: 80px; list-style: none; margin:5px; background-color:"+val)
+                            div(style="display: flex; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, 0.7); color: white; font-size:30px; height: 110px; width: 80px;")=key
