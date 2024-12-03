@@ -1,6 +1,21 @@
 /*- - - - - - - - - - - - - */
 /* 01 F O N T S*/
 /*- - - - - - - - - - - - - */
+@font-face {
+    font-family: 'Poppins-200';
+    src: url(../fonts/Poppins-200.ttf);
+}
+
+@font-face {
+    font-family: 'Poppins-400';
+    src: url(../fonts/Poppins-400.ttf);
+}
+
+@font-face {
+    font-family: 'Poppins-600';
+    src: url(../fonts/Poppins-600.ttf);
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap');
 
 /*- - - - - - - - - - - - - */
@@ -206,6 +221,9 @@ body {
         }
 
         menu {
+            h3 {
+                color: #fff9;
+            }
             display: flex;
             flex-direction: column;
             align-items: center;
