@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - Layout</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body class="tailwind">
+    <nav>
+        <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>01 - Layout</h1>
+            <p>
+                Controls the structure and positioning of elements.
+            </p>
+        </header>
+        <section class="content">
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4">Container:</h2>
+            <div class="container 
+                        rounded-sm
+                        my-10
+                        bg-white
+                        p-10
+                        text-indigo-900
+                        text-5xl
+                        sm:bg-red-600 
+                        sm:text-white
+                        md:bg-green-600
+                        lg:bg-blue-600
+                        lg:text-8xl
+                        xl:bg-yellow-600
+                        flex
+                        flex-col
+                        items-center
+                        justify-center
+                        h-96">
+                        <p class="uppercase
+                                    tracking-widest">
+                            container 
+                        </p>
+                        <p class="lowercase text-xl hidden md:hidden sm:block">small</p>
+                        <p class="lowercase text-xl hidden lg:hidden md:block">medium</p>
+                        <p class="lowercase text-xl hidden xl:hidden lg:block">large</p>
+                        <p class="lowercase text-xl hidden 2xl:hidden xl:block">extra large</p>
+            </div>
+            <!--  -->
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mb-10">Columns</h2>
+            <div class="columns-1 md:columns-2 lg:columns-4 gap-10">
+                <img class="w-full mb-10" src="https://via.placeholder.com/200x200">
+                <img class="w-full mb-10" src="https://via.placeholder.com/200x200">
+                <img class="w-full mb-10" src="https://via.placeholder.com/200x200">
+                <img class="w-full mb-10" src="https://via.placeholder.com/200x200">
+            </div>
+            <!--  -->
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mb-10">Display Flex:</h2>
+        
+                <div class="flex flex-col sm:flex-row justify-center gap-2">
+                    <div class="flex flex-col justify-center items-center border p-4 rounded-lg">
+                        <img class="w-24
+                                    h-24 
+                                    rounded-full
+                                    mb-4" src="https://via.placeholder.com/200x200">
+                        <div class="flex flex-col justify-center items-center">
+                            <strong>Homer Simpson</strong>
+                            <span>Technical Advisor</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center items-center border p-4 rounded-lg">
+                        <img class="w-24
+                                    h-24 
+                                    rounded-full
+                                    mb-4" src="https://via.placeholder.com/200x200">
+                        <div class="flex flex-col justify-center items-center">
+                            <strong>Bart Simpson</strong>
+                            <span>Web Designer</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center items-center border p-4 rounded-lg">
+                        <img class="w-24
+                                    h-24 
+                                    rounded-full
+                                    mb-4" src="https://via.placeholder.com/200x200">
+                        <div class="flex flex-col justify-center items-center">
+                            <strong>Liza Simpson Alfred</strong>
+                            <span>CEO</span>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        my-10">Display Grid:</h2>
+                <div class="grid gap-4 md:grid-cols-3 grid-cols-1">
+                    <div class="p-4 bg-sky-500 shadow-lg rounded-lg">01</div>
+                    <div class="p-4 bg-sky-500 shadow-lg rounded-lg">02</div>
+                    <div class="p-4 bg-sky-500 shadow-lg rounded-lg">03</div>
+                    <div class="p-4 bg-sky-500 shadow-lg rounded-lg">04</div>
+                    <div class="p-4 bg-sky-500 shadow-lg rounded-lg">05</div>
+                    <div class="p-4 bg-sky-500 shadow-lg rounded-lg">06</div>
+                </div>
+                <!--  -->
+                <h2 class="text-2xl
+                            border-b-2
+                            opacity-80
+                            pb-4
+                            my-10">Floats</h2>
+            
+            <p class="text-sm text-justify w-10/12 mx-auto">
+                <img src="https://via.placeholder.com/320x240" class="md:w-[150px] float-none m-2 rounded-md sm:float-left">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus provident repellat unde soluta vitae. Aspernatur dolore inventore possimus rem quos, suscipit recusandae. 
+                <br><br>
+                Itaque repudiandae libero dolore odit quis quasi provident minus officia saepe eaque velit maxime recusandae earum aliquam ullam iste sapiente et, modi corrupti inventore rem dolorem eum porro error! Consectetur, iste similique. Sit labore facere temporibus distinctio placeat sequi mollitia ab consequatur et quasi. 
+                Possimus similique saepe, maxime sint dolor ipsam culpa placeat totam odit cum enim eos?
+            </p>
+            <!--  -->
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        my-10">Object Fit Cover:</h2>
+            <div class="bg-sky-500 rounded-lg p-8 w-6/12">
+                    <img src="https://placebear.com/400/400" class="object-cover h-48 w-full">
+            </div>
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mt-10
+                        mb-10">Object Fit Contain:</h2>
+            <div class="bg-sky-500 rounded-lg p-8 w-6/12">
+                    <img src="https://placebear.com/400/400" class="object-contain h-48 w-full">
+            </div>
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mt-10
+                        mb-10">Object Fit Fill:</h2>
+            <div class="bg-sky-500 rounded-lg p-8 w-6/12">
+                    <img src="https://placebear.com/400/400" class="object-fill h-48 w-full">
+            </div>
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mt-10
+                        mb-10">Object Fit None:</h2>
+            <div class="bg-sky-500 rounded-lg p-8 w-6/12">
+                    <img src="https://placebear.com/400/400" class="object-none h-48 w-full">
+            </div>
+            <!--  -->
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        my-10">Overflow Visible</h2>
+            <div class="relative rounded-xl overflow-auto p-8">
+                <div class="overflow-visible relative max-w-sm mx-auto bg-white shadow-lg rounded-xl flex items-center gap-6">
+                    <img class="absolute -left-6 w-24 h-24 rounded-full shadow-lg" src="https://placebear.com/300/300">
+                    <div class="flex flex-col py-5 pl-24">
+                    <strong class="text-sky-800 text-sm font-medium">Gaston</strong>
+                    <span class="text-sky-400 text-sm font-medium">Locale Bear</span>
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mb-10">Overflow  Hidden</h2>
+            <div class="relative rounded-xl overflow-auto p-8">
+                <div class="overflow-hidden relative max-w-sm mx-auto bg-white shadow-lg rounded-xl flex items-center gap-6">
+                    <img class="absolute -left-6 w-24 h-24 rounded-full shadow-lg" src="https://placebear.com/300/300">
+                    <div class="flex flex-col py-5 pl-24">
+                    <strong class="text-sky-800 text-sm font-medium">Gaston</strong>
+                    <span class="text-sky-400 text-sm font-medium">Locale Bear</span>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mb-10">Overflow  Y Auto</h2>
+            <div class="relative rounded-xl overflow-auto p-8">
+                <div class="overflow-y-auto h-72 relative max-w-sm mx-auto bg-white shadow-lg rounded-xl flex flex-col divide-y divide-indigo-800">
+                    <div class="flex items-center gap-4 p-4">
+                    <img class="w-12 h-12 rounded-full" src="https://placebear.com/300/300">
+                    <div class="flex flex-col">
+                        <strong class="text-sky-800 text-sm font-medium">Gaston 01</strong>
+                        <span class="text-sky-400 text-sm font-medium">Locale 1</span>
+                    </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4">
+                    <img class="w-12 h-12 rounded-full" src="https://placebear.com/300/300">
+                    <div class="flex flex-col">
+                        <strong class="text-sky-800 text-sm font-medium">Gaston 02</strong>
+                        <span class="text-sky-400 text-sm font-medium">Locale 2</span>
+                    </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4">
+                    <img class="w-12 h-12 rounded-full" src="https://placebear.com/300/300">
+                    <div class="flex flex-col">
+                        <strong class="text-sky-800 text-sm font-medium">Gaston 03</strong>
+                        <span class="text-sky-400 text-sm font-medium">Locale 3</span>
+                    </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4">
+                    <img class="w-12 h-12 rounded-full" src="https://placebear.com/300/300">
+                    <div class="flex flex-col">
+                        <strong class="text-sky-800 text-sm font-medium">Gaston 04</strong>
+                        <span class="text-sky-400 text-sm font-medium">Locale 4</span>
+                    </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4">
+                    <img class="w-12 h-12 rounded-full" src="https://placebear.com/300/300">
+                    <div class="flex flex-col">
+                        <strong class="text-sky-800 text-sm font-medium">Gaston 05</strong>
+                        <span class="text-sky-400 text-sm font-medium">Locale 5</span>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <!--  -->
+                <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mb-10">Position Relative/Absolute</h2>
+                        <div class="relative p-10 h-96 bg-sky-400 rounded-md">
+                            <p class="text-sky-900">Relative parent</p>
+                            <div class="absolute 
+                                        rounded-xl 
+                                        bg-sky-800 
+                                        text-sky-200 
+                                        p-4 
+                                        top-60 
+                                        left-60">
+                                <p>Absolute child</p>
+                            </div>
+                        </div>
+                <!--  -->
+                <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        my-10">Visibility: Invisible</h2>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="visible p-10 bg-sky-400 rounded-lg">01</div>
+                            <div class="invisible p-10 bg-sky-400 rounded-lg">02</div>
+                            <div class="p-10 bg-sky-400 rounded-lg">03</div>
+                        </div>
+                <!--  -->
+                <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        my-10">Z Index</h2>
+                        <div class="relative rounded-xl overflow-auto p-8">
+                            <div class="flex justify-center -space-x-3 font-mono text-white text-sm font-bold leading-6">
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center bg-pink-500 shadow-lg ring-2 ring-white z-20">05</div>
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center bg-pink-600 shadow-lg ring-2 ring-white z-30">04</div>
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center bg-pink-500 shadow-lg ring-2 ring-white z-20">03</div>
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center bg-pink-600 shadow-lg ring-2 ring-white z-30">02</div>
+                                <div class="w-16 h-16 rounded-full flex items-center justify-center bg-pink-500 shadow-lg ring-2 ring-white z-0">01</div>
+                            </div>
+                        </div>
+                <!--  -->
+        </section>
+    </main>
+    <script src="js/tailwind.js"></script>
+</body>
+</html>
