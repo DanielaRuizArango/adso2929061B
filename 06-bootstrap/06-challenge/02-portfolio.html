@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portafolio</title>
+    <title>Portafolio Daniela Ruiz</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <style>
         .hero-section {
@@ -37,10 +37,10 @@
         }
 
         .progress {
-            background-color: #46DBEC;
+            background-color: #46dbec;
         }
 
-        .services-section{
+        .services-section {
             background: linear-gradient(#59b7c2, #23c3d5 50%, #4eebfd 100%);
         }
 
@@ -50,12 +50,12 @@
             fill: #333;
         }
 
-        .card-title{
-            color:#23C3D5;
+        .card-title {
+            color: #23c3d5;
         }
 
-        .card-text{
-            color:#23C3D5;
+        .card-text {
+            color: #23c3d5;
         }
 
         .image-container {
@@ -64,20 +64,78 @@
             align-items: center;
             width: 80px;
             height: 80px;
-            border: 2px solid #ccc;
             border-radius: 10px;
-            background-color: #f8f9fa;
+            background-color: #23c3d5;
         }
 
         .portafolio-section {
-            color: #23C3D5;
+            color: #23c3d5;
+        }
+
+        .card.custom-card svg {
+            width: 65px;
+            height: 65px;
         }
 
         .footer {
             background: linear-gradient(#59b7c2, #23c3d5 50%, #4eebfd 100%);
         }
 
-        
+        .footer .btn {
+            background-color: white !important;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer .btn:hover {
+            background-color: #f0f0f0 !important;
+        }
+
+        .footer svg path {
+            fill: url(#gradientFill);
+        }
+
+        .footer svg defs {
+            display: block;
+        }
+
+        #projectsCarousel .carousel-control-prev-icon,
+        #projectsCarousel .carousel-control-next-icon {
+            background-color: #23C3D5; 
+            border-radius: 50%; 
+            padding: 10px; 
+        }
+
+        @media (max-width: 991px) {
+            .navbar .navbar-collapse {
+                background-color: rgba(250, 250, 250, 0.97) !important;
+                padding: 10px;
+            }
+
+            .navbar-toggler {
+                border-color: rgba(255, 255, 255, 0.84);
+            }
+
+            .navbar-toggler-icon {
+                filter: invert(1);
+                /* Convierte el ícono en blanco */
+            }
+
+            .navbar-toggler:focus,
+            .navbar-toggler:active {
+                outline: none;
+                box-shadow: none;
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .navbar-nav .nav-link {
+                color: #23c3d5 !important;
+            }
+
+            .navbar-nav .nav-link:hover {
+                color: white !important;
+            }
+        }
     </style>
 </head>
 
@@ -97,16 +155,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Home</a>
+                            <a class="nav-link text-white" href="#home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">About</a>
+                            <a class="nav-link text-white" href="#about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Services</a>
+                            <a class="nav-link text-white" href="#services">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Portfolio</a>
+                            <a class="nav-link text-white" href="#portfolio">Portfolio</a>
                         </li>
                     </ul>
                 </div>
@@ -114,7 +172,7 @@
         </nav>
 
         <!-- Hero Section -->
-        <section class="hero-section d-flex flex-column align-items-center text-center">
+        <section id="home" class="hero-section d-flex flex-column align-items-center text-center">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 mx-auto">
@@ -135,24 +193,16 @@
                     </div>
                     <div class="col-lg-8 d-flex justify-content-start align-items-end">
                         <img src="images/1.png" alt="profile1" />
-                        <!-- <svg class="hero-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                            <path fill="#333333"
-                                d="M96 128a128 128 0 1 0 256 0A128 128 0 1 0 96 128zm94.5 200.2l18.6 31L175.8 483.1l-36-146.9c-2-8.1-9.8-13.4-17.9-11.3C51.9 342.4 0 405.8 0 481.3c0 17 13.8 30.7 30.7 30.7l131.7 0c0 0 0 0 .1 0l5.5 0 112 0 5.5 0c0 0 0 0 .1 0l131.7 0c17 0 30.7-13.8 30.7-30.7c0-75.5-51.9-138.9-121.9-156.4c-8.1-2-15.9 3.3-17.9 11.3l-36 146.9L238.9 359.2l18.6-31c6.4-10.7-1.3-24.2-13.7-24.2L224 304l-19.7 0c-12.4 0-20.1 13.6-13.7 24.2z" />
-                        </svg> -->
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section class="container about-section">
+        <section id="about" class="container about-section">
             <div class="row align-items-center text-center">
                 <div class="col-md-6 align-items-end">
                     <img src="images/2.png" alt="profile2" />
-                    <!-- <svg xmlns="http://www.w3.org/2000/svg" class="about-image" viewBox="0 0 448 512">
-                        <path fill="#666666"
-                            d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
-                    </svg> -->
                 </div>
                 <div class="col-md-6">
                     <p class="text-start">About</p>
@@ -194,7 +244,7 @@
         </section>
 
         <!-- Services Section -->
-        <section class="py-5  services-section" style="background-color: #f4f4f4">
+        <section id="services" class="py-5 services-section" style="background-color: #f4f4f4">
             <div class="container">
                 <div class="text-center mb-4">
                     <p class="text-white">Services</p>
@@ -203,13 +253,12 @@
                 <div class="row g-4 card-section">
                     <!-- Service Card -->
                     <div class="col-lg-4 col-md-6">
-                        <div class="card border-0 shadow-sm h-100">
+                        <div class="card custom-card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="image-container mb-3">
-                                    <svg class="services-image" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M368.4 18.3L312.7 74.1 437.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L447.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM288 94.6l-9.2 2.8L134.7 140.6c-19.9 6-35.7 21.2-42.3 41L3.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L164.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L33.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.7-9.2L288 94.6z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                        <path fill="white"
+                                            d="M64 96c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 256-64 0 0-256L128 96l0 256-64 0L64 96zM0 403.2C0 392.6 8.6 384 19.2 384l601.6 0c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8L76.8 480C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
                                     </svg>
                                 </div>
                                 <h5 class="card-title fw-bold">Graphic Design</h5>
@@ -221,15 +270,15 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Repeat Cards -->
                     <div class="col-lg-4 col-md-6">
-                        <div class="card border-0 shadow-sm h-100">
+                        <div class="card custom-card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="image-container mb-3">
-                                    <svg class="services-image" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M368.4 18.3L312.7 74.1 437.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L447.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM288 94.6l-9.2 2.8L134.7 140.6c-19.9 6-35.7 21.2-42.3 41L3.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L164.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L33.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.7-9.2L288 94.6z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                        <path fill="white"
+                                            d="M64 96c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 256-64 0 0-256L128 96l0 256-64 0L64 96zM0 403.2C0 392.6 8.6 384 19.2 384l601.6 0c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8L76.8 480C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
                                     </svg>
                                 </div>
                                 <h5 class="card-title fw-bold">Web Design</h5>
@@ -242,13 +291,12 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
-                        <div class="card border-0 shadow-sm h-100">
+                        <div class="card custom-card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="image-container mb-3">
-                                    <svg class="services-image" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M368.4 18.3L312.7 74.1 437.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L447.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM288 94.6l-9.2 2.8L134.7 140.6c-19.9 6-35.7 21.2-42.3 41L3.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L164.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L33.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.7-9.2L288 94.6z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                        <path fill="white"
+                                            d="M64 96c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 256-64 0 0-256L128 96l0 256-64 0L64 96zM0 403.2C0 392.6 8.6 384 19.2 384l601.6 0c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8L76.8 480C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
                                     </svg>
                                 </div>
                                 <h5 class="card-title fw-bold">UI/UX Design</h5>
@@ -261,13 +309,12 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
-                        <div class="card border-0 shadow-sm h-100">
+                        <div class="card custom-card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="image-container mb-3">
-                                    <svg class="services-image" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M368.4 18.3L312.7 74.1 437.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L447.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM288 94.6l-9.2 2.8L134.7 140.6c-19.9 6-35.7 21.2-42.3 41L3.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L164.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L33.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.7-9.2L288 94.6z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                        <path fill="white"
+                                            d="M64 96c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 256-64 0 0-256L128 96l0 256-64 0L64 96zM0 403.2C0 392.6 8.6 384 19.2 384l601.6 0c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8L76.8 480C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
                                     </svg>
                                 </div>
                                 <h5 class="card-title fw-bold">Frontend Development</h5>
@@ -280,13 +327,12 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
-                        <div class="card border-0 shadow-sm h-100">
+                        <div class="card custom-card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="image-container mb-3">
-                                    <svg class="services-image" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M368.4 18.3L312.7 74.1 437.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L447.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM288 94.6l-9.2 2.8L134.7 140.6c-19.9 6-35.7 21.2-42.3 41L3.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L164.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L33.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.7-9.2L288 94.6z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                        <path fill="white"
+                                            d="M64 96c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 256-64 0 0-256L128 96l0 256-64 0L64 96zM0 403.2C0 392.6 8.6 384 19.2 384l601.6 0c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8L76.8 480C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
                                     </svg>
                                 </div>
                                 <h5 class="card-title fw-bold">Business Analysis</h5>
@@ -299,13 +345,12 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6">
-                        <div class="card border-0 shadow-sm h-100">
+                        <div class="card custom-card border-0 shadow-sm h-100">
                             <div class="card-body text-center">
                                 <div class="image-container mb-3">
-                                    <svg class="services-image" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512">
-                                        <path
-                                            d="M368.4 18.3L312.7 74.1 437.9 199.3l55.7-55.7c21.9-21.9 21.9-57.3 0-79.2L447.6 18.3c-21.9-21.9-57.3-21.9-79.2 0zM288 94.6l-9.2 2.8L134.7 140.6c-19.9 6-35.7 21.2-42.3 41L3.8 445.8c-3.8 11.3-1 23.9 7.3 32.4L164.7 324.7c-3-6.3-4.7-13.3-4.7-20.7c0-26.5 21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48c-7.4 0-14.4-1.7-20.7-4.7L33.7 500.9c8.6 8.3 21.1 11.2 32.4 7.3l264.3-88.6c19.7-6.6 35-22.4 41-42.3l43.2-144.1 2.7-9.2L288 94.6z" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                        <path fill="white"
+                                            d="M64 96c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 256-64 0 0-256L128 96l0 256-64 0L64 96zM0 403.2C0 392.6 8.6 384 19.2 384l601.6 0c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8L76.8 480C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
                                     </svg>
                                 </div>
                                 <h5 class="card-title fw-bold">Digital Marketing</h5>
@@ -321,7 +366,7 @@
             </div>
         </section>
         <!-- Portfolio Section -->
-        <section class="py-5 portafolio-section">
+        <section id="portfolio" class="py-5 portafolio-section">
             <div class="container text-center">
                 <h6 class="text-uppercase">Portfolio</h6>
                 <h2 class="fw-bold">Latest Projects</h2>
@@ -333,7 +378,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-4">
                                     <div class="bg-light p-4 rounded">
-                                        <img src="placeholder.jpg" class="img-fluid" alt="Project 1" />
+                                        <img src="images/Project1.png" class="img-fluid" alt="Project 1" />
                                     </div>
                                 </div>
                             </div>
@@ -342,7 +387,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-4">
                                     <div class="bg-light p-4 rounded">
-                                        <img src="placeholder.jpg" class="img-fluid" alt="Project 2" />
+                                        <img src="images/Project2.png" class="img-fluid" alt="Project 2" />
                                     </div>
                                 </div>
                             </div>
@@ -351,13 +396,12 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-4">
                                     <div class="bg-light p-4 rounded">
-                                        <img src="placeholder.jpg" class="img-fluid" alt="Project 3" />
+                                        <img src="images/Project3.png" class="img-fluid" alt="Project 3" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- Controls -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#projectsCarousel"
                         data-bs-slide="prev">
@@ -386,7 +430,14 @@
                         style="width: 40px; height: 40px">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18"
                             aria-hidden="true">
-                            <path fill="#ffffff"
+                            <defs>
+                                <linearGradient id="gradientFill" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#59B7C2" />
+                                    <stop offset="50%" stop-color="#23C3D5" />
+                                    <stop offset="100%" stop-color="#4EEBFD" />
+                                </linearGradient>
+                            </defs>
+                            <path fill="url(#gradientFill)"
                                 d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
                         </svg>
                     </a>
@@ -396,7 +447,14 @@
                         style="width: 40px; height: 40px">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18"
                             aria-hidden="true">
-                            <path fill="#ffffff"
+                            <defs>
+                                <linearGradient id="gradientFill" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#59B7C2" />
+                                    <stop offset="50%" stop-color="#23C3D5" />
+                                    <stop offset="100%" stop-color="#4EEBFD" />
+                                </linearGradient>
+                            </defs>
+                            <path fill="url(#gradientFill)"
                                 d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
                         </svg>
                     </a>
@@ -405,8 +463,15 @@
                         style="width: 40px; height: 40px">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18"
                             aria-hidden="true">
+                            <defs>
+                                <linearGradient id="gradientFill" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#59B7C2" />
+                                    <stop offset="50%" stop-color="#23C3D5" />
+                                    <stop offset="100%" stop-color="#4EEBFD" />
+                                </linearGradient>
+                            </defs>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path fill="#ffffff"
+                                <path fill="url(#gradientFill)"
                                     d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
                             </svg>
                         </svg>
@@ -416,8 +481,15 @@
                         style="width: 40px; height: 40px">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18"
                             aria-hidden="true">
+                            <defs>
+                                <linearGradient id="gradientFill" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#59B7C2" />
+                                    <stop offset="50%" stop-color="#23C3D5" />
+                                    <stop offset="100%" stop-color="#4EEBFD" />
+                                </linearGradient>
+                            </defs>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path fill="#ffffff"
+                                <path fill="url(#gradientFill)"
                                     d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" />
                             </svg>
                         </svg>
@@ -425,10 +497,10 @@
                 </div>
                 <p class="text-white">danielaruiz@gmail.com</p>
                 <div class="d-flex justify-content-center">
-                    <a href="#" class="text-white mx-2">Home</a>
-                    <a href="#" class="text-white mx-2">About</a>
-                    <a href="#" class="text-white mx-2">Services</a>
-                    <a href="#" class="text-white mx-2">Portfolio</a>
+                    <a href="#home" class="text-white mx-2">Home</a>
+                    <a href="#about" class="text-white mx-2">About</a>
+                    <a href="#services" class="text-white mx-2">Services</a>
+                    <a href="#portafolio" class="text-white mx-2">Portfolio</a>
                 </div>
                 <p class="text-white mt-3">&copy; All rights reserved 2024</p>
             </div>
