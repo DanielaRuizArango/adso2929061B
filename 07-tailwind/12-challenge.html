@@ -11,8 +11,7 @@
 <body class="tailwind">
     <nav>
         <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path fill="#ffffff"
                     d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
             </svg>
@@ -26,28 +25,33 @@
             </p>
         </header>
         <section>
-            <div id="screen1" class="bg-gray-200 rounded-xl p-6 flex flex-col items-center max-w-xs">
-                <div class="w-full mb-6">
-                    <img src="/api/placeholder/400/320" alt="Two young people with a basketball"
-                        class="w-full rounded-lg mb-4" />
-                    <div class="flex gap-2 items-center justify-center">
+            <div id="screen1" class="custom-width bg-gray-200 rounded-xl p-6 flex flex-col items-center min-h-[400px]">
+                <!-- Contenedor de la imagen con altura del 50% -->
+                <div class="w-full max-w-md h-1/2 relative">
+                    <img src="images/girl.jpg" alt="girl1" class="w-full h-full object-cover rounded-t-xl" />
+                </div>
+            
+                <!-- Contenedor de contenido con altura del 50% -->
+                <div class="w-full max-w-md h-1/2 flex flex-col items-center justify-center">
+                    <!-- Indicadores de progreso -->
+                    <div class="flex justify-center items-center mt-4 space-x-2">
                         <div class="h-2 w-2 rounded-full bg-orange-200"></div>
                         <div class="h-2 w-2 rounded-full bg-orange-200"></div>
                         <div class="h-2 w-16 rounded-full bg-orange-400"></div>
                     </div>
+            
+                    <h1 class="text-4xl font-bold text-gray-700 mb-4">StandUp</h1>
+            
+                    <p class="text-center text-gray-500 mb-6 max-w-md">
+                        Are you ready to learn languages easily in the funniest way?
+                    </p>
+            
+                    <button id="getStartedBtn" class="bg-black text-white px-6 py-3 rounded-full font-medium w-64 hover:bg-gray-800 transition-colors">
+                        Get started
+                    </button>
                 </div>
-
-                <h1 class="text-4xl font-bold text-gray-700 mb-4">StandUp</h1>
-
-                <p class="text-center text-gray-500 mb-8">
-                    Are you ready for learn languages easily in the funniest way?
-                </p>
-
-                <button id="getStartedBtn" class="bg-black text-white px-6 py-3 rounded-full font-medium w-full">
-                    Get started
-                </button>
             </div>
-
+        
             <!-- Segunda Pantalla (inicialmente oculta) -->
             <div id="screen2" class="bg-gray-200 rounded-xl p-6 max-w-xs hidden">
                 <div class="flex items-center mb-6">
@@ -156,26 +160,26 @@
     <script src="js/tailwind.js"></script>
     <script>
         // Navegación entre pantallas
-        document.getElementById('getStartedBtn').addEventListener('click', function() {
-          document.getElementById('screen1').classList.add('hidden');
-          document.getElementById('screen2').classList.remove('hidden');
+        document.getElementById('getStartedBtn').addEventListener('click', function () {
+            document.getElementById('screen1').classList.add('hidden');
+            document.getElementById('screen2').classList.remove('hidden');
         });
-    
-        document.getElementById('backToScreen1').addEventListener('click', function() {
-          document.getElementById('screen2').classList.add('hidden');
-          document.getElementById('screen1').classList.remove('hidden');
+
+        document.getElementById('backToScreen1').addEventListener('click', function () {
+            document.getElementById('screen2').classList.add('hidden');
+            document.getElementById('screen1').classList.remove('hidden');
         });
-    
-        document.getElementById('nextBtn').addEventListener('click', function() {
-          document.getElementById('screen2').classList.add('hidden');
-          document.getElementById('screen3').classList.remove('hidden');
+
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            document.getElementById('screen2').classList.add('hidden');
+            document.getElementById('screen3').classList.remove('hidden');
         });
-    
-        document.getElementById('backToScreen2').addEventListener('click', function() {
-          document.getElementById('screen3').classList.add('hidden');
-          document.getElementById('screen2').classList.remove('hidden');
+
+        document.getElementById('backToScreen2').addEventListener('click', function () {
+            document.getElementById('screen3').classList.add('hidden');
+            document.getElementById('screen2').classList.remove('hidden');
         });
-      </script>
+    </script>
 </body>
 
 </html>
