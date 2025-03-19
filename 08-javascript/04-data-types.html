@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 04- Variables</title>
+    <title> 04- Data Types</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style> 
     </style>
@@ -21,7 +21,30 @@
             <p>Store and manage data using variables.</p>
         </header>
         <section>
+            <h3>Type String: <small class="typeString"></small></h3>
+            <h3>Type Number: <small class="typeNumber"></small></h3>
+            <h3>Type Boolean: <small class="typeBoolean"></small></h3>
+
         </section>
     </main>
+    <script>
+        // Type String
+        const typeString = document.querySelector('.typeString');
+        let string1 = 'Hello'
+        let string2 = 'Javascript!'
+        // typeString.textContent = string1 + ' '+ string2;
+        typeString.textContent = `${string1} ${string2}`;
+
+        //Type Number
+        const typeNumber = document.querySelector('.typeNumber');
+        let number1 = 5.4
+        let number2 = '3'
+        typeNumber.textContent = number1 + parseInt(number2)
+
+        //Type Boolean 
+        const typeBoolean = document.querySelector('.typeBoolean');
+        typeBoolean.textContent = (128>256)
+
+    </script>
 </body>
 </html>            
