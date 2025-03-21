@@ -514,6 +514,7 @@
                 girl.image = character.attrs[inx].image;
                 girl.imageOn = character.attrs[inx].imageOn;
                 girl.imageForward = character.attrs[inx].imageForward;
+                girl.imageBackward = character.attrs[inx].imageBackward;
                 girl.displayData();
                 if (inx == character.attrs.length - 1) {
                     btnNext.style.opacity = "0.2";
@@ -524,6 +525,8 @@
                     characterImg.src = girl.image;
                 } else if (girl.isMovingForward) {
                     characterImg.src = girl.imageForward;
+                } else if (girl.isMovingBackward) {
+                    characterImg.src = girl.imageBackward || girl.imageOn;
                 } else {
                     characterImg.src = girl.imageOn;
                 }
@@ -542,6 +545,7 @@
                 girl.image = character.attrs[inx].image;
                 girl.imageOn = character.attrs[inx].imageOn;
                 girl.imageForward = character.attrs[inx].imageForward;
+                girl.imageBackward = character.attrs[inx].imageBackward;
                 girl.displayData();
                 if (inx == 0) {
                     btnPrev.style.opacity = "0.2";
@@ -552,25 +556,11 @@
                     characterImg.src = girl.image;
                 } else if (girl.isMovingForward) {
                     characterImg.src = girl.imageForward;
+                } else if (girl.isMovingBackward) {
+                    characterImg.src = girl.imageBackward || girl.imageOn;
                 } else {
                     characterImg.src = girl.imageOn;
                 }
-            }
-        });
-
-        btnNext.addEventListener("click", () => {
-            if (inx < character.attrs.length - 1) {
-                ++inx;
-                btnPrev.style.opacity = "1";
-                btnPrev.style.pointerEvents = "all";
-                girl.name = character.attrs[inx].name;
-                girl.personality = character.attrs[inx].personality;
-                girl.color = character.attrs[inx].color;
-                girl.power = character.attrs[inx].power;
-                girl.image = character.attrs[inx].image;
-                girl.imageOn = character.attrs[inx].imageOn;
-                girl.imageForward = character.attrs[inx].imageForward;
-                girl.imageBackward = character.attrs[inx].imageBackward;
             }
         });
 
@@ -594,17 +584,6 @@
         btnBackward.addEventListener("click", () => {
             girl.moveBackward();
         });
-
-        btnPrev.addEventListener("click", () => {
-            if (inx > 0) {
-                --inx;
-                girl.imageBackward = character.attrs[inx].imageBackward;
-            }
-        }); 
-        //girl.powerOn();
-        //girl.powerOff();
-        //character.powerOn()
-        //character.powerOff()
     </script>
 </body>
 
