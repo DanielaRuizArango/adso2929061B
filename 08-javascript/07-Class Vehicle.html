@@ -111,10 +111,10 @@
             /* Estilo para la imagen del personaje */
             .character-image {
                 position: absolute;
-                width: 150px;
-                height: auto;
+                width: 100px;
+                height: 120px;
                 left: 50%;
-                top: 35%;
+                top: 70%;
                 transform: translate(-50%, -50%);
                 z-index: 10;
                 transition: all 0.3s ease-in-out;
@@ -125,7 +125,7 @@
                 height: 100vh;
                 background-image: url(images/sky3.png);
                 background-repeat: repeat-x;
-                animation: moveBackground 40s linear infinite;
+                animation: moveBackground 50s linear infinite;
             }
 
             @keyframes moveBackground {
@@ -199,6 +199,11 @@
 
                 button.btn-next {
                     background: url(images/character/btn-next-dark.svg) no-repeat center;
+                }
+
+                /* Cambiar el fondo del parallax en modo oscuro */
+                .parallax {
+                    background-image: url(images/character/sky-night.png);
                 }
 
                 div.methods {
@@ -313,7 +318,8 @@
                     power: "Ice Breath",
                     image: "images/character/blossom1.svg",
                     imageOn: "images/character/blossom2.svg",
-                    imageForward: "images/character/blossom3.svg"
+                    imageForward: "images/character/blossom3.svg",
+                    imageBackward: "images/character/blossom4.svg"
                 },
                 {
                     name: "Bubbles",
@@ -351,6 +357,7 @@
         const btnPowerOff = document.querySelector(".btn-power-off");
         const btnForward = document.querySelector(".btn-forward");
         const btnStop = document.querySelector(".btn-stop");
+        const btnBackward = document.querySelector(".btn-backward");
         const parallaxElement = document.querySelector(".parallax");
 
         // Variables
@@ -378,18 +385,20 @@
 
         // Class
         class Character {
-            constructor(name, personality, color, power, image, imageOn, imageForward) {
-                this.name = name;
-                this.personality = personality;
-                this.color = color;
-                this.power = power;
-                this.image = image;
-                this.imageOn = imageOn;
-                this.imageForward = imageForward;
-                this.isOn = false;
-                this.isMovingForward = false;
-                this.isStopped = false;
-            }
+            constructor(name, personality, color, power, image, imageOn, imageForward, imageBackward) {
+            this.name = name;
+            this.personality = personality;
+            this.color = color;
+            this.power = power;
+            this.image = image;
+            this.imageOn = imageOn;
+            this.imageForward = imageForward;
+            this.imageBackward = imageBackward;
+            this.isOn = false;
+            this.isMovingForward = false;
+            this.isMovingBackward = false;
+            this.isStopped = false;
+        }
 
             displayData() {
                 tName.textContent = this.name;
@@ -427,12 +436,13 @@
                 if (this.isOn) {
                     this.isOn = false;
                     this.isMovingForward = false;
+                    this.isMovingBackward = false;
                     this.isStopped = false;
                     console.log("Its Off");
                     characterImg.src = this.image;
                     characterImg.classList.remove("shake");
-                    // Resume background animation when powered off
-                    parallaxElement.style.animationPlayState = "running";
+                    // Detener la animación del parallax cuando se apaga
+                    parallaxElement.style.animationPlayState = "paused";
                 }
             }
             moveForward() {
@@ -461,6 +471,22 @@
                     console.log("Need to power on first");
                 }
             }
+            moveBackward() {
+                if (this.isOn && !this.isMovingBackward) {
+                    this.isMovingBackward = true;
+                    this.isMovingForward = false;
+                    this.isStopped = false;
+                    console.log("Moving Backward");
+                    characterImg.src = this.imageBackward || this.imageOn; // Usar imageOn como fallback
+                    // Ensure background animation is running in reverse
+                    parallaxElement.style.animationDirection = "reverse";
+                    parallaxElement.style.animationPlayState = "running";
+                } else if (!this.isOn) {
+                    console.log("Need to power on first");
+                } else {
+                    console.log("Already moving backward");
+                }
+            } 
         }
 
         // Define girl only once
@@ -471,7 +497,8 @@
             character.attrs[inx].power,
             character.attrs[inx].image,
             character.attrs[inx].imageOn,
-            character.attrs[inx].imageForward
+            character.attrs[inx].imageForward,
+            character.attrs[inx].imageBackward
         );
         girl.displayData();
 
@@ -531,6 +558,22 @@
             }
         });
 
+        btnNext.addEventListener("click", () => {
+            if (inx < character.attrs.length - 1) {
+                ++inx;
+                btnPrev.style.opacity = "1";
+                btnPrev.style.pointerEvents = "all";
+                girl.name = character.attrs[inx].name;
+                girl.personality = character.attrs[inx].personality;
+                girl.color = character.attrs[inx].color;
+                girl.power = character.attrs[inx].power;
+                girl.image = character.attrs[inx].image;
+                girl.imageOn = character.attrs[inx].imageOn;
+                girl.imageForward = character.attrs[inx].imageForward;
+                girl.imageBackward = character.attrs[inx].imageBackward;
+            }
+        });
+
         // Add event listeners for power buttons
         btnPowerOn.addEventListener("click", () => {
             girl.powerOn();
@@ -547,7 +590,17 @@
         btnStop.addEventListener("click", () => {
             girl.stop();
         });
-        
+
+        btnBackward.addEventListener("click", () => {
+            girl.moveBackward();
+        });
+
+        btnPrev.addEventListener("click", () => {
+            if (inx > 0) {
+                --inx;
+                girl.imageBackward = character.attrs[inx].imageBackward;
+            }
+        }); 
         //girl.powerOn();
         //girl.powerOff();
         //character.powerOn()
