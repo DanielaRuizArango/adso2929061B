@@ -21,8 +21,8 @@
                 cursor: pointer;
                 border: none;
                 position: absolute;
-                top: 20px;
-                right: 20px;
+                top: 6px;
+                right: 13px;
                 height: 40px;
                 transition: transform 0.4s ease-in;
                 width: 40px;
@@ -33,240 +33,284 @@
             }
         }
 
-            h4 {
-                color: #333;
-                font-weight: 600;
-                font-size: 16px;
-                text-align: center;
-                position: absolute;
+        h4 {
+            color: #333;
+            font-weight: 400;
+            font-size: 16px;
+            text-align: center;
+            position: absolute;
+        }
+
+        h4.title-name {
+            left: 50%;
+            transform: translateX(-50%);
+            top: 108px;
+        }
+
+        h4.title-personality {
+            top: 210px;
+            left: 20px;
+            width: 100px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        h4.title-color {
+            left: 50%;
+            transform: translateX(-50%);
+            top: 210px;
+            width: 100px;
+            font-size: 14px;
+        }
+
+        h4.title-power {
+            top: 210px;
+            left: 230px;
+            width: 100px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        button.btn-prev,
+        button.btn-next {
+            cursor: pointer;
+            border: none;
+            position: absolute;
+            height: 40px;
+            top: 98px;
+            width: 40px;
+            /* transition: transform 0.4s ease-in; */
+        }
+
+        button.btn-prev {
+            background: url(images/character/btn-prev.svg) no-repeat center;
+            left: 26px;
+            top: 89px;
+
+            /* &:hover {
+                    transform: scale(1.1) translateX(-5px);
+                  } */
+        }
+
+        button.btn-next {
+            background: url(images/character/btn-next.svg) no-repeat center;
+            right: 28px;
+            top: 89px;
+
+            /* &:hover {
+                    transform: scale(1.1) translateX(5px);
+                  } */
+        }
+
+        .show-data {
+            animation: showData 1s ease-in forwards;
+        }
+
+        div.container {
+            top: 250px;
+            left: 32px;
+            width: 284px;
+            height: 239px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        /* Estilo para la imagen del personaje */
+        .character-image {
+            position: absolute;
+            width: 100px;
+            height: 120px;
+            left: 50%;
+            top: 70%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            transition: all 0.3s ease-in-out;
+        }
+
+        div.parallax {
+            width: 100vw;
+            height: 100vh;
+            background-image: url(images/sky3.png);
+            background-repeat: repeat-x;
+            animation: moveBackground 50s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            from {
+                background-position: 0 0;
             }
 
-            h4.title-name {
-                left: 50%;
-                transform: translateX(-50%);
-                top: 100px;
+            to {
+                background-position: 1000% 0;
             }
+        }
 
-            h4.title-personality {
-                top: 220px;
-                left: 14px;
-                width: 100px;
-            }
 
-            h4.title-color {
-                left: 50%;
-                transform: translateX(-50%);
-                top: 220px;
-                width: 100px;
-            }
+        div.methods {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 269px auto 0 auto;
+            gap: 15px;
+            width: 288px;
+            bottom: 45px;
 
-            h4.title-power {
-                top: 220px;
-                left: 254px;
-                width: 100px;
-            }
-
-            button.btn-prev,
-            button.btn-next {
-                cursor: pointer;
+            button {
                 border: none;
-                position: absolute;
+                cursor: pointer;
                 height: 40px;
-                top: 98px;
+                transition: transform 0.4s ease-in;
                 width: 40px;
-                /* transition: transform 0.4s ease-in; */
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+
+                &.btn-power-on {
+                    background: url(images/character/btn-power-on.svg) no-repeat center;
+                }
+
+                &.btn-forward {
+                    background: url(images/character/btn-forward.svg) no-repeat center;
+                }
+
+                &.btn-stop {
+                    background: url(images/character/btn-stop.svg) no-repeat center;
+                }
+
+                &.btn-backward {
+                    background: url(images/character/btn-backward.svg) no-repeat center;
+                }
+
+                &.btn-power-off {
+                    background: url(images/character/btn-power-off.svg) no-repeat center;
+                }
+            }
+        }
+
+        /* Dark Mode */
+        figure.character.dark {
+            background: url(images/character/bg-dark.svg) no-repeat center;
+
+            button.btn-mode {
+                background: url(images/character/btn-mode-dark.svg) no-repeat center;
+                top: 10px;
+                right: 13px;
+                height: 35px
+            }
+
+            h4 {
+                color: #000;
             }
 
             button.btn-prev {
-                background: url(images/character/btn-prev.svg) no-repeat center;
-                left: 26px;
-
-                /* &:hover {
-                    transform: scale(1.1) translateX(-5px);
-                  } */
+                background: url(images/character/btn-prev-dark.svg) no-repeat center;
             }
 
             button.btn-next {
-                background: url(images/character/btn-next.svg) no-repeat center;
-                right: 28px;
-
-                /* &:hover {
-                    transform: scale(1.1) translateX(5px);
-                  } */
+                background: url(images/character/btn-next-dark.svg) no-repeat center;
             }
 
-            .show-data {
-                animation: showData 1s ease-in forwards;
+            /* Cambiar el fondo del parallax en modo oscuro */
+            .parallax {
+                background-image: url(images/character/sky-night.png);
+                top: 14px;
             }
 
-            div.container {
-                top: 262px;
-                left: 32px;
-                width: 285px;
-                height: 240px;
-                position: relative;
-                overflow: hidden;
-            }
-
-            /* Estilo para la imagen del personaje */
-            .character-image {
-                position: absolute;
-                width: 100px;
-                height: 120px;
-                left: 50%;
-                top: 70%;
-                transform: translate(-50%, -50%);
-                z-index: 10;
-                transition: all 0.3s ease-in-out;
-            }
-
-            div.parallax {
-                width: 100vw;
-                height: 100vh;
-                background-image: url(images/sky3.png);
-                background-repeat: repeat-x;
-                animation: moveBackground 50s linear infinite;
-            }
-
-            @keyframes moveBackground {
-                from {
-                    background-position: 0 0;
-                }
-
-                to {
-                    background-position: 1000% 0;
-                }
-            }
-
-                div.methods {
-                    position: absolute;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    left: 12px;
-                    gap: 0.2rem;
-                    width: 346px;
-                    bottom: 20px;
-
-                    button {
-                        border: none;
-                        cursor: pointer;
-                        height: 68px;
-                        transition: transform 0.4s ease-in;
-                        width: 68px;
-
-                        &:hover {
-                            transform: scale(1.05);
-                        }
-
-                        &.btn-power-on {
-                            background: url(images/character/btn-power-on.svg) no-repeat center;
-                        }
-
-                        &.btn-forward {
-                            background: url(images/character/btn-forward.svg) no-repeat center;
-                        }
-
-                        &.btn-stop {
-                            background: url(images/character/btn-stop.svg) no-repeat center;
-                        }
-
-                        &.btn-backward {
-                            background: url(images/character/btn-backward.svg) no-repeat center;
-                        }
-
-                        &.btn-power-off {
-                            background: url(images/character/btn-power-off.svg) no-repeat center;
-                        }
+            div.methods {
+                button {
+                    &.btn-power-on {
+                        background: url(images/character/btn-power-on-dark.svg) no-repeat center;
                     }
-                }
 
-            /* Dark Mode */
-            figure.character.dark {
-                background: url(images/character/bg-dark.svg) no-repeat center;
+                    &.btn-forward {
+                        background: url(images/character/btn-forward-dark.svg) no-repeat center;
+                    }
 
-                button.btn-mode {
-                    background: url(images/character/btn-mode-dark.svg) no-repeat center;
-                }
+                    &.btn-stop {
+                        background: url(images/character/btn-stop-dark.svg) no-repeat center;
+                    }
 
-                h4 {
-                    color: #000;
-                }
+                    &.btn-backward {
+                        background: url(images/character/btn-backward-dark.svg) no-repeat center;
+                    }
 
-                button.btn-prev {
-                    background: url(images/character/btn-prev-dark.svg) no-repeat center;
-                }
-
-                button.btn-next {
-                    background: url(images/character/btn-next-dark.svg) no-repeat center;
-                }
-
-                /* Cambiar el fondo del parallax en modo oscuro */
-                .parallax {
-                    background-image: url(images/character/sky-night.png);
-                }
-
-                div.methods {
-                    button {
-                        &.btn-power-on {
-                            background: url(images/vehicle/btn-power-on-dark.svg) no-repeat center;
-                        }
-
-                        &.btn-forward {
-                            background: url(images/vehicle/btn-forward-dark.svg) no-repeat center;
-                        }
-
-                        &.btn-stop {
-                            background: url(images/vehicle/btn-stop-dark.svg) no-repeat center;
-                        }
-
-                        &.btn-backward {
-                            background: url(images/vehicle/btn-backward-dark.svg) no-repeat center;
-                        }
-
-                        &.btn-power-off {
-                            background: url(images/vehicle/btn-power-off-dark.svg) no-repeat center;
-                        }
+                    &.btn-power-off {
+                        background: url(images/character/btn-power-off-dark.svg) no-repeat center;
                     }
                 }
             }
+        }
 
-            @keyframes showData {
-                0% {
-                    opacity: 0;
-                }
-
-                80% {
-                    opacity: 1;
-                }
-
-                90% {
-                    opacity: 0.8;
-                }
-
-                100% {
-                    opacity: 1;
-                }
+        @keyframes showData {
+            0% {
+                opacity: 0;
             }
 
-            /* Shake animation for the character */
-            @keyframes shake {
-                0% { transform: translate(-50%, -50%) rotate(0deg); }
-                10% { transform: translate(-50%, -50%) rotate(-1deg); }
-                20% { transform: translate(-50%, -50%) rotate(1deg); }
-                30% { transform: translate(-50%, -50%) rotate(0deg); }
-                40% { transform: translate(-50%, -50%) rotate(1deg); }
-                50% { transform: translate(-50%, -50%) rotate(-1deg); }
-                60% { transform: translate(-50%, -50%) rotate(0deg); }
-                70% { transform: translate(-50%, -50%) rotate(-1deg); }
-                80% { transform: translate(-50%, -50%) rotate(1deg); }
-                90% { transform: translate(-50%, -50%) rotate(0deg); }
-                100% { transform: translate(-50%, -50%) rotate(-1deg); }
+            80% {
+                opacity: 1;
             }
 
-            .character-image.shake {
-                animation: shake 0.5s infinite;
+            90% {
+                opacity: 0.8;
             }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Shake animation for the character */
+        @keyframes shake {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-50%, -50%) rotate(-1deg);
+            }
+
+            20% {
+                transform: translate(-50%, -50%) rotate(1deg);
+            }
+
+            30% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            40% {
+                transform: translate(-50%, -50%) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) rotate(-1deg);
+            }
+
+            60% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            70% {
+                transform: translate(-50%, -50%) rotate(-1deg);
+            }
+
+            80% {
+                transform: translate(-50%, -50%) rotate(1deg);
+            }
+
+            90% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(-1deg);
+            }
+        }
+
+        .character-image.shake {
+            animation: shake 0.5s infinite;
+        }
     </style>
 </head>
 
@@ -328,7 +372,8 @@
                     power: "X-ray Vision",
                     image: "images/character/bubbles1.svg",
                     imageOn: "images/character/bubbles2.svg",
-                    imageForward: "images/character/bubbles3.svg"
+                    imageForward: "images/character/bubbles3.svg",
+                    imageBackward: "images/character/bubbles4.svg"
                 },
                 {
                     name: "Buttercup",
@@ -337,7 +382,8 @@
                     power: "Fireball",
                     image: "images/character/buttercup1.svg",
                     imageOn: "images/character/buttercup2.svg",
-                    imageForward: "images/character/buttercup3.svg"
+                    imageForward: "images/character/buttercup3.svg",
+                    imageBackward: "images/character/buttercup4.svg"
                 },
             ],
         };
@@ -386,19 +432,19 @@
         // Class
         class Character {
             constructor(name, personality, color, power, image, imageOn, imageForward, imageBackward) {
-            this.name = name;
-            this.personality = personality;
-            this.color = color;
-            this.power = power;
-            this.image = image;
-            this.imageOn = imageOn;
-            this.imageForward = imageForward;
-            this.imageBackward = imageBackward;
-            this.isOn = false;
-            this.isMovingForward = false;
-            this.isMovingBackward = false;
-            this.isStopped = false;
-        }
+                this.name = name;
+                this.personality = personality;
+                this.color = color;
+                this.power = power;
+                this.image = image;
+                this.imageOn = imageOn;
+                this.imageForward = imageForward;
+                this.imageBackward = imageBackward;
+                this.isOn = false;
+                this.isMovingForward = false;
+                this.isMovingBackward = false;
+                this.isStopped = false;
+            }
 
             displayData() {
                 tName.textContent = this.name;
@@ -409,11 +455,11 @@
                 tColor.classList.add("show-data");
                 tPower.textContent = this.power;
                 tPower.classList.add("show-data");
-                
+
                 // Actualizar la imagen del personaje
                 characterImg.src = this.image;
                 characterImg.classList.add("show-data");
-                
+
                 setTimeout(function () {
                     tName.classList.remove("show-data");
                     tPersonality.classList.remove("show-data");
@@ -486,13 +532,13 @@
                 } else {
                     console.log("Already moving backward");
                 }
-            } 
+            }
         }
 
         // Define girl only once
         const girl = new Character(
             character.attrs[inx].name,
-            character.attrs[inx].personality,           
+            character.attrs[inx].personality,
             character.attrs[inx].color,
             character.attrs[inx].power,
             character.attrs[inx].image,
@@ -532,7 +578,7 @@
                 }
             }
         });
-        
+
         btnPrev.addEventListener("click", () => {
             if (inx > 0) {
                 --inx;
@@ -572,11 +618,11 @@
         btnPowerOff.addEventListener("click", () => {
             girl.powerOff();
         });
-        
+
         btnForward.addEventListener("click", () => {
             girl.moveForward();
         });
-        
+
         btnStop.addEventListener("click", () => {
             girl.stop();
         });
