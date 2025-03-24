@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05- Flex</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        section.content {
+            div.d-flex {
+                border: 2px solid #0004;
+                background-color: #0003;
+                div {
+                    border: 1px solid #0004;
+                    background-color: #0003;
+                }
+            }
+        }
+        </style>
+</head>
+<body class="bootstrap">
+    <nav>
+        <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>05- Flex</h1>
+            <p>
+                Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.
+            </p>
+        </header>
+        <section class="content">
+            <h3 class="my-4">Direction:</h3>
+            <div class="d-flex flex-row mb-3">
+                <div class="p-2">Item 1</div>
+                <div class="p-2">Item 2</div>
+                <div class="p-2">Item 3</div>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                <div class="p-2">Item 1</div>
+                <div class="p-2">Item 2</div>
+                <div class="p-2">Item 3</div>
+                </div>
+                <br>
+                <div class="d-flex flex-column mb-3">
+                <div class="p-2">Item 1</div>
+                <div class="p-2">Item 2</div>
+                <div class="p-2">Item 3</div>
+                </div>
+                <div class="d-flex flex-column-reverse">
+                <div class="p-2">Item 1</div>
+                <div class="p-2">Item 2</div>
+                <div class="p-2">Item 3</div>
+                </div>
+                <h3 class="my-4">Justify content:</h3>
+                <div class="d-flex justify-content-start">
+                <div class="p-2">Justify</div>
+                <div class="p-2">Content</div>
+                <div class="p-2">Start</div>
+                </div>
+                <br>
+            <div class="d-flex justify-content-end">
+                <div class="p-2">Justify</div>
+                <div class="p-2">Content</div>
+                <div class="p-2">End</div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <div class="p-2">Justify</div>
+                <div class="p-2">Content</div>
+                <div class="p-2">Center</div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-between">
+                <div class="p-2">Justify</div>
+                <div class="p-2">Content</div>
+                <div class="p-2">Between</div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-around">
+                <div class="p-2">Justify</div>
+                <div class="p-2">Content</div>
+                <div class="p-2">Around</div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-evenly">
+                <div class="p-2">Justify</div>
+                <div class="p-2">Content</div>
+                <div class="p-2">Evenly</div>
+            </div>
+            <h3 class="my-4">Align items:</h3>
+            <div class="d-flex align-items-start" style="height: 120px;">
+                <div class="p-2">Align</div>
+                <div class="p-2">Items</div>
+                <div class="p-2">Start</div>
+            </div>
+            <br>
+            <div class="d-flex align-items-end" style="height: 120px;">
+                <div class="p-2">Align</div>
+                <div class="p-2">Items</div>
+                <div class="p-2">End</div>
+            </div>
+            <br>
+            <div class="d-flex align-items-center" style="height: 120px;">
+                <div class="p-2">Align</div>
+                <div class="p-2">Items</div>
+                <div class="p-2">center</div>
+            </div>
+            <br>
+            <div class="d-flex align-items-baseline" style="height: 120px;">
+                <div class="p-2">Align</div>
+                <div class="p-2">Items</div>
+                <div class="p-2">Baseline</div>
+            </div>
+            <br>
+            <div class="d-flex align-items-stretch" style="height: 120px;">
+                <div class="p-2">Align</div>
+                <div class="p-2">Items</div>
+                <div class="p-2">Stretch</div>
+            </div>
+            <h3 class="my-4">Align self:</h3>
+            <div class="d-flex" style="height: 120px;">
+                <div class="p-2">Flex item</div>
+                <div class="p-2 align-self-start">Align self start</div>
+                <div class="p-2">Flex item</div>
+            </div>
+            <br>
+            <div class="d-flex" style="height: 120px;">
+                <div class="p-2">Flex item</div>
+                <div class="p-2 align-self-end">Align self end</div>
+                <div class="p-2">Flex item</div>
+            </div>
+            <br>
+            <div class="d-flex" style="height: 120px;">
+                <div class="p-2">Flex item</div>
+                <div class="p-2 align-self-center">Align self center</div>
+                <div class="p-2">Flex item</div>
+            </div>
+            <br>
+            <div class="d-flex" style="height: 120px;">
+                <div class="p-2">Flex item</div>
+                <div class="p-2 align-self-baseline">Align self baseline</div>
+                <div class="p-2">Flex item</div>
+            </div>
+            <br>
+            <div class="d-flex" style="height: 120px;">
+                <div class="p-2">Flex item</div>
+                <div class="p-2 align-self-stretch">Align self stretch</div>
+                <div class="p-2">Flex item</div>
+            </div>
+        </section>
+    </main>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sprite</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+        html {
+            border: 7px solid white;
+        }
+        body {
+            background-color: #17a053;
+            
+            font-family: "Poppins", sans-serif;
+        }
+
+        div.logo {
+            background: url(images/spriteweb.png) no-repeat;
+            background-position: -10px -400px;
+            height: 190px;
+            margin: 0 auto;
+            width: 190px;
+        }
+
+        menu {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 0;
+        }
+
+        menu a {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            text-decoration: none;
+            border-bottom: 7px white solid;
+            text-transform: uppercase;
+        }
+
+        menu a:hover {
+            background-color: rgb(3, 3, 3, 0.692);
+            border-bottom: 7px solid rgb(197, 197, 78);
+        }
+
+        div.images {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            margin: 0 auto;
+            width: 900px;
+            padding: 10px;
+        }
+
+        div.sprites {
+            background: url(images/spriteweb.png) no-repeat;
+            background-position: -480px -5px;
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+            height: 200px;
+            width: 328px;
+            border: 2px solid white;
+        }
+
+        div figcaption {
+            text-align: center;
+            color: black;
+            font-size: x-large;
+            font-weight: bold;
+            background-color: #fff9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+        }
+
+        div figcaption:hover {
+            background-color: rgba(255, 255, 255, 0.808);
+        }
+
+        section.first {
+            background-color: rgba(0, 0, 0, 0.4);
+            margin: 0 auto;
+            width: 900px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        div.info {
+            background-color: white;
+            display: flex;
+            gap: 35px;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            margin-bottom: 10px 0;
+        }
+
+        div aside {
+            background: url(images/spriteweb.png) no-repeat;
+            width: 20%;
+        }
+
+        div p {
+            width: 60%;
+            text-align: justify;
+            line-height: 1.5em;
+        }
+
+        div p:hover {
+            color: #17a053;
+        }
+
+        div aside.first {
+            background-position: -282px -499px;
+            height: 95px;
+            width: 109px;
+        }
+
+        div aside.second {
+            background-position: -88px -210px;
+            height: 173px;
+            width: 109px;
+        }
+
+        footer {
+            width: 915px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            gap: 2.5rem;
+            height: 260px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        div.third {
+            background: url(images/spriteweb.png) no-repeat;
+            background-position: -500px -420px;
+            height: 180px;
+            width: 245px;
+        }
+
+        div.link {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            gap: 3.5rem;
+        }
+
+        div.link a {
+            text-decoration: none;
+            color: black;
+            font-size: medium;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            padding-bottom: 10px;
+            border-bottom: 7px solid white
+        }
+
+        div.link a:hover {
+            border-bottom: 7px solid #11743c;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="logo"></div>
+        <menu>
+            <a href="#">Inicio</a>
+            <a href="#">Nosotros</a>
+            <a href="#">Portafolio</a>
+            <a href="#">Servicios</a>
+            <a href="#">Contacto</a>
+        </menu>
+        <section>
+            <div class="images">
+                <div class="sprites">
+                    <figcaption>Sprite 01</figcaption>
+                </div>
+                <div class="sprites">
+                    <figcaption>Sprite 02</figcaption>
+                </div>
+                <div class="sprites">
+                    <figcaption>Sprite 03</figcaption>
+                </div>
+            </div>
+        </section>
+        <br />
+        <section class="first">
+            <div class="info">
+                <aside class="first"></aside>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum fugit aliquam impedit magnam quod, maxime deserunt cupiditate ratione ea saepe odit quasi culpa quam dolor voluptatibus reprehenderit quis a iusto corrupti hic placeat dolores aut! Dolorum ipsam architecto tempora blanditiis, accusantium pariatur omnis sunt enim error dolor quas, consequatur cupiditate eius necessitatibus, quidem corrupti officiis reprehenderit voluptate perspiciatis magni nostrum!
+                </p>
+                <aside class="second"></aside>
+            </div>
+            <div class="info">
+                <aside class="first"></aside>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum fugit aliquam impedit magnam quod, maxime deserunt cupiditate ratione ea saepe odit quasi culpa quam dolor voluptatibus reprehenderit quis a iusto corrupti hic placeat dolores aut! Dolorum ipsam architecto tempora blanditiis, accusantium pariatur omnis sunt enim error dolor quas, consequatur cupiditate eius necessitatibus, quidem corrupti officiis reprehenderit voluptate perspiciatis magni nostrum!
+                </p>
+                <aside class="second"></aside>
+            </div>
+            <div class="info">
+                <aside class="first"></aside>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum fugit aliquam impedit magnam quod, maxime deserunt cupiditate ratione ea saepe odit quasi culpa quam dolor voluptatibus reprehenderit quis a iusto corrupti hic placeat dolores aut! Dolorum ipsam architecto tempora blanditiis, accusantium pariatur omnis sunt enim error dolor quas, consequatur cupiditate eius necessitatibus, quidem corrupti officiis reprehenderit voluptate perspiciatis magni nostrum!
+                </p>
+                <aside class="second"></aside>
+            </div>
+        </section>
+        <br />
+        <footer>
+            <div class="third"></div>
+            <div class="link">
+                <a href="#">Inicio</a>
+                <a href="#">Nosotros</a>
+                <a href="#">Portafolio</a>
+                <a href="#">Servicios</a>
+                <a href="#">Contacto</a>
+            </div>
+        </footer>
+    </main>
+</body>
+
+</html>

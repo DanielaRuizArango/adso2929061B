@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19- Progress</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body class="bootstrap">
+    <nav>
+        <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>19- Progress</h1>
+            <p>
+                Custom progress bars featuring support for stacked bars, animated backgrounds, and text labels.
+            </p>
+        </header>
+        <section class="content">
+            <h3 class="my-4">Example:</h3>
+            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 25%">25%</div>
+                </div>
+                <br>
+                <div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-dark text-light progress-bar-striped progress-bar-animated" style="width: 50%">50%</div>
+                </div>
+                <br>
+                <div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-warning text-dark progress-bar-striped progress-bar-animated" style="width: 75%">75%</div>
+                </div>
+                <br>
+                <div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" style="width: 100%">100%</div>
+                </div>
+                <h3 class="my-4">Dinamic Progress:</h3>
+                <div class="progress" style="height: 1.6rem">
+                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" id="pg" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                </div>
+        </section>
+    </main>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+        let pg = document.getElementById('pg');
+        let vl = 0;
+        let intv = setInterval(function() {
+            if (vl < 100) {
+                vl += 1;
+                    pg.innerText = vl + "%";
+                    pg.setAttribute('aria-valuenow', vl);
+                    pg.setAttribute('style', 'width: '+vl+'%');
+            } else {
+                clearInterval(intv);
+            }
+        },100);
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+section.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+article {
+  border: 4px solid #742d56;
+  display: inline-block;
+  height: 280px;
+  margin: 2px;
+  overflow: hidden;
+  width: 280px;
+}
+article figure {
+  background: url(../images/kirby.webp) no-repeat center;
+  background-size: 100%;
+  height: 280px;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+}
+article figure div {
+  background-color: rgba(0, 0, 0, 0.8);
+  top: -100px;
+  position: absolute;
+  transition: all 0.6s 0.2s ease-in;
+  display: flex;
+  gap: 0.6rem;
+  padding: 20px 0;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 280px;
+}
+article figure div button {
+  border: 1px solid #cd639a;
+  border-radius: 20px;
+  background-color: #000;
+  color: #cd639a;
+  font-size: 1em;
+  padding: 10px;
+  width: 120px;
+  transition: all 0.4s ease-in;
+}
+article figure div button:hover {
+  cursor: pointer;
+  background-color: #cd639a;
+  border: 1px solid #000;
+  color: #000;
+}
+article:hover figure {
+  cursor: pointer;
+  background-size: 120%;
+}
+article:hover figure div {
+  top: 0px;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07- Layout</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body class="bootstrap">
+    <nav>
+        <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>07- Layout</h1>
+            <p>
+                Give your forms some structure—from inline to horizontal to custom grid implementations.
+            </p>
+        </header>
+        <section class="content">
+            <h3 class="my-4">Form Grid:</h3>
+            <div class="row">
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                </div>
+              </div>
+              <h3 class="my-3">Horizontal Form</h3>
+              <form>
+                <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail3">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword3">
+                  </div>
+                </div>
+                <fieldset class="row mb-3">
+                  <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+                  <div class="col-sm-10">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                      <label class="form-check-label" for="gridRadios1">
+                        First radio
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                      <label class="form-check-label" for="gridRadios2">
+                        Second radio
+                      </label>
+                    </div>
+                    <div class="form-check disabled">
+                      <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                      <label class="form-check-label" for="gridRadios3">
+                        Third disabled radio
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="row mb-3">
+                  <div class="col-sm-10 offset-sm-2">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck1">
+                      <label class="form-check-label" for="gridCheck1">
+                        Example checkbox
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign in</button>
+              </form>
+        </section>
+    </main>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

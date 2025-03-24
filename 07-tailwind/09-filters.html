@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09- Filters</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="tailwind">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>09- Filters</h1>
+            <p>
+                Applies visual filters like blur and grayscale.
+            </p>
+        </header>
+        <section>
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mb-10">Blur</h2>
+            <div class="relative rounded-xl overflow-auto">
+                <div class="flex sm:block overflow-scroll sm:overflow-visible scroll-p-8">
+                    <div class="flex items-center justify-around gap-12 sm:gap-4 font-mono font-bold shrink-0 p-8">
+                    <div class="flex flex-col items-center shrink-0">
+                        <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">blur-none</p>
+                        <div class="relative blur-none">
+                        <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="https://placebear.com/300/300">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center shrink-0">
+                        <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">blur-sm</p>
+                        <div class="relative blur-sm">
+                        <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="https://placebear.com/300/300">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center shrink-0">
+                        <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">blur-lg</p>
+                        <div class="relative blur-lg">
+                        <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="https://placebear.com/300/300">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center shrink-0">
+                        <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">blur-2xl</p>
+                        <div class="relative blur-2xl">
+                        <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="https://placebear.com/300/300">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            <h2 class="text-2xl
+                    border-b-2
+                    opacity-80
+                    pb-4
+                    my-10">Brightness</h2>
+            <div class="relative rounded-xl overflow-auto">
+                <div class="flex justify-start sm:block overflow-scroll sm:overflow-visible scroll-p-8">
+                <div class="flex items-center justify-around gap-6 sm:gap-4 font-mono font-bold shrink-0 p-8">
+                    <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">brightness-50</p>
+                    <div class="relative brightness-50">
+                        <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="https://placebear.com/300/300">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                    </div>
+                    </div>
+                    <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">brightness-100</p>
+                    <div class="relative brightness-100">
+                        <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="https://placebear.com/300/300">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                    </div>
+                    </div>
+                    <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">brightness-125</p>
+                    <div class="relative brightness-125">
+                        <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="https://placebear.com/300/300">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                    </div>
+                    </div>
+                    <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">brightness-200</p>
+                    <div class="relative brightness-200">
+                        <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="https://placebear.com/300/300">
+                        <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                <h2 class="text-2xl
+                    border-b-2
+                    opacity-80
+                    pb-4
+                    my-10">Grayscale</h2>
+                <div class="relative rounded-xl overflow-auto">
+                    <div class="flex justify-center sm:block overflow-scroll sm:overflow-visible scroll-p-8">
+                    <div class="flex items-center justify-around gap-6 sm:gap-4 font-mono font-bold shrink-0 p-8">
+                        <div class="flex flex-col items-center shrink-0">
+                        <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">grayscale-0</p>
+                        <div class="relative grayscale-0">
+                            <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="
+                            https://placebear.com/300/300">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                        </div>
+                        </div>
+                        <div class="flex flex-col items-center shrink-0">
+                        <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">grayscale</p>
+                        <div class="relative grayscale">
+                            <img class="w-24 h-24 object-cover rounded-lg shadow-xl" src="
+                            https://placebear.com/300/300">
+                            <div class="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg"></div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+        </section>
+    </main>
+    <script src="js/tailwind.js"></script>
+</body>
+</html>

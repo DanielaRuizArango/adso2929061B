@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>37- Animation</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        div.jungle {
+            background: url(images/jungle.png) no-repeat center;
+            border-radius: 4px;
+            position: relative;
+            margin-block: 1rem;
+            height: 471px;
+            width: 380px;
+        }
+        div.jungle img {
+            position: absolute;
+        }
+        div.jungle img.logo {
+            top: 35px;
+            left: 30px;
+            animation: 2s animLogo ease-out infinite;
+        }
+        div.jungle img.dk {
+            width: 140px;
+            left: 120px;
+            top: 190px;
+            animation: 2s animDK ease-in infinite;
+        }
+        div.jungle div.move {
+            position: absolute;
+            height: 105px;
+            width: 140px;
+            left: 0px;
+            top: 305px;
+            animation: 4s animRyno ease-out infinite;
+        }
+        div.jungle img.ryno {
+            position: relative;
+            width: 140px;
+            left: 0px;
+            top: 0px;
+            animation: 0.4s animMove ease-in-out infinite;
+        }
+    
+        @keyframes animLogo {
+            0%,100% { transform: scale(1); }
+            50%     { transform: scale(1.2); }
+        }
+    
+        @keyframes animDK {
+            0%  { top: 190px; transform: rotateX(0deg);   }
+            40% { top: 100px; transform: rotateX(0deg);   }
+            50% { top: 100px; transform: rotateX(360deg); }
+            60% { top: 100px; transform: rotateX(360deg); }
+           100% { top: 190px; transform: rotateX(360deg); }
+        }
+    
+        @keyframes animMove {
+            0%,100% { top: 0px; }
+            50%     { top: -40px; }
+        }
+    
+        @keyframes animRyno {
+            0% {  left: 0px; transform: rotateY(0deg);  }
+            40% { left: 240px; transform: rotateY(0deg) }
+            50% { left: 240px; transform: rotateY(180deg) }
+            80% { left: 0px; transform: rotateY(180deg) }
+        }
+    </style>
+</head>
+<body class="css">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>37- Animation </h1>
+            <p>Lets an element gradually change from one style to another.</p>
+        </header>
+        <section>
+            <h3>Example:</h3>
+            <div class="jungle">
+                <img class="logo" src="images/logo-dk.png">
+                <img class="dk" src="images/dk.png">
+                <div class="move">
+                    <img class="ryno" src="images/ryno.png">
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>            

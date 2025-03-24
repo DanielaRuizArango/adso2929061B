@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>31- Filters</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        img.filter {
+            display: block;
+            margin-inline: auto;
+            transition: all 0.6s ease-in;
+            width: 160px;
+        }
+        img.filter:hover {
+            filter: none;
+        }
+        img.filter1 {
+            filter: grayscale(1);
+        }
+        img.filter2 {
+            filter: blur(6px);
+        }
+        img.filter3 {
+            filter: sepia(1);
+        }
+        img.filter4 {
+            filter: brightness(50%);
+        }
+        img.filter5 {
+            filter: invert(1);
+        }
+    </style>
+</head>
+<body class="css">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>31- Filters </h1>
+            <p>Defines visual effects (like blur and saturation).</p>
+        </header>
+        <section>
+            <h3>GrayScale</h3>
+            <img class="filter filter1" src="images/inosuke.png" alt="Inosuke">
+            <h3>Blur</h3>
+            <img class="filter filter2" src="images/inosuke.png" alt="Inosuke">
+            <h3>Sepia</h3>
+            <img class="filter filter3" src="images/inosuke.png" alt="Inosuke">
+            <h3>Brightness</h3>
+            <img class="filter filter4" src="images/inosuke.png" alt="Inosuke">
+            <h3>Invert</h3>
+            <img class="filter filter5" src="images/inosuke.png" alt="Inosuke">
+        </section>
+    </main>
+</body>
+</html>            

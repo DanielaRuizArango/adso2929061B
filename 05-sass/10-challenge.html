@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Burger</title>
+    <link rel="stylesheet" href="css/10-challenge.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="menu-title">[ Menu Burger ]</div>
+            <div id="burger-icon" class="burger-icon"></div>
+            <ul class="menu-burger">
+                <li><a href="#">▸Home</a></li>
+                <li><a href="#">▸About</a></li>
+                <li><a href="#">▸Portfolio</a></li>
+                <li><a href="#">▸Services</a></li>
+                <li><a href="#">▸Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <script>
+        document.getElementById("burger-icon").onclick = function () {
+            const menuBurger = document.querySelector(".menu-burger");
+            const burgerIcon = document.getElementById("burger-icon");
+            
+            menuBurger.classList.toggle("show"); 
+
+            if (menuBurger.classList.contains("show")) {
+                burgerIcon.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 384 512%22%3E%3Cpath fill=%22%23ff4081%22 d=%22M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z%22/%3E%3C/svg%3E")';
+            } else {
+                burgerIcon.style.backgroundImage = 'url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 448 512%22%3E%3Cpath fill=%22%23ff4081%22 d=%22M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z%22/%3E%3C/svg%3E")';
+            }
+        };
+    </script>
+</body>
+
+</html>

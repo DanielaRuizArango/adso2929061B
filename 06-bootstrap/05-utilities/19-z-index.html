@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19- Z Index</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        .bd-example-zindex-levels {
+            height: 250px;
+        }
+        .bd-example-zindex-levels>:nth-child(1) {
+            top: 1.5rem;
+            left: 1.5rem;
+        }
+        .bd-example-zindex-levels>:nth-child(2) {
+            top: 3rem;
+            left: 3rem;
+        }
+        .bd-example-zindex-levels>:nth-child(3) {
+            top: 4.5rem;
+            left: 4.5rem;
+        }
+        .bd-example-zindex-levels>:nth-child(4) {
+            top: 6rem;
+            left: 6rem;
+        }
+        .bd-example-zindex-levels>:nth-child(5) {
+            top: 7.5rem;
+            left: 7.5rem;
+        }
+    </style>
+</head>
+<body class="bootstrap">
+    <nav>
+        <a href="../index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>19- Z Index</h1>
+            <p>
+                Use our low-level z-index utilities to quickly change the stack level of an element or component.
+            </p>
+        </header>
+        <section class="content">
+            <h3 class="my-4">Example:</h3>
+            <div class="bd-example m-0 border-0 bd-example-zindex-levels position-relative">
+                <div class="z-3 position-absolute p-5 rounded-3 bg-primary border"><span class="position-absolute bottom-0">z-3</span></div>
+                <div class="z-2 position-absolute p-5 rounded-3 bg-primary border"><span class="position-absolute bottom-0">z-2</span></div>
+                <div class="z-1 position-absolute p-5 rounded-3 bg-primary border"><span class="position-absolute bottom-0">z-1</span></div>
+                <div class="z-0 position-absolute p-5 rounded-3 bg-primary border"><span class="position-absolute bottom-0">z-0</span></div>
+                <div class="z-n1 position-absolute p-5 rounded-3 bg-primary border"><span class="position-absolute bottom-0">z-n1</span></div>    
+            </div>
+        </section>
+    </main>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

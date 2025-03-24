@@ -1,0 +1,104 @@
+$primary-color: #333;
+$text-color: #666;
+$hover-background: #ff4081;
+$menu-spacing: 15px;
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #f1f1f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 60px;
+
+    .menu-title {
+        font-size: 18px;
+        color: $primary-color;
+        cursor: pointer;
+    }
+
+    .menu-burger {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+
+        li {
+            margin: 0;
+
+            a {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 18px;
+                text-decoration: none;
+                color: $text-color;
+                font-size: 18px;
+                transition: background 0.3s ease;
+
+                &:hover {
+                    background-color: $hover-background;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .burger-icon {
+        display: none;
+    }
+}
+
+@media (max-width: 760px) {
+    .navbar {
+        .burger-icon {
+            display: block;
+            width: 24px;
+            height: 24px;
+            background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 448 512%22%3E%3Cpath fill=%22%23ff4081%22 d=%22M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z%22/%3E%3C/svg%3E") no-repeat center center;
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        .menu-burger {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: #f1f1f1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+            &.show {
+                display: flex;
+
+                li {
+                    width: 100%;
+                    text-align: left; 
+                    padding-left: 20px; 
+                }
+
+                a {
+                    display: block;
+                    width: 100%;
+                    padding: 15px 0;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

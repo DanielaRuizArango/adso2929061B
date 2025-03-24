@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07- Borders</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="tailwind">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>07- Borders</h1>
+            <p>
+                Controls border styles, widths, and radius.
+            </p>
+        </header>
+        <section>
+            <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        mb-10">Border Radius</h2>
+            <h3 class="my-4">Rounded corners</h3>
+                        <div class="relative rounded-xl overflow-auto p-8">
+                        <div class="flex flex-col sm:flex-row items-center justify-around gap-4 text-white text-sm text-center font-bold leading-6">
+                          <div class="flex flex-col items-center shrink-0">
+                            <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded</p>
+                            <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded"></div>
+                          </div>
+                          <div class="flex flex-col items-center shrink-0">
+                            <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-md</p>
+                            <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-md"></div>
+                          </div>
+                          <div class="flex flex-col items-center shrink-0">
+                            <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-lg</p>
+                            <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-lg"></div>
+                          </div>
+                          <div class="flex flex-col items-center shrink-0">
+                            <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-full</p>
+                            <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+            <h3 class="my-4">Rounding sides separately</h3>
+            <div class="relative rounded-xl overflow-auto p-8">
+                <div class="flex flex-col sm:flex-row items-center justify-around gap-4 text-white text-sm text-center font-bold leading-6">
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-t-lg</p>
+                    <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-t-lg"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-r-lg</p>
+                    <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-r-lg"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-b-lg</p>
+                    <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-b-lg"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-l-lg</p>
+                    <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-l-lg"></div>
+                  </div>
+                </div>
+              </div>
+              <h3 class="my-4">Rounding corners separately</h3>
+              <div class="relative rounded-xl overflow-auto p-8">
+                <div class="flex flex-col sm:flex-row items-center justify-around gap-4 text-white text-sm text-center font-bold leading-6">
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-tl-lg</p>
+                    <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-tl-lg"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-tr-lg</p>
+                    <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-tr-lg"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-br-lg</p>
+                    <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-br-lg"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">rounded-bl-lg</p>
+                    <div class="p-4 shadow-sm bg-sky-500 w-16 h-16 rounded-bl-lg"></div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        my-10">Border Width</h2>
+            <h3 class="my-4">All sides</h3>
+            <div class="relative rounded-xl overflow-auto p-8">
+                <div class="flex flex-col sm:flex-row items-center justify-around gap-4 text-white text-sm text-center font-bold leading-6">
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-2</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-2"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-4</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-4"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-8</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-8"></div>
+                  </div>
+                </div>
+              </div>
+              <h3 class="my-4">Individual sides</h3>
+              <div class="relative rounded-xl overflow-auto p-8">
+                <div class="flex flex-col sm:flex-row items-center justify-around gap-4 text-white text-sm text-center font-bold leading-6">
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-t-4</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-t-4"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-r-4</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-r-4"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-b-4</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-b-4"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-l-4</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-l-4"></div>
+                  </div>
+                </div>
+              </div>
+              <h3 class="my-4">Horizontal and vertical sides</h3>
+              <div class="relative rounded-xl overflow-auto p-8">
+                <div class="flex flex-col sm:flex-row items-center justify-around gap-4 text-white text-sm text-center font-bold leading-6">
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-x-4</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-x-4"></div>
+                  </div>
+                  <div class="flex flex-col items-center shrink-0">
+                    <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-y-4</p>
+                    <div class="p-4 shadow-sm bg-black/20 w-16 h-16 border-sky-600 border-y-4"></div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="text-2xl
+                        border-b-2
+                        opacity-80
+                        pb-4
+                        my-10">Border Style</h2>
+                        <div class="relative rounded-xl overflow-auto p-8">
+                        <div class="flex flex-col sm:flex-row items-center justify-around gap-4 text-white text-sm text-center font-bold leading-6">
+                          <div class="flex flex-col items-center shrink-0">
+                            <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-solid</p>
+                            <button class="px-4 py-2 font-semibold text-sm bg-black/20e text-sky-800 rounded-md shadow-sm border-sky-600 border-2 border-solid">Button A</button>
+                          </div>
+                          <div class="flex flex-col items-center shrink-0">
+                            <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-dashed</p>
+                            <button class="px-4 py-2 font-semibold text-sm bg-black/20e text-sky-800 rounded-md shadow-sm border-sky-600 border-2 border-dashed">Button A</button>
+                          </div>
+                          <div class="flex flex-col items-center shrink-0">
+                            <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-dotted</p>
+                            <button class="px-4 py-2 font-semibold text-sm bg-black/20e text-sky-800 rounded-md shadow-sm border-sky-600 border-2 border-dotted">Button A</button>
+                          </div>
+                          <div class="flex flex-col items-center shrink-0">
+                            <p class="font-medium text-sm text-sky-800 font-mono text-center mb-3">border-double</p>
+                            <button class="px-4 py-2 font-semibold text-sm bg-black/20e text-sky-800 rounded-md shadow-sm border-sky-600 border-4 border-double">Button A</button>
+                          </div>
+                        </div>
+                      </div>
+                <h2 class="text-2xl
+                      border-b-2
+                      opacity-80
+                      pb-4
+                      my-10">Divide</h2>
+                      <div class="relative rounded-xl overflow-auto">
+                        <div class="grid grid-cols-1 divide-y divide-sky-200 divide-dotted font-mono text-sm text-center font-bold leading-6 shadow-lg overflow-hidden max-w-sm mx-auto">
+                          <div class="p-4 text-sky-200 bg-black/40">01</div>
+                          <div class="p-4 text-sky-200 bg-black/40">02</div>
+                          <div class="p-4 text-sky-200 bg-black/40">03</div>
+                        </div>
+                      </div>
+        </section>
+    </main>
+    <script src="js/tailwind.js"></script>
+</body>
+</html>
