@@ -16,6 +16,16 @@
             margin-left: 10px;
             /* Desplaza los elementos un poco hacia la derecha */
         }
+        section figure.animal {
+            background-color: #0003;
+            margin: 2px auto;
+            zoom: 2.5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+        }
     </style>
 </head>
 
@@ -34,7 +44,7 @@
     <main>
         <header>
             <h1>03- Get Elements</h1>
-            <p></p>
+            <p>Access and manipulate HTML elements using JavaScript.</p>
         </header>
         <section>
             <h3>Get Element By Id:</h3>
@@ -50,6 +60,10 @@
             <p class="paragraph">Lorem, ipsum dolor.</p>
             <p class="paragraph">Lorem, ipsum dolor.</p>
             <p class="paragraph">Lorem, ipsum dolor.</p>
+            <h3>Query Selector & Selector All</h3>
+            <figure class="animal first">🦊</figure>
+            <figure class="animal">🐼</figure>
+            <figure class="animal">🐰</figure>
         </section>
     </main>
     <script>
@@ -70,6 +84,19 @@
         const paragraphs = document.getElementsByClassName("paragraph");
         paragraphs[1].style.backgroundColor = "crimson";
         paragraphs[1].style.color = "white";
+        //Query Selector
+        const first = document.querySelector('figure.first')
+        first.style.backgroundColor = 'teal'
+        //Query Selector All
+        const animals = document.querySelectorAll('figure.animal')
+        //animals[0].style.borderRadius = '50%'
+        //animals[1].style.borderRadius = '50%'
+        //animals[2].style.borderRadius = '50%'
+
+        animals.forEach((element) =>
+        element.style.borderRadius = '50%'
+        )
+
     </script>
 </body>
 

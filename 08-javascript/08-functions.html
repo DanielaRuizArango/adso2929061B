@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>08 -Functions</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4rem;
+            strong, output {
+                font-size: 1.6rem;
+            }
+        }
+        h4 {
+            font-size: 1.4rem;
+            margin-block: 1rem;
+        }
+        input {
+            border-radius: 0.4rem;
+            padding: 0.4rem;
+            width: 100px;
+        }
     </style>
 </head>
 <body class="js">
@@ -17,11 +35,62 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>08 -Functions </h1>
+            <p> Define and use reusable blocks of code.</p>
         </header>
         <section>
+            <h3>01 - Function Without params/args</h3>
+            <h4 class="greeting"></h4>
+            <h3>02 - Function With params/args</h3>
+            <form action="">
+                <input type="number" id="n1" min="1" max="9999" placeholder="Number 1">
+                <strong>+</strong>
+                <input type="number" id="n2" min="1" max="9999" placeholder="Number 2">
+                <strong>=</strong>
+                <output></output>
+            </form>
+            <h3>03 - Function Return value</h3>
+            <h4 id="time"></h4>
         </section>
     </main>
+    <script>
+        //Elements
+        const greeting = document.querySelector('.greeting')
+        const number1 = document.querySelector('#n1')
+        const number2 = document.querySelector('#n2')
+        const result = document.querySelector('output')
+        const time = document.querySelector('#time')
+
+        //01 - Function without parameters/arguments 
+        function showGreeting() {
+            greeting.textContent = '💛 Welcome JS User 💛'
+        }
+        showGreeting() //Call to function
+
+        //02 - Function with parameters/arguments
+        function showSum(n1, n2) {
+            result.textContent = (parseInt(n1) + parseInt(n2))
+        }
+
+        //Event Listener with array function
+        number1.addEventListener('input', () => {
+            showSum(number1.value, number2.value)
+        })
+
+        //Other way:
+        number2.oninput = () => {
+            showSum(number1.value, number2.value)
+        }
+
+        //03 funtion return value
+        function showTime() {
+            let ndate = new Date()
+            // Operator Ternary (x=2 ? 'true' : 'false')
+            let meridian = (parseInt(ndate.getHours()) <= 12) ? 'am' : 'pm'
+            return `${ndate.getHours()}: ${ndate.getMinutes()} ${meridian}`
+        }
+
+        time.textContent = `Time: ${showTime()}`
+    </script>
 </body>
 </html>            

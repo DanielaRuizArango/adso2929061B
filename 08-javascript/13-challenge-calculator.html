@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13- Challenge Calculator</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        div.calculator {
+            background-color: #FFF5F5;
+            border-radius: 25px;
+            transition: all 0.4s ease-in;
+            height: 610px;
+            width: 360px;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+            
+            .line {
+                width: 320px;
+                height: 4px;
+                background-color: #FFB6B6;
+                margin: 0 auto;
+                position: absolute;
+                bottom: 0;
+            }
+            header {
+                position: relative;
+                border-radius: 10px;
+                width: 320px;
+                height: 162px;
+                margin: 0 auto;
+                button.btn-mode {
+                    background: url(images/calculator/btn-mode-dark.svg);
+                    cursor: pointer;
+                    position: absolute;
+                    border: none;
+                    top: 8px;
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+                    transition: all 0.2s ease-in;
+                    color: #B45F5F;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 18px;
+                }
+            }
+            input.oper {
+                border: none;
+                outline: none;
+                display: flex;
+                background-color: transparent;
+                position: absolute;
+                top: 40px;
+                right: 0;
+                text-align: right;
+                font-size: 24px;
+                color: #B45F5F;
+                opacity: 0.7;
+                font-weight: 500;
+                width: 100%;
+                font-family: 'Lexend', sans-serif;
+            }
+            h4.result {
+                font-size: 48px;
+                text-align: right;
+                font-weight: 600;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                color: #B45F5F;
+                font-family: 'Lexend', sans-serif;
+            }
+            footer{
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                width: 320px;
+                gap: 15px;
+                margin: 1rem auto 0 auto;
+                padding: 15px;
+                justify-content: center;
+                align-items: center;
+                
+                button{
+                    margin: 0 auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 15px;
+                    height: 60px;
+                    width: 60px;
+                    cursor: pointer;
+                    border: none;
+                    position: relative;
+                    background-color: #FFD7D7;
+                    color: #B45F5F;
+                    font-size: 24px;
+                    font-weight: 500;
+                    font-family: 'Lexend', sans-serif;
+                    transition: all 0.2s ease-in;
+
+                    &:hover {
+                        opacity: 0.8;
+                        transform: scale(0.95);
+                    }
+
+                    &.btn-zero {
+                        grid-column: span 2;
+                        width: 134px;
+                    }
+
+                    &[data-opr] {
+                        background-color: #FFC0CB;
+                        color: white;
+                    }
+
+                    &.btn-clear {
+                        background-color: #FFB6C1;
+                        color: #B45F5F;
+                    }
+
+                    &.btn-equal {
+                        background-color: #FFC0CB;
+                        color: white;
+                    }
+                }
+            }
+        }
+        /*DARK MODE*/
+        div.calculator.dark {
+            background-color: #1A1A1A;
+            
+            .line {
+                background-color: #FFB6B6;
+            }
+            
+            header {
+                button.btn-mode {
+                    background: url(images/calculator/btn-mode-light.svg);
+                }
+            }
+            
+            input.oper {
+                color: #FFD7D7;
+            }
+            
+            h4.result {
+                color: #FFD7D7;
+            }
+            
+            .operation-display {
+                span.operator {
+                    color: #FFB6B6;
+                }
+                span.number {
+                    color: #FFD7D7;
+                    opacity: 0.7;
+                }
+            }
+            
+            footer button {
+                background-color: #2D2D2D;
+                color: #FFD7D7;
+                
+                &:hover {
+                    opacity: 0.8;
+                    transform: scale(0.95);
+                }
+                
+                &[data-num] {
+                    background-color: #2D2D2D;
+                    color: #FFD7D7;
+                }
+                
+                &[data-opr] {
+                    background-color: #FFB6C1;
+                    color: #B45F5F;
+                }
+                
+                &.btn-clear {
+                    background-color: #FFB6C1;
+                    color: #B45F5F;
+                }
+                
+                &.btn-equal {
+                    background-color: #FFB6C1;
+                    color: #B45F5F;
+                }
+            }
+        }
+        /* Estilo para el mensaje toast */
+        .toast-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #B45F5F;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .toast-message.show {
+            opacity: 1;
+        }
+
+        /* Estilo para los operadores */
+        .operation-display {
+            border: none;
+            outline: none;
+            display: flex;
+            background-color: transparent;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            text-align: right;
+            font-size: 24px;
+            font-weight: 500;
+            width: 100%;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .operation-display span.operator {
+            color: #FF9494;
+            font-weight: bold;
+        }
+
+        .operation-display span.number {
+            color: #B45F5F;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>13- Challenge Calculator</h1>
+            <p>Build a basic calculator using JavaScript.</p>
+        </header>
+            <section>
+                <div class="calculator">
+                    <header>
+                        <button class="btn-mode"></button>
+                        <input type="text" class="oper" readonly>
+                        <h4 class="result">0</h4>
+                        <div class="line"></div>
+                    </header>
+                    <footer>
+                        <button class="btn-clear">C</button>
+                        <button class="btn-mod" data-opr="%">%</button>
+                        <button class="btn-pow" data-opr="**">^</button>
+                        <button class="btn-div" data-opr="/">÷</button>
+                        <button class="btn-seven" data-num="7">7</button>
+                        <button class="btn-eight" data-num="8">8</button>
+                        <button class="btn-nine" data-num="9">9</button>
+                        <button class="btn-multiply" data-opr="*">×</button>
+                        <button class="btn-four" data-num="4">4</button>
+                        <button class="btn-five" data-num="5">5</button>
+                        <button class="btn-six" data-num="6">6</button>
+                        <button class="btn-rest" data-opr="-">−</button>
+                        <button class="btn-one" data-num="1">1</button>
+                        <button class="btn-two" data-num="2">2</button>
+                        <button class="btn-three" data-num="3">3</button>
+                        <button class="btn-sum" data-opr="+">+</button>
+                        <button class="btn-zero" data-num="0">0</button>
+                        <button class="btn-dote" data-opr=".">.</button>
+                        <button class="btn-equal">=</button>
+                    </footer>
+                </div>
+            </section>
+    </main>
+    <div class="toast-message" id="toastMessage">Límite máximo de dígitos alcanzado</div>
+    <script>
+        let lastCharIsOperator = false;
+        let operatorCount = 0;
+        let lastOperator = '';
+        const MAX_DISPLAY_LENGTH = 12;
+        const operatorSymbols = {
+            '+': '+',
+            '-': '−',
+            '*': '×',
+            '/': '÷',
+            '%': '%',
+            '**': '^'
+        };
+        
+        const divCal = document.querySelector('.calculator');
+        const btnMode = document.querySelector('.btn-mode');
+        const oper = document.querySelector('.oper');
+        const result = document.querySelector('.result');
+        const btnsNumber = document.querySelectorAll('button[data-num]');
+        const btnsOper = document.querySelectorAll('button[data-opr]');
+        const btnClear = document.querySelector('.btn-clear');
+        const btnEqual = document.querySelector('.btn-equal');
+        
+        const operationDisplay = document.createElement('div');
+        operationDisplay.className = 'operation-display';
+        oper.parentNode.insertBefore(operationDisplay, oper);
+        oper.style.opacity = '0';
+        
+        function wouldExceedDisplayLimit(currentValue, newDigit) {
+            const valueWithoutCommas = currentValue.replace(/,/g, '');
+            return valueWithoutCommas.length >= MAX_DISPLAY_LENGTH;
+        }
+        
+        function formatNumber(num) {
+            if (typeof num !== 'number') return 'Error';
+            if (!isFinite(num)) return 'Error';
+            
+            let numStr = num.toString();
+            if (numStr.length > MAX_DISPLAY_LENGTH) {
+                return Number(num).toExponential(MAX_DISPLAY_LENGTH - 7);
+            }
+            
+            return numStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+        
+        function calculateExpression(expression) {
+            try {
+                let cleanExpr = expression.replace(/,/g, '');
+                
+                if (cleanExpr.includes('%')) {
+                    if (/^\d+%$/.test(cleanExpr)) {
+                        return Number(cleanExpr.replace('%', '')) / 100;
+                    }
+                    cleanExpr = cleanExpr.replace(/(\d+)%/g, '($1/100)');
+                }
+                
+                cleanExpr = cleanExpr.replace(/(\d+)\*\*(\d+)/g, 'Math.pow($1,$2)');
+                
+                const result = eval(cleanExpr);
+                if (result === undefined || isNaN(result)) throw new Error('Cálculo inválido');
+                return result;
+            } catch (error) {
+                throw error;
+            }
+        }
+        
+        function updateResult() {
+            try {
+                const expression = oper.value;
+                if (!expression) {
+                    result.textContent = '0';
+                    return;
+                }
+                
+                const calculatedResult = calculateExpression(expression);
+                const formattedResult = Number.isInteger(calculatedResult) ? 
+                    formatNumber(calculatedResult) : 
+                    formatNumber(Number(calculatedResult.toFixed(3)));
+                result.textContent = formattedResult;
+            } catch (error) {
+                result.textContent = '0';
+            }
+        }
+
+        function updateOperationDisplay() {
+            let displayHTML = '';
+            let currentNumber = '';
+            let value = oper.value;
+
+            for (let i = 0; i < value.length; i++) {
+                let char = value[i];
+                if ('0123456789.'.includes(char)) {
+                    currentNumber += char;
+                } else {
+                    if (currentNumber) {
+                        displayHTML += `<span class="number">${currentNumber}</span>`;
+                        currentNumber = '';
+                    }
+                    if (char === '*' && value[i + 1] === '*') {
+                        displayHTML += `<span class="operator">${operatorSymbols['**']}</span>`;
+                        i++;
+                    } else {
+                        displayHTML += `<span class="operator">${operatorSymbols[char] || char}</span>`;
+                    }
+                }
+            }
+            if (currentNumber) {
+                displayHTML += `<span class="number">${currentNumber}</span>`;
+            }
+            operationDisplay.innerHTML = displayHTML;
+        }
+
+        btnMode.addEventListener('click', () => {
+            divCal.classList.toggle('dark');
+        });
+
+        function showToast() {
+            const toast = document.getElementById('toastMessage');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        btnsNumber.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (oper.value === 'Error') oper.value = '';
+                
+                if (wouldExceedDisplayLimit(oper.value, btn.dataset.num)) {
+                    showToast();
+                    return;
+                }
+                
+                oper.value += btn.dataset.num;
+                lastCharIsOperator = false;
+                operatorCount = 0;
+                lastOperator = '';
+                updateOperationDisplay();
+                updateResult();
+            });
+        });
+
+        btnsOper.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (oper.value === 'Error') oper.value = '';
+                const currentValue = oper.value;
+                const newOperator = btn.dataset.opr;
+                const lastChar = currentValue.slice(-1);
+
+                if (currentValue === '' && newOperator !== '-') return;
+
+                if (lastCharIsOperator) {
+                    if (newOperator === '-' && lastOperator !== '-') {
+                        oper.value += newOperator;
+                        lastOperator = newOperator;
+                        updateOperationDisplay();
+                        return;
+                    }
+                    return;
+                }
+
+                if (newOperator === '%') {
+                    if (lastCharIsOperator) return;
+                    if (currentValue.includes('%')) return;
+                }
+
+                if (newOperator === '.') {
+                    const numbers = currentValue.split(/[\+\-\*\/\%]/);
+                    const lastNumber = numbers[numbers.length - 1];
+                    if (lastNumber.includes('.')) return;
+                }
+
+                oper.value += newOperator;
+                lastCharIsOperator = true;
+                lastOperator = newOperator;
+                updateOperationDisplay();
+                updateResult();
+            });
+        });
+
+        btnClear.addEventListener('click', () => {
+            oper.value = '';
+            result.textContent = '0';
+            lastCharIsOperator = false;
+            operatorCount = 0;
+            lastOperator = '';
+            operationDisplay.innerHTML = '';
+        });
+
+        btnEqual.addEventListener('click', () => {
+            try {
+                if (!oper.value || lastCharIsOperator) return;
+                
+                const calculatedResult = calculateExpression(oper.value);
+                const formattedResult = Number.isInteger(calculatedResult) ? 
+                    formatNumber(calculatedResult) : 
+                    formatNumber(Number(calculatedResult.toFixed(3)));
+                
+                oper.value = formattedResult;
+                result.textContent = formattedResult;
+                lastCharIsOperator = false;
+                operatorCount = 0;
+                lastOperator = '';
+                updateOperationDisplay();
+            } catch (error) {
+                oper.value = 'Error';
+                result.textContent = 'Error';
+                operationDisplay.innerHTML = 'Error';
+            }
+        });
+
+        const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+        const handleDarkModeChange = (event) => {
+            divCal.classList.toggle('dark', event.matches);
+        };
+
+        if (darkMode.addEventListener) {
+            darkMode.addEventListener('change', handleDarkModeChange);
+        } else {
+            darkMode.addListener(handleDarkModeChange);
+        }
+
+        handleDarkModeChange(darkMode);
+    </script>
+</body>
+</html>            

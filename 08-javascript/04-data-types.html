@@ -24,7 +24,10 @@
             <h3>Type String: <small class="typeString"></small></h3>
             <h3>Type Number: <small class="typeNumber"></small></h3>
             <h3>Type Boolean: <small class="typeBoolean"></small></h3>
-
+            <h3>Type Null: <small class="typeNull"></small></h3>
+            <h3>Type Undefined: <small class="typeUndefined"></small></h3>
+            <h3>Type Array: <small class="typeArray"></small></h3>
+            <h3>Type Object: <small class="typeObject"></small></h3>
         </section>
     </main>
     <script>
@@ -41,10 +44,33 @@
         let number2 = '3'
         typeNumber.textContent = number1 + parseInt(number2)
 
-        //Type Boolean 
-        const typeBoolean = document.querySelector('.typeBoolean');
+        //Type Boolean
+        const typeBoolean = document.querySelector('.typeBoolean')
         typeBoolean.textContent = (128>256)
 
+        //Type Null
+        const typeNull = document.querySelector('.typeNull')
+        let isCreate = null
+        typeNull.textContent = `${isCreate}`
+
+        //Type Undefined
+        const typeUndefined = document.querySelector('.typeUndefined')
+        let isBinary = undefined
+        typeUndefined.textContent = `${isBinary}`
+
+        //Type Array
+        const typeArray = document.querySelector('.typeArray')
+        let emojis = ['😇','😎','😡','😥','🤮']
+        typeArray.textContent = emojis
+
+        //Type Object
+        const typeObject = document.querySelector('.typeObject')
+        let hashira = {
+            name: 'Giyu Tomioka',
+            breath: 'Water',
+            age: 21
+        }
+        typeObject.textContent = hashira.name
     </script>
 </body>
 </html>            

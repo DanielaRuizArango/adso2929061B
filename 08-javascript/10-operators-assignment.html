@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10- Operators Assignment</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        table.operators {
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            margin: 40px auto;
+            width: 370px;
+        }
+        table thead th {
+            background-color: #f0db4f;
+            color: #000c;
+        }
+        table th,
+        table td {
+            background-color: #fffc;
+            border: 1px solid #333;
+            color: #333;
+            padding: 6px;
+        }
+        table thead input {
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            font-family: Poppins;
+            padding: 8px;
+            width: 120px;
+        }
+        table tbody td:first-child {
+            font-size: 1rem;
+            text-align: center;
+        }
+        table tbody tr:nth-child(even) td {
+            background-color: #fff8;
+        }
+    </style>
+</head>
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>10- Operators Assignment </h1>
+            <p>Assign values to variables using assignment operators.</p>
+        </header>
+        <section>
+            <table class="operators">
+                <thead>
+                    <tr>
+                        <th colspan="4">
+                            <input type="number" placeholder="Y Value">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Operator</th>
+                        <th>Example</th>
+                        <th>Equal</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>=</td>
+                        <td>x=y</td>
+                        <td class="eq"></td>
+                        <td class="rs"></td>
+                    </tr>
+                    <tr>
+                        <td>+=</td>
+                        <td>x+=y</td>
+                        <td class="eq">x=x+y</td>
+                        <td class="rs"></td>
+                    </tr>
+                    <tr>
+                        <td>-=</td>
+                        <td>x-=y</td>
+                        <td class="eq">x=x-y</td>
+                        <td class="rs"></td>
+                    </tr>
+                    <tr>
+                        <td>*=</td>
+                        <td>x*=y</td>
+                        <td class="eq">x=x*y</td>
+                        <td class="rs"></td>
+                    </tr>
+                    <tr>
+                        <td>/=</td>
+                        <td>x/=y</td>
+                        <td class="eq">x=x/y</td>
+                        <td class="rs"></td>
+                    </tr>
+                    <tr>
+                        <td>%=</td>
+                        <td>x%=y</td>
+                        <td class="eq">x=x%y</td>
+                        <td class="rs"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+        // results
+        const eqs   = document.querySelectorAll('td.eq')
+        const rss   = document.querySelectorAll('td.rs')
+        const input = document.querySelector('input')
+        const x = 10
+        // Events
+        input.oninput = () => {
+            if (input.value != '') {
+                if (input.value.length < 4) {
+                    // =
+                    eqs[0].innerText = 'x=' + input.value
+                    rss[0].innerText = parseInt(input.value)
+                    // +=
+                    rss[1].innerText = x + parseInt(input.value)
+                    // -=
+                    rss[2].innerText = x - parseInt(input.value)
+                    // *=
+                    rss[3].innerText = x * parseInt(input.value)
+                    // /=
+                    rss[4].innerText = x / parseInt(input.value)
+                    // %=
+                    rss[5].innerText = x % parseInt(input.value)
+                } else {
+                    input.value = input.value.slice(0,-1)
+                }
+            } else {
+                eqs[0].innerText = ''
+                for (let i = 0; i < rss.length; i++) {
+                    rss[i].innerText = ''
+                }
+            }
+        }
+    </script>
+</body>
+</html>            

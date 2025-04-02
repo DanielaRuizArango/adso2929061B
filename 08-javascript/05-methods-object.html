@@ -5,7 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>05- Methods Object</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        main section h3.pk-name {
+            font-size: 2rem;
+            text-align: center;
+        }
+        main section h4 {
+            background-color: #fff9;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 1.6rem;
+            margin: 0 auto;
+            padding: 0.4rem 1rem;
+            width: fit-content;
+        }
+
+        main section figure {
+            background-repeat: no-repeat;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            height: 192px;
+            width: 202px;
+        }
+        main section figure.alive {
+            background-position-x: 0px;
+        }
+        main section figure.attack {
+            background-position-x: -202px;
+        }
+        main section figure.feed {
+            background-position-x: -404px;
+        }
+        main section figure.dead {
+            background-position-x: -608px;
+        }
+        main section div.actions {
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            width: 150px;
+            button {
+                background: #fff9;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                padding: 0.4rem 1rem;
+                transition: transform 0.2s ease-in;
+                &:hover {
+                    transform: scale(1.2);
+                }
+            }
+        }
     </style>
 </head>
 <body class="js">
@@ -21,7 +75,84 @@
             <p>Use methods to interact with objects.</p>
         </header>
         <section>
+            <h3 class="pk-name"></h3>
+            <h4 class="pk-hp"></h4>
+            <figure class="pk-image">
+            </figure>
+            <div class="actions">
+                <button class="btn-attack">Attack</button>
+                <button class="btn-feed">Feed</button>
+            </div>
         </section>
     </main>
 </body>
+<script>
+    // Elements
+    const pkName  = document.querySelector('.pk-name')
+            const pkHp    = document.querySelector('.pk-hp')
+            const pkImage = document.querySelector('.pk-image')
+            // Buttons
+            const btnAttack = document.querySelector('.btn-attack')
+            const btnFeed   = document.querySelector('.btn-feed')
+    
+            // Object
+            const pokemon = {
+                // Attributes
+                name: 'Snorlax',
+                type: 'Normal',
+                hp:   100,
+                image: 'images/snorlax-sprite.png',
+                status: 'alive',
+    
+                // Methods
+                attack: function() {
+                    if (this.hp <= 25) {
+                        this.hp = 0
+                        this.status = 'dead'
+                        pkImage.classList.remove('alive', 'feed', 'attack')
+                        this.updateRender()
+                    } else {
+                        this.hp -= 25
+                        this.status = 'attack'
+                        pkImage.classList.remove('alive', 'feed', 'dead')
+                        this.updateRender()
+                        this.autoStatus()
+                    }
+                },
+                feed: function() {
+                    if (this.hp < 200) {
+                        this.hp += 25
+                        this.status = 'feed'
+                        pkImage.classList.remove('alive', 'attack', 'dead')
+                        this.updateRender()
+                        this.autoStatus()
+                    }
+                },
+                render: function() {
+                    pkName.innerHTML = `${this.name} <small>[${this.type}]</small>`
+                    pkImage.style.backgroundImage = `url(${this.image})`
+                    this.updateRender()
+                },
+                autoStatus: function() {
+                    setTimeout(function() {
+                        this.status = 'alive'
+                        pkImage.classList.remove('feed', 'attack', 'dead')
+                        
+                    }, 1500)
+                },
+                updateRender: function() {
+                    pkHp.textContent = `HP: ${this.hp}`
+                    pkImage.classList.add(`${this.status}`)
+                }
+            }
+            pokemon.render()
+    
+            // Events
+            btnAttack.addEventListener('click', function() {
+                pokemon.attack()
+            })
+            btnFeed.addEventListener('click', function() {
+                pokemon.feed()
+            })
+        </script>
 </html>            
