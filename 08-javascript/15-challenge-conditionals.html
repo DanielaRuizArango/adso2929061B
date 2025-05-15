@@ -127,16 +127,19 @@
         }
         .weather button {
             padding: 12px 24px;
-            background-color: #007bff;
+            background-color: #0056b3;
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 86, 179, 0.2);
         }
         .weather button:hover {
-            background-color: #0056b3;
+            background-color: #003d82;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
         }
         .weather .show {
             margin-top: 10px;
@@ -290,6 +293,11 @@
                 show.textContent = `Error: ${error.message}`;
                 document.querySelector('.weather-info').style.display = 'none';
             }
+        };
+
+        // Set Manizales as default city when page loads
+        window.onload = () => {
+            showWeather('Manizales');
         };
     </script>
 </body>
