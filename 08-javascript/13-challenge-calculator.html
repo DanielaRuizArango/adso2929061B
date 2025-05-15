@@ -418,6 +418,7 @@
 
         btnsNumber.forEach(btn => {
             btn.addEventListener('click', () => {
+                console.log('Button clicked:', btn.dataset.num);
                 if (oper.value === 'Error') oper.value = '';
                 
                 if (wouldExceedDisplayLimit(oper.value, btn.dataset.num)) {
@@ -515,6 +516,117 @@
         }
 
         handleDarkModeChange(darkMode);
+
+        // Add keyboard support
+        document.addEventListener('keydown', (event) => {
+            // Prevent default behavior for calculator keys
+            if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '%', 'Enter', 'Escape', 'Backspace'].includes(event.key)) {
+                event.preventDefault();
+            }
+
+            // Handle numbers and decimal point
+            if (/^[0-9.]$/.test(event.key)) {
+                if (event.key === '.') {
+                    const numbers = oper.value.split(/[\+\-\*\/\%]/);
+                    const lastNumber = numbers[numbers.length - 1];
+                    if (lastNumber.includes('.')) return;
+                }
+                
+                if (wouldExceedDisplayLimit(oper.value, event.key)) {
+                    showToast();
+                    return;
+                }
+                
+                oper.value += event.key;
+                lastCharIsOperator = false;
+                operatorCount = 0;
+                lastOperator = '';
+                updateOperationDisplay();
+                updateResult();
+            }
+            
+            // Handle operators
+            else if (['+', '-', '*', '/', '%'].includes(event.key)) {
+                if (oper.value === 'Error') oper.value = '';
+                const currentValue = oper.value;
+                
+                if (currentValue === '' && event.key !== '-') return;
+                
+                if (lastCharIsOperator) {
+                    if (event.key === '-' && lastOperator !== '-') {
+                        oper.value += event.key;
+                        lastOperator = event.key;
+                        updateOperationDisplay();
+                        return;
+                    }
+                    return;
+                }
+                
+                if (event.key === '%') {
+                    if (lastCharIsOperator) return;
+                    if (currentValue.includes('%')) return;
+                }
+                
+                oper.value += event.key;
+                lastCharIsOperator = true;
+                lastOperator = event.key;
+                updateOperationDisplay();
+                updateResult();
+            }
+            
+            // Handle Enter key for equals
+            else if (event.key === 'Enter') {
+                try {
+                    if (!oper.value || lastCharIsOperator) return;
+                    
+                    const calculatedResult = calculateExpression(oper.value);
+                    const formattedResult = Number.isInteger(calculatedResult) ? 
+                        formatNumber(calculatedResult) : 
+                        formatNumber(Number(calculatedResult.toFixed(3)));
+                    
+                    oper.value = formattedResult;
+                    result.textContent = formattedResult;
+                    lastCharIsOperator = false;
+                    operatorCount = 0;
+                    lastOperator = '';
+                    updateOperationDisplay();
+                } catch (error) {
+                    oper.value = 'Error';
+                    result.textContent = 'Error';
+                    operationDisplay.innerHTML = 'Error';
+                }
+            }
+            
+            // Handle Escape key for clear
+            else if (event.key === 'Escape') {
+                oper.value = '';
+                result.textContent = '0';
+                lastCharIsOperator = false;
+                operatorCount = 0;
+                lastOperator = '';
+                operationDisplay.innerHTML = '';
+            }
+            
+            // Handle Backspace key
+            else if (event.key === 'Backspace') {
+                if (oper.value === 'Error') {
+                    oper.value = '';
+                    result.textContent = '0';
+                    operationDisplay.innerHTML = '';
+                    return;
+                }
+                
+                oper.value = oper.value.slice(0, -1);
+                if (oper.value === '') {
+                    result.textContent = '0';
+                    lastCharIsOperator = false;
+                    operatorCount = 0;
+                    lastOperator = '';
+                }
+                updateOperationDisplay();
+                updateResult();
+            }
+        });
     </script>
 </body>
 </html>            

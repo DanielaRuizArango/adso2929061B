@@ -107,6 +107,42 @@
         .weather-image img.night-image {
             display: none;
         }
+        .weather {
+            display: flex;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .weather input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .weather input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .weather button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .weather button:hover {
+            background-color: #0056b3;
+        }
+        .weather .show {
+            margin-top: 10px;
+            color: #dc3545;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 
@@ -166,9 +202,8 @@
         const nightImage = document.querySelector('.night-image');
         let isDayMode = true;
 
-        // Función para actualizar la visualización día/noche
         function updateDayNight(mode) {
-            // Actualizar imágenes de fondo
+
             if (mode) {
                 dayImage.style.display = 'block';
                 nightImage.style.display = 'none';
@@ -182,7 +217,7 @@
             }
         }
 
-        // Asignar listeners para los iconos fuera de la función showWeather
+
         dayCorner.addEventListener('click', () => {
             isDayMode = true;
             updateDayNight(isDayMode);
@@ -193,12 +228,19 @@
             updateDayNight(isDayMode);
         });
 
-        btn.addEventListener("click", (e) => {
-            if (!q.value.trim()) {
-                show.textContent = "Please enter a location";
-                return;
+        q.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (q.value.trim()) {
+                    showWeather(q.value);
+                }
             }
-            showWeather(q.value);
+        });
+
+        btn.addEventListener('click', () => {
+            if (q.value.trim()) {
+                showWeather(q.value);
+            }
         });
 
         // Function
