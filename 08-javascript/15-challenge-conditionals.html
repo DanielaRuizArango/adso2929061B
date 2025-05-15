@@ -1,27 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>15- Wheater App</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+        body, .weather-info, .weather-image-container, .weather-main-info, .weather-country, .weather-city, .weather-date, .weather-temp, .weather-condition, .weather-bottom-info {
+            font-family: 'Montserrat', Arial, sans-serif;
+            color: #000;
+        }
+        .weather-info {
+            display: none;
+            margin-top: 1rem;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .weather-image-container {
+            position: relative;
+            display: block;
+            width: 100%;
+            min-height: 400px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08); 
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .weather-main-info {
+            position: absolute;
+            top: 24px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            z-index: 3;
+        }
+        .weather-country {
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+        .weather-city {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-top: -8px;
+        }
+        .weather-date {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        .weather-icon-corner {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 38px;
+            height: 38px;
+            z-index: 4;
+        }
+        .weather-temp {
+            position: absolute;
+            top: 44%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6rem;
+            color: #fff;
+            font-weight: 600;
+            z-index: 3;
+            letter-spacing: -8px;
+        }
+        .weather-condition {
+            position: absolute;
+            left: 50%;
+            top: 70%;
+            transform: translateX(-50%);
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: 400;
+            z-index: 3;
+        }
+        .weather-bottom-info {
+            position: absolute;
+            bottom: 18px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            color: #000;
+            font-size: 1.1rem;
+            padding: 0 18px;
+            z-index: 3;
+        }
+        .weather-image {
+            width: 100%;
+            display: block;
+        }
+        .weather-image img {
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+        .weather-image img.day-image,
+        .weather-image img.night-image {
+            display: none;
+        }
     </style>
 </head>
+
 <body class="js">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>15- Wheater App</h1>
+            <p>Solve problems using conditional logic.</p>
         </header>
         <section>
+            <figure class="weather">
+                <input type="text" class="q" placeholder="Location" />
+                <button class="btn">Show</button>
+                <p class="show"></p>
+            </figure>
+            <div class="weather-info">
+                <div class="weather-image-container">
+                    <div class="weather-main-info">
+                        <div class="weather-country"></div>
+                        <div class="weather-city"></div>
+                        <div class="weather-date"></div>
+                    </div>
+                    <div class="weather-icon-corner">
+                        <img src="images/weather/sun.svg" alt="Sun icon" class="corner-icon day-corner" style="display:none;">
+                        <img src="images/weather/moon.svg" alt="Moon icon" class="corner-icon night-corner" style="display:none;">
+                    </div>
+                    <div class="weather-temp"></div>
+                    <div class="weather-condition"></div>
+                    <div class="weather-bottom-info">
+                        <div class="weather-humidity"></div>
+                        <div class="weather-cloud"></div>
+                    </div>
+                    <div class="weather-image">
+                        <img src="images/weather/day.svg" alt="Day weather" class="day-image">
+                        <img src="images/weather/night.svg" alt="Night weather" class="night-image">
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
+    <script>
+        // Elements
+        const q = document.querySelector(".q");
+        const btn = document.querySelector(".btn");
+        const show = document.querySelector(".show");
+
+        btn.addEventListener("click", (e) => {
+            showWeather(q.value);
+        });
+        // Function
+        const showWeather = async (q) => {
+            const url = `http://api.weatherapi.com/v1/current.json?key=9a61cceb9d46444fa9d11106251005&q=${q}`;
+
+            const response = await fetch(url);
+
+            const data = await response.json();
+
+            const info = {
+                country: data.location.country,
+                name: data.location.name,
+                time: data.location.localtime,
+                temp: data.current.temp_c,
+                isDay: data.current.is_day,
+                "condition-icon": data.current.condition.icon,
+                "condition-text": data.current.condition.text,
+                humidity: data.current.humidity,
+                cloud: data.current.cloud,
+            };
+
+            // Show/hide day/night images based on isDay
+            const dayImage = document.querySelector('.day-image');
+            const nightImage = document.querySelector('.night-image');
+            const dayCorner = document.querySelector('.day-corner');
+            const nightCorner = document.querySelector('.night-corner');
+            let isDayMode = info.isDay === 1;
+            
+            function updateDayNight(mode) {
+                if (mode) {
+                    dayImage.style.display = 'block';
+                    nightImage.style.display = 'none';
+                    dayCorner.style.display = 'none';
+                    nightCorner.style.display = 'block';
+                    // Cambiar color de texto a negro para día
+                    document.querySelector('.weather-image-container').style.color = '#000';
+                    document.querySelector('.weather-temp').style.color = '#000';
+                } else {
+                    dayImage.style.display = 'none';
+                    nightImage.style.display = 'block';
+                    dayCorner.style.display = 'block';
+                    nightCorner.style.display = 'none';
+                    // Cambiar color de texto a negro para noche
+                    document.querySelector('.weather-image-container').style.color = '#000';
+                    document.querySelector('.weather-temp').style.color = '#000';
+                }
+            }
+            updateDayNight(isDayMode);
+
+            // Mostrar información en los elementos correspondientes
+            document.querySelector('.weather-country').textContent = info.country;
+            document.querySelector('.weather-city').textContent = info.name;
+            document.querySelector('.weather-date').textContent = info.time;
+            document.querySelector('.weather-temp').textContent = Math.round(info.temp) + '°';
+            document.querySelector('.weather-condition').textContent = 'Condition: ' + info["condition-text"];
+            document.querySelector('.weather-humidity').textContent = 'Humidity: ' + info.humidity + '%';
+            document.querySelector('.weather-cloud').textContent = 'Cloud: ' + info.cloud + '%';
+
+            show.textContent = "";
+
+            // Mostrar el div de información del clima
+            document.querySelector('.weather-info').style.display = 'block';
+
+            // Cambiar manualmente entre día y noche al hacer click en los íconos
+            dayCorner.onclick = function() {
+                isDayMode = false;
+                updateDayNight(isDayMode);
+            };
+            nightCorner.onclick = function() {
+                isDayMode = true;
+                updateDayNight(isDayMode);
+            };
+        };
+    </script>
 </body>
-</html>            
+
+</html>
