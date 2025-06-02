@@ -1,27 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>17- Pokedex API</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        .hidden {
+            display: none !important;
+        }
+
+        .pokedex-index {
+            position: relative;
+        }
+
+        .pokedex-list {
+            position: relative;
+        }
+
+        .pokedex-list .generation {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 3px solid #FF1C1C;
+            border-radius: 10px;
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0.6rem 1.2rem;
+            font-size: 16px;
+            text-align: center;
+            font-weight: bold;
+            color: #000000;
+            z-index: 2;
+        }
+
+        .pokedex-list .generation option {
+            text-align: center;
+        }
+
+        .generation {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .btn-enter {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-enter:hover {
+            filter: brightness(0.8);
+        }
+
+        select.generation {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 3px solid #FF1C1C;
+            border-radius: 10px;
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0.6rem 1.2rem;
+            font-size: 16px;
+            text-align: center;
+            font-weight: bold;
+            color: #000000;
+            
+        }
+
+        select.generation option {
+            text-align: center;
+        }
+
+        select.generation-list {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            border: 3px solid #3463AE;
+            border-radius: 10px;
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0.6rem 1.2rem;
+            font-size: 16px;
+            text-align: center;
+            font-weight: bold;
+            color: #000000;
+            
+        }
+
+        select.generation option {
+            text-align: center;
+        }
+
+        ul.list {
+            position: absolute;
+            top: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+            list-style: none;
+            display: grid;
+            margin: 0 auto;
+            gap: 0.4rem;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 0;
+            z-index: 1;
+            width: 300px;
+            max-height: 550px;
+            overflow-y: auto;
+            justify-items: center;
+            padding: auto;
+
+            &.hidden {
+                display: none;
+            }
+
+            li {
+                background-color: #fff9;
+                border: 2px solid #0009;
+                border-radius: 0.4rem;
+                position: relative;
+                width: 100px;
+                transition: all 0.4s ease-in;
+
+                h3 {
+                    text-align: center;
+                }
+
+                h4 {
+                    margin: 0;
+                    font-size: 0.8rem;
+                    text-align: center;
+                }
+
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+        }
+
+        .select-label {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #FF1C1C;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .pokedex-loader {
+            position: relative;
+        }
+
+        .pokedex-loader .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
     </style>
 </head>
+
 <body class="js">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>17- Pokedex API</h1>
+            <p>Fetch data from an API and display it in the browser.</p>
         </header>
         <section>
+            <div class="pokedex-index">
+                <img src="images/pokedex/bg-index.png" alt="index">
+                <img src="images/pokedex/btn-enter.png" alt="btnEnter" class="btn-enter">
+            </div>
+            <div class="pokedex-select hidden">
+                <img src="images/pokedex/bg-select.png" alt="select">
+                <div class="select-label">Seleccione la generación</div>
+                <select class="generation hidden">
+                    <option value="">Select Generation</option>
+                    <option value="0">First Generation</option>
+                    <option value="1">Second Generation</option>
+                    <option value="2">Third Generation</option>
+                    <option value="3">Fourth Generation</option>
+                    <option value="4">Fifth Generation</option>
+                    <option value="5">Sixth Generation</option>
+                    <option value="6">Seventh Generation</option>
+                    <option value="7">Eighth Generation</option>
+                </select>
+            </div>
+            <div class="pokedex-list hidden">
+                <img src="images/pokedex/bg-list.png" alt="list">
+                <select class="generation-list hidden">
+                    <option value="">Select Generation</option>
+                    <option value="0">First Generation</option>
+                    <option value="1">Second Generation</option>
+                    <option value="2">Third Generation</option>
+                    <option value="3">Fourth Generation</option>
+                    <option value="4">Fifth Generation</option>
+                    <option value="5">Sixth Generation</option>
+                    <option value="6">Seventh Generation</option>
+                    <option value="7">Eighth Generation</option>
+                </select>
+                <ul class="list hidden"></ul>
+            </div>
+            <div class="pokedex-detail hidden">
+                <img src="images/pokedex/bg-details.png" alt="details">
+                <div class="pokemon-detail-content"></div>
+            </div>
+            <div class="pokedex-loader hidden">
+                <img src="images/pokedex/bg-loader.png" alt="loader-background">
+                <img class="loader hidden" src="images/pokedex/loader.gif" alt="loader">
+            </div> 
         </section>
     </main>
+    <script>
+        // Elements
+        const genertation = document.querySelector('.pokedex-select .generation')
+        const list = document.querySelector('.list')
+        const loader = document.querySelector('.loader')
+        const pokedexIndex = document.querySelector('.pokedex-index')
+        const pokedexLoader = document.querySelector('.pokedex-loader')
+        const pokedexList = document.querySelector('.pokedex-list')
+        const pokedexSelect = document.querySelector('.pokedex-select')
+        const btnEnter = document.querySelector('.btn-enter')
+        const generationList = document.querySelector('.generation-list')
+        const pokedexDetail = document.querySelector('.pokedex-detail')
+        const pokemonDetailContent = document.querySelector('.pokemon-detail-content')
+
+        // Objeto
+        const generations = {
+            generation: [
+                { start: 1, end: 151 },
+                { start: 152, end: 251 },
+                { start: 252, end: 386 },
+                { start: 387, end: 493 },
+                { start: 494, end: 649 },
+                { start: 650, end: 721 },
+                { start: 722, end: 809 },
+                { start: 810, end: 890 }
+            ]
+        }
+
+        //Events
+        btnEnter.addEventListener('click', () => {
+            pokedexIndex.classList.add('hidden')
+            pokedexSelect.classList.remove('hidden')
+            genertation.classList.remove('hidden')
+        })
+
+        genertation.addEventListener('change', function (event) {
+            const start = generations.generation[this.value].start
+            const end = generations.generation[this.value].end
+            pokedexSelect.classList.add('hidden')
+            pokedexLoader.classList.remove('hidden')
+            loadPokemons(start, end)
+        })
+
+        generationList.addEventListener('change', function(event) {
+            const start = generations.generation[this.value].start
+            const end = generations.generation[this.value].end
+            pokedexList.classList.add('hidden')
+            pokedexLoader.classList.remove('hidden')
+            loader.classList.remove('hidden')
+            list.classList.add('hidden')
+            
+            setTimeout(() => {
+                loader.classList.add('hidden')
+                list.classList.remove('hidden')
+                pokedexLoader.classList.add('hidden')
+                pokedexList.classList.remove('hidden')
+            }, 5000)
+
+            loadPokemons(start, end)
+        })
+
+        // Delegación de eventos para las imágenes de Pokémon
+        list.addEventListener('click', async function(e) {
+            if (e.target.classList.contains('pokemon-img')) {
+                const url = e.target.getAttribute('data-url');
+                // Oculta otras secciones y muestra el detalle
+                pokedexList.classList.add('hidden');
+                pokedexDetail.classList.remove('hidden');
+
+                // Muestra loader si quieres
+                pokemonDetailContent.innerHTML = '<p>Cargando...</p>';
+
+                // Obtén los datos del Pokémon
+                const response = await fetch(url);
+                const data = await response.json();
+
+                // Construye los tipos
+                const types = data.types.map(t => t.type.name).join(', ');
+
+                // Construye los stats
+                const stats = data.stats.map(s => `<li>${s.stat.name}: ${s.base_stat}</li>`).join('');
+
+                // Imagen
+                let imgPk;
+                if (data.id < 100)
+                    imgPk = (data.id < 10) ? '00' + data.id : '0' + data.id;
+                else
+                    imgPk = data.id;
+
+                // Muestra los detalles
+                pokemonDetailContent.innerHTML = `
+                    <h2>${data.name} (#${imgPk})</h2>
+                    <img src="https://www.serebii.net/swordshield/pokemon/${imgPk}.png" alt="${data.name}">
+                    <p><strong>Tipo:</strong> ${types}</p>
+                    <h3>Stats</h3>
+                    <ul>${stats}</ul>
+                    <button class="btn-back">Volver</button>
+                `;
+            }
+        });
+
+        // Delegación para el botón volver
+        pokedexDetail.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-back')) {
+                pokedexDetail.classList.add('hidden');
+                pokedexList.classList.remove('hidden');
+            }
+        });
+
+        // Functions
+        const loadPokemons = async (start, end) => {
+            list.innerHTML = ``
+            loader.classList.remove('hidden')
+            list.classList.add('hidden')
+            setTimeout(() => {
+                loader.classList.add('hidden')
+                list.classList.remove('hidden')
+                pokedexLoader.classList.add('hidden')
+                pokedexList.classList.remove('hidden')
+                generationList.classList.remove('hidden')
+            }, 5000)
+
+            for (let pk = start; pk <= end; pk++) {
+                const url = `https://pokeapi.co/api/v2/pokemon/${pk}`
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (pk < 100)
+                    imgPk = (pk < 10) ? '00' + data.id : '0' + data.id
+                else
+                    imgPk = data.id
+
+                list.innerHTML += `<li>
+                    <h3>${imgPk}</h3>
+                    <h4>${data.name}</h4>
+                    <img 
+                        src="https://www.serebii.net/swordshield/pokemon/${imgPk}.png" 
+                        class="pokemon-img"
+                        data-url="https://pokeapi.co/api/v2/pokemon/${pk}"
+                        style="cursor:pointer"
+                    >
+                </li>`
+            }
+        }
+    </script>
 </body>
-</html>            
+
+</html>
