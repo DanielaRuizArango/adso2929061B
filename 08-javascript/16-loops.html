@@ -1,27 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>16- Loops</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        section {
+            ul {
+                display: flex;
+                margin: 0;
+                padding: 0;
+                gap: 0.2rem;
+                justify-content: center;
+                align-items: center;
+
+                li {
+                    border-radius: 0.2rem;
+                    list-style: none;
+                    background-color: #FFD700;
+                    color: #000000;
+                    height: 50px;
+                    font-size: 0.8rem;
+                    display: flex;
+                    justify-content: center;
+                    padding-inline: 0.8rem;
+                    align-items: center;
+                }
+            }
+        }
     </style>
 </head>
+
 <body class="js">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
+                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>16- Loops</h1>
+            <p>
+                Repeat actions using loops like `for` and `while`.
+            </p>
         </header>
         <section>
+            <h3>loop (for)</h3>
+            <small>Print even numbers from 0 to 10</small>
+            <ul class="even-numbers"></ul>
+            <h3>loop (forin)</h3>
+            <small>Print objects propierties</small>
+            <ul class="props-object"></ul>
+            <h3>loop (while)</h3>
+            <small>Prin multiplies of 5 from 0 to 25</small>
+            <ul class="mult-five"></ul>
+            <h3>loop (do while)</h3>
+            <small>Print factorial (N!) of 5</small>
+            <ul class="fact-number"></ul>
+            <h3>(break)</h3>
+            <small>Print fibonacci (10=89!)</small>
+            <ul class="fibo-sec"></ul>
         </section>
     </main>
+    <script>
+        // Elements
+        const eventNumbers = document.querySelector('.even-numbers')
+        const propsObject = document.querySelector('.props-object')
+        const multFive = document.querySelector('.mult-five')
+        const factNumber = document.querySelector('.fact-number')
+        const fiboSec = document.querySelector('.fibo-sec')
+
+        // Object 
+        const games = {
+            name: 'GTA VI',
+            year: '2026',
+            dev: 'Rockstar'
+        }
+
+        //Loop (for)
+        for (let i = 0; i <= 10; i++) {
+            if (i % 2 == 0)
+                eventNumbers.innerHTML += `<li>${i}</li>`
+        }
+
+        // Loop (forin)
+
+        for (let game in games) {
+            propsObject.innerHTML += `<li>${game}: ${games[game]}</li>`
+        }
+
+        // Loop (while)
+        let i = 0
+        while (i <= 25) {
+            if (i % 5 == 0) {
+                multFive.innerHTML += `<li>${i}</li>`
+            }
+            i++
+        }
+
+        // Loop (do while)
+        let j = 1;
+        let n = 5;
+
+        do {
+            let i = 1;
+            let factorial = 1;
+            let steps = '';
+
+            do {
+                factorial *= i;
+                steps += (i === 1) ? '1' : 'x' + i;
+                i++;
+            } while (i <= j);
+
+            factNumber.innerHTML += `<li>${j}! = ${steps} = ${factorial}</li>`;
+            j++;
+        } while (j <= n);
+
+        // Fibonacci Sequence
+        let a = 0, b = 1;
+        let count = 0;
+        const limit = 10;
+
+        while (count < limit) {
+            fiboSec.innerHTML += `<li>${a}</li>`;
+            let temp = a + b;
+            a = b;
+            b = temp;
+            count++;
+        }
+
+    </script>
 </body>
-</html>            
+
+</html>

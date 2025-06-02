@@ -236,6 +236,7 @@
                 e.preventDefault();
                 if (q.value.trim()) {
                     showWeather(q.value);
+                    q.value = ''
                 }
             }
         });
@@ -243,6 +244,7 @@
         btn.addEventListener('click', () => {
             if (q.value.trim()) {
                 showWeather(q.value);
+                q.value = ''
             }
         });
 
