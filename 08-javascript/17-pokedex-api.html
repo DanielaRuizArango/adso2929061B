@@ -136,26 +136,52 @@
             }
 
             li {
-                background-color: #fff9;
-                border: 2px solid #0009;
-                border-radius: 0.4rem;
+                background: linear-gradient(135deg, #e0f7fa 60%, #b2ebf2 100%);
+                border: 2px solid #4dd0e1;
+                border-radius: 1rem;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+                width: 130px;
+                margin: 10px 0;
+                padding: 1rem 0.5rem 0.5rem 0.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: transform 0.2s, box-shadow 0.2s;
                 position: relative;
-                width: 100px;
-                transition: all 0.4s ease-in;
 
                 h3 {
-                    text-align: center;
+                    font-size: 1.2rem;
+                    color: #111;
+                    margin: 0.2rem 0 0.1rem 0;
+                    font-weight: bold;
                 }
 
                 h4 {
-                    margin: 0;
-                    font-size: 0.8rem;
-                    text-align: center;
+                    font-size: 1rem;
+                    color: #222;
+                    margin: 0 0 0.5rem 0;
+                    text-transform: capitalize;
                 }
 
                 &:hover {
-                    transform: scale(1.05);
+                    transform: scale(1.08) translateY(-4px);
+                    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+                    background: linear-gradient(135deg, #b2ebf2 60%, #4dd0e1 100%);
                 }
+            }
+
+            li img.pokemon-img {
+                width: 80px;
+                height: 80px;
+                object-fit: contain;
+                border-radius: 0;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                margin-bottom: 0.5rem;
+                transition: box-shadow 0.2s;
+            }
+
+            li img.pokemon-img:hover {
+                box-shadow: 0 4px 16px #4dd0e1;
             }
         }
 
@@ -386,28 +412,37 @@
         .pokemon-detail-content .stat-bar-fill {
             height: 100%;
             border-radius: 10px;
-            background: linear-gradient(90deg, #FF4D4D 0%, #FFB800 100%);
             transition: width 1s ease;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: flex-end;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            padding-right: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
             position: relative;
         }
 
-        .pokemon-detail-content .stat-bar-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                rgba(255,255,255,0.15) 0%,
-                rgba(255,255,255,0.15) 50%,
-                rgba(255,255,255,0) 100%
-            );
-        }
+        /* Pokemon Stat Bar Colors */
+        .normal .stat-bar-fill { background: linear-gradient(90deg, #A8A878 0%, #C6C6A7 100%); }
+        .fire .stat-bar-fill { background: linear-gradient(90deg, #F08030 0%, #FFA04B 100%); }
+        .water .stat-bar-fill { background: linear-gradient(90deg, #6890F0 0%, #9DB7F5 100%); }
+        .grass .stat-bar-fill { background: linear-gradient(90deg, #78C850 0%, #A7DB8D 100%); }
+        .electric .stat-bar-fill { background: linear-gradient(90deg, #F8D030 0%, #FAE078 100%); }
+        .ice .stat-bar-fill { background: linear-gradient(90deg, #98D8D8 0%, #BCE6E6 100%); }
+        .fighting .stat-bar-fill { background: linear-gradient(90deg, #C03028 0%, #D67873 100%); }
+        .poison .stat-bar-fill { background: linear-gradient(90deg, #A040A0 0%, #C183C1 100%); }
+        .ground .stat-bar-fill { background: linear-gradient(90deg, #E0C068 0%, #EBD69D 100%); }
+        .flying .stat-bar-fill { background: linear-gradient(90deg, #A890F0 0%, #C6B7F5 100%); }
+        .psychic .stat-bar-fill { background: linear-gradient(90deg, #F85888 0%, #FA92B2 100%); }
+        .bug .stat-bar-fill { background: linear-gradient(90deg, #A8B820 0%, #C6D16E 100%); }
+        .rock .stat-bar-fill { background: linear-gradient(90deg, #B8A038 0%, #D1C17D 100%); }
+        .ghost .stat-bar-fill { background: linear-gradient(90deg, #705898 0%, #A292BC 100%); }
+        .dragon .stat-bar-fill { background: linear-gradient(90deg, #7038F8 0%, #A27DFA 100%); }
+        .dark .stat-bar-fill { background: linear-gradient(90deg, #705848 0%, #A29288 100%); }
+        .steel .stat-bar-fill { background: linear-gradient(90deg, #B8B8D0 0%, #D1D1E0 100%); }
+        .fairy .stat-bar-fill { background: linear-gradient(90deg, #EE99AC 0%, #F4BDC9 100%); }
 
         .pokemon-info {
             display: flex;
@@ -469,23 +504,6 @@
             box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
         }
 
-        .pokemon-detail-content .stat-bar-fill {
-            height: 100%;
-            border-radius: 10px;
-            background: linear-gradient(45deg, #FF1C1C 0%, #FFCC01 100%);
-            transition: width 1s ease;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            color: #fff;
-            font-weight: bold;
-            font-size: 1rem;
-            padding-right: 10px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            box-shadow: 0 0 10px rgba(255,28,28,0.3);
-            position: relative;
-        }
-
         .pokemon-detail-content .stat-bar-fill::after {
             content: '';
             position: absolute;
@@ -525,6 +543,42 @@
         .pokedex-detail.dark { background: #705848; }
         .pokedex-detail.steel { background: #B8B8D0; }
         .pokedex-detail.fairy { background: #EE99AC; }
+
+        ul.list li {
+            /* ...otros estilos... */
+            /* Elimina el background y border actuales si quieres que solo el color de tipo se vea */
+        }
+
+        ul.list li.normal { background: #A8A878; border-color: #A8A878; }
+        ul.list li.fire { background: #F08030; border-color: #F08030; }
+        ul.list li.water { background: #6890F0; border-color: #6890F0; }
+        ul.list li.grass { background: #78C850; border-color: #78C850; }
+        ul.list li.electric { background: #F8D030; border-color: #F8D030; }
+        ul.list li.ice { background: #98D8D8; border-color: #98D8D8; }
+        ul.list li.fighting { background: #C03028; border-color: #C03028; }
+        ul.list li.poison { background: #A040A0; border-color: #A040A0; }
+        ul.list li.ground { background: #E0C068; border-color: #E0C068; }
+        ul.list li.flying { background: #A890F0; border-color: #A890F0; }
+        ul.list li.psychic { background: #F85888; border-color: #F85888; }
+        ul.list li.bug { background: #A8B820; border-color: #A8B820; }
+        ul.list li.rock { background: #B8A038; border-color: #B8A038; }
+        ul.list li.ghost { background: #705898; border-color: #705898; }
+        ul.list li.dragon { background: #7038F8; border-color: #7038F8; }
+        ul.list li.dark { background: #705848; border-color: #705848; }
+        ul.list li.steel { background: #B8B8D0; border-color: #B8B8D0; }
+        ul.list li.fairy { background: #EE99AC; border-color: #EE99AC; }
+
+        ul.list li img.pokemon-img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            border-radius: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 0.5rem;
+            transition: box-shadow 0.2s;
+            background: none;
+            border: none;
+        }
     </style>
 </head>
 
@@ -736,7 +790,7 @@
 
         // Delegación para el botón volver
         pokedexDetail.addEventListener('click', function(e) {
-            if (e.target.classList.contains('btn-back')) {
+            if (e.target.classList.contains('btn-back') || e.target.closest('.btn-back')) {
                 pokedexDetail.classList.add('hidden');
                 pokedexList.classList.remove('hidden');
             }
@@ -765,7 +819,8 @@
                 else
                     imgPk = data.id
 
-                list.innerHTML += `<li>
+                const primaryType = data.types[0].type.name;
+                list.innerHTML += `<li class="${primaryType}">
                     <h3>${imgPk}</h3>
                     <h4>${data.name}</h4>
                     <img 
