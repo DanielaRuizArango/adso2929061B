@@ -1,27 +1,765 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <title>Lotería Zodiacal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f0f0;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiNlZWUiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPgo8L3N2Zz4=');
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid #d4af37;
+            position: relative;
+            background-image: linear-gradient(45deg, #fff 25%, #f8f8f8 25%, #f8f8f8 50%, #fff 50%, #fff 75%, #f8f8f8 75%, #f8f8f8 100%);
+            background-size: 20px 20px;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px dashed #d4af37;
+            pointer-events: none;
+        }
+        
+        h1 {
+            color: #d4af37;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::before, h1::after {
+            content: '★';
+            color: #d4af37;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.5em;
+        }
+        
+        h1::before {
+            left: -30px;
+        }
+        
+        h1::after {
+            right: -30px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            font-style: italic;
+        }
+        
+        .numeros-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            border: 2px solid #d4af37;
+            position: relative;
+        }
+        
+        .numeros-container::before {
+            content: 'NÚMEROS DE LA SUERTE';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            padding: 0 10px;
+            color: #d4af37;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .numero {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        .numero:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .numero.cargando {
+            background: #f0f0f0;
+            border-color: #ccc;
+            animation: loadingPulse 1s ease-in-out infinite;
+        }
+        
+        .numero.cargando::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #999;
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 1s linear infinite;
+        }
+        
+        .numero.cargando::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.3), transparent);
+            border-radius: 50%;
+            animation: rotateFill 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        @keyframes rotateFill {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .numero.aparece {
+            animation: numeroAparece 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        
+        .numero.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        @keyframes numeroAparece {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2) rotate(20deg);
+                opacity: 1;
+            }
+            80% {
+                transform: scale(0.9) rotate(-10deg);
+            }
+            100% {
+                transform: scale(1) rotate(0);
+                opacity: 1;
+            }
+        }
+        
+        .numero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .signo-container {
+            margin: 40px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            border: 2px solid #d4af37;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.8);
+            overflow: hidden;
+            height: 120px; /* Altura fija para la animación */
+        }
+        
+        .signo-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .signo-container.aparece {
+            animation: signoAparece 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        
+        .signo-container.aparece::before {
+            opacity: 1;
+            animation: brilloCosmico 2s infinite;
+        }
+        
+        @keyframes signoAparece {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotate(-10deg);
+                filter: blur(10px);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.1) rotate(5deg);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0);
+                filter: blur(0);
+            }
+        }
+        
+        @keyframes brilloCosmico {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+        }
+        
+        .signo {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #d4af37;
+            opacity: 0;
+            transform: scale(0);
+            position: relative;
+            transition: transform 0.1s linear;
+        }
+        
+        .signo::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #d4af37 0%, transparent 70%);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            z-index: -1;
+        }
+        
+        .signo.aparece {
+            animation: signoEmojiAparece 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        
+        .signo.aparece::before {
+            animation: brilloSigno 2s infinite;
+        }
+        
+        @keyframes signoEmojiAparece {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+                filter: brightness(0);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2) rotate(90deg);
+                filter: brightness(1.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(360deg);
+                filter: brightness(1);
+            }
+        }
+        
+        @keyframes brilloSigno {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.6;
+            }
+        }
+        
+        .signo-nombre {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+        }
+        
+        .signo-nombre::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: width 0.5s;
+        }
+        
+        .signo-nombre.aparece {
+            animation: nombreAparece 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+        }
+        
+        .signo-nombre.aparece::after {
+            width: 100%;
+            animation: lineaBrillante 2s infinite;
+        }
+        
+        @keyframes nombreAparece {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        
+        @keyframes lineaBrillante {
+            0%, 100% {
+                opacity: 0.5;
+                box-shadow: 0 0 5px #d4af37;
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 15px #d4af37;
+            }
+        }
+        
+        button {
+            background: #d4af37;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid #b38f2a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        button:hover::before {
+            left: 100%;
+        }
+        
+        button:hover {
+            background: #b38f2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            border-color: #999;
+            cursor: not-allowed;
+        }
+        
+        .reglas {
+            text-align: left;
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 5px solid #4ecdc4;
+        }
+        
+        .reglas h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .reglas ul {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 60%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            40% {
+                transform: translateY(-15px) scale(1.1);
+            }
+            80% {
+                transform: translateY(-8px) scale(1.05);
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .resultado {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .resultado.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Efectos de partículas */
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 3s linear infinite;
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0px) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+        
+        .signo.slot-machine {
+            animation: slotMachine 2s cubic-bezier(0.1, 0.7, 0.1, 1) forwards;
+        }
+        
+        @keyframes slotMachine {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            20% {
+                transform: translateY(-100%);
+                opacity: 0.5;
+            }
+            40% {
+                transform: translateY(100%);
+                opacity: 0.5;
+            }
+            60% {
+                transform: translateY(-50%);
+                opacity: 0.7;
+            }
+            80% {
+                transform: translateY(25%);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
-<body class="js">
-    <nav>
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        </a>
-    </nav>
-    <main>
-        <header>
-            <h1>00 -Template </h1>
-            <p></p>
-        </header>
-        <section>
-        </section>
-    </main>
+<body>
+    <div class="container">
+        <h1>🎰 Lotería Zodiacal</h1>
+        <p class="subtitle">¡Genera tu combinación de suerte!</p>
+        
+        <button onclick="generarNumeros()" id="btnGenerar">🌟 GENERAR NÚMEROS</button>
+        
+        <div id="resultado" class="resultado hidden">
+            <div class="numeros-container" id="numerosContainer">
+                <!-- Los números se generan aquí -->
+            </div>
+            
+            <div class="signo-container">
+                <div class="signo" id="signoEmoji">♈</div>
+                <div class="signo-nombre" id="signoNombre">Aries</div>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <script>
+        // Array con los signos del zodiaco
+        var signosZodiaco = [
+            {nombre: "Aries", emoji: "♈"},
+            {nombre: "Tauro", emoji: "♉"},
+            {nombre: "Géminis", emoji: "♊"},
+            {nombre: "Cáncer", emoji: "♋"},
+            {nombre: "Leo", emoji: "♌"},
+            {nombre: "Virgo", emoji: "♍"},
+            {nombre: "Libra", emoji: "♎"},
+            {nombre: "Escorpio", emoji: "♏"},
+            {nombre: "Sagitario", emoji: "♐"},
+            {nombre: "Capricornio", emoji: "♑"},
+            {nombre: "Acuario", emoji: "♒"},
+            {nombre: "Piscis", emoji: "♓"}
+        ];
+        
+        // Función para generar un número aleatorio
+        function numeroAleatorio(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        // Función para generar 4 números
+        function generar4Numeros() {
+            var numeros = [];
+            for(var i = 0; i < 4; i++) {
+                var numero = numeroAleatorio(0, 9);
+                numeros.push(numero);
+            }
+            return numeros;
+        }
+        
+        // Función para seleccionar un signo aleatorio
+        function seleccionarSignoAleatorio() {
+            var indiceAleatorio = numeroAleatorio(0, signosZodiaco.length - 1);
+            return signosZodiaco[indiceAleatorio];
+        }
+        
+        // Función para crear círculos de carga
+        function crearCirculosCarga() {
+            var numerosContainer = document.getElementById("numerosContainer");
+            numerosContainer.innerHTML = "";
+            
+            // Crear 4 círculos de carga
+            for(var i = 0; i < 4; i++) {
+                var circuloCarga = document.createElement("div");
+                circuloCarga.className = "numero cargando";
+                circuloCarga.textContent = "";
+                numerosContainer.appendChild(circuloCarga);
+            }
+        }
+        
+        // Función para mostrar un número con animación
+        function mostrarNumero(indice, numero, delay) {
+            setTimeout(function() {
+                var circulos = document.querySelectorAll('.numero');
+                var circulo = circulos[indice];
+                
+                // Quitar clase de carga
+                circulo.classList.remove('cargando');
+                
+                // Agregar el número y la animación de aparición
+                circulo.textContent = numero;
+                circulo.classList.add('aparece');
+                
+                // Restaurar el fondo con gradiente
+                circulo.style.background = "#fff";
+                
+                // Después de la animación, mantener el número visible
+                setTimeout(function() {
+                    circulo.classList.remove('aparece');
+                    circulo.classList.add('visible');
+                }, 1000);
+                
+            }, delay);
+        }
+        
+        // Función para crear efectos de partículas
+        function crearParticulas() {
+            var container = document.querySelector('.container');
+            for(var i = 0; i < 15; i++) {
+                setTimeout(function() {
+                    var particula = document.createElement('div');
+                    particula.className = 'particle';
+                    particula.style.left = Math.random() * 100 + '%';
+                    particula.style.top = '100%';
+                    particula.style.animationDelay = Math.random() * 2 + 's';
+                    container.appendChild(particula);
+                    
+                    // Remover partícula después de la animación
+                    setTimeout(function() {
+                        if(particula.parentNode) {
+                            particula.parentNode.removeChild(particula);
+                        }
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+        
+        // Función para mostrar un signo con animación de máquina de casino
+        function mostrarSignoConAnimacion(signoSeleccionado) {
+            var signoEmoji = document.getElementById("signoEmoji");
+            var signoNombre = document.getElementById("signoNombre");
+            var signoContainer = document.querySelector('.signo-container');
+            
+            // Animar el contenedor del signo
+            signoContainer.classList.add('aparece');
+            
+            // Crear efecto de máquina de casino
+            var signos = signosZodiaco;
+            var currentIndex = 0;
+            var spinDuration = 2000; // 2 segundos de giro
+            var interval = 50; // Cambio cada 50ms
+            var iterations = spinDuration / interval;
+            var currentIteration = 0;
+            
+            // Función para actualizar el signo durante la animación
+            function updateSign() {
+                if (currentIteration < iterations) {
+                    currentIndex = (currentIndex + 1) % signos.length;
+                    signoEmoji.textContent = signos[currentIndex].emoji;
+                    signoNombre.textContent = signos[currentIndex].nombre;
+                    currentIteration++;
+                    
+                    // Aplicar la animación de slot machine
+                    signoEmoji.classList.add('slot-machine');
+                    signoNombre.classList.add('slot-machine');
+                    
+                    // Remover la clase después de la animación
+                    setTimeout(() => {
+                        signoEmoji.classList.remove('slot-machine');
+                        signoNombre.classList.remove('slot-machine');
+                    }, 100);
+                    
+                    setTimeout(updateSign, interval);
+                } else {
+                    // Mostrar el signo final
+                    signoEmoji.textContent = signoSeleccionado.emoji;
+                    signoNombre.textContent = signoSeleccionado.nombre;
+                    signoEmoji.classList.add('aparece');
+                    signoNombre.classList.add('aparece');
+                }
+            }
+            
+            // Iniciar la animación
+            updateSign();
+        }
+        
+        // Función principal para generar los números
+        function generarNumeros() {
+            var boton = document.getElementById("btnGenerar");
+            var resultado = document.getElementById("resultado");
+            
+            // Crear efectos de partículas
+            crearParticulas();
+            
+            // Cambiar texto del botón con animación
+            boton.innerHTML = "🎲 Generando...";
+            boton.disabled = true;
+            boton.style.transform = "scale(0.95)";
+            
+            // Mostrar resultado inmediatamente con círculos de carga
+            resultado.classList.remove("hidden");
+            resultado.classList.add("show");
+            
+            // Crear círculos de carga
+            crearCirculosCarga();
+            
+            // Generar 4 números
+            var numerosGenerados = generar4Numeros();
+            
+            // Mostrar cada número con delay progresivo
+            for(var i = 0; i < numerosGenerados.length; i++) {
+                mostrarNumero(i, numerosGenerados[i], (i + 1) * 1000);
+            }
+            
+            // Seleccionar y mostrar signo después de que aparezcan todos los números
+            setTimeout(function() {
+                var signoSeleccionado = seleccionarSignoAleatorio();
+                mostrarSignoConAnimacion(signoSeleccionado);
+                
+                // Restaurar botón
+                boton.innerHTML = "🌟 GENERAR OTROS NÚMEROS";
+                boton.disabled = false;
+                boton.style.transform = "scale(1)";
+                
+            }, 5000);
+        }
+        
+        // Función adicional para validar que los números están en rango correcto
+        function validarNumeros(numeros) {
+            for(var i = 0; i < numeros.length; i++) {
+                if(numeros[i] < 0 || numeros[i] > 9) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        // Función para mostrar mensaje de bienvenida al cargar la página
+        window.onload = function() {
+            console.log("App de Lotería Zodiacal cargada correctamente");
+        };
+    </script>
 </body>
-</html>            
+</html>

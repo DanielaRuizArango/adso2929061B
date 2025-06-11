@@ -5,7 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>00 -Template</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        section {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        button {
+            background-color: #b7a63c;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 0.6rem;
+            width: 160px;
+        }
+        input {
+            border: 2px solid #b7a63c;
+            border-radius: 5px;
+            padding: 0.5rem;
+            margin-top: 1rem;
+            width: 140px;
+        }
     </style>
 </head>
 <body class="js">
@@ -21,6 +44,10 @@
             <p></p>
         </header>
         <section>
+            <input type="number" class="num-float" placeholder="Enter a float number">
+            <button class="btn-calc">Calculate</button>
+            <ul class="output">
+            </ul>
         </section>
     </main>
 </body>

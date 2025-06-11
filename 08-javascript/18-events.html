@@ -1,27 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>18- Events</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        .section-dbl {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.6rem;
+
+            button {
+                background-color: #b7a63c;
+                border-radius: 5px;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+                padding: 0.6rem;
+                width: 160px;
+            }
+        }
+
+        .section-keyup {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.6rem;
+
+            input {
+                border: 2px solid #b7a63c;
+                border-radius: 5px;
+                padding: 0.5rem;
+                width: 140px;
+            }
+        }
+
+        .section-change {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.6rem;
+
+            select {
+                border: 2px solid #b7a63c;
+                border-radius: 5px;
+                padding: 0.5rem;
+                width: 160px;
+            }
+
+            p {
+                zoom: 3;
+                margin: 0;
+            }
+        }
+
+        .event-mouse {
+            background-color: #fff;
+            border-radius: 50%;
+            border: 4px solid #b7a63c;
+            margin: 0.6rem auto;
+            display: flex;
+            object-fit: cover;
+            height: 200px;
+            width: 200px;
+        }
     </style>
 </head>
+
 <body class="js">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
+                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>18- Events </h1>
+            <p>Handle user interactions with event listeners.</p>
         </header>
         <section>
+            <h3>Event: onload</h3>
+            <h4 class="event-load"></h4>
+            <h3>Event: dblclick</h3>
+            <div class="section-dbl">
+                <button>Button</button>
+                <h4 class="event-dbl">0 Double clicks</h4>
+            </div>
+            <h3>Event: onkeyup</h3>
+            <div class="section-keyup">
+                <input type="text" placeholder="Enter text...">
+                <h4 class="event-keyup">null</h4>
+            </div>
+            <h3>Event: onresize</h3>
+            <h4 class="event-resize">No resize</h4>
+            <h3>Event: onchange</h3>
+            <div class="section-change">
+                <select>
+                    <option value="🙂" selected>Select an animal...</option>
+                    <option value="🐮">🐮 Cow</option>
+                    <option value="🐷">🐷 Pig</option>
+                    <option value="🐶">🐶 Dog</option>
+                    <option value="🦊">🦊 Fox</option>
+                    <option value="🐻">🐻 Bear</option>
+                </select>
+                <p class="event-change">🙂</p>
+            </div>
+            <h3>Event: onmouseover</h3>
+            <img src="images/jiji1.webp" class="event-mouse" alt="Jiji">
         </section>
     </main>
+    <script>
+        //  Elements
+        const eventLoad = document.querySelector('.event-load');
+        const eventDbl = document.querySelector('.event-dbl');
+        const eventKeyup = document.querySelector('.event-keyup');
+        const eventResize = document.querySelector('.event-resize');
+        const eventChange = document.querySelector('.event-change');
+        const eventMouse = document.querySelector('.event-mouse');
+
+        // Event: onload
+        window.onload = () => {
+            eventLoad.textContent = 'The Page was loaded!';
+        }
+
+        // Event: dblclick
+        const btn = document.querySelector('.section-dbl button');
+        let count = 0;
+        btn.addEventListener('dblclick', () => {
+            eventDbl.textContent = `${++count} Double click`;
+        })
+
+        // Event: onkeyup
+        const input = document.querySelector('.section-keyup input');
+        input.onkeyup = function(event){
+            eventKeyup.textContent = `${this.value}`
+        }
+
+        // Event: onresize
+        window.onresize = function(){
+            eventResize.textContent = `Window resized to ${this.outerWidth}px`;
+        }
+
+        // Event: onchange
+        const select = document.querySelector('.section-change select')
+        select.addEventListener(`change`, function(){
+            eventChange.textContent = `${this.value}`
+        })
+
+        // Event: onmouseover
+        const img = document.querySelector('.event-mouse');
+        img.onmouseover = function(){}
+    </script>
 </body>
-</html>            
+
+</html>

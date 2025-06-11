@@ -1,18 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>00 -Template</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        textarea {
+            height: 80px;
+            border: 2px solid #b7a63c;
+            border-radius: 5px;
+            padding: 0.5rem;
+            width: 380px;
+        }
+
+        div.row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+
+            input[type=text] {
+                border: 2px solid #b7a63c;
+                border-radius: 5px;
+                padding: 0.5rem;
+                width: 120px;
+            }
+
+            input[type=radio] {
+                accent-color: #b7a63c;
+            }
+        }
+
+        button.btn-generate {
+            background-color: #b7a63c;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 0.6rem;
+            display: block;
+            margin: 0 auto;
+            width: 160px;
+        }
+
+        ul.output {
+            padding-left: 1rem;
+        }
     </style>
 </head>
+
 <body class="js">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
+                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
@@ -21,7 +68,82 @@
             <p></p>
         </header>
         <section>
+            <textarea placeholder="Enter a paragraph"></textarea>
+            <div class="row">
+                <label>
+                    <input type="radio" class="upper" name="transf">
+                    UPPERCASE
+                </label>
+                OR
+                <label>
+                    <input type="radio" class="lower" name="transf">
+                    lowercase
+                </label>
+            </div>
+            <!--  -->
+            <div class="row">
+                <input type="text" class="word-ori" placeholder="Word Origin">
+                For
+                <input type="text" class="word-rep" placeholder="Word Replace">
+            </div>
+            <!--  -->
+            <div class="row">
+                <input type="text" class="pos-s" placeholder="Start Pos">
+                To
+                <input type="text" class="pos-f" placeholder="Final Pos">
+            </div>
+            <button class="btn-generate">Generate</button>
+            <ul class="output"></ul>
         </section>
     </main>
+    <script>
+        // Elements
+        const string = document.querySelector('textarea')
+        const upper = document.querySelector('.upper')
+        const lower = document.querySelector('.lower')
+        const wordOri = document.querySelector('.word-ori')
+        const wordRep = document.querySelector('.word-rep')
+        const posStart = document.querySelector('.pos-s')
+        const posEnd = document.querySelector('.pos-e')
+
+        const btnGenerate = document.querySelector('.btn-generate')
+        const outPut = document.querySelector('.output')
+
+        // Variable
+        let isUpper = false
+
+        // Events
+        upper.addEventListener('click', () => {
+            isUpper = true
+        })
+        lower.addEventListener('click', () => {
+            isUpper = false
+        })
+
+        btnGenerate.addEventListener('click', () => {
+            if (string.value.length > 0) {
+                outPut.innerHTML = `<li><strong>Original String:</strong> ${string.value} </li>
+                                    <li><strong>Length String:</strong> ${string.value.length} </li>`
+                if (isUpper) {
+                    outPut.innerHTML += `<li><strong>UpperCase String:</strong> ${string.value.toUpperCase()} </li>`
+                } else {
+                    outPut.innerHTML += `<li><strong>LowerCase String:</strong> ${string.value.toLowerCase()} </li>`
+                }
+
+                outPut.innerHTML += `<li><strong>Replacement String:</strong> 
+                                        ${string.value.replace(wordOri.value, wordRep.value)} 
+                                     </li>`
+
+                outPut.innerHTML += `<li><strong>Sub(Cut) String:</strong> 
+                                        ${string.value.substring(parseInt(posStart.value), parseInt(posEnd.value))} 
+                                     </li>`
+
+
+            } else {
+                alert('Please: Enter a paragraph')
+            }
+        })
+    </script>
 </body>
-</html>            
+
+</html>

@@ -190,12 +190,19 @@ body {
         }
 
         section {
-            padding: 1rem;
+            padding: 1rem; 
             background-color: var(--color-1);
             border-radius: 4px;
             margin-block: 1rem;
             margin-inline: auto;
             width: 400px;
+            /* background-color: var(--color-1);
+            border-radius: 4px;
+            margin-block: 1rem;
+            min-height: 25vh;
+            min-width: 400px;
+            width: 400px; */
+        }
             h3 {
                 border-bottom: 2px dotted var(--color-2);
                 margin-block: 0.6rem;

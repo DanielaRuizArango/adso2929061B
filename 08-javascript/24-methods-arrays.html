@@ -1,27 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <title>Lotería Zodiacal</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0b1b30 url('https://www.transparenttextures.com/patterns/stardust.png');
+            /* fondo estrellado */
+            color: #f4e3b2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: rgba(11, 27, 48, 0.9);
+            border: 2px solid #2d9df1;
+            border-radius: 20px;
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .header .icon {
+            font-size: 2rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+            color: #f4e3b2;
+        }
+
+        .header p {
+            margin-top: 5px;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        .generate-button {
+            background-color: #1a4d6d;
+            color: #f4e3b2;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            margin: 20px 0;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .generate-button:hover {
+            background-color: #256b91;
+        }
+
+        .numbers-section h2 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #f4e3b2;
+        }
+
+        .numbers {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            margin-top: 10px;
+        }
+
+        .circle {
+            background-color: transparent;
+            border: 2px solid #2d9df1;
+            color: #f4e3b2;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .sign-section {
+            margin-top: 20px;
+        }
+
+        .sign-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .sign-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #f4e3b2;
+        }
     </style>
 </head>
-<body class="js">
-    <nav>
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        </a>
-    </nav>
-    <main>
-        <header>
-            <h1>00 -Template </h1>
-            <p></p>
-        </header>
-        <section>
-        </section>
-    </main>
+
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="icon">🎰</div>
+            <h1>LOTERÍA ZODIACAL</h1>
+            <p>¡Genera tu combinación de suerte!</p>
+        </div>
+
+        <button class="generate-button">GENERAR OTROS NÚMEROS</button>
+
+        <div class="numbers-section">
+            <h2>NÚMEROS DE LA SUERTE</h2>
+            <div class="numbers">
+                <div class="circle">9</div>
+                <div class="circle">7</div>
+                <div class="circle">4</div>
+                <div class="circle">6</div>
+            </div>
+        </div>
+
+        <div class="sign-section">
+            <div class="sign-icon">♎️</div>
+            <div class="sign-name">LIBRA</div>
+        </div>
+    </div>
 </body>
-</html>            
+
+</html>
