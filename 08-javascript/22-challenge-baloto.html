@@ -465,23 +465,16 @@
         
         // Función para generar un número aleatorio entre 1 y 24
         function numeroAleatorio() {
-            // Math.random() genera un número entre 0 y 1
-            // Lo multiplicamos por 24 para obtener un número entre 0 y 24
-            // Math.floor() redondea hacia abajo para obtener un número entero
             return Math.floor(Math.random() * 24) + 1;
         }
         
         // Función para generar 4 números sin repetición
         function generar4Numeros() {
-            // Creamos un array vacío para guardar nuestros números
             var numeros = [];
             
-            // Generamos números hasta tener 4 diferentes
             while (numeros.length < 4) {
-                // Generamos un nuevo número aleatorio
                 var nuevoNumero = numeroAleatorio();
                 
-                // Verificamos si el número ya existe en nuestro array
                 var numeroExiste = false;
                 for (var i = 0; i < numeros.length; i++) {
                     if (numeros[i] === nuevoNumero) {
@@ -490,7 +483,6 @@
                     }
                 }
                 
-                // Si el número no existe, lo agregamos al array
                 if (!numeroExiste) {
                     numeros.push(nuevoNumero);
                 }
@@ -501,17 +493,15 @@
         
         // Función para seleccionar un signo aleatorio
         function seleccionarSignoAleatorio() {
-            // Generamos un número aleatorio entre 0 y 11 (12 signos del zodíaco)
             var indiceAleatorio = Math.floor(Math.random() * 12);
             return signosZodiaco[indiceAleatorio];
-        }
+        }   
         
         // Función para crear círculos de carga
         function crearCirculosCarga() {
             var numerosContainer = document.getElementById("numerosContainer");
             numerosContainer.innerHTML = "";
             
-            // Crear 4 círculos de carga
             for(var i = 0; i < 4; i++) {
                 var circuloCarga = document.createElement("div");
                 circuloCarga.className = "numero cargando";
@@ -526,17 +516,13 @@
                 var circulos = document.querySelectorAll('.numero');
                 var circulo = circulos[indice];
                 
-                // Quitar clase de carga
                 circulo.classList.remove('cargando');
                 
-                // Agregar el número y la animación de aparición
                 circulo.textContent = numero;
                 circulo.classList.add('aparece');
                 
-                // Restaurar el fondo con gradiente
                 circulo.style.background = "#fff";
                 
-                // Después de la animación, mantener el número visible
                 setTimeout(function() {
                     circulo.classList.remove('aparece');
                     circulo.classList.add('visible');
@@ -573,18 +559,15 @@
             var signoNombre = document.getElementById("signoNombre");
             var signoContainer = document.querySelector('.signo-container');
             
-            // Animar el contenedor del signo
             signoContainer.classList.add('aparece');
             
-            // Crear efecto de máquina de casino
             var signos = signosZodiaco;
             var currentIndex = 0;
-            var spinDuration = 2000; // 2 segundos de giro
-            var interval = 50; // Cambio cada 50ms
+            var spinDuration = 2000;
+            var interval = 50;
             var iterations = spinDuration / interval;
             var currentIteration = 0;
             
-            // Función para actualizar el signo durante la animación
             function updateSign() {
                 if (currentIteration < iterations) {
                     currentIndex = (currentIndex + 1) % signos.length;
@@ -592,11 +575,9 @@
                     signoNombre.textContent = signos[currentIndex].nombre;
                     currentIteration++;
                     
-                    // Aplicar la animación de slot machine
                     signoEmoji.classList.add('slot-machine');
                     signoNombre.classList.add('slot-machine');
                     
-                    // Remover la clase después de la animación
                     setTimeout(() => {
                         signoEmoji.classList.remove('slot-machine');
                         signoNombre.classList.remove('slot-machine');
@@ -604,7 +585,6 @@
                     
                     setTimeout(updateSign, interval);
                 } else {
-                    // Mostrar el signo final
                     signoEmoji.innerHTML = `<img src="${signoSeleccionado.imagen}" alt="${signoSeleccionado.nombre}" style="width: 64px; height: 64px;">`;
                     signoNombre.textContent = signoSeleccionado.nombre;
                     signoEmoji.classList.add('aparece');
@@ -612,7 +592,6 @@
                 }
             }
             
-            // Iniciar la animación
             updateSign();
         }
         
@@ -621,35 +600,27 @@
             var boton = document.getElementById("btnGenerar");
             var resultado = document.getElementById("resultado");
             
-            // Crear efectos de partículas
             crearParticulas();
             
-            // Cambiar texto del botón con animación
             boton.innerHTML = "🔮 Consultando...";
             boton.disabled = true;
             boton.classList.add('generando');
             
-            // Mostrar resultado inmediatamente con círculos de carga
             resultado.classList.remove("hidden");
             resultado.classList.add("show");
             
-            // Crear círculos de carga
             crearCirculosCarga();
             
-            // Generar 4 números
             var numerosGenerados = generar4Numeros();
             
-            // Mostrar cada número con delay progresivo
             for(var i = 0; i < numerosGenerados.length; i++) {
                 mostrarNumero(i, numerosGenerados[i], (i + 1) * 1000);
             }
             
-            // Seleccionar y mostrar signo después de que aparezcan todos los números
             setTimeout(function() {
                 var signoSeleccionado = seleccionarSignoAleatorio();
                 mostrarSignoConAnimacion(signoSeleccionado);
                 
-                // Restaurar botón
                 boton.innerHTML = "✨ DESCUBRE TU DESTINO ✨";
                 boton.disabled = false;
                 boton.classList.remove('generando');
@@ -657,7 +628,6 @@
             }, 5000);
         }
         
-        // Función adicional para validar que los números están en rango correcto
         function validarNumeros(numeros) {
             for(var i = 0; i < numeros.length; i++) {
                 if(numeros[i] < 0 || numeros[i] > 9) {
@@ -667,7 +637,6 @@
             return true;
         }
         
-        // Función para mostrar mensaje de bienvenida al cargar la página
         window.onload = function() {
             console.log("App de Lotería Zodiacal cargada correctamente");
         };
