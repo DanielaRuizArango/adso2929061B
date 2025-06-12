@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title> 22- Challenge Baloto</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -249,19 +249,20 @@
         }
         
         .signo {
-            text-shadow: 0 0 20px #d4af37, 0 0 40px #fff;
-            font-size: 3em;
+            filter: drop-shadow(0 0 20px #d4af37) drop-shadow(0 0 40px #fff);
             animation: glowSigno 2s infinite alternate;
+            width: 40px;
+            height: 40px;
         }
         
         @keyframes glowSigno {
-            0% { text-shadow: 0 0 10px #d4af37; }
-            100% { text-shadow: 0 0 30px #fff, 0 0 60px #d4af37; }
+            0% { filter: drop-shadow(0 0 10px #d4af37); }
+            100% { filter: drop-shadow(0 0 30px #fff) drop-shadow(0 0 60px #d4af37); }
         }
         
         .signo-nombre {
             letter-spacing: 2px;
-            margin-top: 10px;
+            margin-top: 30px;
             color: #fff;
             text-shadow: 0 0 20px #d4af37, 0 0 40px #fff;
             font-size: 20px;
@@ -282,7 +283,6 @@
             border: 2px solid #b38f2a;
             position: relative;
             overflow: hidden;
-            font-family: "PT Sans", sans-serif;
             font-weight: 400;
             font-style: normal;
             font-size: 16px;
@@ -290,15 +290,14 @@
         }
         
         button.generando {
-            background: linear-gradient(90deg, #1a237e, #512da8);
+            background: linear-gradient(#06263B, #0a2b4d, #1e3a8a) !important;
             color: #fff;
             border: 2px solid #d4af37;
-            box-shadow: 0 0 10px #d4af37, 0 0 20px #1a237e;
+            box-shadow: 0 0 10px #d4af37, 0 0 20px #06263B;
             animation: pulse 1.5s infinite;
             padding: 15px 20px;
             font-size: 16px;
             margin-top: 80px;
-            font-family: "PT Sans", sans-serif;
             font-weight: 400;
             font-style: normal;
             font-size: 16px;
@@ -409,6 +408,13 @@
             100% { transform: scale(1); }
         }
 
+        button.generando:disabled {
+            background: linear-gradient(#06263B, #0a2b4d, #1e3a8a) !important;
+            color: #fff;
+            border: 2px solid #d4af37;
+            box-shadow: 0 0 10px #d4af37, 0 0 20px #06263B;
+        }
+
     </style>
 </head>
 <body class="js">
@@ -420,8 +426,8 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1> 22- Challenge Baloto</h1>
+            <p>Simulate a lottery number generator.</p>
         </header>
         <section>
             <div class="container">                 
@@ -429,7 +435,6 @@
                 
                 <div id="resultado" class="resultado hidden">
                     <div class="numeros-container" id="numerosContainer">
-                        <!-- Los números se generan aquí -->
                     </div>
                     
                     <div class="signo-container">
@@ -443,7 +448,6 @@
         </section>
     </main>
     <script>
-        // Array con los signos del zodiaco
         var signosZodiaco = [
             {nombre: "Aries", imagen: "./images/baloto/aries.png"},
             {nombre: "Tauro", imagen: "./images/baloto/taurus.png"},
@@ -459,24 +463,46 @@
             {nombre: "Piscis", imagen: "./images/baloto/pisces.png"}
         ];
         
-        // Función para generar un número aleatorio
-        function numeroAleatorio(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+        // Función para generar un número aleatorio entre 1 y 24
+        function numeroAleatorio() {
+            // Math.random() genera un número entre 0 y 1
+            // Lo multiplicamos por 24 para obtener un número entre 0 y 24
+            // Math.floor() redondea hacia abajo para obtener un número entero
+            return Math.floor(Math.random() * 24) + 1;
         }
         
-        // Función para generar 4 números
+        // Función para generar 4 números sin repetición
         function generar4Numeros() {
+            // Creamos un array vacío para guardar nuestros números
             var numeros = [];
-            for(var i = 0; i < 4; i++) {
-                var numero = numeroAleatorio(0, 9);
-                numeros.push(numero);
+            
+            // Generamos números hasta tener 4 diferentes
+            while (numeros.length < 4) {
+                // Generamos un nuevo número aleatorio
+                var nuevoNumero = numeroAleatorio();
+                
+                // Verificamos si el número ya existe en nuestro array
+                var numeroExiste = false;
+                for (var i = 0; i < numeros.length; i++) {
+                    if (numeros[i] === nuevoNumero) {
+                        numeroExiste = true;
+                        break;
+                    }
+                }
+                
+                // Si el número no existe, lo agregamos al array
+                if (!numeroExiste) {
+                    numeros.push(nuevoNumero);
+                }
             }
+            
             return numeros;
         }
         
         // Función para seleccionar un signo aleatorio
         function seleccionarSignoAleatorio() {
-            var indiceAleatorio = numeroAleatorio(0, signosZodiaco.length - 1);
+            // Generamos un número aleatorio entre 0 y 11 (12 signos del zodíaco)
+            var indiceAleatorio = Math.floor(Math.random() * 12);
             return signosZodiaco[indiceAleatorio];
         }
         
