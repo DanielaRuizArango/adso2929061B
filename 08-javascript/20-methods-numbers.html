@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>20- Methods Numbers</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
         section {
@@ -40,8 +40,8 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>20- Methods Numbers</h1>
+            <p>Perform operations with number methods.</p>
         </header>
         <section>
             <input type="number" class="num-float" placeholder="Enter a float number">
@@ -50,5 +50,29 @@
             </ul>
         </section>
     </main>
+    <script>
+        // Elements 
+        const numFloat = document.querySelector('.num-float')
+        const btnCalc = document.querySelector('.btn-calc')
+        const outPut = document.querySelector('.output')
+
+        // Events
+        btnCalc.addEventListener('click', () => {
+            if(isFloat(numFloat.value)) {
+                outPut.innerHTML = `<li><strong>toString: </strong> ${(numFloat.value).toString()}</li>     
+                                    <li><strong>toFixed: </strong> ${parseFloat(numFloat.value).toFixed(0)}</li>
+                                    <li><strong>toPrecision: </strong> ${parseFloat(numFloat.value).toPrecision(2)}</li>
+                                    <li><strong>toParseInt: </strong> ${parseInt(numFloat.value)}</li>
+                                    <li><strong>toParseFloat: </strong> ${parseFloat(numFloat.value)}</li>`
+            } else {
+                alert('You must enter a float with decimals. \n Example: 7.356')
+            }
+        })
+
+        // Functions
+        function isFloat(number) {
+            return (number % 1 !== 0)
+        }
+    </script>
 </body>
 </html>            

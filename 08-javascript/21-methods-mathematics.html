@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21- Methods Mathematics</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        button {
+            border: none;
+            background-color: transparent;
+            appearance: none;
+            cursor: pointer;
+            margin: 1rem auto 2rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            width: 100px;
+            font-size: 12rem;
+            transition: transform 0.2s ease-in;
+            &:hover {
+               transform: scale(1.2);
+            }
+            &.btn-counter {
+                font-size: 8rem;
+            }
+        }
+    </style>
+</head>
+<body class="javascript">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>21- Methods Mathematics</h1>
+            <p>
+                Use math methods for advanced calculations.
+            </p>
+        </header>
+        <section>
+            <h3>Random (Roll DICE)</h3>
+            <button class="btn-dice">⚀</button>
+            <h3>Random (Counter Up)</h3>
+            <button class="btn-counter">1</button>
+            <h3>Min|Max</h3>
+            <p class="out-min"></p>
+            <p class="out-max"></p>
+        </section>
+    </main>
+    <script>
+        // Elements
+        const btnDice = document.querySelector('.btn-dice')
+        const btnCounter = document.querySelector('.btn-counter')
+        const outMin = document.querySelector('.out-min')
+        const outMax = document.querySelector('.out-max')
+
+        // Array (dice)
+        const arrayDice = ['⚀','⚁','⚂','⚃','⚄','⚅']
+
+        // Events
+        btnDice.addEventListener('click', function() {
+            const rand = Math.floor(Math.random() * arrayDice.length)
+            this.textContent = arrayDice[rand]
+        })
+
+        btnCounter.addEventListener('click', function() {
+            const rand = Math.floor(Math.random() * 99)
+            let count = 1 
+            let element = this
+
+            const interval = setInterval(() => {
+                if(count == rand) {
+                    clearInterval(interval)
+                }
+                element.textContent = ++count
+            }, 100)
+        })
+
+        // Min & Max
+        outMin.textContent = `Min values (4, 10, -7, 2) => ${Math.min(4, 10, -7, 2)}`
+        outMax.textContent = `Max values (4, 10, -7, 2) => ${Math.max(4, 10, -7, 2)}`
+    </script>
+</body>
+</html>
