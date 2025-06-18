@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanrio Array App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            padding: 30px 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b9d, #ffd93d, #6bcf7f, #4d9de0);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #4d9de0;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step.active {
+            background: linear-gradient(135deg, #ff6b9d, #ff8e9b);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .step.completed {
+            background: linear-gradient(135deg, #6bcf7f, #42d392);
+        }
+
+        .step.inactive {
+            background: #e0e0e0;
+            color: #999;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b9d, #4d9de0);
+            border-radius: 2px;
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .character {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+        }
+
+        .character:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .character.selected {
+            border-color: #ff6b9d;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        .character.selected::after {
+            content: '✓';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff6b9d;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .character.hello-kitty { background: linear-gradient(135deg, #ffeaa7, #fab1a0); }
+        .character.cinnamoroll { background: linear-gradient(135deg, #a8e6cf, #81ecec); }
+        .character.kuromi { background: linear-gradient(135deg, #d1a3ff, #b8a4e6); }
+        .character.my-melody { background: linear-gradient(135deg, #ff9ff3, #f368e0); }
+        .character.badtz-maru { background: linear-gradient(135deg, #636e72, #2d3436); }
+        .character.pompompurin { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+        .character.keroppi { background: linear-gradient(135deg, #55efc4, #00b894); }
+        .character.little-twin-stars { background: linear-gradient(135deg, #fd79a8, #fdcb6e); }
+
+        .selected-preview {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .selected-preview.empty {
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+        }
+
+        .selected-character {
+            background: white;
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            font-size: 14px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .control-btn {
+            padding: 12px 16px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b9d, #ff8e9b);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #4d9de0, #667eea);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+        }
+
+        .math-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .math-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .math-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-add {
+            background: linear-gradient(135deg, #6bcf7f, #42d392);
+        }
+
+        .btn-subtract {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+
+        .result-section {
+            background: linear-gradient(135deg, #f8f9ff, #e8f4fd);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px dashed #4d9de0;
+            min-height: 100px;
+        }
+
+        .result-title {
+            color: #4d9de0;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .array-display {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .array-display.empty {
+            color: #999;
+            font-family: 'Arial', sans-serif;
+            font-style: italic;
+        }
+
+        .operation-feedback {
+            background: #e8f5e8;
+            color: #2d5d2d;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 14px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tutorial {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .tutorial-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .tutorial h3 {
+            color: #4d9de0;
+            margin-bottom: 15px;
+        }
+
+        .tutorial-btn {
+            background: linear-gradient(135deg, #ff6b9d, #ff8e9b);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+                padding: 20px 15px;
+            }
+            
+            .characters-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .character {
+                width: 60px;
+                height: 60px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Sanrio ♡</div>
+        </div>
+
+        <div class="step-indicator">
+            <div class="step active" id="step1">1</div>
+            <div class="step inactive" id="step2">2</div>
+            <div class="step inactive" id="step3">3</div>
+        </div>
+
+        <!-- Paso 1: Seleccionar Personajes -->
+        <div class="section" id="section1">
+            <div class="section-title">Selecciona Personajes</div>
+            <div class="characters-grid">
+                <div class="character hello-kitty" data-character="Hello Kitty" data-emoji="🎀">🎀</div>
+                <div class="character cinnamoroll" data-character="Cinnamoroll" data-emoji="☁️">☁️</div>
+                <div class="character kuromi" data-character="Kuromi" data-emoji="🖤">🖤</div>
+                <div class="character my-melody" data-character="My Melody" data-emoji="🌸">🌸</div>
+                <div class="character badtz-maru" data-character="Badtz-Maru" data-emoji="🐧">🐧</div>
+                <div class="character pompompurin" data-character="Pompompurin" data-emoji="🍮">🍮</div>
+                <div class="character keroppi" data-character="Keroppi" data-emoji="🐸">🐸</div>
+                <div class="character little-twin-stars" data-character="Little Twin Stars" data-emoji="⭐">⭐</div>
+            </div>
+            
+            <div class="selected-preview empty" id="selectedPreview">
+                Selecciona personajes para comenzar...
+            </div>
+        </div>
+
+        <!-- Paso 2: Operaciones -->
+        <div class="section hidden" id="section2">
+            <div class="section-title">Operaciones del Array</div>
+            <div class="controls">
+                <button class="control-btn btn-secondary" onclick="addToFirst()">📍 Primero</button>
+                <button class="control-btn btn-danger" onclick="removeElement()">🗑️ Remover</button>
+                <button class="control-btn btn-secondary" onclick="moveElement()">🔄 Mover</button>
+            </div>
+            
+            <div class="math-controls">
+                <button class="math-btn btn-add" onclick="duplicateArray()">+</button>
+                <button class="math-btn btn-subtract" onclick="clearArray()">−</button>
+            </div>
+        </div>
+
+        <!-- Paso 3: Resultado -->
+        <div class="section hidden" id="section3">
+            <div class="section-title">Resultado del Array</div>
+            <div class="result-section">
+                <div class="result-title">🎯 Array Final</div>
+                <div class="array-display empty" id="arrayResult">
+                    Tu array aparecerá aquí...
+                </div>
+                <div class="operation-feedback hidden" id="operationFeedback"></div>
+            </div>
+        </div>
+
+        <!-- Controles de navegación -->
+        <div class="controls">
+            <button class="control-btn btn-secondary hidden" id="prevBtn" onclick="previousStep()">← Anterior</button>
+            <button class="control-btn btn-primary" id="nextBtn" onclick="nextStep()">Siguiente →</button>
+            <button class="control-btn btn-danger hidden" id="resetBtn" onclick="resetApp()">🔄 Reiniciar</button>
+        </div>
+    </div>
+
+    <!-- Tutorial -->
+    <div class="tutorial" id="tutorial">
+        <div class="tutorial-content">
+            <h3>¡Bienvenido a Sanrio Array! ✨</h3>
+            <p>1. Selecciona tus personajes favoritos</p>
+            <p>2. Aplica operaciones al array</p>
+            <p>3. Ve el resultado final</p>
+            <button class="tutorial-btn" onclick="closeTutorial()">¡Comenzar!</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedCharacters = [];
+        let currentStep = 1;
+        let arrayResult = [];
+
+        function closeTutorial() {
+            document.getElementById('tutorial').classList.add('hidden');
+        }
+
+        function selectCharacter(element) {
+            const character = element.dataset.character;
+            const emoji = element.dataset.emoji;
+            
+            if (element.classList.contains('selected')) {
+                // Deseleccionar
+                element.classList.remove('selected');
+                selectedCharacters = selectedCharacters.filter(c => c.name !== character);
+            } else {
+                // Seleccionar
+                element.classList.add('selected');
+                selectedCharacters.push({ name: character, emoji: emoji });
+            }
+            
+            updateSelectedPreview();
+        }
+
+        function updateSelectedPreview() {
+            const preview = document.getElementById('selectedPreview');
+            
+            if (selectedCharacters.length === 0) {
+                preview.innerHTML = 'Selecciona personajes para comenzar...';
+                preview.classList.add('empty');
+            } else {
+                preview.classList.remove('empty');
+                preview.innerHTML = selectedCharacters.map(char => 
+                    `<div class="selected-character">${char.emoji} ${char.name}</div>`
+                ).join('');
+            }
+        }
+
+        function nextStep() {
+            if (currentStep === 1 && selectedCharacters.length === 0) {
+                alert('Selecciona al menos un personaje');
+                return;
+            }
+            
+            if (currentStep < 3) {
+                currentStep++;
+                updateStepDisplay();
+                
+                if (currentStep === 3) {
+                    arrayResult = [...selectedCharacters];
+                    updateArrayResult();
+                }
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        }
+
+        function updateStepDisplay() {
+            // Ocultar todas las secciones
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`section${i}`).classList.add('hidden');
+                const step = document.getElementById(`step${i}`);
+                step.classList.remove('active', 'completed');
+                step.classList.add('inactive');
+            }
+            
+            // Mostrar sección actual
+            document.getElementById(`section${currentStep}`).classList.remove('hidden');
+            document.getElementById(`step${currentStep}`).classList.add('active');
+            document.getElementById(`step${currentStep}`).classList.remove('inactive');
+            
+            // Marcar pasos completados
+            for (let i = 1; i < currentStep; i++) {
+                document.getElementById(`step${i}`).classList.add('completed');
+                document.getElementById(`step${i}`).classList.remove('inactive');
+            }
+            
+            // Actualizar botones de navegación
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            
+            if (currentStep === 1) {
+                prevBtn.classList.add('hidden');
+                nextBtn.classList.remove('hidden');
+                resetBtn.classList.add('hidden');
+            } else if (currentStep === 3) {
+                prevBtn.classList.remove('hidden');
+                nextBtn.classList.add('hidden');
+                resetBtn.classList.remove('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+                resetBtn.classList.add('hidden');
+            }
+        }
+
+        function addToFirst() {
+            if (arrayResult.length > 0 && selectedCharacters.length > 0) {
+                const newChar = selectedCharacters[Math.floor(Math.random() * selectedCharacters.length)];
+                arrayResult.unshift(newChar);
+                updateArrayResult();
+                showFeedback('Personaje añadido al inicio');
+            }
+        }
+
+        function removeElement() {
+            if (arrayResult.length > 0) {
+                arrayResult.pop();
+                updateArrayResult();
+                showFeedback('Último elemento removido');
+            }
+        }
+
+        function moveElement() {
+            if (arrayResult.length > 1) {
+                const temp = arrayResult[0];
+                arrayResult[0] = arrayResult[arrayResult.length - 1];
+                arrayResult[arrayResult.length - 1] = temp;
+                updateArrayResult();
+                showFeedback('Primer y último elemento intercambiados');
+            }
+        }
+
+        function duplicateArray() {
+            if (arrayResult.length > 0) {
+                arrayResult = [...arrayResult, ...arrayResult];
+                updateArrayResult();
+                showFeedback('Array duplicado');
+            }
+        }
+
+        function clearArray() {
+            arrayResult = [];
+            updateArrayResult();
+            showFeedback('Array limpiado');
+        }
+
+        function updateArrayResult() {
+            const resultDiv = document.getElementById('arrayResult');
+            
+            if (arrayResult.length === 0) {
+                resultDiv.innerHTML = 'Array vacío []';
+                resultDiv.classList.add('empty');
+            } else {
+                resultDiv.classList.remove('empty');
+                const arrayString = '[' + arrayResult.map(char => `"${char.emoji} ${char.name}"`).join(', ') + ']';
+                resultDiv.innerHTML = arrayString;
+            }
+        }
+
+        function showFeedback(message) {
+            const feedback = document.getElementById('operationFeedback');
+            feedback.textContent = message;
+            feedback.classList.remove('hidden');
+            
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 2000);
+        }
+
+        function resetApp() {
+            selectedCharacters = [];
+            arrayResult = [];
+            currentStep = 1;
+            
+            // Limpiar selecciones
+            document.querySelectorAll('.character').forEach(char => {
+                char.classList.remove('selected');
+            });
+            
+            updateSelectedPreview();
+            updateStepDisplay();
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.character').forEach(character => {
+                character.addEventListener('click', function() {
+                    selectCharacter(this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

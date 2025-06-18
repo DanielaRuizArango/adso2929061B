@@ -29,6 +29,30 @@
             <ul class="methods"></ul>
         </section>
     </main>
+    <script>
+        // Elements
+        const methods = document.querySelector('.methods')
+
+        // Methods Set
+        let worldCup2026 = new Date('10/30/2028 00:00:00')
+        worldCup2026.setMonth(5)
+        worldCup2026.setDate(11)
+        worldCup2026.setYear(2026)
+
+        // Methods Get
+        methods.style.zoom = `1.4`
+        methods.innerHTML = `<li>   
+                                <strong>Date Next Fifa World Cup:</strong><br>
+                                ${worldCup2026.getDate()} /
+                                0${worldCup2026.getMonth()} /
+                                ${worldCup2026.getFullYear()}
+                                ${worldCup2026.getHours()} :
+                                ${worldCup2026.getMinutes()}
+
+
+                            </li>`
+
+    </script>
 </body>
 
 </html>

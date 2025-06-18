@@ -1,27 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>25 Challenge Arrays</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        @font-face {
+            font-family: 'FinkHeavy';
+            src: url(fonts/FinkHeavy.ttf);
+        }
+        section {
+            display: flex;
+            justify-content: center;
+        }
+        div.app {
+            background: url(images/arrays/bg1.png) no-repeat center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            justify-content: center;
+            position: relative;
+            margin: 1rem auto;
+            align-items: center;
+            height: 740px;
+            width: 380px;
+        }
+        div.app nav.villagers {
+            display: grid;
+            grid-template-columns: repeat(4, 76px);
+            justify-content: space-between;
+            position: absolute;
+            top: 190px;
+            height: 170px;
+            width: 340px;
+        }
+        div.app nav.villagers div.villager {
+            height: 76px;
+            opacity: 0.7;
+            width: 76px;
+            transition: opacity 0.2s ease-in;
+            background-size: contain !important;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        div.app nav.villagers div.villager:hover:not(.actived) {
+            opacity: 1;
+            cursor: pointer;
+        }
+        div.app nav.villagers div.villager.actived {
+            opacity: 1;
+        }
+        div.app nav.villagers div.villager1,
+        div.app figure.result div.villager1 {
+            background: url(images/arrays/01-HK.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager2,
+        div.app figure.result div.villager2 {
+            background: url(images/arrays/02-MM.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager3,
+        div.app figure.result div.villager3 {
+            background: url(images/arrays/03-KU.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager4,
+        div.app figure.result div.villager4 {
+            background: url(images/arrays/05-KR.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager5,
+        div.app figure.result div.villager5 {
+            background: url(images/arrays/06-XO.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager6,
+        div.app figure.result div.villager6 {
+            background: url(images/arrays/07-CN.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager7,
+        div.app figure.result div.villager7 {
+            background: url(images/arrays/08-PC.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager8,
+        div.app figure.result div.villager8 {
+            background: url(images/arrays/10-CH.png) no-repeat center;
+        }
+
+        div.app nav.options {
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            top: 440px;
+            overflow: hidden;
+            height: 54px;
+        }
+
+        div.app nav.options input[type=checkbox],
+        div.app nav.options input[type=number] {
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            color: #87643C;
+            font-weight: 600;
+            border: none;
+            text-align: center;
+            outline: none;
+            background: url(images/arrays/bg1.png) no-repeat center;
+            height: 54px;
+            width: 114px;
+            transition: background 0.2s ease-in;
+        }
+        div.app nav.options input[type=number] {
+            font-size: 1rem;
+            line-height: 0rem;
+            font-family: 'FinkHeavy';
+            margin-top: 2px;
+            cursor: text;
+            &::placeholder {
+                color: #87643C;
+                text-align: center;
+                font-family: 'FinkHeavy';
+            }
+        }
+        div.app nav.options input[type=checkbox].position {
+            background: url(images/arrays/first.svg) no-repeat center;
+        }
+        div.app nav.options input[type=checkbox].position:checked {
+            background: url(images/arrays/btn3.svg) no-repeat center;
+        }
+        div.app nav.options input[type=checkbox].action {
+            background: url(images/arrays/btn2.svg) no-repeat center;
+        }
+        div.app nav.options input[type=checkbox].action:checked {
+            background: url(images/arrays/btn3.svg) no-repeat center;
+        }
+        div.app button {
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 500px;
+            height: 88px;
+            width: 88px;
+            transition: all 0.2s ease-in;
+        }
+        div.app button:hover {
+            transform: scale(1.1);
+        }
+        div.app button.btn-add {
+            background: url(images/arrays/btn-add.svg) no-repeat center;
+        }
+        div.app button.btn-remove {
+            background: url(images/arrays/btn-remove.svg) no-repeat center;
+        }
+
+        div.wrapper {
+            overflow-x: scroll;
+            position: absolute;
+            bottom: 10px;
+            width: 360px;
+        }
+        div.app figure.result {
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            margin-top: -10px;
+            padding: 0;
+            gap: 10px;
+            height: 80px;
+        }
+        div.app figure.result div {
+            background-size: contain !important;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 50px;
+            position: relative;
+            width: 50px;
+        }
+        div.app figure.result div span {
+            background-color: #0009;
+            border-radius: 50%;
+            color: #fff;
+            font-weight: 500;
+            position: absolute;
+            padding: 4px;
+            text-align: center;
+            font-size: 0.4rem;
+            height: 10px;
+            top: 0;
+            left: 0;
+            width: 10px;
+        }
     </style>
 </head>
+
 <body class="js">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
+                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
+            <h1>25 Challenge Arrays </h1>
             <p></p>
         </header>
         <section>
+            <div class="app">
+                <nav class="villagers">
+                    <div class="villager villager1 animate__animated animate__infinite"></div>
+                    <div class="villager villager2 animate__animated animate__infinite"></div>
+                    <div class="villager villager3 animate__animated animate__infinite"></div>
+                    <div class="villager villager4 animate__animated animate__infinite"></div>
+                    <div class="villager villager5 animate__animated animate__infinite"></div>
+                    <div class="villager villager6 animate__animated animate__infinite"></div>
+                    <div class="villager villager7 animate__animated animate__infinite"></div>
+                    <div class="villager villager8 animate__animated animate__infinite"></div>
+                </nav>
+                <nav class="options">
+                    <input class="position" type="checkbox">
+                    <input class="action" type="checkbox">
+                    <input class="num-pos" type="number" min="0" max="99" placeholder="Position">
+                </nav>
+                <button class="btn btn-add"></button>
+                <div class="wrapper">
+                    <figure class="result">
+                    </figure>
+                </div>
+            </div>
         </section>
     </main>
+    <script>
+        // Elements
+        const villagers   = document.querySelectorAll('.villager')
+        const sw_action   = document.querySelector('.action')
+        const sw_position = document.querySelector('.position')
+        const btn_action  = document.querySelector('.btn')
+        const result      = document.querySelector('.result')
+        const num_pos     = document.querySelector('.num-pos')
+
+        // Global Variables
+        var slt_villager = null
+        var slt_position = 'first'
+        var slt_action   = 'add'
+        var array_vills  = []
+        // 
+        villagers.forEach((element, index) => {
+            element.addEventListener('click', (e) => {
+                removeAnimation()
+                slt_villager = 'villager' + (index+1)
+                element.classList.add('actived', 'animate__heartBeat')
+            })
+        })
+
+        function removeAnimation() {
+            villagers.forEach(element => {
+                element.classList.remove('actived', 'animate__heartBeat')
+            })
+        }
+
+        sw_position.addEventListener('click', (e) => {
+            if (sw_position.checked == true) {
+                slt_position = 'last'
+            } else {
+                slt_position = 'first'
+            }
+        })
+
+        sw_action.addEventListener('click', (e) => {
+            if (sw_action.checked == true) {
+                slt_action = 'remove'
+                btn_action.classList.remove('btn-add')
+                btn_action.classList.add('btn-remove')
+            } else {
+                slt_action = 'add'
+                btn_action.classList.remove('btn-remove')
+                btn_action.classList.add('btn-add')
+            }
+        })
+
+        btn_action.addEventListener('click', (e) => {
+            if (slt_villager != null) {
+                if (num_pos.value.length > 0) {
+                    if (slt_action == 'add') {
+                        array_vills.splice(num_pos.value, 0, slt_villager); // Add Position
+                    } else {
+                        array_vills.splice(num_pos.value, 1); // Remove Position
+                    }
+                } else {
+                    if (slt_action == 'add') {
+                        if (slt_position == 'first') {
+                            array_vills.unshift(slt_villager)
+                        } else {
+                            array_vills.push(slt_villager)
+                        }
+                    } else {
+                        if (slt_position == 'first') {
+                            array_vills.shift()
+                        } else {
+                            array_vills.pop()
+                        }
+                    }
+                }
+                result.innerHTML = ''
+                for (let i = 0; i < array_vills.length; i++) {
+                    result.innerHTML += `<div class="${array_vills[i]} animate__animated animate__rubberBand"><span>${i}</span></div>`
+                }
+            } else {
+                alert('Please:\n1. Select a Villager')
+            }
+        })
+    </script>
 </body>
-</html>            
+
+</html>
