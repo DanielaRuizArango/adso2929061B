@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>00 -Template</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+    div.player {
+        background: linear-gradient(to bottom, #0006, #000c);
+        border-radius: 10px;
+        height: 340px;
+        margin: 2rem auto;
+        position: relative;
+        width: 340px;
+
+        h4.title {
+            color: #b7a63c;
+            position: absolute;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+            width: 320px;
+            text-align: center;
+            opacity: 0.9;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h4.artist,
+        h4.year {
+            color: #fff;
+            opacity: 0.7;
+            font-size: 20px;
+            font-weight: 500;
+            text-align: center;
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            margin: 0;
+            width: 320px;
+            transform: translateX(-50%);
+        }
+
+        h4.year {
+            top: 100px;
+        }
+
+        div.controls {
+            position: absolute;
+            width: 320px;
+            bottom: 40px;
+            height: 92px;
+            left: 50%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform: translateX(-50%);
+
+            button {
+                cursor: pointer;
+                transition: transform 0.2s ease-in;
+            }
+
+            button.prev {
+                background: url(images/mp3player/btn-prev.svg) no-repeat center;
+                background-size: cover;
+                border: none;
+                height: 41.67px;
+                width: 41.67px;
+                &:hover {
+                    transform: translateX(-4px);
+                }
+                
+            }
+
+            button.play {
+                background: url(images/mp3player/btn-play.svg) no-repeat center;
+                background-size: cover;
+                border: none;
+                height: 91.67px;
+                width: 91.67px;
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+
+            button.next {
+                background: url(images/mp3player/btn-next.svg) no-repeat center;
+                background-size: cover;
+                border: none;
+                height: 41.67px;
+                width: 41.67px;
+                &:hover {
+                    transform: translateX(4px);
+                }
+            }
+        }
+    }
+</style>
+
+</head>
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>00 -Template </h1>
+            <p></p>
+        </header>
+        <section>
+    <div class="player">
+        <h4 class="title"></h4>
+        <h4 class="artist"></h4>
+        <h4 class="year"></h4>
+        <div class="controls">
+            <button class="prev"></button>
+            <button class="play"></button>
+            <button class="next"></button>
+        </div>
+        <audio src=""></audio>
+    </div>
+</section>
+    </main>
+</body>
+</html>            

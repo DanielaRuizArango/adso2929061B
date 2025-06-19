@@ -1,393 +1,381 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanrio Fun App</title>
-    <!-- Enlace a la fuente Inter de Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>25 Challenge Arrays</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
     <style>
-        /* Variables CSS para una paleta de colores consistente y fácil de modificar */
-        :root {
-            --color-principal-azul: #1c63b7; /* Azul Sanrio brillante */
-            --color-secundario-rosa: #FF4081; /* Rosa fucsia vibrante */
-            --color-acento-amarillo: #FFFDE7;   /* Amarillo muy pálido para acentos */
-            --color-acento-verde: #E8F5E9;     /* Verde menta suave */
-            --color-texto-principal: #333333;  /* Gris oscuro para legibilidad */
-            --color-texto-secundario: #616161; /* Gris medio para descripciones */
-            --color-fondo-claro: #FFFFFF;      /* Blanco puro para el fondo principal */
-            --color-borde-suave: #E0E0E0;      /* Gris muy claro para bordes sutiles */
-            --sombra-suave: 0px 4px 8px rgba(0, 0, 0, 0.08); /* Sombra estándar */
-            --sombra-media: 0px 6px 12px rgba(0, 0, 0, 0.12); /* Sombra para hover */
-            --sombra-contenedor: 0px 10px 30px rgba(0, 0, 0, 0.08); /* Sombra para el contenedor principal */
-        }
-
-        /* Estilos generales del cuerpo */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8F8F8; /* Un blanco roto muy sutil */
-            margin: 0;
-            padding: 20px;
+        section {
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Alinea al inicio para que el contenido comience desde arriba */
-            min-height: 100vh; /* Asegura que ocupe al menos toda la altura de la ventana */
-            box-sizing: border-box; /* Incluye padding y border en el ancho/alto total */
         }
-
-        /* Contenedor principal de la aplicación */
-        .contenedor-principal {
-            background-color: var(--color-fondo-claro);
-            border-radius: 20px; /* Bordes más redondeados */
-            box-shadow: var(--sombra-contenedor);
-            padding: 30px;
-            max-width: 500px; /* Ancho máximo para el diseño móvil y de escritorio */
-            width: 100%; /* Ocupa el 100% del ancho disponible hasta max-width */
-            text-align: center;
-            margin-bottom: 20px; /* Espacio debajo del contenedor principal */
+        div.app {
+            background: url(images/arrays/bg1.png) no-repeat center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            justify-content: center;
+            position: relative;
+            margin: 1rem auto;
+            align-items: center;
+            height: 740px;
+            width: 380px;
         }
-
-        /* Estilo del logotipo/título Sanrio */
-        .logo-sanrio {
-            font-family: 'Inter', sans-serif; /* Usamos Inter, puedes ajustar si tienes una fuente específica de Sanrio */
-            font-size: 38px;
-            font-weight: 700; /* Más audaz */
-            color: var(--color-principal-azul);
-            margin-bottom: 30px;
-            position: relative; /* Para el corazón */
-            display: inline-block; /* Para que el fondo del corazón se aplique correctamente */
-        }
-
-        .logo-sanrio::after {
-            content: '♥'; /* Corazón simple como parte del logo */
-            color: var(--color-secundario-rosa);
-            font-size: 30px;
-            position: absolute;
-            right: -25px; /* Ajusta la posición del corazón */
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        /* Títulos de sección (1. Select Character, 2. Select Options, etc.) */
-        .seccion-titulo {
-            font-size: 20px;
-            font-weight: 600; /* Semi-negrita */
-            color: var(--color-texto-principal);
-            margin-top: 25px;
-            margin-bottom: 20px;
-            padding: 8px 15px;
-            background-color: rgba(28, 99, 183, 0.08); /* Un toque de azul muy suave */
-            border-radius: 10px;
-            display: inline-block; /* Ajusta el padding al contenido */
-        }
-
-        /* Contenedor de la cuadrícula de personajes */
-        .grid-personajes {
+        div.app nav.villagers {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
-            gap: 15px; /* Espacio entre los elementos de la cuadrícula */
-            margin-top: 20px;
-            margin-bottom: 30px;
-            justify-items: center; /* Centra los elementos horizontalmente en cada celda */
-            align-items: center; /* Centra los elementos verticalmente */
+            grid-template-columns: repeat(4, 76px);
+            justify-content: space-between;
+            position: absolute;
+            top: 190px;
+            height: 170px;
+            width: 340px;
         }
-
-        /* Estilo para cada círculo de personaje */
-        .personaje-circulo {
-            width: 90px; /* Tamaño fijo del círculo */
-            height: 90px;
-            border-radius: 50%; /* Lo hace circular */
-            overflow: hidden; /* Asegura que la imagen no se desborde */
-            background-color: var(--color-fondo-claro);
-            border: 2px solid var(--color-borde-suave); /* Borde inicial suave */
-            box-shadow: var(--sombra-suave);
+        div.app nav.villagers div.villager {
+            height: 76px;
+            opacity: 0.7;
+            width: 76px;
+            transition: opacity 0.3s ease-in-out;
+            background-size: contain !important;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        div.app nav.villagers div.villager:hover:not(.actived) {
+            opacity: 1;
             cursor: pointer;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
-            display: flex; /* Para centrar la imagen dentro del círculo */
-            justify-content: center;
-            align-items: center;
+        }
+        div.app nav.villagers div.villager.actived {
+            opacity: 1;
+        }
+        /* Cuando hay un villager seleccionado, los demás se vuelven más opacos */
+        div.app nav.villagers.has-selection div.villager:not(.actived) {
+            opacity: 0.3;
+        }
+        div.app nav.villagers.has-selection div.villager:not(.actived):hover {
+            opacity: 0.6;
+        }
+        
+        div.app nav.villagers div.villager1,
+        div.app figure.result div.villager1 {
+            background: url(images/arrays/01-HK.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager2,
+        div.app figure.result div.villager2 {
+            background: url(images/arrays/02-MM.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager3,
+        div.app figure.result div.villager3 {
+            background: url(images/arrays/03-KU.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager4,
+        div.app figure.result div.villager4 {
+            background: url(images/arrays/05-KR.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager5,
+        div.app figure.result div.villager5 {
+            background: url(images/arrays/06-XO.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager6,
+        div.app figure.result div.villager6 {
+            background: url(images/arrays/07-CN.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager7,
+        div.app figure.result div.villager7 {
+            background: url(images/arrays/08-PC.png) no-repeat center;
+        }
+        div.app nav.villagers div.villager8,
+        div.app figure.result div.villager8 {
+            background: url(images/arrays/10-CH.png) no-repeat center;
         }
 
-        .personaje-circulo img {
-            width: 85%; /* La imagen ocupa la mayor parte del círculo */
-            height: 85%;
-            object-fit: contain; /* Asegura que la imagen se ajuste sin distorsionarse */
-            border-radius: 50%; /* Asegura que la imagen también tenga bordes redondeados */
-        }
-
-        /* Efecto al pasar el mouse sobre un personaje */
-        .personaje-circulo:hover {
-            transform: translateY(-5px); /* Un levantamiento más notorio */
-            box-shadow: var(--sombra-media);
-        }
-
-        /* Estilo para el personaje seleccionado */
-        .personaje-circulo.seleccionado {
-            border-color: var(--color-principal-azul); /* Borde azul fuerte */
-            box-shadow: 0px 0px 0px 5px rgba(28, 99, 183, 0.4); /* Resplandor azul alrededor */
-            transform: scale(1.05); /* Ligeramente más grande */
-        }
-
-        /* Grupo de botones de opciones (First, Remove, Position) */
-        .grupo-botones-opciones {
+        div.app nav.options {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas pequeñas */
-            gap: 12px; /* Espacio entre los botones */
-            margin-bottom: 25px;
+            flex-direction: row;
+            position: absolute;
+            top: 440px;
+            overflow: hidden;
+            height: 54px;
         }
 
-        /* Estilo base para todos los botones */
-        .boton {
-            padding: 10px 22px;
-            border-radius: 25px; /* Más redondeados */
-            font-size: 15px;
+        div.app nav.options input[type=checkbox],
+        div.app nav.options input[type=number] {
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            color: #ffffff;
             font-weight: 600;
-            cursor: pointer;
             border: none;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
-            box-shadow: var(--sombra-suave);
-            color: var(--color-fondo-claro); /* Texto blanco por defecto en botones de color */
-        }
-
-        /* Estilo específico para botones primarios (rosa) */
-        .boton-primario {
-            background-color: var(--color-secundario-rosa);
-        }
-
-        .boton-primario:hover {
-            background-color: #E91E63; /* Rosa ligeramente más oscuro al pasar el mouse */
-            transform: translateY(-2px);
-            box-shadow: var(--sombra-media);
-        }
-
-        .boton-primario:active {
-            transform: translateY(1px); /* Efecto de presionado */
-            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Grupo de botones de suma y resta */
-        .grupo-botones-mas-menos {
-            display: flex;
-            justify-content: center;
-            gap: 25px; /* Espacio entre los botones */
-            margin-bottom: 30px;
-        }
-
-        /* Estilo para los botones redondos (+ y -) */
-        .boton-redondo {
-            width: 55px; /* Tamaño del botón circular */
-            height: 55px;
-            border-radius: 50%;
-            background-color: var(--color-secundario-rosa);
-            color: var(--color-fondo-claro);
-            font-size: 32px; /* Tamaño del signo */
-            font-weight: 400; /* Normal para el signo */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: none;
-            cursor: pointer;
-            box-shadow: var(--sombra-suave);
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
-        }
-
-        .boton-redondo:hover {
-            background-color: #E91E63;
-            transform: translateY(-3px);
-            box-shadow: var(--sombra-media);
-        }
-
-        .boton-redondo:active {
-            transform: translateY(1px);
-            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Área de resultado del array */
-        .array-resultado-placeholder {
-            min-height: 80px; /* Altura mínima para el área de resultado */
-            border: 1px dashed var(--color-borde-suave); /* Borde punteado para indicar un área */
-            border-radius: 10px;
-            padding: 15px;
-            background-color: var(--color-acento-amarillo); /* Un ligero color de fondo para el área */
-            color: var(--color-texto-secundario);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-style: italic;
             text-align: center;
+            outline: none;
+            background: url(images/arrays/position.svg) no-repeat center;
+            height: 54px;
+            width: 120px;
+            transition: background 0.2s ease-in;
+        }
+        div.app nav.options input[type=number] {
+            font-size: 1rem;
+            line-height: 0rem;
+            font-family: "Fredoka", sans-serif;
+            margin-top: 2px;
+            cursor: text;
+            &::placeholder {
+                color: #ffffff;
+                text-align: center;
+                 font-family: "Fredoka", sans-serif;
+            }
+        }
+        div.app nav.options input[type=checkbox].position {
+            background: url(images/arrays/first.svg) no-repeat center;
+        }
+        div.app nav.options input[type=checkbox].position:checked {
+            background: url(images/arrays/last.svg) no-repeat center;
+        }
+        div.app nav.options input[type=checkbox].action {
+            background: url(images/arrays/add.svg) no-repeat center;
+        }
+        div.app nav.options input[type=checkbox].action:checked {
+            background: url(images/arrays/remove.svg) no-repeat center;
+        }
+        div.app button {
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 500px;
+            height: 88px;
+            width: 88px;
+            transition: all 0.2s ease-in;
+        }
+        div.app button:hover {
+            transform: scale(1.1);
+        }
+        div.app button.btn-add {
+            background: url(images/arrays/btn-add.svg) no-repeat center;
+        }
+        div.app button.btn-remove {
+            background: url(images/arrays/btn-remove.svg) no-repeat center;
         }
 
-        /* Media queries para ajustes en pantallas más pequeñas */
-        @media (max-width: 480px) {
-            .contenedor-principal {
-                padding: 20px;
-                margin: 10px auto;
-            }
-
-            .logo-sanrio {
-                font-size: 32px;
-                margin-bottom: 20px;
-            }
-
-            .logo-sanrio::after {
-                font-size: 24px;
-                right: -20px;
-            }
-
-            .seccion-titulo {
-                font-size: 18px;
-                margin-top: 20px;
-                margin-bottom: 15px;
-            }
-
-            .personaje-circulo {
-                width: 75px;
-                height: 75px;
-            }
-
-            .grid-personajes {
-                gap: 10px;
-            }
-
-            .boton {
-                padding: 9px 18px;
-                font-size: 14px;
-            }
-
-            .boton-redondo {
-                width: 50px;
-                height: 50px;
-                font-size: 28px;
-            }
+        div.wrapper {
+            position: absolute;
+            bottom: 10px;
+            width: 360px;
+            /* Ocultar scrollbar por defecto */
+            overflow-x: hidden;
+            transition: overflow-x 0.3s ease;
+        }
+        
+        /* Mostrar scrollbar solo cuando sea necesario */
+        div.wrapper.scrollable {
+            overflow-x: auto;
+        }
+        
+        /* Estilizar la scrollbar para que sea más sutil */
+        div.wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        div.wrapper::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        
+        div.wrapper::-webkit-scrollbar-thumb {
+            background: #1C63B7;
+            border-radius: 3px;
+        }
+        
+        div.wrapper::-webkit-scrollbar-thumb:hover {
+            background: #1C63B7;
+        }
+        
+        div.app figure.result {
+            display: inline-flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 0;
+            margin-top: -10px;
+            padding: 0;
+            gap: 10px;
+            height: 80px;
+            min-width: 360px;
+        }
+        div.app figure.result div {
+            background-size: contain !important;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 50px;
+            position: relative;
+            width: 50px;
+            flex-shrink: 0;
+        }
+        div.app figure.result div span {
+            background-color: #00B1CC;
+            border-radius: 50%;
+            color: #ffffff;
+            font-weight: 500;
+            position: absolute;
+            padding: 4px;
+            text-align: center;
+            font-size: 12px;
+            height: 20px;
+            top: 0;
+            left: 0;
+            width: 20px;
         }
     </style>
 </head>
-<body>
-    <div class="contenedor-principal">
-        <h1 class="logo-sanrio">Sanrio</h1>
 
-        <h2 class="seccion-titulo">1. Seleccionar Personaje</h2>
-        <div class="grid-personajes">
-            <!-- Cada div.personaje-circulo contendrá un personaje -->
-            <div class="personaje-circulo" data-character="hello-kitty">
-                <img src="https://placehold.co/90x90/FFCCCC/E00000?text=Hello+Kitty" alt="Hello Kitty">
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
+                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>25 Challenge Arrays </h1>
+            <p></p>
+        </header>
+        <section>
+            <div class="app">
+                <nav class="villagers">
+                    <div class="villager villager1 animate__animated animate__infinite"></div>
+                    <div class="villager villager2 animate__animated animate__infinite"></div>
+                    <div class="villager villager3 animate__animated animate__infinite"></div>
+                    <div class="villager villager4 animate__animated animate__infinite"></div>
+                    <div class="villager villager5 animate__animated animate__infinite"></div>
+                    <div class="villager villager6 animate__animated animate__infinite"></div>
+                    <div class="villager villager7 animate__animated animate__infinite"></div>
+                    <div class="villager villager8 animate__animated animate__infinite"></div>
+                </nav>
+                <nav class="options">
+                    <input class="position" type="checkbox">
+                    <input class="action" type="checkbox">
+                    <input class="num-pos" type="number" min="0" max="99" placeholder="Position">
+                </nav>
+                <button class="btn btn-add"></button>
+                <div class="wrapper">
+                    <figure class="result">
+                    </figure>
+                </div>
             </div>
-            <div class="personaje-circulo" data-character="cinnamoroll">
-                <img src="https://placehold.co/90x90/CCEEFF/0066AA?text=Cinnamoroll" alt="Cinnamoroll">
-            </div>
-            <div class="personaje-circulo" data-character="kuromi">
-                <img src="https://placehold.co/90x90/CCAAFF/6633AA?text=Kuromi" alt="Kuromi">
-            </div>
-            <div class="personaje-circulo" data-character="my-melody">
-                <img src="https://placehold.co/90x90/FFCCDD/DD3366?text=My+Melody" alt="My Melody">
-            </div>
-            <div class="personaje-circulo" data-character="badtz-maru">
-                <img src="https://placehold.co/90x90/CCCCCC/333333?text=Badtz-Maru" alt="Badtz-Maru">
-            </div>
-            <div class="personaje-circulo" data-character="pompompurin">
-                <img src="https://placehold.co/90x90/FFEBCC/AA6600?text=Pompompurin" alt="Pompompurin">
-            </div>
-            <div class="personaje-circulo" data-character="keroppi">
-                <img src="https://placehold.co/90x90/CCFFCC/008800?text=Keroppi" alt="Keroppi">
-            </div>
-            <div class="personaje-circulo" data-character="pochacco">
-                <img src="https://placehold.co/90x90/E0E0E0/555555?text=Pochacco" alt="Pochacco">
-            </div>
-            <div class="personaje-circulo" data-character="gudetama">
-                <img src="https://placehold.co/90x90/FFFFCC/DDDD00?text=Gudetama" alt="Gudetama">
-            </div>
-        </div>
-
-        <h2 class="seccion-titulo">2. Seleccionar Opciones</h2>
-        <div class="grupo-botones-opciones">
-            <button class="boton boton-primario" id="btn-first">First</button>
-            <button class="boton boton-primario" id="btn-remove">Remove</button>
-            <button class="boton boton-primario" id="btn-position">Position</button>
-        </div>
-
-        <div class="grupo-botones-mas-menos">
-            <button class="boton-redondo" id="btn-plus">+</button>
-            <button class="boton-redondo" id="btn-minus">-</button>
-        </div>
-
-        <h2 class="seccion-titulo">3. Resultado del Array</h2>
-        <div class="array-resultado-placeholder" id="array-result">
-            <p>El resultado del array aparecerá aquí...</p>
-        </div>
-    </div>
-
+        </section>
+    </main>
     <script>
-        // Obtener todos los círculos de personajes
-        const characterCircles = document.querySelectorAll('.personaje-circulo');
-        const arrayResultDisplay = document.getElementById('array-result');
-        let selectedCharacter = null; // Para almacenar el personaje seleccionado
+        // Elements
+        const villagers   = document.querySelectorAll('.villager')
+        const villagersNav = document.querySelector('.villagers')
+        const sw_action   = document.querySelector('.action')
+        const sw_position = document.querySelector('.position')
+        const btn_action  = document.querySelector('.btn')
+        const result      = document.querySelector('.result')
+        const num_pos     = document.querySelector('.num-pos')
+        const wrapper     = document.querySelector('.wrapper')
 
-        // Función para actualizar el display del array
-        function updateArrayResult(message) {
-            arrayResultDisplay.innerHTML = `<p>${message}</p>`;
+        // Global Variables
+        var slt_villager = null
+        var slt_position = 'first'
+        var slt_action   = 'add'
+        var array_vills  = []
+        
+        // 
+        villagers.forEach((element, index) => {
+            element.addEventListener('click', (e) => {
+                removeAnimation()
+                slt_villager = 'villager' + (index+1)
+                element.classList.add('actived', 'animate__heartBeat')
+                // Agregar clase para indicar que hay una selección
+                villagersNav.classList.add('has-selection')
+            })
+        })
+
+        function removeAnimation() {
+            villagers.forEach(element => {
+                element.classList.remove('actived', 'animate__heartBeat')
+            })
+            // Remover clase de selección si no hay ningún villager activo
+            if (!document.querySelector('.villager.actived')) {
+                villagersNav.classList.remove('has-selection')
+            }
         }
 
-        // Añadir evento click a cada círculo de personaje
-        characterCircles.forEach(circle => {
-            circle.addEventListener('click', () => {
-                // Remover la clase 'seleccionado' de todos los personajes
-                characterCircles.forEach(c => c.classList.remove('seleccionado'));
-
-                // Añadir la clase 'seleccionado' al personaje clickeado
-                circle.classList.add('seleccionado');
-                selectedCharacter = circle.dataset.character; // Obtener el nombre del personaje
-                updateArrayResult(`Personaje seleccionado: ${selectedCharacter.replace('-', ' ').toUpperCase()}`);
-                console.log(`Personaje seleccionado: ${selectedCharacter}`);
-            });
-        });
-
-        // Añadir eventos click a los botones de opción
-        document.getElementById('btn-first').addEventListener('click', () => {
-            const action = 'First';
-            if (selectedCharacter) {
-                updateArrayResult(`Acción "${action}" aplicada a ${selectedCharacter.replace('-', ' ').toUpperCase()}.`);
-                console.log(`Acción: ${action} en ${selectedCharacter}`);
+        function updateScrollability() {
+            // Verificar si el contenido del resultado es más ancho que el contenedor
+            if (result.scrollWidth > wrapper.clientWidth) {
+                wrapper.classList.add('scrollable')
             } else {
-                updateArrayResult('Por favor, selecciona un personaje primero.');
+                wrapper.classList.remove('scrollable')
             }
-        });
+        }
 
-        document.getElementById('btn-remove').addEventListener('click', () => {
-            const action = 'Remove';
-            if (selectedCharacter) {
-                updateArrayResult(`Acción "${action}" aplicada a ${selectedCharacter.replace('-', ' ').toUpperCase()}.`);
-                console.log(`Acción: ${action} en ${selectedCharacter}`);
+        sw_position.addEventListener('click', (e) => {
+            if (sw_position.checked == true) {
+                slt_position = 'last'
             } else {
-                updateArrayResult('Por favor, selecciona un personaje primero.');
+                slt_position = 'first'
             }
-        });
+        })
 
-        document.getElementById('btn-position').addEventListener('click', () => {
-            const action = 'Position';
-            if (selectedCharacter) {
-                updateArrayResult(`Acción "${action}" aplicada a ${selectedCharacter.replace('-', ' ').toUpperCase()}.`);
-                console.log(`Acción: ${action} en ${selectedCharacter}`);
+        sw_action.addEventListener('click', (e) => {
+            if (sw_action.checked == true) {
+                slt_action = 'remove'
+                btn_action.classList.remove('btn-add')
+                btn_action.classList.add('btn-remove')
             } else {
-                updateArrayResult('Por favor, selecciona un personaje primero.');
+                slt_action = 'add'
+                btn_action.classList.remove('btn-remove')
+                btn_action.classList.add('btn-add')
             }
-        });
+        })
 
-        // Añadir eventos click a los botones de suma y resta
-        document.getElementById('btn-plus').addEventListener('click', () => {
-            updateArrayResult('Botón "+" presionado. Añadiendo elemento al array...');
-            console.log('Botón "+" presionado');
-        });
+        btn_action.addEventListener('click', (e) => {
+            if (slt_villager != null) {
+                if (num_pos.value.length > 0) {
+                    if (slt_action == 'add') {
+                        array_vills.splice(num_pos.value, 0, slt_villager); // Add Position
+                    } else {
+                        array_vills.splice(num_pos.value, 1); // Remove Position
+                    }
+                } else {
+                    if (slt_action == 'add') {
+                        if (slt_position == 'first') {
+                            array_vills.unshift(slt_villager)
+                        } else {
+                            array_vills.push(slt_villager)
+                        }
+                    } else {
+                        if (slt_position == 'first') {
+                            array_vills.shift()
+                        } else {
+                            array_vills.pop()
+                        }
+                    }
+                }
+                result.innerHTML = ''
+                for (let i = 0; i < array_vills.length; i++) {
+                    result.innerHTML += `<div class="${array_vills[i]} animate__animated animate__rubberBand"><span>${i}</span></div>`
+                }
+                // Actualizar la capacidad de scroll después de modificar el array
+                setTimeout(updateScrollability, 100) // Pequeño delay para asegurar que el DOM se actualice
+            } else {
+                alert('Please:\n1. Select a Villager')
+            }
+        })
 
-        document.getElementById('btn-minus').addEventListener('click', () => {
-            updateArrayResult('Botón "-" presionado. Eliminando elemento del array...');
-            console.log('Botón "-" presionado');
-        });
-
-        // Mensaje inicial en el resultado del array
-        window.onload = () => {
-            updateArrayResult('Selecciona un personaje y una opción.');
-        };
+        // Inicializar el estado del scroll
+        updateScrollability()
     </script>
 </body>
+
 </html>
