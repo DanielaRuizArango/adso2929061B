@@ -39,7 +39,7 @@
             height: 76px;
             opacity: 0.7;
             width: 76px;
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.2s ease-in;
             background-size: contain !important;
             background-repeat: no-repeat;
             background-position: center;
@@ -51,14 +51,6 @@
         div.app nav.villagers div.villager.actived {
             opacity: 1;
         }
-        /* Cuando hay un villager seleccionado, los demás se vuelven más opacos */
-        div.app nav.villagers.has-selection div.villager:not(.actived) {
-            opacity: 0.3;
-        }
-        div.app nav.villagers.has-selection div.villager:not(.actived):hover {
-            opacity: 0.6;
-        }
-        
         div.app nav.villagers div.villager1,
         div.app figure.result div.villager1 {
             background: url(images/arrays/01-HK.png) no-repeat center;
@@ -160,50 +152,22 @@
         }
 
         div.wrapper {
+            overflow-x: scroll;
             position: absolute;
             bottom: 10px;
             width: 360px;
-            /* Ocultar scrollbar por defecto */
-            overflow-x: hidden;
-            transition: overflow-x 0.3s ease;
         }
-        
-        /* Mostrar scrollbar solo cuando sea necesario */
-        div.wrapper.scrollable {
-            overflow-x: auto;
-        }
-        
-        /* Estilizar la scrollbar para que sea más sutil */
-        div.wrapper::-webkit-scrollbar {
-            height: 6px;
-        }
-        
-        div.wrapper::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-        }
-        
-        div.wrapper::-webkit-scrollbar-thumb {
-            background: #1C63B7;
-            border-radius: 3px;
-        }
-        
-        div.wrapper::-webkit-scrollbar-thumb:hover {
-            background: #1C63B7;
-        }
-        
         div.app figure.result {
             display: inline-flex;
             flex-direction: row;
             flex-wrap: nowrap;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             margin: 0;
             margin-top: -10px;
             padding: 0;
             gap: 10px;
             height: 80px;
-            min-width: 360px;
         }
         div.app figure.result div {
             background-size: contain !important;
@@ -212,7 +176,6 @@
             height: 50px;
             position: relative;
             width: 50px;
-            flex-shrink: 0;
         }
         div.app figure.result div span {
             background-color: #00B1CC;
@@ -235,8 +198,8 @@
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
-                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
+                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
                 <path fill="#ffffff"
                     d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
             </svg>
@@ -275,28 +238,23 @@
     <script>
         // Elements
         const villagers   = document.querySelectorAll('.villager')
-        const villagersNav = document.querySelector('.villagers')
         const sw_action   = document.querySelector('.action')
         const sw_position = document.querySelector('.position')
         const btn_action  = document.querySelector('.btn')
         const result      = document.querySelector('.result')
         const num_pos     = document.querySelector('.num-pos')
-        const wrapper     = document.querySelector('.wrapper')
 
         // Global Variables
         var slt_villager = null
         var slt_position = 'first'
         var slt_action   = 'add'
         var array_vills  = []
-        
         // 
         villagers.forEach((element, index) => {
             element.addEventListener('click', (e) => {
                 removeAnimation()
                 slt_villager = 'villager' + (index+1)
                 element.classList.add('actived', 'animate__heartBeat')
-                // Agregar clase para indicar que hay una selección
-                villagersNav.classList.add('has-selection')
             })
         })
 
@@ -304,19 +262,6 @@
             villagers.forEach(element => {
                 element.classList.remove('actived', 'animate__heartBeat')
             })
-            // Remover clase de selección si no hay ningún villager activo
-            if (!document.querySelector('.villager.actived')) {
-                villagersNav.classList.remove('has-selection')
-            }
-        }
-
-        function updateScrollability() {
-            // Verificar si el contenido del resultado es más ancho que el contenedor
-            if (result.scrollWidth > wrapper.clientWidth) {
-                wrapper.classList.add('scrollable')
-            } else {
-                wrapper.classList.remove('scrollable')
-            }
         }
 
         sw_position.addEventListener('click', (e) => {
@@ -366,15 +311,10 @@
                 for (let i = 0; i < array_vills.length; i++) {
                     result.innerHTML += `<div class="${array_vills[i]} animate__animated animate__rubberBand"><span>${i}</span></div>`
                 }
-                // Actualizar la capacidad de scroll después de modificar el array
-                setTimeout(updateScrollability, 100) // Pequeño delay para asegurar que el DOM se actualice
             } else {
                 alert('Please:\n1. Select a Villager')
             }
         })
-
-        // Inicializar el estado del scroll
-        updateScrollability()
     </script>
 </body>
 
