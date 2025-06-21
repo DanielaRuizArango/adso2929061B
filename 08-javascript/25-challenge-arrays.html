@@ -51,7 +51,7 @@
         div.app nav.villagers div.villager.actived {
             opacity: 1;
         }
-        /* Cuando hay un villager seleccionado, los demás se vuelven más opacos */
+
         div.app nav.villagers.has-selection div.villager:not(.actived) {
             opacity: 0.3;
         }
@@ -125,7 +125,7 @@
             &::placeholder {
                 color: #ffffff;
                 text-align: center;
-                 font-family: "Fredoka", sans-serif;
+                font-family: "Fredoka", sans-serif;
             }
         }
         div.app nav.options input[type=checkbox].position {
@@ -361,7 +361,7 @@
 
                 setTimeout(updateScrollability, 100) 
             } else {
-                alert('Please:\n1. Select a Villager')
+                alert('Please:\n1. Select a character')
             }
         })
 
