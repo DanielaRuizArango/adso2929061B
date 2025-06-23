@@ -1,381 +1,433 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>25 Challenge Arrays</title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <title>Juego de Atrapar</title>
     <style>
-        section {
-            display: flex;
-            justify-content: center;
-        }
-        div.app {
-            background: url(images/arrays/bg1.png) no-repeat center;
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            justify-content: center;
-            position: relative;
-            margin: 1rem auto;
-            align-items: center;
-            height: 740px;
-            width: 380px;
-        }
-        div.app nav.villagers {
-            display: grid;
-            grid-template-columns: repeat(4, 76px);
-            justify-content: space-between;
-            position: absolute;
-            top: 190px;
-            height: 170px;
-            width: 340px;
-        }
-        div.app nav.villagers div.villager {
-            height: 76px;
-            opacity: 0.7;
-            width: 76px;
-            transition: opacity 0.3s ease-in-out;
-            background-size: contain !important;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-        div.app nav.villagers div.villager:hover:not(.actived) {
-            opacity: 1;
-            cursor: pointer;
-        }
-        div.app nav.villagers div.villager.actived {
-            opacity: 1;
-        }
-        /* Cuando hay un villager seleccionado, los demás se vuelven más opacos */
-        div.app nav.villagers.has-selection div.villager:not(.actived) {
-            opacity: 0.3;
-        }
-        div.app nav.villagers.has-selection div.villager:not(.actived):hover {
-            opacity: 0.6;
-        }
-        
-        div.app nav.villagers div.villager1,
-        div.app figure.result div.villager1 {
-            background: url(images/arrays/01-HK.png) no-repeat center;
-        }
-        div.app nav.villagers div.villager2,
-        div.app figure.result div.villager2 {
-            background: url(images/arrays/02-MM.png) no-repeat center;
-        }
-        div.app nav.villagers div.villager3,
-        div.app figure.result div.villager3 {
-            background: url(images/arrays/03-KU.png) no-repeat center;
-        }
-        div.app nav.villagers div.villager4,
-        div.app figure.result div.villager4 {
-            background: url(images/arrays/05-KR.png) no-repeat center;
-        }
-        div.app nav.villagers div.villager5,
-        div.app figure.result div.villager5 {
-            background: url(images/arrays/06-XO.png) no-repeat center;
-        }
-        div.app nav.villagers div.villager6,
-        div.app figure.result div.villager6 {
-            background: url(images/arrays/07-CN.png) no-repeat center;
-        }
-        div.app nav.villagers div.villager7,
-        div.app figure.result div.villager7 {
-            background: url(images/arrays/08-PC.png) no-repeat center;
-        }
-        div.app nav.villagers div.villager8,
-        div.app figure.result div.villager8 {
-            background: url(images/arrays/10-CH.png) no-repeat center;
-        }
-
-        div.app nav.options {
-            display: flex;
-            flex-direction: row;
-            position: absolute;
-            top: 440px;
-            overflow: hidden;
-            height: 54px;
-        }
-
-        div.app nav.options input[type=checkbox],
-        div.app nav.options input[type=number] {
-            -webkit-appearance: none;
-            appearance: none;
-            cursor: pointer;
-            color: #ffffff;
-            font-weight: 600;
-            border: none;
-            text-align: center;
-            outline: none;
-            background: url(images/arrays/position.svg) no-repeat center;
-            height: 54px;
-            width: 120px;
-            transition: background 0.2s ease-in;
-        }
-        div.app nav.options input[type=number] {
-            font-size: 1rem;
-            line-height: 0rem;
-            font-family: "Fredoka", sans-serif;
-            margin-top: 2px;
-            cursor: text;
-            &::placeholder {
-                color: #ffffff;
-                text-align: center;
-                 font-family: "Fredoka", sans-serif;
-            }
-        }
-        div.app nav.options input[type=checkbox].position {
-            background: url(images/arrays/first.svg) no-repeat center;
-        }
-        div.app nav.options input[type=checkbox].position:checked {
-            background: url(images/arrays/last.svg) no-repeat center;
-        }
-        div.app nav.options input[type=checkbox].action {
-            background: url(images/arrays/add.svg) no-repeat center;
-        }
-        div.app nav.options input[type=checkbox].action:checked {
-            background: url(images/arrays/remove.svg) no-repeat center;
-        }
-        div.app button {
-            border: none;
-            cursor: pointer;
-            position: absolute;
-            top: 500px;
-            height: 88px;
-            width: 88px;
-            transition: all 0.2s ease-in;
-        }
-        div.app button:hover {
-            transform: scale(1.1);
-        }
-        div.app button.btn-add {
-            background: url(images/arrays/btn-add.svg) no-repeat center;
-        }
-        div.app button.btn-remove {
-            background: url(images/arrays/btn-remove.svg) no-repeat center;
-        }
-
-        div.wrapper {
-            position: absolute;
-            bottom: 10px;
-            width: 360px;
-            /* Ocultar scrollbar por defecto */
-            overflow-x: hidden;
-            transition: overflow-x 0.3s ease;
-        }
-        
-        /* Mostrar scrollbar solo cuando sea necesario */
-        div.wrapper.scrollable {
-            overflow-x: auto;
-        }
-        
-        /* Estilizar la scrollbar para que sea más sutil */
-        div.wrapper::-webkit-scrollbar {
-            height: 6px;
-        }
-        
-        div.wrapper::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-        }
-        
-        div.wrapper::-webkit-scrollbar-thumb {
-            background: #1C63B7;
-            border-radius: 3px;
-        }
-        
-        div.wrapper::-webkit-scrollbar-thumb:hover {
-            background: #1C63B7;
-        }
-        
-        div.app figure.result {
-            display: inline-flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-            align-items: center;
+        * {
             margin: 0;
-            margin-top: -10px;
             padding: 0;
-            gap: 10px;
-            height: 80px;
-            min-width: 360px;
+            box-sizing: border-box;
         }
-        div.app figure.result div {
-            background-size: contain !important;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 50px;
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .game-container {
             position: relative;
-            width: 50px;
-            flex-shrink: 0;
+            width: 800px;
+            height: 600px;
+            background: linear-gradient(180deg, #87CEEB 0%, #98FB98 100%);
+            border: 4px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
-        div.app figure.result div span {
-            background-color: #00B1CC;
-            border-radius: 50%;
-            color: #ffffff;
-            font-weight: 500;
+
+        .ui {
             position: absolute;
-            padding: 4px;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 30px;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .score {
+            color: #FFD700;
+        }
+
+        .time {
+            color: #FF6B6B;
+        }
+
+        .player {
+            position: absolute;
+            bottom: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: left 0.1s ease;
+            z-index: 10;
+        }
+
+        .player::before {
+            content: '😊';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+        }
+
+        .falling-object {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: top 0.05s linear;
+        }
+
+        .star {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+        }
+
+        .star::before {
+            content: '⭐';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+        }
+
+        .bomb {
+            background: linear-gradient(45deg, #8B0000, #FF0000);
+        }
+
+        .bomb::before {
+            content: '💣';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
             text-align: center;
-            font-size: 12px;
-            height: 20px;
-            top: 0;
-            left: 0;
-            width: 20px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .game-over h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #FF6B6B;
+        }
+
+        .game-over p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .instructions {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .caught {
+            animation: pulse 0.3s ease;
         }
     </style>
 </head>
+<body>
+    <div class="game-container">
+        <div class="ui">
+            <div class="score">Puntos: <span id="score">0</span></div>
+            <div class="time">Tiempo: <span id="time">60</span>s</div>
+        </div>
 
-<body class="js">
-    <nav>
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
-                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                <path fill="#ffffff"
-                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
-            </svg>
-        </a>
-    </nav>
-    <main>
-        <header>
-            <h1>25 Challenge Arrays </h1>
-            <p></p>
-        </header>
-        <section>
-            <div class="app">
-                <nav class="villagers">
-                    <div class="villager villager1 animate__animated animate__infinite"></div>
-                    <div class="villager villager2 animate__animated animate__infinite"></div>
-                    <div class="villager villager3 animate__animated animate__infinite"></div>
-                    <div class="villager villager4 animate__animated animate__infinite"></div>
-                    <div class="villager villager5 animate__animated animate__infinite"></div>
-                    <div class="villager villager6 animate__animated animate__infinite"></div>
-                    <div class="villager villager7 animate__animated animate__infinite"></div>
-                    <div class="villager villager8 animate__animated animate__infinite"></div>
-                </nav>
-                <nav class="options">
-                    <input class="position" type="checkbox">
-                    <input class="action" type="checkbox">
-                    <input class="num-pos" type="number" min="0" max="99" placeholder="Position">
-                </nav>
-                <button class="btn btn-add"></button>
-                <div class="wrapper">
-                    <figure class="result">
-                    </figure>
-                </div>
-            </div>
-        </section>
-    </main>
+        <div class="player" id="player"></div>
+
+        <div class="game-over" id="gameOver">
+            <h2>¡Juego Terminado!</h2>
+            <p>Puntuación final: <span id="finalScore">0</span></p>
+            <button class="restart-btn" onclick="restartGame()">Jugar de Nuevo</button>
+        </div>
+
+        <div class="instructions">
+            <strong>Instrucciones:</strong><br>
+            ← → Mover jugador<br>
+            ⭐ +10 puntos<br>
+            💣 -20 puntos
+        </div>
+    </div>
+
     <script>
-        // Elements
-        const villagers   = document.querySelectorAll('.villager')
-        const villagersNav = document.querySelector('.villagers')
-        const sw_action   = document.querySelector('.action')
-        const sw_position = document.querySelector('.position')
-        const btn_action  = document.querySelector('.btn')
-        const result      = document.querySelector('.result')
-        const num_pos     = document.querySelector('.num-pos')
-        const wrapper     = document.querySelector('.wrapper')
+        // Variables del juego
+        let score = 0;
+        let timeLeft = 60;
+        let gameRunning = true;
+        let playerPosition = 370; // Posición inicial centrada
+        let fallingObjects = [];
+        let gameSpeed = 2;
 
-        // Global Variables
-        var slt_villager = null
-        var slt_position = 'first'
-        var slt_action   = 'add'
-        var array_vills  = []
-        
-        // 
-        villagers.forEach((element, index) => {
-            element.addEventListener('click', (e) => {
-                removeAnimation()
-                slt_villager = 'villager' + (index+1)
-                element.classList.add('actived', 'animate__heartBeat')
-                // Agregar clase para indicar que hay una selección
-                villagersNav.classList.add('has-selection')
-            })
-        })
+        // Referencias DOM
+        const player = document.getElementById('player');
+        const scoreElement = document.getElementById('score');
+        const timeElement = document.getElementById('time');
+        const gameOverScreen = document.getElementById('gameOver');
+        const finalScoreElement = document.getElementById('finalScore');
+        const gameContainer = document.querySelector('.game-container');
 
-        function removeAnimation() {
-            villagers.forEach(element => {
-                element.classList.remove('actived', 'animate__heartBeat')
-            })
-            // Remover clase de selección si no hay ningún villager activo
-            if (!document.querySelector('.villager.actived')) {
-                villagersNav.classList.remove('has-selection')
+        // Configurar posición inicial del jugador
+        player.style.left = playerPosition + 'px';
+
+        // Eventos de teclado
+        document.addEventListener('keydown', handleKeyPress);
+
+        function handleKeyPress(event) {
+            if (!gameRunning) return;
+
+            const containerWidth = 800;
+            const playerWidth = 60;
+            const moveSpeed = 20;
+
+            switch(event.key) {
+                case 'ArrowLeft':
+                    event.preventDefault();
+                    if (playerPosition > 0) {
+                        playerPosition = Math.max(0, playerPosition - moveSpeed);
+                        player.style.left = playerPosition + 'px';
+                    }
+                    break;
+                case 'ArrowRight':
+                    event.preventDefault();
+                    if (playerPosition < containerWidth - playerWidth) {
+                        playerPosition = Math.min(containerWidth - playerWidth, playerPosition + moveSpeed);
+                        player.style.left = playerPosition + 'px';
+                    }
+                    break;
             }
         }
 
-        function updateScrollability() {
-            // Verificar si el contenido del resultado es más ancho que el contenedor
-            if (result.scrollWidth > wrapper.clientWidth) {
-                wrapper.classList.add('scrollable')
-            } else {
-                wrapper.classList.remove('scrollable')
+        // Crear objetos que caen
+        function createFallingObject() {
+            if (!gameRunning) return;
+
+            const obj = document.createElement('div');
+            obj.className = 'falling-object';
+            
+            // 70% estrellas, 30% bombas
+            const isStar = Math.random() < 0.7;
+            obj.classList.add(isStar ? 'star' : 'bomb');
+            obj.dataset.type = isStar ? 'star' : 'bomb';
+            
+            // Posición aleatoria horizontal
+            const maxX = 800 - 40; // Ancho del contenedor - ancho del objeto
+            obj.style.left = Math.random() * maxX + 'px';
+            obj.style.top = '0px';
+            
+            gameContainer.appendChild(obj);
+            fallingObjects.push({
+                element: obj,
+                x: parseInt(obj.style.left),
+                y: 0,
+                type: isStar ? 'star' : 'bomb'
+            });
+        }
+
+        // Mover objetos que caen
+        function updateFallingObjects() {
+            if (!gameRunning) return;
+
+            fallingObjects.forEach((obj, index) => {
+                obj.y += gameSpeed;
+                obj.element.style.top = obj.y + 'px';
+
+                // Verificar colisión con el jugador
+                if (checkCollision(obj)) {
+                    handleCollision(obj);
+                    obj.element.remove();
+                    fallingObjects.splice(index, 1);
+                    return;
+                }
+
+                // Remover objetos que salieron de la pantalla
+                if (obj.y > 600) {
+                    obj.element.remove();
+                    fallingObjects.splice(index, 1);
+                }
+            });
+        }
+
+        // Verificar colisión
+        function checkCollision(obj) {
+            const playerRect = {
+                x: playerPosition,
+                y: 520, // Posición Y del jugador
+                width: 60,
+                height: 60
+            };
+
+            const objRect = {
+                x: obj.x,
+                y: obj.y,
+                width: 40,
+                height: 40
+            };
+
+            return playerRect.x < objRect.x + objRect.width &&
+                   playerRect.x + playerRect.width > objRect.x &&
+                   playerRect.y < objRect.y + objRect.height &&
+                   playerRect.y + playerRect.height > objRect.y;
+        }
+
+        // Manejar colisión
+        function handleCollision(obj) {
+            if (obj.type === 'star') {
+                score += 10;
+                player.classList.add('caught');
+                setTimeout(() => player.classList.remove('caught'), 300);
+            } else if (obj.type === 'bomb') {
+                score = Math.max(0, score - 20);
+                // Efecto visual de daño
+                player.style.background = 'linear-gradient(45deg, #FF0000, #8B0000)';
+                setTimeout(() => {
+                    player.style.background = 'linear-gradient(45deg, #FF6B6B, #FF8E53)';
+                }, 200);
+            }
+            updateScore();
+        }
+
+        // Actualizar puntuación
+        function updateScore() {
+            scoreElement.textContent = score;
+        }
+
+        // Actualizar tiempo
+        function updateTime() {
+            if (!gameRunning) return;
+            
+            timeLeft--;
+            timeElement.textContent = timeLeft;
+            
+            if (timeLeft <= 0) {
+                endGame();
             }
         }
 
-        sw_position.addEventListener('click', (e) => {
-            if (sw_position.checked == true) {
-                slt_position = 'last'
-            } else {
-                slt_position = 'first'
+        // Incrementar dificultad
+        function increaseDifficulty() {
+            if (gameSpeed < 5) {
+                gameSpeed += 0.5;
             }
-        })
+        }
 
-        sw_action.addEventListener('click', (e) => {
-            if (sw_action.checked == true) {
-                slt_action = 'remove'
-                btn_action.classList.remove('btn-add')
-                btn_action.classList.add('btn-remove')
-            } else {
-                slt_action = 'add'
-                btn_action.classList.remove('btn-remove')
-                btn_action.classList.add('btn-add')
-            }
-        })
+        // Terminar juego
+        function endGame() {
+            gameRunning = false;
+            finalScoreElement.textContent = score;
+            gameOverScreen.style.display = 'block';
+            
+            // Limpiar objetos restantes
+            fallingObjects.forEach(obj => obj.element.remove());
+            fallingObjects = [];
+        }
 
-        btn_action.addEventListener('click', (e) => {
-            if (slt_villager != null) {
-                if (num_pos.value.length > 0) {
-                    if (slt_action == 'add') {
-                        array_vills.splice(num_pos.value, 0, slt_villager); // Add Position
-                    } else {
-                        array_vills.splice(num_pos.value, 1); // Remove Position
-                    }
-                } else {
-                    if (slt_action == 'add') {
-                        if (slt_position == 'first') {
-                            array_vills.unshift(slt_villager)
-                        } else {
-                            array_vills.push(slt_villager)
-                        }
-                    } else {
-                        if (slt_position == 'first') {
-                            array_vills.shift()
-                        } else {
-                            array_vills.pop()
-                        }
-                    }
+        // Reiniciar juego
+        function restartGame() {
+            score = 0;
+            timeLeft = 60;
+            gameRunning = true;
+            playerPosition = 370;
+            gameSpeed = 2;
+            fallingObjects = [];
+
+            updateScore();
+            timeElement.textContent = timeLeft;
+            player.style.left = playerPosition + 'px';
+            gameOverScreen.style.display = 'none';
+
+            // Limpiar objetos existentes
+            document.querySelectorAll('.falling-object').forEach(obj => obj.remove());
+
+            // Reiniciar intervalos
+            startGame();
+        }
+
+        // Iniciar juego
+        function startGame() {
+            // Crear objetos que caen cada 1.5 segundos
+            const objectInterval = setInterval(() => {
+                if (!gameRunning) {
+                    clearInterval(objectInterval);
+                    return;
                 }
-                result.innerHTML = ''
-                for (let i = 0; i < array_vills.length; i++) {
-                    result.innerHTML += `<div class="${array_vills[i]} animate__animated animate__rubberBand"><span>${i}</span></div>`
-                }
-                // Actualizar la capacidad de scroll después de modificar el array
-                setTimeout(updateScrollability, 100) // Pequeño delay para asegurar que el DOM se actualice
-            } else {
-                alert('Please:\n1. Select a Villager')
-            }
-        })
+                createFallingObject();
+            }, 1500);
 
-        // Inicializar el estado del scroll
-        updateScrollability()
+            // Actualizar posición de objetos cada 50ms
+            const moveInterval = setInterval(() => {
+                if (!gameRunning) {
+                    clearInterval(moveInterval);
+                    return;
+                }
+                updateFallingObjects();
+            }, 50);
+
+            // Actualizar tiempo cada segundo
+            const timeInterval = setInterval(() => {
+                if (!gameRunning) {
+                    clearInterval(timeInterval);
+                    return;
+                }
+                updateTime();
+            }, 1000);
+
+            // Incrementar dificultad cada 10 segundos
+            const difficultyInterval = setInterval(() => {
+                if (!gameRunning) {
+                    clearInterval(difficultyInterval);
+                    return;
+                }
+                increaseDifficulty();
+            }, 10000);
+        }
+
+        // Iniciar el juego cuando se carga la página
+        startGame();
     </script>
 </body>
-
 </html>
