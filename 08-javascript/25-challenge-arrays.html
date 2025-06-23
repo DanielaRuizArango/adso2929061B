@@ -39,7 +39,7 @@
             height: 76px;
             opacity: 0.7;
             width: 76px;
-            transition: opacity 0.2s ease-in;
+            transition: opacity 0.3s ease-in-out;
             background-size: contain !important;
             background-repeat: no-repeat;
             background-position: center;
@@ -51,6 +51,14 @@
         div.app nav.villagers div.villager.actived {
             opacity: 1;
         }
+
+        div.app nav.villagers.has-selection div.villager:not(.actived) {
+            opacity: 0.3;
+        }
+        div.app nav.villagers.has-selection div.villager:not(.actived):hover {
+            opacity: 0.6;
+        }
+        
         div.app nav.villagers div.villager1,
         div.app figure.result div.villager1 {
             background: url(images/arrays/01-HK.png) no-repeat center;
@@ -117,7 +125,7 @@
             &::placeholder {
                 color: #ffffff;
                 text-align: center;
-                 font-family: "Fredoka", sans-serif;
+                font-family: "Fredoka", sans-serif;
             }
         }
         div.app nav.options input[type=checkbox].position {
@@ -152,22 +160,47 @@
         }
 
         div.wrapper {
-            overflow-x: scroll;
             position: absolute;
             bottom: 10px;
             width: 360px;
+            overflow-x: hidden;
+            transition: overflow-x 0.3s ease;
         }
+        
+        div.wrapper.scrollable {
+            overflow-x: auto;
+        }
+        
+        div.wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        div.wrapper::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        
+        div.wrapper::-webkit-scrollbar-thumb {
+            background: #00B1CC;
+            border-radius: 3px;
+        }
+        
+        div.wrapper::-webkit-scrollbar-thumb:hover {
+            background: #00B1CC;
+        }
+        
         div.app figure.result {
             display: inline-flex;
             flex-direction: row;
             flex-wrap: nowrap;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             margin: 0;
             margin-top: -10px;
             padding: 0;
             gap: 10px;
             height: 80px;
+            min-width: 360px;
         }
         div.app figure.result div {
             background-size: contain !important;
@@ -176,6 +209,7 @@
             height: 50px;
             position: relative;
             width: 50px;
+            flex-shrink: 0;
         }
         div.app figure.result div span {
             background-color: #00B1CC;
@@ -198,8 +232,6 @@
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
-                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
                 <path fill="#ffffff"
                     d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
             </svg>
@@ -238,23 +270,27 @@
     <script>
         // Elements
         const villagers   = document.querySelectorAll('.villager')
+        const villagersNav = document.querySelector('.villagers')
         const sw_action   = document.querySelector('.action')
         const sw_position = document.querySelector('.position')
         const btn_action  = document.querySelector('.btn')
         const result      = document.querySelector('.result')
         const num_pos     = document.querySelector('.num-pos')
+        const wrapper     = document.querySelector('.wrapper')
 
         // Global Variables
         var slt_villager = null
         var slt_position = 'first'
         var slt_action   = 'add'
         var array_vills  = []
+        
         // 
         villagers.forEach((element, index) => {
             element.addEventListener('click', (e) => {
                 removeAnimation()
                 slt_villager = 'villager' + (index+1)
                 element.classList.add('actived', 'animate__heartBeat')
+                villagersNav.classList.add('has-selection')
             })
         })
 
@@ -262,6 +298,17 @@
             villagers.forEach(element => {
                 element.classList.remove('actived', 'animate__heartBeat')
             })
+            if (!document.querySelector('.villager.actived')) {
+                villagersNav.classList.remove('has-selection')
+            }
+        }
+
+        function updateScrollability() {
+            if (result.scrollWidth > wrapper.clientWidth) {
+                wrapper.classList.add('scrollable')
+            } else {
+                wrapper.classList.remove('scrollable')
+            }
         }
 
         sw_position.addEventListener('click', (e) => {
@@ -288,9 +335,9 @@
             if (slt_villager != null) {
                 if (num_pos.value.length > 0) {
                     if (slt_action == 'add') {
-                        array_vills.splice(num_pos.value, 0, slt_villager); // Add Position
+                        array_vills.splice(num_pos.value, 0, slt_villager); 
                     } else {
-                        array_vills.splice(num_pos.value, 1); // Remove Position
+                        array_vills.splice(num_pos.value, 1); 
                     }
                 } else {
                     if (slt_action == 'add') {
@@ -311,10 +358,14 @@
                 for (let i = 0; i < array_vills.length; i++) {
                     result.innerHTML += `<div class="${array_vills[i]} animate__animated animate__rubberBand"><span>${i}</span></div>`
                 }
+
+                setTimeout(updateScrollability, 100) 
             } else {
-                alert('Please:\n1. Select a Villager')
+                alert('Please:\n1. Select a character')
             }
         })
+
+        updateScrollability()
     </script>
 </body>
 
