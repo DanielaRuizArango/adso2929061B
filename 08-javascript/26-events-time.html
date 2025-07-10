@@ -65,11 +65,125 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>26- Events Time</h1>
+            <p>Handle time-based events and intervals.</p>
         </header>
         <section>
+            <h3>SetInterval: Digital Clock</h3>
+            <h4 class="clock"></h4>
+            <h3>SetTimeout: Refresh Page</h3>
+            <input class="time-to-refresh" type="number" placeholder="Number of seconds">
+            <button class="btn-settime">Set Time</button>
+            <h4 class="refresh"></h4>
+            <h3>Move Element: </h3>
+            <small><strong>Press Left & Right Keys</strong></small>
+            <figure class="sky">
+                <img src="images/goku.png" class="goku">
+            </figure>
         </section>
     </main>
+    <script>
+        const clock = document.querySelector('.clock');
+        const timeToRefresh = document.querySelector('.time-to-refresh');
+        const btnSetTime = document.querySelector('.btn-settime');
+        const refresh = document.querySelector('h4.refresh');
+        const goku = document.querySelector('.goku');
+
+        // SetInterval
+        clock.textContent = `Loading...`
+        setInterval(function(){
+            let currentTime = new Date().toLocaleTimeString()
+            clock.textContent = currentTime
+        }, 1000)
+
+        // SetTimeout
+        btnSetTime.addEventListener('click', () => {
+            if(!timeToRefresh.value.length > 0) {
+                alert('Please enter a number of seconds.')
+            } else {
+                let count = 1
+                let time = parseInt(timeToRefresh.value)
+                refresh.textContent = `${time} seconds`
+                btnSetTime.style.pointerEvents = 'none'
+                btnSetTime.style.opacity = '0.2'
+                setInterval(() => {
+                    refresh.textContent = `${time-count} seconds`
+                    count++
+                }, 1000)
+                setTimeout(() => {
+                    window.location.reload()
+                }, (time * 1000))
+            }
+        })
+
+        // Event KeyUp
+        let positionX = 140
+        let positionY = 140
+        window.addEventListener('keyup', e => {
+            //console.log(event.keyCode)
+            // Left -> 37 | Top -> 38 | Right -> 39 | Up -> 40
+            if(event.code == 'ArrowLeft') {
+                if(position > -60) {
+                    position -= 40
+                    goku.style.transform = `rotateY(0deg)`
+                    goku.style.left = `${position}px`
+                } else {
+                    position = 340
+                    goku.style.display = `none`
+
+                    setTimeout(() => {
+                        goku.style.display = `block`
+                        goku.style.left = `${position}px`
+                    }, 200)
+                }
+            }
+            
+            if(event.code == 'ArrowRight') {
+                if(positionX < 340) {
+                    positionX += 40
+                    goku.style.transform = `rotateY(180deg)`
+                    goku.style.left = `${positionX}px`
+                } else {
+                    positionX = -60
+                    goku.style.display = `none`
+
+                    setTimeout(() => {
+                        goku.style.display = `block`
+                        goku.style.left = `${positionX}px`
+                    }, 200)
+                }
+            }
+
+            if(event.code == 'ArrowUp') {
+                if(positionY < 340) {
+                    positionY -= 40
+                    goku.style.top = `${positionY}px`
+                } else {
+                    positionY = +60
+                    goku.style.display = `none`
+
+                    setTimeout(() => {
+                        goku.style.display = `block`
+                        goku.style.top = `${positionY}px`
+                    }, 200)
+                }
+            }
+
+            if(event.code == 'ArrowDown') {
+                if(positionX > -340) {
+                    positionX += 40
+                    goku.style.top = `${positionX}px`
+                } else {
+                    positionX = +40
+                    goku.style.display = `none`
+
+                    setTimeout(() => {
+                        goku.style.display = `block`
+                        goku.style.top = `${positionX}px`
+                    }, 200)
+                }
+            }
+        })
+    </script>
 </body>
 </html>            
