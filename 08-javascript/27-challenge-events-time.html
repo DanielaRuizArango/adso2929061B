@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>27- Challenge Event Time</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,25 +19,53 @@
             font-style: normal;
         }
 
+        section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent !important;
+            background-image: url(images/snake/bg.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 380px !important;
+            height: 740px !important;
+            border-radius: 30px !important;
+            margin: 40px 0;
+        }
+
         .game-header {
             text-align: center;
             margin-bottom: 20px;
         }
 
+        .game-title {
+            text-align: center;
+            background-image: url('images/snake/grass.png');
+            background-size: cover;
+            background-position: center;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            font-weight: 900;
+        }
+
         .score-board {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 40px;
             margin: 15px 0;
             color: #fff;
             font-size: 16px;
         }
 
         .score {
-            background: linear-gradient(145deg, #2ecc71, #27ae60);
+            background: url('images/snake/btn.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             padding: 12px 24px;
             border-radius: 25px;
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
             color: #fff;
             font-weight: bold;
             min-width: 120px;
@@ -50,10 +78,12 @@
         }
 
         .high-score {
-            background: linear-gradient(145deg, #3498db, #2980b9);
+            background: url('images/snake/btn.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             padding: 12px 24px;
             border-radius: 25px;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
             color: #fff;
             font-weight: bold;
             min-width: 120px;
@@ -69,9 +99,7 @@
             width: 340px;
             height: 500px;
             background: #fff;
-            border: 4px solid #2ecc71;
             border-radius: 20px;
-            box-shadow: 0 0 40px rgba(46, 204, 113, 0.2), 0 8px 32px rgba(52, 152, 219, 0.15);
             display: block;
             margin: 0 auto 20px auto;
         }
@@ -81,25 +109,39 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.95));
+            background: url('images/snake/gameOver.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: #333;
-            padding: 30px;
+            padding: 20px;
             border-radius: 20px;
             text-align: center;
             border: 3px solid #ff6b6b;
-            box-shadow: 0 0 50px rgba(255, 107, 107, 0.6);
             display: none;
         }
 
         .game-over h2 {
-            color: #ff6b6b;
-            margin: 0 0 15px 0;
-            font-size: 24px;
-            text-align: center;
+            color: #ffffff;
+            font-size: 40px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .game-over h2::after {
+            font-size: 35px;
         }
 
         .restart-btn {
-            background: linear-gradient(45deg, #48dbfb, #54a0ff);
+            background: url('images/snake/btn.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             border: none;
             padding: 12px 24px;
             border-radius: 15px;
@@ -109,13 +151,14 @@
             margin-top: 15px;
             font-size: 16px;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(72, 219, 251, 0.4);
         }
 
         .restart-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(72, 219, 251, 0.5);
-            background: linear-gradient(45deg, #54a0ff, #ff9ff3);
+            background: url('images/snake/btn.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         /* Fruta y snake (ejemplo) */
@@ -142,11 +185,6 @@
                 transform: scale(1);
             }
         }
-
-        .game-title {
-            color: #155724;
-            text-align: center;
-        }
     </style>
 </head>
 
@@ -163,8 +201,8 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>27- Challenge Event Time </h1>
+            <p>Create time-based interactive challenges.</p>
         </header>
         <section>
             <h1 class="game-title">🐍 SNAKE GAME</h1>
@@ -177,16 +215,21 @@
             <canvas id="gameCanvas" class="game-canvas" width="340" height="500"></canvas>
 
             <div class="game-over" id="gameOver">
-                <h2>¡Juego Terminado!</h2>
-                <p>Puntuación: <span id="finalScore">0</span></p>
-                <p id="newRecord" style="color: #00ff88; display: none;">¡Nuevo Récord! 🎉</p>
-                <button class="restart-btn" onclick="restartGame()">Jugar de Nuevo</button>
+                <h2> GAME OVER 💀</h2>
+                <p>Tu puntuación: <span id="finalScore">0</span></p>
+                <p id="newRecord" style="color: #00ff88; font-weight: 900; display: none;">¡NUEVO RÉCORD! 🏆</p>
+                <button class="restart-btn" onclick="restartGame()"> Jugar de Nuevo</button>
             </div>
         </section>
     </main>
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
+
+        // Mejorar la calidad de renderizado
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+
         const scoreElement = document.getElementById('score');
         const highScoreElement = document.getElementById('highScore');
         const gameOverElement = document.getElementById('gameOver');
@@ -209,12 +252,19 @@
         let score = 0;
         let highScore = localStorage.getItem('snakeHighScore') || 0;
         let gameRunning = false;
-        let gamePaused = false;
-
+        let showStartMessage = true; // NUEVO: mostrar mensaje de inicio
 
         // Cargar imagen de cabeza personalizada
         const customHeadImg = new Image();
-        customHeadImg.src = 'images/snake/head.png';
+        customHeadImg.src = 'images/snake/head2.png';
+
+        // Cargar imagen del cuerpo
+        const customBodyImg = new Image();
+        customBodyImg.src = 'images/snake/body.png';
+
+        // Cargar imagen de grass para el fondo
+        const grassImg = new Image();
+        grassImg.src = 'images/snake/grass.png';
 
         highScoreElement.textContent = highScore;
 
@@ -231,40 +281,21 @@
         }
 
         function drawGrid() {
-            ctx.strokeStyle = "#000000"; // Color de las líneas de la cuadrícula
-            ctx.lineWidth = 0.5;
-
-            // Fondo verde
-            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            gradient.addColorStop(0, '#98f9a8');
-            gradient.addColorStop(1, '#c7fb89');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Líneas verticales blancas
-            ctx.strokeStyle = "rgba(255, 255, 255, 0.3)";
-            for (let x = 0; x <= canvas.width; x += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-                ctx.stroke();
+            // Dibujar imagen de grass como fondo
+            if (grassImg.complete && grassImg.naturalWidth > 0) {
+                // Crear un patrón repetitivo de la imagen grass
+                const pattern = ctx.createPattern(grassImg, 'repeat');
+                ctx.fillStyle = pattern;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
             }
 
-            // Líneas horizontales blancas
-            for (let y = 0; y <= canvas.height; y += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-                ctx.stroke();
-            }
-
-            // Añadir un sutil efecto de viñeta
+            // Efecto de viñeta sutil para mejorar la visibilidad
             const vignette = ctx.createRadialGradient(
                 canvas.width / 2, canvas.height / 2, 0,
                 canvas.width / 2, canvas.height / 2, canvas.width / 1.5
             );
             vignette.addColorStop(0, 'rgba(255,255,255,0)');
-            vignette.addColorStop(1, 'rgba(0,0,0,0.1)');
+            vignette.addColorStop(1, 'rgba(0,0,0,0.05)');
             ctx.fillStyle = vignette;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
@@ -272,58 +303,53 @@
         function drawGame() {
             // Dibuja la cuadrícula primero
             drawGrid();
-
             // Draw snake
             snake.forEach((segment, index) => {
                 const x = segment.x * gridSize + gridSize / 2;
                 const y = segment.y * gridSize + gridSize / 2;
                 if (index === 0) {
                     // Dibuja la cabeza con la imagen personalizada
-                    if (customHeadImg.complete && customHeadImg.naturalWidth > 0) {
+                    ctx.save();
+                    // Rotar la cabeza según la dirección
+                    ctx.translate(x, y);
+                    let angle = 0;
+                    if (dx === 1) angle = 0; // Derecha
+                    else if (dx === -1) angle = Math.PI; // Izquierda
+                    else if (dy === 1) angle = Math.PI / 2; // Abajo
+                    else if (dy === -1) angle = -Math.PI / 2; // Arriba
+                    ctx.rotate(angle);
+                    ctx.drawImage(customHeadImg, -gridSize / 2, -gridSize / 2, gridSize, gridSize);
+                    ctx.restore();
+                } else {
+                    // Dibujar el cuerpo usando la imagen
+                    ctx.save();
+                    // Configurar el suavizado para esta imagen específica
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(customBodyImg,
+                        segment.x * gridSize,
+                        segment.y * gridSize,
+                        gridSize,
+                        gridSize);
+                    ctx.restore();
+
+                    // Añadir un segmento adicional entre segmentos para suavizar
+                    if (index < snake.length - 1) {
+                        const nextSegment = snake[index + 1];
+                        const midX = (segment.x + nextSegment.x) * gridSize / 2;
+                        const midY = (segment.y + nextSegment.y) * gridSize / 2;
+
                         ctx.save();
-                        // Rotar la cabeza según la dirección
-                        ctx.translate(x, y);
-                        let angle = 0;
-                        if (dx === 1) angle = 0; // Derecha
-                        else if (dx === -1) angle = Math.PI; // Izquierda
-                        else if (dy === 1) angle = Math.PI / 2; // Abajo
-                        else if (dy === -1) angle = -Math.PI / 2; // Arriba
-                        ctx.rotate(angle);
-                        ctx.drawImage(customHeadImg, -gridSize / 2, -gridSize / 2, gridSize, gridSize);
-                        ctx.restore();
-                    } else {
-                        // Si no está cargada, dibuja un círculo con gradiente moderno
-                        const grad = ctx.createRadialGradient(x, y, gridSize * 0.2, x, y, gridSize * 0.5);
-                        grad.addColorStop(0, '#00f7ff');
-                        grad.addColorStop(0.5, '#00b894');
-                        grad.addColorStop(1, '#00838f');
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.arc(x, y, gridSize / 2 - 2, 0, 2 * Math.PI);
-                        ctx.closePath();
-                        ctx.shadowColor = '#00b894';
-                        ctx.shadowBlur = 20;
-                        ctx.fillStyle = grad;
-                        ctx.fill();
-                        ctx.shadowBlur = 0;
+                        // Configurar el suavizado para esta imagen específica
+                        ctx.imageSmoothingEnabled = true;
+                        ctx.imageSmoothingQuality = 'high';
+                        ctx.drawImage(customBodyImg,
+                            midX,
+                            midY,
+                            gridSize,
+                            gridSize);
                         ctx.restore();
                     }
-                } else {
-                    // BODY: gradiente moderno y efecto de brillo
-                    const grad = ctx.createRadialGradient(x, y, gridSize * 0.15, x, y, gridSize * 0.5);
-                    grad.addColorStop(0, '#00f7ff');
-                    grad.addColorStop(0.5, '#00b894');
-                    grad.addColorStop(1, '#006064');
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(x, y, gridSize / 2 - 3, 0, 2 * Math.PI);
-                    ctx.closePath();
-                    ctx.shadowColor = '#00b894';
-                    ctx.shadowBlur = 15;
-                    ctx.fillStyle = grad;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-                    ctx.restore();
                 }
             });
 
@@ -364,7 +390,7 @@
         }
 
         function moveSnake() {
-            if (!gameRunning || gamePaused) return;
+            if (!gameRunning) return;
 
             const head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
@@ -389,30 +415,9 @@
                 score += 10;
                 scoreElement.textContent = score;
                 randomFood();
-                createFoodEffect(head.x * gridSize, head.y * gridSize);
             } else {
                 snake.pop();
             }
-        }
-
-        function createFoodEffect(x, y) {
-            const effect = document.createElement('div');
-            effect.className = 'food-effect';
-            effect.textContent = '+10';
-            effect.style.position = 'absolute';
-            effect.style.left = (x + 20) + 'px';
-            effect.style.top = (y + 20) + 'px';
-            effect.style.color = '#00ff88';
-            effect.style.fontSize = '20px';
-            effect.style.fontWeight = 'bold';
-            effect.style.zIndex = '1000';
-            document.querySelector('.game-container').appendChild(effect);
-
-            setTimeout(() => {
-                if (effect.parentNode) {
-                    effect.remove();
-                }
-            }, 500);
         }
 
         function gameOver() {
@@ -439,9 +444,7 @@
             scoreElement.textContent = score;
             randomFood();
             gameRunning = true;
-            gamePaused = false;
             gameOverElement.style.display = 'none';
-            document.querySelector('.pause').textContent = '⏸️';
         }
 
         function changeDirection(direction) {
@@ -449,8 +452,6 @@
                 restartGame();
                 return;
             }
-
-            if (gamePaused && direction !== 'pause') return;
 
             switch (direction) {
                 case 'up':
@@ -472,32 +473,27 @@
         document.addEventListener('keydown', (e) => {
             switch (e.key) {
                 case 'ArrowUp':
-                case 'w':
-                case 'W':
                     e.preventDefault();
+                    if (showStartMessage) showStartMessage = false; // Oculta mensaje al iniciar
                     changeDirection('up');
                     break;
                 case 'ArrowDown':
-                case 's':
-                case 'S':
                     e.preventDefault();
+                    if (showStartMessage) showStartMessage = false;
                     changeDirection('down');
                     break;
                 case 'ArrowLeft':
-                case 'a':
-                case 'A':
                     e.preventDefault();
+                    if (showStartMessage) showStartMessage = false;
                     changeDirection('left');
                     break;
                 case 'ArrowRight':
-                case 'd':
-                case 'D':
                     e.preventDefault();
+                    if (showStartMessage) showStartMessage = false;
                     changeDirection('right');
                     break;
                 case ' ':
                     e.preventDefault();
-                    togglePause();
                     break;
                 case 'Enter':
                     if (!gameRunning) restartGame();
@@ -515,17 +511,6 @@
         randomFood();
         drawGame();
         setInterval(gameLoop, 150);
-
-        // Start message
-        setTimeout(() => {
-            if (!gameRunning) {
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.font = '24px Arial';
-                ctx.textAlign = 'center';
-                ctx.fillText('Presiona cualquier flecha', canvas.width / 2, canvas.height / 2 - 20);
-                ctx.fillText('para comenzar', canvas.width / 2, canvas.height / 2 + 20);
-            }
-        }, 100);
     </script>
 
 </body>

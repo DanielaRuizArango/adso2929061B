@@ -1,152 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snake Game</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            background: #111;
-            color: white;
-        }
-
-        #game {
-            display: grid;
-            grid-template-columns: repeat(10, 30px);
-            grid-template-rows: repeat(10, 30px);
-            gap: 2px;
-            margin: 20px auto;
-            width: max-content;
-        }
-
-        .cell {
-            width: 30px;
-            height: 30px;
-            background-color: #222;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .snake-head {
-            background-image: url('https://cdn-icons-png.flaticon.com/512/616/616408.png');
-        }
-
-        .snake-body {
-            background-image: url('https://cdn-icons-png.flaticon.com/512/188/188987.png');
-        }
-
-        .food {
-            background-image: url('https://cdn-icons-png.flaticon.com/512/590/590685.png');
-        }
-
-
-        .food {
-            background-image: url('https://cdn-icons-png.flaticon.com/512/590/590685.png');
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>00 -Template</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style> 
     </style>
 </head>
-
-<body>
-    <h1>🐍 Snake Game</h1>
-    <div id="game"></div>
-    <p>Puntaje: <span id="score">0</span></p>
-
-    <script>
-        const game = document.getElementById("game");
-        const scoreDisplay = document.getElementById("score");
-
-        // Crear celdas
-        const cells = [];
-        for (let i = 0; i < 100; i++) {
-            const cell = document.createElement("div");
-            cell.classList.add("cell");
-            game.appendChild(cell);
-            cells.push(cell);
-        }
-
-        // Estado inicial
-        let snake = [44, 43]; // dos segmentos
-        let direction = 1; // derecha
-        let food = 0;
-        let score = 0;
-
-        // Dibujar estado inicial
-        function draw() {
-            cells.forEach(c => c.className = "cell");
-            snake.forEach(i => cells[i].classList.add("snake"));
-            cells[food].classList.add("food");
-            scoreDisplay.textContent = score;
-        }
-
-        // Comida nueva
-        function placeFood() {
-            do {
-                food = Math.floor(Math.random() * 100);
-            } while (snake.includes(food));
-        }
-        placeFood();
-
-        // Mover serpiente
-        function move() {
-            const head = snake[0];
-            const next = head + direction;
-
-            const hitWall =
-                (direction === 1 && head % 10 === 9) || // derecha
-                (direction === -1 && head % 10 === 0) || // izquierda
-                (direction === -10 && head < 10) || // arriba
-                (direction === 10 && head > 89); // abajo
-
-            if (hitWall || snake.includes(next)) {
-                alert("¡Perdiste! 😵");
-                clearInterval(loop);
-                return;
-            }
-
-            snake.unshift(next);
-
-            if (next === food) {
-                score++;
-                placeFood();
-            } else {
-                snake.pop();
-            }
-
-            draw();
-        }
-
-        // Control con teclas
-        document.addEventListener("keydown", e => {
-            if (e.key === "ArrowUp" && direction !== 10) direction = -10;
-            if (e.key === "ArrowDown" && direction !== -10) direction = 10;
-            if (e.key === "ArrowLeft" && direction !== 1) direction = -1;
-            if (e.key === "ArrowRight" && direction !== -1) direction = 1;
-        });
-
-        // Iniciar juego
-        draw();
-        const loop = setInterval(move, 200);
-
-        function draw() {
-            cells.forEach(c => c.className = "cell");
-
-            snake.forEach((i, index) => {
-                if (index === 0) {
-                    cells[i].classList.add("snake-head");
-                } else {
-                    cells[i].classList.add("snake-body");
-                }
-            });
-
-            cells[food].classList.add("food");
-            scoreDisplay.textContent = score;
-        }
-
-
-    </script>
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>00 -Template </h1>
+            <p></p>
+        </header>
+        <section>
+        </section>
+    </main>
 </body>
-
-</html>
+</html>            
