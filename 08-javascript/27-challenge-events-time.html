@@ -258,6 +258,7 @@
         let score = 0;
         let highScore = localStorage.getItem('snakeHighScore') || 0;
         let gameRunning = false;
+        let showStartMessage = true;  // Variable para controlar el mensaje inicial
 
 
         const customHeadImg = new Image();
@@ -306,6 +307,19 @@
 
         function drawGame() {
             drawGrid();
+            
+            // Dibujar mensaje inicial
+            if (showStartMessage) {
+                ctx.fillStyle = 'rgba(0,0,0,0.7)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#fff';
+                ctx.font = '20px Orbitron';
+                ctx.textAlign = 'center';
+                ctx.fillText('Presiona una flecha', canvas.width/2, canvas.height/2 - 30);
+                ctx.fillText('para comenzar', canvas.width/2, canvas.height/2 + 10);
+                return;
+            }
+
             snake.forEach((segment, index) => {
                 const x = segment.x * gridSize + gridSize / 2;
                 const y = segment.y * gridSize + gridSize / 2;
@@ -468,22 +482,34 @@
             switch (e.key) {
                 case 'ArrowUp':
                     e.preventDefault();
-                    if (showStartMessage) showStartMessage = false; 
+                    if (showStartMessage) {
+                        showStartMessage = false;
+                        gameRunning = true;
+                    }
                     changeDirection('up');
                     break;
                 case 'ArrowDown':
                     e.preventDefault();
-                    if (showStartMessage) showStartMessage = false;
+                    if (showStartMessage) {
+                        showStartMessage = false;
+                        gameRunning = true;
+                    }
                     changeDirection('down');
                     break;
                 case 'ArrowLeft':
                     e.preventDefault();
-                    if (showStartMessage) showStartMessage = false;
+                    if (showStartMessage) {
+                        showStartMessage = false;
+                        gameRunning = true;
+                    }
                     changeDirection('left');
                     break;
                 case 'ArrowRight':
                     e.preventDefault();
-                    if (showStartMessage) showStartMessage = false;
+                    if (showStartMessage) {
+                        showStartMessage = false;
+                        gameRunning = true;
+                    }
                     changeDirection('right');
                     break;
                 case ' ':
