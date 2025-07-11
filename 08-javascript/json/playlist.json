@@ -1,0 +1,28 @@
+{
+    "songs": [
+        { "id": 1, 
+          "title": "Lithium", 
+          "artist": "Nirvana", 
+          "album": "Never Mind", 
+          "year": 1991, 
+          "cover": "images/mp3player/cover-01.webp", 
+          "song": "audio/song-01.mp3" 
+        },
+        { "id": 2, 
+          "title": "Basket Case", 
+          "artist": "Green Day", 
+          "album": "Dookie", 
+          "year": 1994, 
+          "cover": "images/mp3player/cover-02.webp", 
+          "song": "audio/song-02.mp3" 
+        },
+        { "id": 3, 
+          "title": "One", 
+          "artist": "Metallica", 
+          "album": "And Justice for All", 
+          "year": 1988, 
+          "cover": "images/mp3player/cover-03.webp", 
+          "song": "audio/song-03.mp3" 
+        }
+    ]
+}
