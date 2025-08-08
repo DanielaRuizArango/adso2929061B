@@ -367,3 +367,14 @@ main.show div article p {
     font-size: 14px;
     left: 140px;
 }
+
+main section.error {
+    background-color: #dc143ccc;
+    color: #fff;
+    padding: 0.4rem  0.8rem;
+    border-radius: 1rem;
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translate(-50%);
+}

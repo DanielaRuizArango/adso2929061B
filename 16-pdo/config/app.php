@@ -2,7 +2,7 @@
 
 session_start();
 
-$url = "http://localhost:8080/";
+$url = 'http://'.$_SERVER['HTTP_HOST'].'/';
 $public = $url."public/";
 $css = $public."css/";
 $js = $public."js/";
