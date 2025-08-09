@@ -1,4 +1,4 @@
 <?php
-if(isset($_SESSION['iud'])) {
-    echo "<script> window.locatio.replace('pages/dashboard.php') </script>";
-}
+    if(isset($_SESSION['uid'])) {
+        echo "<script> window.location.replace('pages/dashboard.php') </script>";
+    }

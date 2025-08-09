@@ -1,9 +1,8 @@
-<?php 
-include '../config/app.php';
-include '../config/database.php';
-include '../config/security.php';
+<?php
+    include '../config/app.php';
+    include '../config/database.php';
+    include '../config/security.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,127 +19,93 @@ include '../config/security.php';
             <a href="dashboard.php" class="back"></a>
             <a href="../close.php" class="close"></a>
         </header>
-
         <figure class="photo-preview">
-            <img id="preview" src="<?=$imgs?>/photo-lg-0.svg" alt="Vista previa de foto">
+            <img id="preview" src="<?=$imgs?>/photo-lg-0.svg" alt="">
         </figure>
-
         <form action="" method="post" enctype="multipart/form-data">
-            <!-- Campo Nombre -->
-            <input type="text" name="name" placeholder="Nombre" autocomplete="off" 
-                   value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>">
-            
-            <!-- Selector de Especie -->
+            <input type="text" name="name" placeholder="Nombre" autocomplete="off" value="<?php if(isset($_POST['name'])) echo $_POST['name']; ?>">
             <div class="select">
                 <select name="specie_id">
                     <option value="">Seleccione Especie...</option>
                     <?php $species = listSpecies($conx) ?>
                     <?php foreach($species as $specie): ?>
-                        <option value="<?=$specie['id']?>" 
-                            <?= (isset($_POST['specie_id']) && $_POST['specie_id'] == $specie['id']) ? 'selected' : '' ?>>
-                            <?=$specie['id']?>-<?=$specie['name']?>
-                        </option>
+                        <option value="<?=$specie['id']?>" <?php if(isset($_POST['specie_id']) && $_POST['specie_id'] == $specie['id']) echo "selected"; ?>><?=$specie['id']?>-<?=$specie['name']?></option>
                     <?php endforeach ?>
                 </select>
             </div>
-            
-            <!-- Selector de Raza -->
             <div class="select">
                 <select name="breed_id">
                     <option value="">Seleccione Raza...</option>
                     <?php $breeds = listBreeds($conx) ?>
                     <?php foreach($breeds as $breed): ?>
-                        <option value="<?=$breed['id']?>" 
-                            <?= (isset($_POST['breed_id']) && $_POST['breed_id'] == $breed['id']) ? 'selected' : '' ?>>
-                            <?=$breed['id']?>-<?=$breed['name']?>
-                        </option>
+                        <option value="<?=$breed['id']?>" <?php if(isset($_POST['breed_id']) && $_POST['breed_id'] == $breed['id']) echo "selected"; ?>><?=$breed['id']?>-<?=$breed['name']?></option>
                     <?php endforeach ?>
                 </select>
             </div>
-            
-            <!-- Foto -->
             <button type="button" class="upload">Subir Foto</button>
             <input type="file" name="photo" id="photo" accept="image/*" style="display: none;">
-            
-            <!-- Selector de Género -->
             <div class="select">
                 <select name="sex_id">
                     <option value="">Seleccione Genero...</option>
                     <?php $sexes = listSexes($conx) ?>
                     <?php foreach($sexes as $sex): ?>
-                        <option value="<?=$sex['id']?>" 
-                            <?= (isset($_POST['sex_id']) && $_POST['sex_id'] == $sex['id']) ? 'selected' : '' ?>>
-                            <?=$sex['id']?>-<?=$sex['name']?>
-                        </option>
+                        <option value="<?=$sex['id']?>" <?php if(isset($_POST['sex_id']) && $_POST['sex_id'] == $sex['id']) echo "selected"; ?>><?=$sex['id']?>-<?=$sex['name']?></option>
                     <?php endforeach ?>
                 </select>
             </div>
-            
-            <button type="submit" class="save">Guardar</button>
+            <button class="save">Guardar</button>
         </form>
-
-        <?php
-        // Procesamiento del formulario
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $errors = 0;
-            
-            // Validación de campos requeridos
-            foreach ($_POST as $key => $value) {
-                if(empty($value)) {
-                    $errors++;
-                }
-            }
-            
-            // Validación de archivo
-            if(!isset($_FILES['photo']) || !file_exists($_FILES['photo']['tmp_name'])) {
-                $errors++;
-            }
-            
-            if($errors == 0) {
-                $name = $_POST['name'];
-                $specie_id = $_POST['specie_id'];
-                $breed_id = $_POST['breed_id'];
-                $sex_id = $_POST['sex_id'];
-                
-                // Procesamiento de la imagen
-                $ext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
-                $photo = time().".".$ext;
-                $targetPath = "../uploads/".$photo;
-                
-                if(move_uploaded_file($_FILES['photo']['tmp_name'], $targetPath)) {
-                    if(addPet($name, $specie_id, $breed_id, $sex_id, $photo, $conx)) {
-                        $_SESSION['message'] = "La Mascota $name se adicionó con éxito!";
-                        echo "<script>window.location.replace('dashboard.php')</script>";
+        <?php 
+            if($_POST) {
+                $errors = 0;
+                foreach ($_POST as $key => $value) {
+                    if(empty($value)) {
+                        $errors++;
                     }
                 }
-            } else {
-                $_SESSION['error'] = "Todos los campos son requeridos!";
+                if(!file_exists($_FILES['photo']['tmp_name'])) {
+                    $errors++;
+                }
+                //var_dump($_POST);
+                //var_dump($_FILES);
+
+                if($errors == 0) {
+                    $name      = $_POST['name'];
+                    $specie_id = $_POST['specie_id'];
+                    $breed_id  = $_POST['breed_id'];
+                    $sex_id    = $_POST['sex_id'];
+                    $photo     = time().".".pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+                    move_uploaded_file($_FILES['photo']['tmp_name'], "../uploads/".$photo);
+
+                    if(addPet($name, $specie_id, $breed_id, $sex_id, $photo, $conx)) {
+                        $_SESSION['message'] = "La Mascota $name se adicionó con exito!";
+                        echo "<script>window.location.replace('dashboard.php')</script>";
+                    }
+
+                } else {
+                    $_SESSION['error'] = "Todos los campos son requeridos!";
+                }
+
             }
-        }
-        
-        // Mostrar errores si existen
-        if(isset($_SESSION['error'])) {
-            include 'errors.php';
-            unset($_SESSION['error']);
-        }
+
+            if(isset($_SESSION['error'])) {
+                include 'errors.php';
+                unset($_SESSION['error']);
+            }
         ?>
     </main>
-
     <script>
-        // Manejo de la vista previa de la imagen
-        const preview = document.querySelector('#preview');
-        const upload = document.querySelector('.upload');
-        const photo = document.querySelector('#photo');
-        
+        const preview = document.querySelector('#preview')
+        const upload  = document.querySelector('.upload')
+        const photo   = document.querySelector('#photo')
+
         upload.addEventListener('click', function() {
-            photo.click();
-        });
-        
+            photo.click()
+        })
+
         photo.addEventListener('change', function() {
-            if(this.files && this.files[0]) {
-                preview.src = URL.createObjectURL(this.files[0]);
-            }
-        });
+            preview.src = window.URL.createObjectURL(this.files[0])
+        })
     </script>
 </body>
 </html>

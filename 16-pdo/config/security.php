@@ -1,11 +1,7 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION['uid'])) {
-    $_SESSION['error'] = "Por favor, inicie sesión para continuar";
-    
-    header("Location: ../index.php");
-    exit(); 
-}
+    if(!isset($_SESSION['uid'])) {
+        $_SESSION['error'] = "Por favor, Inicie Sesión";
+        echo "<script>
+                window.location.replace('../index.php')
+             </script>";
+    }
