@@ -81,6 +81,9 @@
         try {
             $sql = "SELECT p.name AS name,
                            p.photo AS photo,
+                           p.specie_id AS specie_id,
+                           p.breed_id AS breed_id,
+                           p.sex_id AS sex_id,
                            s.name AS specie,
                            b.name AS breed,
                            x.name AS sex
@@ -90,6 +93,7 @@
                          sexes AS x
                     WHERE s.id = p.specie_id
                     AND b.id = p.breed_id
+                    AND x.id = p.sex_id
                     AND p.id = :id";
             $stmt = $conx->prepare($sql);
             $stmt->bindparam(":id", $id);
@@ -102,9 +106,23 @@
     // Delete Pet
     function deletePet($id, $conx) {
         try {
-            $sql = "DELETE
-                    FROM pets
-                    WHERE id = :id";
+            // First, get the pet information to delete the photo
+            $sql = "SELECT photo FROM pets WHERE id = :id";
+            $stmt = $conx->prepare($sql);
+            $stmt->bindparam(":id", $id);
+            $stmt->execute();
+            $pet = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // Delete the photo file if it exists
+            if ($pet && $pet['photo']) {
+                $photoPath = '../uploads/' . $pet['photo'];
+                if (file_exists($photoPath)) {
+                    unlink($photoPath);
+                }
+            }
+            
+            // Now delete the pet record
+            $sql = "DELETE FROM pets WHERE id = :id";
             $stmt = $conx->prepare($sql);
             $stmt->bindparam(":id", $id);
             if($stmt->execute()) {

@@ -12,5 +12,5 @@
     // Data Base Config
     $host   = "localhost";
     $user   = "root";
-    $pass   = "";
+    $pass   = "12345678";
     $dbname = "petsdb";
