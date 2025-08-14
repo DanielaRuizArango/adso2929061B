@@ -106,14 +106,13 @@
     // Delete Pet
     function deletePet($id, $conx) {
         try {
-            // First, get the pet information to delete the photo
+
             $sql = "SELECT photo FROM pets WHERE id = :id";
             $stmt = $conx->prepare($sql);
             $stmt->bindparam(":id", $id);
             $stmt->execute();
             $pet = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            // Delete the photo file if it exists
             if ($pet && $pet['photo']) {
                 $photoPath = '../uploads/' . $pet['photo'];
                 if (file_exists($photoPath)) {
@@ -121,7 +120,6 @@
                 }
             }
             
-            // Now delete the pet record
             $sql = "DELETE FROM pets WHERE id = :id";
             $stmt = $conx->prepare($sql);
             $stmt->bindparam(":id", $id);

@@ -3,31 +3,25 @@
     include '../config/database.php';
     include '../config/security.php';
 
-    // Get pet ID from URL
     $id = isset($_GET['id']) ? $_GET['id'] : 0;
     
-    // Get pet data
     $pet = showPet($id, $conx);
     
-    // Get lists for dropdowns
     $species = listSpecies($conx);
     $breeds = listBreeds($conx);
     $sexes = listSexes($conx);
     
-    // Handle form submission
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = $_POST['name'];
         $specie_id = $_POST['specie_id'];
         $breed_id = $_POST['breed_id'];
         $sex_id = $_POST['sex_id'];
         
-        // Handle image upload
-        $photo = $pet['photo']; // Default to existing photo
+        $photo = $pet['photo'];
         
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = '../uploads/';
             
-            // Create uploads directory if it doesn't exist
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
@@ -36,14 +30,11 @@
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             
             if (in_array($fileExtension, $allowedExtensions)) {
-                // Generate unique filename
                 $newFileName = 'pet_' . $id . '_' . time() . '.' . $fileExtension;
                 $uploadPath = $uploadDir . $newFileName;
                 
                 if (move_uploaded_file($_FILES['photo']['tmp_name'], $uploadPath)) {
-                    $photo = $newFileName;
-                    
-                    // Delete old photo if it exists and is different
+                    $photo = $newFileName;  
                     if ($pet['photo'] && $pet['photo'] !== $newFileName && file_exists($uploadDir . $pet['photo'])) {
                         unlink($uploadDir . $pet['photo']);
                     }
@@ -140,7 +131,6 @@
             }
         });
         
-        // Mostrar mensajes de error o éxito si existen
         <?php if (isset($_SESSION['error'])): ?>
             alert('<?=$_SESSION['error']?>');
             <?php unset($_SESSION['error']); ?>
