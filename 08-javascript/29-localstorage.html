@@ -1,27 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>29- LocalStorage</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+
+        button {
+            background-color: #b7a63c;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 0.6rem;
+            width: 80px;
+        }
+
+        input {
+            border: 2px solid #b7a63c;
+            border-radius: 5px;
+            padding: 0.5rem;
+            width: 220px;
+        }
+
+        ol {
+            list-style-position: inside;
+            padding: 0;
+            margin: 1rem auto;
+            width: 340px;
+
+            li {
+                background-color: #fff9;
+                padding: 2px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 0.8rem;
+                border-bottom: 2px solid #b7a63c;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                span {
+                    cursor: pointer;
+                    background-color: crimson;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.2rem;
+                    color: #fff;
+                    height: 16px;
+                    width: 16px;
+                }
+            }
+        }
     </style>
 </head>
+
 <body class="js">
     <nav>
         <a href="index.html">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.<path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                !Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License -
+                https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>29- LocalStorage </h1>
+            <p>Store data locally in the browser using localStorage.</p>
         </header>
         <section>
+            <div>
+                <input type="text" placeholder="Type Task">
+                <button>Add</button>
+            </div>
+            <ol class="tasks">
+            </ol>
         </section>
     </main>
+    <script>
+        //Elements 
+        const task = document.querySelector('input')
+        const btnAdd = document.querySelector('button')
+        const tasks = document.querySelector('.tasks')
+
+        //Events
+        btnAdd.addEventListener('click', function () {
+            if (task.value.length > 0) {
+                tasks.innerHTML += `<li>${task.value}<span>&times;</span></li>`
+                task.value = ''
+                saveTask()
+            } else {
+                alert('Please type a Task to add!')
+            }
+        })
+
+        // Functions
+        function saveTask() {
+            localStorage.setItem('tasks', tasks.innerHTML)
+        }
+
+        function showTasks() {
+            if (localStorage.getItem('tasks').length > 0) {
+                tasks.innerHTML = localStorage.getItem('tasks')
+            }
+        }
+
+        function allowRemove() {
+            const btnsRemove = document.querySelectorAll('li span')
+            btnsRemove.forEach(element => {
+                element.addEventListener('click', function () {
+                    if (confirm('Are you sure?')) {
+                        this.parentNode.remove()
+                        saveTask()
+                    }
+                })
+            })
+        }
+
+        showTasks()
+        allowRemove()
+    </script>
 </body>
-</html>            
+
+</html>

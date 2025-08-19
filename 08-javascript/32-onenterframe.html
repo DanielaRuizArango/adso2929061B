@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>32- OnEnterFrame</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        div.chimp {
+            background: url(images/chimp-sprite.png) no-repeat;
+            background-position-x: 0;
+            border-radius: 0.4rem;
+            height: 270px;
+            margin: 2rem auto;
+            width: 360px;
+        }
+
+        div.controls {
+            margin: 0 auto;
+            width: 338px;
+
+            button {
+                cursor: pointer;
+                border: none;
+                border-radius: 0.2rem;
+                color: #fff;
+                background-color: #a39536;
+                padding: 0.4rem;
+                width: 64px;
+                transition: transform 0.2s ease-in;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    </style>
+</head>
+
+<body class="js">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>32- OnEnterFrame</h1>
+            <p>
+                Execute code on each frame for animations.
+            </p>
+        </header>
+        <section>
+            <div class="chimp"></div>
+            <div class="controls">
+                <button class="idle">Idle</button>
+                <button class="walk">Walk</button>
+                <button class="run">Run</button>
+                <button class="sleep">Sleep</button>
+                <button class="attack">Attack</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        //Elements
+        const chimp = document.querySelector('.chimp')
+        const idle = document.querySelector('.idle')
+        const walk = document.querySelector('.walk')
+        const run = document.querySelector('.run')
+        const sleep = document.querySelector('.sleep')
+        const attack = document.querySelector('.attack')
+
+        // Sprite Config
+
+        let config = {
+            width: 360,
+            fps: 12,
+            frames: 5,
+            current: 0,
+            lastTime: 0
+        }
+
+        // Events
+        idle.addEventListener('click', (e) => {
+            config.frames = 5
+            chimp.style.backgroundPositionY = '0'
+        })
+        walk.addEventListener('click', (e) => {
+            config.frames = 6
+            chimp.style.backgroundPositionY = '-270px'
+        })
+        run.addEventListener('click', (e) => {
+            config.frames = 8
+            chimp.style.backgroundPositionY = '-540px'
+        })
+        sleep.addEventListener('click', (e) => {
+            config.frames = 4
+            chimp.style.backgroundPositionY = '-810px'
+        })
+        attack.addEventListener('click', (e) => {
+            config.frames = 10
+            chimp.style.backgroundPositionY = '-1080px'
+        })
+
+        // On Enter Frame
+        function animateChimp(timestamp) {
+            if (timestamp - config.lastTime > 1000 / config.fps) {
+                chimp.style.backgroundPositionX = `-${config.current * config.width}px`
+                config.current = (config.current + 1) % config.frames
+                config.lastTime = timestamp
+            }
+            requestAnimationFrame(animateChimp)
+        }
+        requestAnimationFrame(animateChimp)
+    </script>
+</body>
+
+</html>

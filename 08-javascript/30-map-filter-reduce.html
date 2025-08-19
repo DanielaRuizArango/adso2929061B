@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>30- Map Filter Reduce</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style> 
     </style>
@@ -17,11 +17,51 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>30- Map Filter Reduce </h1>
+            <p>Transform arrays using map, filter, and reduce methods.</p>
         </header>
         <section>
+            <h3>Map</h3>
+            <h4 class="map"></h4>
+            <h3>Filter</h3>
+            <h4 class="filter"></h4>
+            <h3>Reduce</h3>
+            <h4 class="reduce"></h4>
         </section>
     </main>
+    <script>
+        const map = document.querySelector('.map');
+        const filter = document.querySelector('.filter');
+        const reduce = document.querySelector('.reduce');
+
+        // JSON
+        const dragonBall = [
+            {id: 1, name: 'Goku', height: 175, power: 9000, race: 'Saiyan'},
+            {id: 2, name: 'Vegeta', height: 164, power: 8500, race: 'Saiyan'},
+            {id: 3, name: 'Piccolo', height: 226, power: 3500, race: 'Namekian'},
+            {id: 4, name: 'Krillin', height: 145, power: 1500, race: 'Human'},
+            {id: 5, name: 'Frieza', height: 158, power: 12000, race: 'Alien'}
+        ]
+
+
+        // Map 
+        const strongCharacters = dragonBall.map(({name, race}) => `${name}: ${race} <br>`)
+        strongCharacters.forEach(info => {
+            map.innerHTML += info
+        })
+
+        // Filter
+        const strongers = dragonBall.filter(character => character.power > 8000)
+        strongers.forEach(strong => {
+            filter.innerHTML += `${strong.name} <br>`
+        })
+
+        // Reduce
+        const totalPower = dragonBall.reduce((sum, character) => sum + character.power, 0)
+        const avgHeight = dragonBall.reduce((avg, character) => avg + character.height, 0) / dragonBall.length
+
+        reduce.innerHTML = `Total Sum Power: ${totalPower} <br>`
+        reduce.innerHTML += `Average Height: ${avgHeight}`
+    </script>
 </body>
 </html>            

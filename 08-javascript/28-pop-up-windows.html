@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 -Template</title>
+    <title>28- Pop-Up Windows</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style> 
+    <style>
+        button {
+            background-color: #b7a63c;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: block;
+            margin: 2rem auto;
+            padding: 0.6rem;
+            width: 160px;
+        }
     </style>
 </head>
 <body class="js">
@@ -17,11 +28,30 @@
     </nav>
     <main>
         <header>
-            <h1>00 -Template </h1>
-            <p></p>
+            <h1>28- Pop-Up Windows </h1>
+            <p> Display pop-up windows like alerts and prompts.</p>
         </header>
         <section>
+            <button class="btn-init">Launch Question</button>
         </section>
     </main>
+    <script>
+        // Elements
+        const btnInit = document.querySelector('.btn-init')
+
+        //Event
+        btnInit.addEventListener('click', () => {
+            if(confirm('Are you ready to answer the question?')) {
+                const answer = prompt('How many planets are in the solar system?')
+                if(answer === '8') {
+                    alert('Congratulations! Its correct!')
+                } else {
+                    alert('Sorry, Try Again')
+                }
+            } else {
+                alert('Thanks for nothing!')
+            }
+        })
+    </script>
 </body>
 </html>            
