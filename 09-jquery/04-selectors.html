@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 - Selectors</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<style>
+    div.counter {
+        margin: 1rem auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 260px;
+        output {
+            font-size: 6rem;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            transition: transform 0.4s ease-in;
+            svg {
+                width: 50px;
+            }
+            &.btn-subs {
+                color: red;
+            }
+            &.btn-add {
+                color: green;
+            }
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+    button.btn-reset {
+        cursor: pointer;
+        border: none;
+        display: flex;
+        border-radius: 0.4rem;
+        margin: 0 auto;
+        padding: 0.6rem 1.2rem;
+        transition: transform 0.2s ease-in;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+</style>
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>04 - Selectors</h1>
+            <p>
+                Select and manipulate DOM elements using jQuery selectors.
+            </p>
+        </header>
+        <section class="section">
+            <div class="counter">
+                <button class="btn-subs">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </button>
+                <output>0</output>
+                <button class="btn-add">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </button>
+            </div>
+            <button class="btn-reset">Reset</button>
+        </section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $count = 0
+
+            //Addition
+            $('.btn-add').click(function(e) {
+                e.preventDefault()
+                $('output').text(++$count)
+            })
+            $('.btn-add').dblclick(function(e) {
+                e.preventDefault()
+                $('output').text($count+=4)
+            })
+
+            // Substracion
+            $('.btn-subs').click(function(e) {
+                e.preventDefault()
+                $('output').text(--$count)
+            })
+            $('.btn-subs').dblclick(function(e) {
+                e.preventDefault()
+                $('output').text($count-=4)
+            })
+
+            //Reset
+            $('.btn-reset').click(function(e) {
+                $interval = setInterval(() => {
+                    if ($count != 0) {
+                        ($count > 0) ? $('output').text(--$count) : $('output').text(++$count)
+                    } else {
+                        clearInterval($interval)
+                    }
+
+                }, 250)
+            })
+        })
+    </script>
+</body>
+</html>

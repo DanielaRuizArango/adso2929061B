@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03 - Todo List</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+    div.todolist {
+        background-color: #fff;
+        border-radius: 0.4rem;
+        padding: 1rem;
+        margin: 1rem auto;
+        width: 370px;
+
+        div.header {
+            h1 {
+                text-align: center;
+                border-bottom: 1px solid #ccc;
+                color: #333;
+                margin: 0;
+            }
+
+            div.info {
+                display: flex;
+                gap: 1rem;
+                color: #333;
+                justify-content: space-between;
+                div {
+                    display: flex;
+                    align-items: center;
+                    margin-block: 1rem;
+                    gap: 0.5rem;
+                    span {
+                        align-items: center;
+                        border-radius: 50%;
+                        background-color: #444;
+                        color: #fff;
+                        display: flex;
+                        height: 30px;
+                        justify-content: center;
+                        width: 30px;
+                    }
+                }
+            }
+        }
+        div.list {
+            article {
+                background-color: #ccc;
+                border-radius: 0.4rem;
+                display: flex;
+                margin-bottom: 0.4rem;
+                justify-content: space-between;
+                padding-inline: 0.4rem;
+                color: #333;
+                padding-block: 0.8rem;
+                align-items: center;
+                &.checked {
+                    background-color: #ff03 !important;
+                    p {
+                        text-decoration: line-through;
+                    }
+                }
+                input {
+                    accent-color: orange;
+                    zoom: 1.4;
+                }
+                button {
+                    background-color: crimson;
+                    border-radius: 50%;
+                    border: none;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    height: 20px;
+                    width: 20px;
+                    transition: transform 0.2s ease-in;
+                    &:hover {
+                        transform: scale(1.4);
+                    }
+                }
+            }
+            article:nth-child(even) {
+                background-color: #eee;
+            }
+        }
+    footer {
+    display: flex; 
+    input {
+        border: 1px solid #ccc;
+        border-radius: 0.4rem 0 0 0.4rem;
+        width: 320px;
+        outline: none;
+        padding: 0.8rem;
+    }
+    button {
+        background-color: #3d8d7a;
+        border-radius: 0 0.4rem 0.4rem 0;
+        border: 1px solid #3d8d7a;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.6rem;
+        color: white;
+        width: 50px;
+    }
+    }
+
+    button#reset {
+        background-color: crimson;
+        border: 1px solid crimson;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.2rem;
+        padding: 0.4rem 1.2rem;
+        margin: 0.4rem auto;
+        color: #fff;
+    }
+}
+</style>
+</head>
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>03 - Todo List</h1>
+            <p>
+                Build a simple to-do list application.
+            </p>
+        </header>
+        <section class="section">
+            <div class="todolist">
+                <div class="header">
+                    <h1>Todo List</h1>
+                    <div class="info">
+                        <div class="tasks">
+                            <span class="num-tasks"></span>
+                            <p class="title-tasks"></p>
+                        </div>
+                        <div class="remains">
+                            <span class="num-remains"></span>
+                            <p class="title-remains"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="list">
+                    <article class="checked">
+                        <input type="checkbox" checked="checked">
+                        <p>Learn Emmet</p>
+                        <button>&times;</button>
+                    </article>
+                    <article>
+                        <input type="checkbox">
+                        <p>Learn Japanese</p>
+                        <button>&times;</button>
+                    </article>
+                </div>
+                <footer>
+                    <input type="text" id="input-task" placeholder="Add Task" maxlength="34">
+                    <button id="add">+</button>
+                </footer>
+                <button id="reset">Reset</button>
+            </div>
+        </section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            // Check localStorage
+            if (localStorage.getItem('todolist') != null) {
+                $('.list').html(localStorage.getItem('todolist'))
+                countTasks()
+                countRemains()
+            }else {
+                // Count tasks & remains
+                countTasks()
+                countRemains()
+            }
+
+            // Count tasks
+            function countTasks() {
+                $('.num-tasks').text($('article').length)
+                $('.title-tasks').text($('article').length > 1 ? 'Tasks' : 'Task')
+            }
+
+            // Count tasks
+            function countRemains() {
+                $remain = Math.abs($('.checked').length - $('article').length)
+                $('.num-remains').text($remain)
+                $('.title-remains').text($remain > 1 ? 'Remains' : 'Remain')
+                // Save all tasks
+                localStorage.setItem('todolist', $('.list').html())
+            }
+
+            // Add tasks
+            $('#add').click(function() {
+                if ($('#input-task').val().length > 0) {
+                    $('.list').append(`
+                        <article>
+                            <input type="checkbox">
+                            <p>${$('#input-task').val()}</p>
+                            <button>&times;</button>
+                        </article>
+                    `)
+                    $('#input-task').val('')
+                    countTasks()
+                    countRemains()
+                } else {
+                    alert('Please enter a task.')
+                }
+            })
+
+            // Check box
+            $('.list').on('click', 'input:checkbox', function () {
+                if($(this).prop('checked')) {
+                    $(this).attr('checked', true)
+                    $(this).parent().addClass('checked')
+                } else {
+                    $(this).attr('checked', false)
+                    $(this).parent().removeClass('checked')
+                }
+                countRemains()
+            })
+
+            // Remove tasks
+            $('.list').on('click', 'article button', function () {
+                $(this).closest('article').remove()
+                countTasks()
+                countRemains()
+            })
+
+            // Reset tasks
+            $('#reset').click(function() {
+                localStorage.setItem('todolist', $('.list').html(''))
+                countTasks()
+                countRemains()
+            })
+        })
+    </script>
+</body>
+</html>

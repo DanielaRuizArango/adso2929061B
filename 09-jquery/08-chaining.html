@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08 - Chaining</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+        <style>
+        button.btn {
+            display: flex;
+            cursor: pointer;
+            background-color: #fff9;
+            border: none;
+            margin: 1rem auto;
+            border-radius: 0.4rem;
+            padding: 0.6rem 1.2rem;
+            transition: transform 0.2s ease-in;
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+        article.landscape {
+            background: url(images/landscape.png) no-repeat center;
+            border-radius: 0.4rem;
+            border: 2px solid #fff;
+            overflow: hidden;
+            height: 300px;
+            margin: 2rem auto;
+            position: relative;
+            width: 300px;
+            img.goku {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                transform: rotateY(-180deg);
+            }
+        }
+    </style>
+</head>
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>08 - Chaining</h1>
+            <p>
+                Chain multiple jQuery methods for concise code.
+            </p>
+        </header>
+        <section class="section">
+            <button class="btn">Animate</button>
+            <article class="landscape">
+                <img src="images/goku.png" class="goku" alt="Goku">
+            </article>
+        </section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+                $('.btn').click(function(e) {
+                $(this).css ({
+                    'cursor': 'not-allowed',
+                    'opacity': '0.5',
+                    'pointer-events': 'none'
+                })
+                $('figcaption').text('Animation Started')
+                $('.character').animate({ 'left': '160px' }, 2000, function() {
+                    $('.character').animate({'left': '-60px'}, 2000, function() {
+                        $('figcaption').text('Animation Finished')
+                        $('.btn').css ({
+                            'cursor': 'pointer',
+                            'opacity': '1',
+                            'pointer-events': 'all'
+                        })
+                    })
+                })
+            })
+        })
+    </script>
+</body>
+</html>
