@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11- Next & Prev</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+    div.controls {
+        margin-top: 4rem;
+        display: flex;
+        justify-content: center;
+        gap: 0.4rem;
+        align-items: center;
+        button {
+            border: none;
+            border-radius: 0.2rem;
+            background-color: #ca983b;
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            transition: transform 0.2s ease-in;
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+    div.cards {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4rem;
+        gap: 0.8rem;
+        div.carousel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            width: 300px;
+            figure {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                margin: 0;
+                padding: 0;
+                filter: grayscale(1);
+                transition: all 0.5s ease-in;
+            }
+            figure figcaption {
+                opacity: 0;
+            }
+            figure.active {
+                filter: grayscale(0);
+                transform: scale(1.2);
+            }
+            figure.active figcaption {
+                opacity: 1;
+            }
+        }
+        button {
+            border: none;
+            border-radius: 0.2rem;
+            background-color: transparent;
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            transition: transform 0.2s ease-in;
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+</style>
+</head>
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>11- Next & Prev</h1>
+            <p>
+                Navigate between sibling elements.
+            </p>
+        </header>
+        <section>
+    <div class="controls">
+        <button class="btnFirst">First</button>
+        <button class="btnAutoPlay">Auto Play</button>
+        <button class="btnLast">Last</button>
+    </div>
+    <div class="cards">
+        <button class="btnPrev">
+            <img src="images/nextprev/prev.png">
+        </button>
+        <div class="carousel">
+            <figure class="active">
+                <img src="images/nextprev/card01.png">
+                <figcaption>Goku</figcaption>
+            </figure>
+            <figure>
+                <img src="images/nextprev/card02.png">
+                <figcaption>Krillin</figcaption>
+            </figure>
+            <figure>
+                <img src="images/nextprev/card03.png">
+                <figcaption>Piccolo</figcaption>
+            </figure>
+            <figure>
+                <img src="images/nextprev/card04.png">
+                <figcaption>Trunks</figcaption>
+            </figure>
+            <figure>
+                <img src="images/nextprev/card05.png">
+                <figcaption>Tenshin</figcaption>
+            </figure>
+        </div>
+        <button class="btn btnNext">
+            <img src="images/nextprev/next.png">
+        </button>
+    </div>
+</section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            currentActive()
+            // First
+            $('.btnFirst').click(function() {
+                removeActive()
+                $('figure').first().addClass('active')
+                currentActive()
+            })
+            // Last
+            $('.btnLast').click(function() {
+                removeActive()
+                $('figure').last().addClass('active')
+                currentActive()
+            })
+            // Next
+            $('.btnNext').click(function() {
+                removeActive()
+               if($($act).index() < 4) {
+                    $($act).next().addClass('active')
+               } else {
+                    $('figure').first().addClass('active')
+               }
+                currentActive()
+            })
+            // Prev
+            $('.btnPrev').click(function() {
+                removeActive()
+               if($($act).index() > 0) {
+                    $($act).prev().addClass('active')
+               } else {
+                    $('figure').last().addClass('active')
+               }
+                currentActive()
+            })
+            // AutoPlay
+            $('.btnAutoPlay').click(function() {
+                $(this).toggleClass('autoplay')
+                if($(this).hasClass('autoplay')) {
+                    $(this).text('Stop')
+                    $autoInt = setInterval(function() {
+                        if($($act).index() < $('figure').length) {
+                            removeActive()
+                            if ($($act).index() < 4) {
+                                $($act).next().addClass('active')
+                            } else {
+                                $('figure').first().addClass('active')
+                            }
+                            currentActive()
+                        }
+                    }, 1000)
+                } else {
+                    $(this).text('Auto Play')
+                    clearInterval($autoInt)
+                }
+            })
+        })
+        // Functions
+        function currentActive() {
+            $act = $('figure.active')
+        }
+        function removeActive() {
+            $('figure').removeClass('active')
+        }
+    </script>
+</body>
+</html>
