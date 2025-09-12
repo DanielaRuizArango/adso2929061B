@@ -24,6 +24,7 @@
             align-items: center;
             width: 460px !important;
             height: 840px !important;
+            background-color: transparent !important;
         }
 
         .game-container {
@@ -319,7 +320,6 @@
             </div>
         </section>
 
-        <!-- Pop-up Modal para mensajes -->
         <div id="game-message-overlay" class="message-overlay">
             <div id="game-message" class="message-popup">
                 <div class="message-content">
@@ -334,185 +334,163 @@
     <script>
         $(document).ready(function () {
 
-            let gameState = {
-                firstCard: null,
-                secondCard: null,
-                lockBoard: false,
-                moves: 0,
-                pairsFound: 0,
-                totalPairs: 6,
-                gameStarted: false,
-                isPaused: false,
-                startTime: null,
-                timerInterval: null,
-                previewMode: false,
-            };
+            var firstCard = null;
+            var secondCard = null;
+            var canClick = true;
+            var moves = 0;
+            var pairsFound = 0;
+            var totalPairs = 6;
+            var gameStarted = false;
+            var startTime = null;
+            var timerInterval = null;
 
 
-            const cardImages = [
+            var cardImages = [
                 "blue1.png",
-                "blue2.png",
+                "blue2.png", 
                 "green1.png",
                 "green2.png",
-                "red1.png",
+                "red1.png", 
                 "red2.png",
                 "yellow1.png",
                 "yellow2.png",
                 "pink1.png",
                 "pink2.png",
                 "purple1.png",
-                "purple2.png",
+                "purple2.png"
             ];
 
-            const gameCards = cardImages;
 
-
-            function shuffleArray(array) {
-                const shuffled = [...array];
-                for (let i = shuffled.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            function shuffleCards(cards) {
+                var shuffled = [];
+                for (var i = 0; i < cards.length; i++) {
+                    shuffled.push(cards[i]);
+                }
+                
+                for (var i = shuffled.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var temp = shuffled[i];
+                    shuffled[i] = shuffled[j];
+                    shuffled[j] = temp;
                 }
                 return shuffled;
             }
 
 
             function createBoard() {
-                const shuffledCards = shuffleArray(gameCards);
-                const $gameBoard = $("#game-board");
-                $gameBoard.empty();
+                var shuffledCards = shuffleCards(cardImages);
+                var gameBoard = $("#game-board");
+                gameBoard.empty();
 
-                shuffledCards.forEach((image, index) => {
-                    const $card = $(`
-                        <div class="memory-card flipped" data-image="${image}" data-index="${index}">
-                            <div class="card-face card-front"></div>
-                            <div class="card-face card-back">
-                                <img src="images/bear/${image}" alt="bear">
-                            </div>
-                        </div>
-                    `);
-                    $gameBoard.append($card);
-                });
-
-                showAllCardsPreview();
-            }
+                for (var i = 0; i < shuffledCards.length; i++) {
+                    var cardHtml = '<div class="memory-card flipped" data-image="' + shuffledCards[i] + '" data-index="' + i + '">';
+                    cardHtml += '<div class="card-face card-front"></div>';
+                    cardHtml += '<div class="card-face card-back">';
+                    cardHtml += '<img src="images/bear/' + shuffledCards[i] + '" alt="bear">';
+                    cardHtml += '</div>';
+                    cardHtml += '</div>';
+                    
+                    gameBoard.append(cardHtml);
+                }
 
 
-            function showAllCardsPreview() {
-                gameState.previewMode = true;
-                gameState.lockBoard = true;
-
-                setTimeout(() => {
+                setTimeout(function() {
                     $(".memory-card").removeClass("flipped");
-                    gameState.previewMode = false;
-                    gameState.lockBoard = false;
-                }, 3000);
+                    canClick = true;
+                }, 4000);
             }
 
 
-            function flipCard($card) {
-                if (gameState.lockBoard) return;
-                if ($card.hasClass("flipped")) return;
-                if ($card.hasClass("matched")) return;
+            function flipCard(card) {
+
+                if (!canClick) return;
+                if (card.hasClass("flipped")) return;
+                if (card.hasClass("matched")) return;
 
 
-                if (!gameState.gameStarted) {
+                if (!gameStarted) {
                     startGame();
                 }
 
-                $card.addClass("flipped");
 
-                if (!gameState.firstCard) {
+                card.addClass("flipped");
 
-                    gameState.firstCard = $card;
+
+                if (firstCard == null) {
+                    firstCard = card;
                 } else {
 
-                    gameState.secondCard = $card;
-                    gameState.moves++;
+                    secondCard = card;
+                    moves++;
+                    updateStats();
+                    canClick = false;
+
+
+                    setTimeout(function() {
+                        checkMatch();
+                    }, 600);
+                }
+            }
+
+
+            function checkMatch() {
+                var firstImage = firstCard.attr("data-image");
+                var secondImage = secondCard.attr("data-image");
+
+
+                var firstColor = firstImage.replace("1.png", "").replace("2.png", "");
+                var secondColor = secondImage.replace("1.png", "").replace("2.png", "");
+
+
+                if (firstColor == secondColor && firstImage != secondImage) {
+
+                    firstCard.addClass("matched");
+                    secondCard.addClass("matched");
+                    pairsFound++;
                     updateStats();
 
 
-                    gameState.lockBoard = true;
-
-                    checkForMatch();
-                }
-            }
-
-            function checkForMatch() {
-
-                setTimeout(() => {
-                    const firstImage = gameState.firstCard.data("image");
-                    const secondImage = gameState.secondCard.data("image");
-
-                    const firstColor = firstImage.replace(/[12]\.png$/, "");
-                    const secondColor = secondImage.replace(/[12]\.png$/, "");
-
-                    if (firstColor === secondColor && firstImage !== secondImage) {
-
-                        handleMatch();
-                    } else {
-
-                        handleNoMatch();
+                    if (pairsFound == totalPairs) {
+                        setTimeout(function() {
+                            endGame();
+                        }, 1000);
                     }
-                }, 600);
-            }
+                } else {
 
+                    firstCard.addClass("no-match");
+                    secondCard.addClass("no-match");
 
-            function handleMatch() {
-                gameState.firstCard.addClass("matched");
-                gameState.secondCard.addClass("matched");
-                gameState.pairsFound++;
-
-                updateStats();
-
-
-                if (gameState.pairsFound === gameState.totalPairs) {
-                    setTimeout(() => {
-                        endGame();
-                    }, 1000);
+                    setTimeout(function() {
+                        firstCard.removeClass("flipped no-match");
+                        secondCard.removeClass("flipped no-match");
+                    }, 1200);
                 }
 
-                resetCards();
-            }
 
-
-            function handleNoMatch() {
-
-                gameState.firstCard.addClass("no-match");
-                gameState.secondCard.addClass("no-match");
-
-                setTimeout(() => {
-                    gameState.firstCard.removeClass("flipped");
-                    gameState.secondCard.removeClass("flipped no-match");
-                    resetCards();
+                setTimeout(function() {
+                    firstCard = null;
+                    secondCard = null;
+                    canClick = true;
                 }, 1200);
             }
 
 
-            function resetCards() {
-                gameState.firstCard = null;
-                gameState.secondCard = null;
-                gameState.lockBoard = false;
-            }
-
-
             function showMessage(text, type) {
-                const $overlay = $("#game-message-overlay");
-                const $popup = $("#game-message");
-                const $title = $("#message-title");
-                const $text = $("#message-text");
+                var overlay = $("#game-message-overlay");
+                var popup = $("#game-message");
+                var title = $("#message-title");
+                var messageText = $("#message-text");
 
-
-                if (type === "success") {
-                    $title.text("¡Felicidades!");
-                    $popup.addClass("success");
+                if (type == "success") {
+                    title.text("¡Felicidades!");
+                    popup.addClass("success");
                 } else {
-                    $title.text("Información");
-                    $popup.removeClass("success");
+                    title.text("Información");
+                    popup.removeClass("success");
                 }
 
-                $text.text(text);
-                $overlay.addClass("show");
+                messageText.text(text);
+                overlay.addClass("show");
             }
 
 
@@ -522,90 +500,75 @@
             }
 
             function updateStats() {
-                $("#moves-count").text(gameState.moves);
-                $("#pairs-found").text(
-                    `${gameState.pairsFound}/${gameState.totalPairs}`
-                );
+                $("#moves-count").text(moves);
+                $("#pairs-found").text(pairsFound + "/" + totalPairs);
             }
 
 
             function startGame() {
-                gameState.gameStarted = true;
-                gameState.startTime = Date.now();
+                gameStarted = true;
+                startTime = new Date().getTime();
                 startTimer();
             }
 
 
             function startTimer() {
-                gameState.timerInterval = setInterval(() => {
-                    if (!gameState.isPaused) {
-                        const elapsed = Date.now() - gameState.startTime;
-                        const minutes = Math.floor(elapsed / 60000);
-                        const seconds = Math.floor((elapsed % 60000) / 1000);
-                        $("#timer").text(
-                            `${minutes.toString().padStart(2, "0")}:${seconds
-                                .toString()
-                                .padStart(2, "0")}`
-                        );
-                    }
+                timerInterval = setInterval(function() {
+                    var currentTime = new Date().getTime();
+                    var elapsed = currentTime - startTime;
+                    var minutes = Math.floor(elapsed / 60000);
+                    var seconds = Math.floor((elapsed % 60000) / 1000);
+                    
+                    var minutesStr = minutes < 10 ? "0" + minutes : minutes;
+                    var secondsStr = seconds < 10 ? "0" + seconds : seconds;
+                    
+                    $("#timer").text(minutesStr + ":" + secondsStr);
                 }, 1000);
             }
 
 
             function endGame() {
-                clearInterval(gameState.timerInterval);
-                const finalTime = $("#timer").text();
-                showMessage(
-                    `Completaste el juego en ${finalTime} con ${gameState.moves} movimientos`,
-                    "success"
-                );
+                clearInterval(timerInterval);
+                var finalTime = $("#timer").text();
+                showMessage("Completaste el juego en " + finalTime + " segundos " + " con " + moves + " movimientos", "success");
             }
 
 
             function restartGame() {
-                clearInterval(gameState.timerInterval);
-
-
-                gameState = {
-                    firstCard: null,
-                    secondCard: null,
-                    lockBoard: false,
-                    moves: 0,
-                    pairsFound: 0,
-                    totalPairs: 6,
-                    gameStarted: false,
-                    isPaused: false,
-                    startTime: null,
-                    timerInterval: null,
-                    previewMode: false,
-                };
+                clearInterval(timerInterval);
+                
+                firstCard = null;
+                secondCard = null;
+                canClick = true;
+                moves = 0;
+                pairsFound = 0;
+                gameStarted = false;
+                startTime = null;
+                timerInterval = null;
 
                 updateStats();
                 $("#timer").text("00:00");
                 closeMessage();
-
-
                 createBoard();
             }
-
 
             $(document).on("click", ".memory-card", function () {
                 flipCard($(this));
             });
 
-            $("#restart-btn").on("click", restartGame);
+            $("#restart-btn").click(function() {
+                restartGame();
+            });
 
             $("#close-message").click(function () {
                 restartGame();
             });
 
-
             $("#game-message-overlay").click(function (e) {
-                if (e.target === this) {
+                if (e.target == this) {
                     closeMessage();
                 }
             });
-
 
             createBoard();
             updateStats();
