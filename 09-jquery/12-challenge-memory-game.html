@@ -1,465 +1,598 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>12- Memory Game Challenge</title>
-    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/styles.css" />
     <style>
-        section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 460px !important;
-            height: 840px !important;
-        }
-        .game-container {
-            background-image: url('images/bear/bg.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-radius: 40px;
-            width: 460px;
-            height: 840px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        
-        .game-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 15px;
-            color: #6ad5fa;
-            border-radius: 15px;
-            margin-bottom: 10px;
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            display: block;
-        }
-        
-        .stat-label {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-        
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 10px;
-            padding: 40px 10px;
-            justify-content: center;
-            align-items: center;
-            justify-items: center;
-            align-content: center;
-            height: 500px;
-        }
-        
-        .memory-card {
-            width: 120px;
-            height: 140px;
-            border-radius: 10px;
-            cursor: pointer;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-            border: 1px solid #fdef35;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-        }
-        
-        .memory-card:hover {
-            border-color: #fff;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 460px !important;
+        height: 840px !important;
+      }
+      .game-container {
+        background-image: url("images/bear/bg.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 40px;
+        width: 460px;
+        height: 840px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
 
+      .game-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 15px;
+        color: #0086d8;
+        border-radius: 15px;
+        margin-bottom: 10px;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 24px;
+        font-weight: bold;
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 14px;
+        opacity: 0.8;
+      }
+
+      .game-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 10px;
+        padding: 40px 10px;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        align-content: center;
+        height: 500px;
+      }
+
+      .memory-card {
+        width: 120px;
+        height: 140px;
+        border-radius: 10px;
+        cursor: pointer;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+        border: 4px solid #e9c778;
+      }
+
+      .memory-card:hover {
+        box-shadow: 0 0 10px #e9c778; 
+      }
+
+      .memory-card.flipped {
+        transform: rotateY(180deg);
+      }
+
+      .memory-card.matched {
+        animation: matchSuccess 0.6s ease-in-out;
+        border-color: #b2e35e;
+        box-shadow: 0 0 20px #b2e35e;
+      }
+
+      .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+      }
+
+      .card-front {
+        background: url("images/bear/card.jpg") center/cover;
+      }
+
+      .card-back {
+        transform: rotateY(180deg);
+        background: white;
+        padding: 10px;
+      }
+
+      .card-back img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .game-controls {
+        text-align: center;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .btn {
+        background: #0086d8;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      @keyframes matchSuccess {
+        0% {
+          transform: scale(1) rotateY(180deg);
         }
-        
-        .memory-card.flipped {
-            transform: rotateY(180deg);
+        50% {
+          transform: scale(1.1) rotateY(180deg);
         }
-        
-        .memory-card.matched {
-            animation: matchSuccess 0.6s ease-in-out;
-            border-color: #4ade80;
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+        100% {
+          transform: scale(1) rotateY(180deg);
         }
-        
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 7px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0) rotateY(180deg);
         }
-        
-        .card-front {
-            background: url('images/bear/card.jpg') center/cover;
+        25% {
+          transform: translateX(-5px) rotateY(180deg);
         }
-        
-        .card-back {
-            transform: rotateY(180deg);
-            background: white;
-            padding: 10px;
+        75% {
+          transform: translateX(5px) rotateY(180deg);
         }
-        
-        .card-back img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .game-controls {
-            text-align: center;
-            width: 100%;
-            margin-top: 10px;
-        }
-        
-        .btn {
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 0 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .game-message {
-            text-align: center;
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .game-message.show {
-            opacity: 1;
-        }
-        
-        .game-message.success {
-            background: rgba(74, 222, 128, 0.2);
-            color: #4ade80;
-            border: 2px solid #4ade80;
-        }
-        
-        .game-message.warning {
-            background: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-            border: 2px solid #fbbf24;
-        }
-        
-        @keyframes matchSuccess {
-            0% { transform: scale(1) rotateY(180deg); }
-            50% { transform: scale(1.1) rotateY(180deg); }
-            100% { transform: scale(1) rotateY(180deg); }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        
-        .memory-card.no-match {
-            animation: shake 0.5s ease-in-out;
-        }
+      }
+
+      .memory-card.no-match.flipped {
+        animation: shake 0.5s ease-in-out;
+      }
+
+      .message-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .message-overlay.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .message-popup {
+        background: white;
+        border-radius: 15px;
+        padding: 0;
+        max-width: 400px;
+        width: 90%;
+        transform: scale(0.7);
+        transition: transform 0.3s ease;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      .message-overlay.show .message-popup {
+        transform: scale(1);
+      }
+
+      .message-content {
+        padding: 30px;
+        text-align: center;
+      }
+
+      .message-content h2 {
+        color: #2d3748;
+        font-size: 28px;
+        margin: 0 0 15px 0;
+        font-weight: 600;
+      }
+
+      .message-content p {
+        color: #4a5568;
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0 0 25px 0;
+      }
+
+      .message-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 120px;
+      }
+
+      .message-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .message-popup.success .message-content h2 {
+        color: #00c6d5;
+      }
+
+      .message-popup.success .message-btn {
+        background: #0086d8;
+      }
+
+      .message-popup.success .message-btn:hover {
+        box-shadow: 0 8px 20px #0086d8;
+      }
     </style>
-</head>
-<body class="jquery">
+  </head>
+  <body class="jquery">
     <nav>
-        <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        </a>
+      <a href="index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path
+            fill="#ffffff"
+            d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+          />
+        </svg>
+      </a>
     </nav>
     <main>
-        <header>
-            <h1>12- Memory Game Challenge</h1>
-            <p>
-                
-            </p>
-        </header>
-        <section>
-            <div class="game-container">
-                <div class="game-stats">
-                    <div class="stat-item">
-                        <span class="stat-value" id="moves-count">0</span>
-                        <span class="stat-label">Movimientos</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="pairs-found">0/6</span>
-                        <span class="stat-label">Parejas</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value" id="timer">00:00</span>
-                        <span class="stat-label">Tiempo</span>
-                    </div>
-                </div>
-                
-                <div class="game-board" id="game-board">
-                </div>
-                
-                <div class="game-controls">
-                    <button class="btn" id="restart-btn"> Reiniciar</button>
-                </div>
+      <header>
+        <h1>12- Memory Game Challenge</h1>
+        <p></p>
+      </header>
+      <section>
+        <div class="game-container">
+          <div class="game-stats">
+            <div class="stat-item">
+              <span class="stat-value" id="moves-count">0</span>
+              <span class="stat-label">Movimientos</span>
             </div>
-        </section>
+            <div class="stat-item">
+              <span class="stat-value" id="pairs-found">0/6</span>
+              <span class="stat-label">Parejas</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="timer">00:00</span>
+              <span class="stat-label">Tiempo</span>
+            </div>
+          </div>
+
+          <div class="game-board" id="game-board"></div>
+
+          <div class="game-controls">
+            <button class="btn" id="restart-btn">Reiniciar</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pop-up Modal para mensajes -->
+      <div id="game-message-overlay" class="message-overlay">
+        <div id="game-message" class="message-popup">
+          <div class="message-content">
+            <h2 id="message-title"></h2>
+            <p id="message-text"></p>
+            <button class="btn message-btn" id="close-message">Reiniciar</button>
+          </div>
+        </div>
+      </div>
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script>
-        $(document).ready(function(){
-            // Variables del juego
-            let gameState = {
-                firstCard: null,
-                secondCard: null,
-                lockBoard: false,
-                moves: 0,
-                pairsFound: 0,
-                totalPairs: 6,
-                gameStarted: false,
-                isPaused: false,
-                startTime: null,
-                timerInterval: null
-            };
-            
-            // Configuración de las cartas (6 parejas de ositos para 12 cartas)
-            const cardImages = [
-                'blue1.png', 'blue2.png',
-                'green1.png', 'green2.png', 
-                'red1.png', 'red2.png',
-                'yellow1.png', 'yellow2.png',
-                'pink1.png', 'pink2.png',
-                'purple1.png', 'purple2.png'
-            ];
-            
-            // Usar solo 12 cartas (6 parejas)
-            const gameCards = cardImages;
-            
-            // Función para mezclar las cartas
-            function shuffleArray(array) {
-                const shuffled = [...array];
-                for (let i = shuffled.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-                }
-                return shuffled;
-            }
-            
-            // Función para crear el tablero de juego
-            function createBoard() {
-                const shuffledCards = shuffleArray(gameCards);
-                const $gameBoard = $('#game-board');
-                $gameBoard.empty();
-                
-                shuffledCards.forEach((image, index) => {
-                    const $card = $(`
-                        <div class="memory-card" data-image="${image}" data-index="${index}">
+      $(document).ready(function () {
+      
+        let gameState = {
+          firstCard: null,
+          secondCard: null,
+          lockBoard: false,
+          moves: 0,
+          pairsFound: 0,
+          totalPairs: 6,
+          gameStarted: false,
+          isPaused: false,
+          startTime: null,
+          timerInterval: null,
+          previewMode: false,
+        };
+
+
+        const cardImages = [
+          "blue1.png",
+          "blue2.png",
+          "green1.png",
+          "green2.png",
+          "red1.png",
+          "red2.png",
+          "yellow1.png",
+          "yellow2.png",
+          "pink1.png",
+          "pink2.png",
+          "purple1.png",
+          "purple2.png",
+        ];
+
+        const gameCards = cardImages;
+
+
+        function shuffleArray(array) {
+          const shuffled = [...array];
+          for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+          }
+          return shuffled;
+        }
+
+ 
+        function createBoard() {
+          const shuffledCards = shuffleArray(gameCards);
+          const $gameBoard = $("#game-board");
+          $gameBoard.empty();
+
+          shuffledCards.forEach((image, index) => {
+            const $card = $(`
+                        <div class="memory-card flipped" data-image="${image}" data-index="${index}">
                             <div class="card-face card-front"></div>
                             <div class="card-face card-back">
                                 <img src="images/bear/${image}" alt="bear">
                             </div>
                         </div>
                     `);
-                    $gameBoard.append($card);
-                });
-            }
-            
-            // Función para voltear una carta
-            function flipCard($card) {
-                if (gameState.lockBoard) return;
-                if ($card.hasClass('flipped')) return;
-                if ($card.hasClass('matched')) return;
-                
-                // Iniciar el juego si es la primera carta
-                if (!gameState.gameStarted) {
-                    startGame();
-                }
-                
-                $card.addClass('flipped');
-                
-                if (!gameState.firstCard) {
-                    // Primera carta
-                    gameState.firstCard = $card;
-                } else {
-                    // Segunda carta
-                    gameState.secondCard = $card;
-                    gameState.moves++;
-                    updateStats();
-                    
-                    // Bloquear el tablero mientras se procesan las cartas
-                    gameState.lockBoard = true;
-                    
-                    checkForMatch();
-                }
-            }
-            
-            // Función para verificar si hay coincidencia
-            function checkForMatch() {
-                // Esperar a que termine la animación de voltear (0.6s)
-                setTimeout(() => {
-                    const firstImage = gameState.firstCard.data('image');
-                    const secondImage = gameState.secondCard.data('image');
-                    
-                    // Verificar si son del mismo color (misma base de nombre)
-                    const firstColor = firstImage.replace(/[12]\.png$/, '');
-                    const secondColor = secondImage.replace(/[12]\.png$/, '');
-                    
-                    if (firstColor === secondColor && firstImage !== secondImage) {
-                        // ¡Coincidencia!
-                        handleMatch();
-                    } else {
-                        // No coinciden
-                        handleNoMatch();
-                    }
-                }, 600); // Esperar 600ms (duración de la animación de voltear)
-            }
-            
-            // Función para manejar una coincidencia
-            function handleMatch() {
-                gameState.firstCard.addClass('matched');
-                gameState.secondCard.addClass('matched');
-                gameState.pairsFound++;
-                
-                updateStats();
-                
-                // Verificar si el juego ha terminado
-                if (gameState.pairsFound === gameState.totalPairs) {
-                    setTimeout(() => {
-                        endGame();
-                    }, 1000);
-                }
-                
-                resetCards();
-            }
-            
-            // Función para manejar cuando no hay coincidencia
-            function handleNoMatch() {
-                // Añadir animación de error
-                gameState.firstCard.addClass('no-match');
-                gameState.secondCard.addClass('no-match');
-                
-                // Esperar un poco antes de voltear las cartas de vuelta
-                setTimeout(() => {
-                    gameState.firstCard.removeClass('flipped no-match');
-                    gameState.secondCard.removeClass('flipped no-match');
-                    resetCards();
-                }, 1200);
-            }
-            
-            // Función para resetear las cartas seleccionadas
-            function resetCards() {
-                gameState.firstCard = null;
-                gameState.secondCard = null;
-                gameState.lockBoard = false;
-            }
-            
-            // Función para mostrar mensajes
-            function showMessage(text, type) {
-                const $message = $('#game-message');
-                $message.removeClass('success warning').addClass(type);
-                $message.text(text).addClass('show');
-                
-                setTimeout(() => {
-                    $message.removeClass('show');
-                }, 2000);
-            }
-            
-            // Función para actualizar estadísticas
-            function updateStats() {
-                $('#moves-count').text(gameState.moves);
-                $('#pairs-found').text(`${gameState.pairsFound}/${gameState.totalPairs}`);
-            }
-            
-            // Función para iniciar el juego
-            function startGame() {
-                gameState.gameStarted = true;
-                gameState.startTime = Date.now();
-                startTimer();
-            }
-            
-            // Función para iniciar el temporizador
-            function startTimer() {
-                gameState.timerInterval = setInterval(() => {
-                    if (!gameState.isPaused) {
-                        const elapsed = Date.now() - gameState.startTime;
-                        const minutes = Math.floor(elapsed / 60000);
-                        const seconds = Math.floor((elapsed % 60000) / 1000);
-                        $('#timer').text(`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`);
-                    }
-                }, 1000);
-            }
-            
-            // Función para terminar el juego
-            function endGame() {
-                clearInterval(gameState.timerInterval);
-                const finalTime = $('#timer').text();
-                showMessage(`🎊 ¡Felicidades! Completaste el juego en ${finalTime} con ${gameState.moves} movimientos`, 'success');
-            }
-            
-            // Función para reiniciar el juego
-            function restartGame() {
-                clearInterval(gameState.timerInterval);
-                
-                // Resetear estado del juego
-                gameState = {
-                    firstCard: null,
-                    secondCard: null,
-                    lockBoard: false,
-                    moves: 0,
-                    pairsFound: 0,
-                    totalPairs: 6,
-                    gameStarted: false,
-                    isPaused: false,
-                    startTime: null,
-                    timerInterval: null
-                };
-                
-                // Resetear UI
-                updateStats();
-                $('#timer').text('00:00');
-                $('#game-message').removeClass('show');
-                
-                // Crear nuevo tablero
-                createBoard();
-            }
-            
-            // Event listeners
-            $(document).on('click', '.memory-card', function() {
-                flipCard($(this));
-            });
-            
-            $('#restart-btn').on('click', restartGame);
-            
-            // Inicializar el juego
-            createBoard();
+            $gameBoard.append($card);
+          });
+
+          showAllCardsPreview();
+        }
+
+
+        function showAllCardsPreview() {
+          gameState.previewMode = true;
+          gameState.lockBoard = true;
+          
+          setTimeout(() => {
+            $(".memory-card").removeClass("flipped");
+            gameState.previewMode = false;
+            gameState.lockBoard = false;
+          }, 3000);
+        }
+
+   
+        function flipCard($card) {
+          if (gameState.lockBoard) return;
+          if ($card.hasClass("flipped")) return;
+          if ($card.hasClass("matched")) return;
+
+
+          if (!gameState.gameStarted) {
+            startGame();
+          }
+
+          $card.addClass("flipped");
+
+          if (!gameState.firstCard) {
+     
+            gameState.firstCard = $card;
+          } else {
+
+            gameState.secondCard = $card;
+            gameState.moves++;
             updateStats();
+
+
+            gameState.lockBoard = true;
+
+            checkForMatch();
+          }
+        }
+
+        function checkForMatch() {
+
+          setTimeout(() => {
+            const firstImage = gameState.firstCard.data("image");
+            const secondImage = gameState.secondCard.data("image");
+
+            const firstColor = firstImage.replace(/[12]\.png$/, "");
+            const secondColor = secondImage.replace(/[12]\.png$/, "");
+
+            if (firstColor === secondColor && firstImage !== secondImage) {
+              
+              handleMatch();
+            } else {
+             
+              handleNoMatch();
+            }
+          }, 600); 
+        }
+
+
+        function handleMatch() {
+          gameState.firstCard.addClass("matched");
+          gameState.secondCard.addClass("matched");
+          gameState.pairsFound++;
+
+          updateStats();
+
+
+          if (gameState.pairsFound === gameState.totalPairs) {
+            setTimeout(() => {
+              endGame();
+            }, 1000);
+          }
+
+          resetCards();
+        }
+
+
+        function handleNoMatch() {
+
+          gameState.firstCard.addClass("no-match");
+          gameState.secondCard.addClass("no-match");
+
+          setTimeout(() => {
+            gameState.firstCard.removeClass("flipped");
+            gameState.secondCard.removeClass("flipped no-match");
+            resetCards();
+          }, 1200);
+        }
+
+
+        function resetCards() {
+          gameState.firstCard = null;
+          gameState.secondCard = null;
+          gameState.lockBoard = false;
+        }
+
+
+        function showMessage(text, type) {
+          const $overlay = $("#game-message-overlay");
+          const $popup = $("#game-message");
+          const $title = $("#message-title");
+          const $text = $("#message-text");
+
+
+          if (type === "success") {
+            $title.text("¡Felicidades!");
+            $popup.addClass("success");
+          } else {
+            $title.text("Información");
+            $popup.removeClass("success");
+          }
+
+          $text.text(text);
+          $overlay.addClass("show");
+        }
+
+
+        function closeMessage() {
+          $("#game-message-overlay").removeClass("show");
+          $("#game-message").removeClass("success");
+        }
+
+        function updateStats() {
+          $("#moves-count").text(gameState.moves);
+          $("#pairs-found").text(
+            `${gameState.pairsFound}/${gameState.totalPairs}`
+          );
+        }
+
+
+        function startGame() {
+          gameState.gameStarted = true;
+          gameState.startTime = Date.now();
+          startTimer();
+        }
+
+
+        function startTimer() {
+          gameState.timerInterval = setInterval(() => {
+            if (!gameState.isPaused) {
+              const elapsed = Date.now() - gameState.startTime;
+              const minutes = Math.floor(elapsed / 60000);
+              const seconds = Math.floor((elapsed % 60000) / 1000);
+              $("#timer").text(
+                `${minutes.toString().padStart(2, "0")}:${seconds
+                  .toString()
+                  .padStart(2, "0")}`
+              );
+            }
+          }, 1000);
+        }
+
+
+        function endGame() {
+          clearInterval(gameState.timerInterval);
+          const finalTime = $("#timer").text();
+          showMessage(
+            `Completaste el juego en ${finalTime} con ${gameState.moves} movimientos`,
+            "success"
+          );
+        }
+
+
+        function restartGame() {
+          clearInterval(gameState.timerInterval);
+
+     
+          gameState = {
+            firstCard: null,
+            secondCard: null,
+            lockBoard: false,
+            moves: 0,
+            pairsFound: 0,
+            totalPairs: 6,
+            gameStarted: false,
+            isPaused: false,
+            startTime: null,
+            timerInterval: null,
+            previewMode: false,
+          };
+
+          updateStats();
+          $("#timer").text("00:00");
+          closeMessage();
+
+
+          createBoard();
+        }
+
+
+        $(document).on("click", ".memory-card", function () {
+          flipCard($(this));
         });
+
+        $("#restart-btn").on("click", restartGame);
+
+        $("#close-message").click(function () {
+          restartGame();
+        });
+
+
+        $("#game-message-overlay").click(function (e) {
+          if (e.target === this) {
+            closeMessage();
+          }
+        });
+
+
+        createBoard();
+        updateStats();
+      });
     </script>
-</body>
+  </body>
 </html>
