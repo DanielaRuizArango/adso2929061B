@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>12- Memory Game Challenge</title>
     <link rel="stylesheet" href="../../css/styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Orbitron&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playwrite+DE+Grund:wght@100..400&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" />
     <style>
-         body {
-             font-family: "Montserrat Alternates", sans-serif;
-             font-weight: 400;
-             font-style: normal;
-         }
+        body {
+            font-family: "Montserrat Alternates", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
 
         section {
             display: flex;
@@ -325,253 +325,212 @@
                 <div class="message-content">
                     <h2 id="message-title"></h2>
                     <p id="message-text"></p>
-                    <button class="btn message-btn" id="close-message">Reiniciar</button>
+                    <button class="btn message-btn" id="close-message">
+                        Reiniciar
+                    </button>
                 </div>
             </div>
         </div>
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script>
-        // Cuando el documento esté listo, ejecutar el código
         $(document).ready(function () {
+          
+            let primeraCartaSeleccionada = null;
+            let segundaCartaSeleccionada = null;
+            let puedeHacerClick = true;
+            let numeroDeMovimientos = 0;
+            let parejasEncontradas = 0;
+            let totalDeParejasParaGanar = 6;
+            let juegoHaComenzado = false;
+            let tiempoDeInicio = null;
+            let intervaloDeTiempo = null;
 
-            // Variables globales del juego
-            var primeraCartaSeleccionada = null;
-            var segundaCartaSeleccionada = null;
-            var puedeHacerClick = true;
-            var numeroDeMovimientos = 0;
-            var parejasEncontradas = 0;
-            var totalDeParejasParaGanar = 6;
-            var juegoHaComenzado = false;
-            var tiempoDeInicio = null;
-            var intervaloDeTiempo = null;
-
-            // Array con todas las imágenes de las cartas
-            var imagenesDeCartas = [
-                "blue1.png", "blue2.png", 
-                "green1.png", "green2.png",
-                "red1.png", "red2.png",
-                "yellow1.png", "yellow2.png",
-                "pink1.png", "pink2.png",
-                "purple1.png", "purple2.png"
+         
+            let imagenesDeCartas = [
+                "blue1.png",
+                "blue2.png",
+                "green1.png",
+                "green2.png",
+                "red1.png",
+                "red2.png",
+                "yellow1.png",
+                "yellow2.png",
+                "pink1.png",
+                "pink2.png",
+                "purple1.png",
+                "purple2.png",
             ];
 
-            // Función para mezclar las cartas aleatoriamente
+    
             function mezclarCartas(cartas) {
-                var cartasMezcladas = [];
-                
-                // Primero copio todas las cartas al nuevo array
-                var i = 0;
-                while (i < cartas.length) {
-                    cartasMezcladas.push(cartas[i]);
-                    i++;
-                }
-                
-                // Ahora las mezclo usando el algoritmo de Fisher-Yates
-                var j = cartasMezcladas.length - 1;
-                while (j > 0) {
-                    var numeroAleatorio = Math.floor(Math.random() * (j + 1));
-                    var cartaTemporal = cartasMezcladas[j];
+                let cartasMezcladas = $.map(cartas, function (c) {
+                    return c;
+                }); 
+                for (let j = cartasMezcladas.length - 1; j > 0; j--) {
+                    let numeroAleatorio = Math.floor(Math.random() * (j + 1));
+                    let temp = cartasMezcladas[j];
                     cartasMezcladas[j] = cartasMezcladas[numeroAleatorio];
-                    cartasMezcladas[numeroAleatorio] = cartaTemporal;
-                    j--;
+                    cartasMezcladas[numeroAleatorio] = temp;
                 }
-                
                 return cartasMezcladas;
             }
 
-            // Función para crear el tablero de juego
+       
             function crearTablero() {
-                var cartasMezcladas = mezclarCartas(imagenesDeCartas);
-                var tableroDeJuego = $("#game-board");
-                
-                // Limpiar el tablero antes de crear uno nuevo
-                tableroDeJuego.html("");
+                let cartasMezcladas = mezclarCartas(imagenesDeCartas);
+                let tableroDeJuego = $("#game-board");
+                tableroDeJuego.empty();
 
-                // Crear cada carta y agregarla al tablero
-                var contador = 0;
-                while (contador < cartasMezcladas.length) {
-                    var htmlDeLaCarta = '<div class="memory-card flipped" data-image="' + cartasMezcladas[contador] + '">';
-                    htmlDeLaCarta = htmlDeLaCarta + '<div class="card-face card-front"></div>';
-                    htmlDeLaCarta = htmlDeLaCarta + '<div class="card-face card-back">';
-                    htmlDeLaCarta = htmlDeLaCarta + '<img src="images/bear/' + cartasMezcladas[contador] + '" alt="bear">';
-                    htmlDeLaCarta = htmlDeLaCarta + '</div>';
-                    htmlDeLaCarta = htmlDeLaCarta + '</div>';
-                    
-                    tableroDeJuego.append(htmlDeLaCarta);
-                    contador++;
-                }
+                $.each(cartasMezcladas, function (i, carta) {
+                    let $carta = $(
+                        '<div class="memory-card flipped" data-image="' +
+                        carta +
+                        '">\
+                        <div class="card-face card-front"></div>\
+                        <div class="card-face card-back">\
+                            <img src="images/bear/' +
+                        carta +
+                        '" alt="bear">\
+                        </div>\
+                    </div>'
+                    );
+                    tableroDeJuego.append($carta);
+                });
 
-                // Mostrar las cartas por 4 segundos al inicio
-                setTimeout(function() {
+                setTimeout(function () {
                     $(".memory-card").removeClass("flipped");
                     puedeHacerClick = true;
                 }, 4000);
             }
 
-            // Función para voltear una carta
-            function voltearCarta(carta) {
-                // Verificar si se puede hacer click
-                if (puedeHacerClick == false) {
-                    return;
-                }
-                if (carta.hasClass("flipped") == true) {
-                    return;
-                }
-                if (carta.hasClass("matched") == true) {
-                    return;
-                }
+            function voltearCarta($carta) {
+                if (!puedeHacerClick) return;
+                if ($carta.hasClass("flipped")) return;
+                if ($carta.hasClass("matched")) return;
 
-                // Si es el primer movimiento, iniciar el juego
-                if (juegoHaComenzado == false) {
+                if (!juegoHaComenzado) {
                     empezarJuego();
                 }
 
-                // Voltear la carta
-                carta.addClass("flipped");
+                $carta.addClass("flipped");
 
-                // Verificar si es la primera o segunda carta
                 if (primeraCartaSeleccionada == null) {
-                    // Es la primera carta
-                    primeraCartaSeleccionada = carta;
+                    primeraCartaSeleccionada = $carta;
                 } else {
-                    // Es la segunda carta
-                    segundaCartaSeleccionada = carta;
-                    numeroDeMovimientos = numeroDeMovimientos + 1;
+                    segundaCartaSeleccionada = $carta;
+                    numeroDeMovimientos++;
                     actualizarEstadisticas();
                     puedeHacerClick = false;
 
-                    // Esperar un poco antes de verificar si coinciden
-                    setTimeout(function() {
-                        verificarSiCoinciden();
-                    }, 600);
+                    setTimeout(verificarSiCoinciden, 600);
                 }
             }
 
-            // Función para verificar si las cartas coinciden
             function verificarSiCoinciden() {
-                var imagenPrimeraCarta = primeraCartaSeleccionada.attr("data-image");
-                var imagenSegundaCarta = segundaCartaSeleccionada.attr("data-image");
+                let imagenPrimeraCarta = primeraCartaSeleccionada.data("image");
+                let imagenSegundaCarta = segundaCartaSeleccionada.data("image");
 
-                // Obtener el color de cada carta
-                var colorPrimeraCarta = imagenPrimeraCarta.replace("1.png", "").replace("2.png", "");
-                var colorSegundaCarta = imagenSegundaCarta.replace("1.png", "").replace("2.png", "");
+                let colorPrimeraCarta = imagenPrimeraCarta
+                    .replace("1.png", "")
+                    .replace("2.png", "");
+                let colorSegundaCarta = imagenSegundaCarta
+                    .replace("1.png", "")
+                    .replace("2.png", "");
 
-                // Verificar si son del mismo color pero diferente número
-                if (colorPrimeraCarta == colorSegundaCarta && imagenPrimeraCarta != imagenSegundaCarta) {
-                    // ¡Las cartas coinciden!
+                if (
+                    colorPrimeraCarta == colorSegundaCarta &&
+                    imagenPrimeraCarta != imagenSegundaCarta
+                ) {
                     primeraCartaSeleccionada.addClass("matched");
                     segundaCartaSeleccionada.addClass("matched");
-                    parejasEncontradas = parejasEncontradas + 1;
+                    parejasEncontradas++;
                     actualizarEstadisticas();
 
-                    // Verificar si ganó el juego
                     if (parejasEncontradas == totalDeParejasParaGanar) {
-                        setTimeout(function() {
-                            terminarJuego();
-                        }, 1000);
+                        setTimeout(terminarJuego, 1000);
                     }
                 } else {
-                    // Las cartas no coinciden
                     primeraCartaSeleccionada.addClass("no-match");
                     segundaCartaSeleccionada.addClass("no-match");
 
-                    // Voltear las cartas de nuevo después de un tiempo
-                    setTimeout(function() {
-                        primeraCartaSeleccionada.removeClass("flipped");
-                        primeraCartaSeleccionada.removeClass("no-match");
-                        segundaCartaSeleccionada.removeClass("flipped");
-                        segundaCartaSeleccionada.removeClass("no-match");
+                    setTimeout(function () {
+                        primeraCartaSeleccionada.removeClass("flipped no-match");
+                        segundaCartaSeleccionada.removeClass("flipped no-match");
                     }, 1200);
                 }
 
-                // Resetear las cartas seleccionadas
-                setTimeout(function() {
+                setTimeout(function () {
                     primeraCartaSeleccionada = null;
                     segundaCartaSeleccionada = null;
                     puedeHacerClick = true;
                 }, 1200);
             }
 
-            // Función para mostrar un mensaje
             function mostrarMensaje(texto, tipo) {
-                var overlay = $("#game-message-overlay");
-                var popup = $("#game-message");
-                var titulo = $("#message-title");
-                var textoDelMensaje = $("#message-text");
+                let $overlay = $("#game-message-overlay");
+                let $popup = $("#game-message");
+                let $titulo = $("#message-title");
+                let $texto = $("#message-text");
 
                 if (tipo == "success") {
-                    titulo.text("¡Felicidades!");
-                    popup.addClass("success");
+                    $titulo.text("¡Felicidades!");
+                    $popup.addClass("success");
                 } else {
-                    titulo.text("Información");
-                    popup.removeClass("success");
+                    $titulo.text("Información");
+                    $popup.removeClass("success");
                 }
 
-                textoDelMensaje.text(texto);
-                overlay.addClass("show");
+                $texto.text(texto);
+                $overlay.addClass("show");
             }
 
-            // Función para cerrar el mensaje
             function cerrarMensaje() {
                 $("#game-message-overlay").removeClass("show");
                 $("#game-message").removeClass("success");
             }
 
-            // Función para actualizar las estadísticas en pantalla
             function actualizarEstadisticas() {
                 $("#moves-count").text(numeroDeMovimientos);
-                $("#pairs-found").text(parejasEncontradas + "/" + totalDeParejasParaGanar);
+                $("#pairs-found").text(
+                    parejasEncontradas + "/" + totalDeParejasParaGanar
+                );
             }
 
-            // Función para empezar el juego
             function empezarJuego() {
                 juegoHaComenzado = true;
-                tiempoDeInicio = new Date().getTime();
+                tiempoDeInicio = $.now();
                 empezarTemporizador();
             }
 
-            // Función para el temporizador
             function empezarTemporizador() {
-                intervaloDeTiempo = setInterval(function() {
-                    var tiempoActual = new Date().getTime();
-                    var tiempoTranscurrido = tiempoActual - tiempoDeInicio;
-                    var minutos = Math.floor(tiempoTranscurrido / 60000);
-                    var segundos = Math.floor((tiempoTranscurrido % 60000) / 1000);
-                    
-                    var minutosTexto = "";
-                    var segundosTexto = "";
-                    
-                    if (minutos < 10) {
-                        minutosTexto = "0" + minutos;
-                    } else {
-                        minutosTexto = minutos;
-                    }
-                    
-                    if (segundos < 10) {
-                        segundosTexto = "0" + segundos;
-                    } else {
-                        segundosTexto = segundos;
-                    }
-                    
+                intervaloDeTiempo = setInterval(function () {
+                    let tiempoActual = $.now();
+                    let tiempoTranscurrido = tiempoActual - tiempoDeInicio;
+                    let minutos = Math.floor(tiempoTranscurrido / 60000);
+                    let segundos = Math.floor((tiempoTranscurrido % 60000) / 1000);
+
+                    let minutosTexto = (minutos < 10 ? "0" : "") + minutos;
+                    let segundosTexto = (segundos < 10 ? "0" : "") + segundos;
+
                     $("#timer").text(minutosTexto + ":" + segundosTexto);
                 }, 1000);
             }
 
-            // Función para terminar el juego
             function terminarJuego() {
                 clearInterval(intervaloDeTiempo);
-                var tiempoFinal = $("#timer").text();
-                var mensaje = "Completaste el juego en " + tiempoFinal + " con " + numeroDeMovimientos + " movimientos";
+                let tiempoFinal = $("#timer").text();
+                let mensaje =
+                    "Completaste el juego en " +
+                    tiempoFinal +
+                    " con " +
+                    numeroDeMovimientos +
+                    " movimientos";
                 mostrarMensaje(mensaje, "success");
             }
 
-            // Función para reiniciar el juego
             function reiniciarJuego() {
-                // Detener el temporizador
                 clearInterval(intervaloDeTiempo);
-                
-                // Reiniciar todas las variables
                 primeraCartaSeleccionada = null;
                 segundaCartaSeleccionada = null;
                 puedeHacerClick = true;
@@ -581,39 +540,32 @@
                 tiempoDeInicio = null;
                 intervaloDeTiempo = null;
 
-                // Actualizar la pantalla
                 actualizarEstadisticas();
                 $("#timer").text("00:00");
                 cerrarMensaje();
                 crearTablero();
             }
 
-            // Event listeners (escuchadores de eventos)
-            
-            // Cuando se hace click en una carta
+    
             $(document).on("click", ".memory-card", function () {
-                var cartaClickeada = $(this);
-                voltearCarta(cartaClickeada);
+                voltearCarta($(this));
             });
 
-            // Cuando se hace click en el botón de reiniciar
-            $("#restart-btn").click(function() {
+            $("#restart-btn").on("click", function () {
                 reiniciarJuego();
             });
 
-            // Cuando se hace click en cerrar mensaje
-            $("#close-message").click(function () {
+            $("#close-message").on("click", function () {
                 reiniciarJuego();
             });
 
-            // Cuando se hace click fuera del mensaje para cerrarlo
-            $("#game-message-overlay").click(function (evento) {
-                if (evento.target == this) {
+            $("#game-message-overlay").on("click", function (e) {
+                if (e.target === this) {
                     cerrarMensaje();
                 }
             });
 
-            // Inicializar el juego cuando carga la página
+     
             crearTablero();
             actualizarEstadisticas();
         });
