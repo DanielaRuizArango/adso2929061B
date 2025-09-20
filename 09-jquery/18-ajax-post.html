@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18- Ajax Post</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        figure.image {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            border: 2px solid #4f5c6e;
+            padding: 0;
+            margin: 20px auto;
+            height: 550px;
+            width: 370px;
+        }
+
+        select {
+            display: block;
+            margin: 20px auto;
+            width: 160px;
+        }
+    </style>
+</head>
+
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>18- Ajax Post</h1>
+            <p>
+                Envía datos a un servidor usando solicitudes POST.
+            </p>
+        </header>
+        <section>
+            <figure class="image animate__animated"></figure>
+            <select class="images form-select">
+                <option value="">Select Image...</option>
+                <option value="1">Naruto Uzumaki</option>
+                <option value="2">Gara</option>
+                <option value="3">Sasuke Uchiha</option>
+            </select>
+        </section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Events
+            $('.images').change(function (event) {
+                $img = $(this).val();
+                if ($img.length > 0) {
+                    $('.image').removeClass('animate__flipInX');
+                    // POST
+                    $.post('php/images.php', { img: $img }, function (data) {
+                        $('.image').addClass('animate__flipInX');
+                        $('.image').css('background-image', 'url(' + data + ')');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

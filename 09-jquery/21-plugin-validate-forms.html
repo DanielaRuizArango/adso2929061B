@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>21- Plugin Validate Forms</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css">
+</head>
+
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>21- Plugin Validate Forms</h1>
+            <p>
+                Validate forms using jQuery plugins.
+            </p>
+        </header>
+        <section>
+        <form action="php/processform.php" method="post">
+            <div class="mb-2">
+                <input type="text" class="form-control" name="fullname" placeholder="Full Name"
+                    data-validation="length required" data-validation-length="4-32">
+            </div>
+            <div class="mb-2">
+                <input type="number" class="form-control" name="age" placeholder="Age" data-validation="number">
+            </div>
+            <div class="mb-2">
+                <input type="email" class="form-control" name="email" placeholder="Email" data-validation="email">
+            </div>
+            <div class="mb-2">
+                <input type="date" class="form-control" name="birthdate" placeholder="Birth Date" data-validation="date"
+                    data-validation-format="dd/mm/yyyy">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Enviar Formulario">
+                <input type="reset" class="btn btn-outline-success" value="Limpiar Formulario">
+            </div>
+        </form>
+        </section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //$.validate({ lang: 'en' })
+            $.validate({ lang: 'es' })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>22- Plugin Carousel Slider</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <style>
+        article.owl-carousel {
+            margin: 0px auto;
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body class="jquery">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>22- Plugin Carousel Slider</h1>
+            <p>
+                Build a carousel slider using jQuery plugins.
+            </p>
+        </header>
+        <section>
+            <article class="owl-carousel owl-theme">
+                <img src="images/land1.jpg">
+                <img src="images/land2.jpg">
+                <img src="images/land3.jpg">
+                <img src="images/land4.jpg">
+                <img src="images/land5.jpg">
+            </article>
+        </section>
+    </main>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.owl-carousel').owlCarousel({
+                items: 3,
+                loop: true,
+                margin: 10,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    1000: {
+                        items: 3
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
