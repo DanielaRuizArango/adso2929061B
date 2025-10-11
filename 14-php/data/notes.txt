@@ -1,0 +1,3 @@
+Hello from PHP!
+This is a new line.
+Learning file operations is fun!
