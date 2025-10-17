@@ -1,33 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 - template</title>
+    <title>16- Ajax Ajax</title>
     <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        ul.games {
+            list-style: none;
+            padding: 0px;
+            margin: 0px auto;
+            width: 300px;
+        }
+
+        ul.games li {
+            padding: 8px 4px;
+            border-bottom: 1px solid #4f5c6e;
+        }
+
+        button.btn-load {
+            background-color: #fff;
+            border: 1px solid #4f5c6e;
+            border-radius: 4px;
+            display: block;
+            margin: 40px auto;
+            color: #4f5c6e;
+            padding: 10px 10px;
+            width: 150px;
+        }
+
+        button.btn-load:hover {
+            background-color: #4f5c6e;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body class="jquery">
     <nav>
         <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 - template</h1>
+            <h1>16- Ajax Ajax</h1>
             <p>
-                
+                Make custom AJAX requests.
             </p>
         </header>
         <section>
-
+            <ul class="games"></ul>
+            <button class="btn-load"> Load Game List </button>
         </section>
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
     <script>
-        $(document).ready(function(){
-            
-        })
+        $(document).ready(function () {
+            // Events
+            $('.btn-load').click(function (event) {
+                // Ajax
+                $.ajax({
+                    url: 'json/games.json',
+                    dataType: 'json',
+                })
+                    .done(function (data) {
+                        $('.games').html('');
+                        $.each(data, function (index, val) {
+                            $('.games').append('<li>' + val['name'] + ' - \
+						                   ('+ val['year'] + ')</li>');
+                        });
+                        console.log("success");
+                    })
+                    .fail(function () {
+                        console.log("error");
+                    })
+                    .always(function () {
+                        console.log("complete");
+                    });
+
+            });
+        });
     </script>
 </body>
+
 </html>

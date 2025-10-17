@@ -16,6 +16,6 @@
         <header>
             <h1><?=$tittle?></h1>
             <p>
-                <?=$description?>
+                <?=$descripcion?>
             </p>
         </header>

@@ -1,33 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>00 - template</title>
+    <title>19- UI Draggable Droppable</title>
     <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <style>
+        figure.landscape {
+            background: url(images/bg-pokemon.png) no-repeat center;
+            background-size: cover;
+            height: 500px;
+            margin: 20px auto;
+            position: relative;
+            width: 370px;
+        }
+
+        div.pokeball {
+            background: url(images/pokeball.png) no-repeat center;
+            top: 24px;
+            left: 40px;
+        }
+
+        div.superball {
+            background: url(images/superball.png) no-repeat center;
+            top: 24px;
+            left: 224px;
+        }
+
+        div.pokeball,
+        div.superball {
+            background-size: cover;
+            height: 90px;
+            position: absolute;
+            width: 90px;
+            z-index: 9;
+        }
+
+        div.bulbassaur,
+        div.venussaur {
+            position: absolute;
+        }
+
+        div.bulbassaur {
+            background: url(images/bulbasaur.png) no-repeat center;
+            background-size: cover;
+            height: 124px;
+            bottom: 20px;
+            left: 0px;
+            width: 124px;
+        }
+
+        div.venussaur {
+            background: url(images/venussaur.png) no-repeat center;
+            background-size: contain;
+            height: 207px;
+            bottom: 20px;
+            right: -20px;
+            width: 300px;
+        }
+    </style>
 </head>
+
 <body class="jquery">
     <nav>
         <a href="index.html">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
         </a>
     </nav>
     <main>
         <header>
-            <h1>00 - template</h1>
+            <h1>19- UI Draggable Droppable</h1>
             <p>
-                
+                Make elements draggable and droppable.
             </p>
         </header>
         <section>
-
+            <figure class="landscape">
+                <div class="drag pokeball"></div>
+                <div class="drag superball"></div>
+                <div class="pk bulbassaur"></div>
+                <div class="pk venussaur"></div>
+            </figure>
         </section>
     </main>
     <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
     <script>
-        $(document).ready(function(){
-            
-        })
+        $(document).ready(function () {
+            $('div.drag').draggable({
+                containment: '.landscape',
+                cursor: 'move',
+                snap: '.pk',
+                snapMode: 'inner',
+                revert: 'invalid'
+            });
+            $('div.bulbassaur').droppable({
+                accept: '.drag',
+                drop: function (evt, ui) {
+                    $drag = $(ui.draggable);
+                    $drop = $(this);
+                    $drop.fadeOut(1000);
+                    $drag.addClass('animate__animated animate__bounce animate__infinite	')
+                }
+            });
+            $('div.venussaur').droppable({
+                accept: '.superball',
+                drop: function (evt, ui) {
+                    $drag = $(ui.draggable);
+                    $drop = $(this);
+                    $drop.fadeOut(1000);
+                    $drag.addClass('animate__animated animate__bounce animate__infinite	')
+                }
+            });
+        });
+
     </script>
 </body>
+
 </html>
