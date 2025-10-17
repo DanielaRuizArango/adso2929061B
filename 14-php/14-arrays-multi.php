@@ -1,6 +1,6 @@
 <?php
 $tittle = '14- Arrays Multidimensional.php';
-$description = 'Arrays that contain other nested arrays';
+$descripcion = 'Arrays that contain other nested arrays';
 
 include 'template/header.php';
 
@@ -18,6 +18,12 @@ foreach ($bicycles as $key => $value ) {
     echo "<h3>$key</h3>";
     echo "<ul>";
     foreach ($value as $refer) {
-        echo . "<li>$refer</li>";
+        echo "<li>$refer</li>";
     }
+    echo "</ul>";
 }
+
+echo "</section>";
+
+include 'template/footer.php';
+?>

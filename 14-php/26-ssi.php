@@ -1,53 +1,64 @@
 <?php
 $tittle = "26 - Server Side Includes (SSI)";
-$descripcion = "Using include and require to reuse code and create modular PHP applications";
+$descripcion = "Simple example of including files in PHP";
 
 include_once 'template/header.php';
 ?>
 
-<section>
-    <h3>Include vs Require:</h3>
-    <ul>
-        <li><strong>include:</strong> Produces a warning if file not found, script continues.</li>
-        <li><strong>require:</strong> Produces a fatal error if file not found, script stops.</li>
-        <li><strong>include_once:</strong> Like include, but prevents re-inclusion.</li>
-        <li><strong>require_once:</strong> Like require, but prevents re-inclusion.</li>
-    </ul>
-
-    <h3>Example: Including Reusable Components</h3>
-    <p>This page uses includes for header and footer:</p>
-    <pre><code>include 'template/header.php';
-include 'template/footer.php';</code></pre>
-
-    <h3>Including a Config File:</h3>
-    <p>Common use: Store database credentials or site settings</p>
-    <pre><code>&lt;?php
-// config.php
-$dbHost = 'localhost';
-$dbName = 'myDatabase';
-$siteName = 'My Website';
-?&gt;</code></pre>
-
-    <pre><code>include 'config.php';</code></pre>
-
-    <h3>Including Functions:</h3>
-    <p>Example of including a functions file:</p>
-    <pre><code>&lt;?php
-// functions.php
-function formatCurrency($amount) {
-    return '$' . number_format($amount, 2);
-}
-?&gt;</code></pre>
-
-    <?php
-    // Definición real (protegida para evitar redeclaración)
-    if (!function_exists('formatCurrency')) {
-        function formatCurrency($amount) {
-            return '$' . number_format($amount, 2);
-        }
+<style>
+    section {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin: 20px auto;
+        max-width: 800px;
     }
-    ?>
-    <p>Using the function: <?= formatCurrency(1234.56) ?></p>
+    
+    .page-title {
+        color: #495057;
+        border-bottom: 2px solid #0056b3;
+        padding-bottom: 8px;
+        margin-bottom: 20px;
+        font-size: 1.3em;
+    }
+    
+    .content-box {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #0056b3;
+        margin: 20px 0;
+    }
+    
+    .lorem-text {
+        color: #6c757d;
+        line-height: 1.6;
+        margin: 15px 0;
+    }
+    
+    .code-example {
+        background: #f1f3f4;
+        padding: 15px;
+        border-radius: 5px;
+        font-family: 'Courier New', monospace;
+        border: 1px solid #dee2e6;
+        margin: 15px 0;
+    }
+</style>
+
+<section>
+    <h3 class="page-title">What is Server Side Includes?</h3>
+    
+    <div class="content-box">
+        <p><strong>Server Side Includes (SSI)</strong> allows you to include the content of one file into another file.</p>
+        
+        <p class="lorem-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </p>
+    </div>
 </section>
 
 <?php include_once 'template/footer.php'; ?>
