@@ -381,40 +381,7 @@ include 'template/header.php';
     </div>
     </div> <!-- Close filters-card -->
 
-    <?php
 
-    echo '<div class="filters-card">';
-    echo '<h3 class="section-title">String Sanitization (XSS Prevention)</h3>';
-    
-    if (isset($_POST['text'])) {
-        $text = $_POST['text'];
-        
-        echo "<div class='result-box'>";
-        echo "<div class='result-item'><strong>Original text:</strong> <span class='result-value'>" . htmlspecialchars($text) . "</span></div>";
-        
-        // Alternative: htmlspecialchars (recommended)
-        $safeText = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
-        echo "<div class='result-item'><strong>Sanitized text:</strong> <span class='result-value'>$safeText</span></div>";
-        
-        // Strip tags completely
-        $strippedText = strip_tags($text);
-        echo "<div class='result-item'><strong>Stripped tags:</strong> <span class='result-value'>$strippedText</span></div>";
-        echo "</div>";
-        
-        echo "<div class='message success'>✓ Text sanitized successfully!</div>";
-    }
-    
-    ?>
-
-    <div class="form-container">
-        <form method="post" action="">
-            <div class="form-group">
-                <label for="text" class="form-label">Enter text (try with HTML tags):</label>
-                <textarea name="text" id="text" class="form-textarea" placeholder="Try: <script>alert('XSS')</script>" required></textarea>
-            </div>
-            <button type="submit" class="btn">Sanitize Text</button>
-        </form>
-    </div>
     </div> <!-- Close filters-card -->
     
     </div> <!-- Close filters-container -->

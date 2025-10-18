@@ -193,23 +193,6 @@ include 'template/header.php';
         echo '<div class="file-content">';
         echo "<pre>" . htmlspecialchars($fileContent) . "</pre>";
         echo '</div>';
-        
-        // File info
-        echo '<div class="file-info">';
-        echo "<p><strong>File size:</strong> " . filesize($filename) . " bytes</p>";
-        echo "<p><strong>Last modified:</strong> " . date("Y-m-d H:i:s", filemtime($filename)) . "</p>";
-        echo '</div>';
-        
-        // Read line by line
-        echo '<h3 class="page-title">File Content (Line by Line):</h3>';
-        $lines = file($filename);
-        echo '<div class="lines-list">';
-        echo "<ol>";
-        foreach ($lines as $line) {
-            echo "<li>" . htmlspecialchars($line) . "</li>";
-        }
-        echo "</ol>";
-        echo '</div>';
     } else {
         echo '<div class="no-file-message">No file exists yet. Write some content first!</div>';
     }
@@ -224,14 +207,6 @@ This is a new line.
 Learning file operations is fun!</textarea>
         <br><br>
         <input type="submit" name="write" value="Write to File" class="btn">
-    </form>
-</div>
-
-<div class="form-container">
-    <h3>Append to File:</h3>
-    <form method="post" action="">
-        <input type="text" name="content" placeholder="Add a new line..." required>
-        <input type="submit" name="append" value="Append to File" class="btn btn-append">
     </form>
 </div>
 

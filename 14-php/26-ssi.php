@@ -1,6 +1,6 @@
 <?php
 $tittle = "26 - Server Side Includes (SSI)";
-$descripcion = "Simple example of including files in PHP";
+$descripcion = "Allows you to include the content of one file into another file.";
 
 include_once 'template/header.php';
 ?>
@@ -48,16 +48,22 @@ include_once 'template/header.php';
 </style>
 
 <section>
-    <h3 class="page-title">What is Server Side Includes?</h3>
     
     <div class="content-box">
-        <p><strong>Server Side Includes (SSI)</strong> allows you to include the content of one file into another file.</p>
-        
-        <p class="lorem-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        </p>
+
+        <!-- Ejemplo del include en el mismo archivo -->
+        <?php
+            // Simulamos el contenido incluido
+            $lorem = '
+            <p class="lorem-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>';
+
+            // Lo "incluimos" dentro del HTML
+            echo $lorem;
+        ?>
     </div>
 </section>
 

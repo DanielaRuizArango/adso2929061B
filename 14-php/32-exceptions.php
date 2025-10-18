@@ -195,19 +195,9 @@ include 'template/header.php';
     </style>
     
     <div class="exceptions-container">
-        <h1 class="exceptions-title">PHP Exceptions</h1>
         
         <div class="exceptions-card">
             <h3 class="section-title">Custom Exception Class</h3>
-            
-            <div class="code-title">AgeException Class</div>
-            <div class="code-block">
-class AgeException extends Exception {
-    public function errorMessage() {
-        return $this->getMessage();
-    }
-}
-            </div>
 
     <?php
     // Custom exception

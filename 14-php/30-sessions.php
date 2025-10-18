@@ -286,7 +286,6 @@ include 'template/header.php';
     </style>';
     
     echo '<div class="sessions-container">';
-    echo '<h1 class="sessions-title">PHP Sessions Management</h1>';
 
     // Display messages
     if (isset($successMessage)) {
