@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>01- Basics</title>
+    <title>02- DDL</title>
     <link rel="stylesheet" href="../css/styles.css">
     <style>
         section {
@@ -35,9 +35,9 @@
     </nav>
     <main>
         <header>
-            <h1>01- Basics</h1>
+            <h1>02- DDL</h1>
             <p>
-                How to enter and view databases, create them, delete them, and make backup copies.
+                Data definition language.
             </p>
         </header>
         <section>
@@ -52,46 +52,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-// Connect to MySQL
-> mysql -u root -p
-
-// MySQL Version
-> mysql --version
-
-// Show All Databases
-> show databases;
-
-// Create Databases
-> create database pokeadso;
-
-// Connect to Database
-> use pokeadso;
-
-// Create table gyms
-Create table gyms (
-id int auto_increment,
-nanme varchar(32) not null unique,
-PRIMARY KEY(id)
-);
-
-// Create tablea trainers
-
-// Create table pokemons
-create table pokemons(
-id int auto_increment,
-name varchar(32) not null unique,
-type varchar(32) not null,
-strength int not null,
-staming int not null,
-speed int not null,
-accuracy int not null,
-PRIMARY KEY(id),
-trainer_id int,
-FOREIGN KEY(trainer_id) REFERENCES trainers(id)
-);
