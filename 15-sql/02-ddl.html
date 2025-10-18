@@ -41,12 +41,45 @@
             </p>
         </header>
         <section>
-           <h3>MySQL Version</h3>
-           <textarea>mysql --version</textarea>
-           <h3>Connect to MySQL</h3>
-           <textarea>mysql -u root -p</textarea>
-           <h3>Show All Databases</h3>
-           <textarea>show databases;</textarea>
+            <h3>CREATE TABLE</h3>
+           <textarea>create table pokemons(
+id int auto_increment,
+name varchar(32) not null unique,
+type varchar(32) not null,
+strength int not null,
+staming int not null,
+speed int not null,
+accuracy int not null,
+PRIMARY KEY(id),
+trainer_id int,
+FOREIGN KEY(trainer_id) REFERENCES trainers(id)
+);</textarea>
+           <h3>ALTER TABLE FK:</h3>
+           <textarea>ALTER TABLE pokemons
+ADD FOREIGN KEY(trainer_id) 
+REFERENCES trainers(id);
+           </textarea>
+           <h3>ALTER TABLE RENAME COLUMN:</h3>
+           <textarea>ALTER TABLE pokemons 
+CHANGE nickname name VARCHAR(32) NOT null
+UNIQUE;    
+           </textarea>
+           <h3>ALTER TABLE ADD COLUMN:</h3>
+           <textarea>ALTER TABLE pokemons 
+ADD COLUMN color VARCHAR(16);   
+           </textarea>
+           <h3>DROP TABLE:</h3>
+           <textarea>DROP TABLE gyms;
+           </textarea>
+           <h3>ALTER TABLE DROP COLUMN:</h3>
+           <textarea>ALTER TABLE pokemons 
+DROP COLUMN color;
+           </textarea>
+           <h3>ALTER TABLE ADD COLUMN AFTER COLUMN:</h3>
+           <textarea>ALTER TABLE pokemons 
+ADD COLUMN color VARCHAR(16) AFTER 
+accuracy
+           </textarea>
         </section>
     </main>
 </body>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02- DML</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        section {
+            textarea {
+                background-color: #8d481e;
+                border: none;
+                border-radius: 0.4rem;
+                outline: none;
+                padding: 0.4rem;
+                color: #fff;
+                width: 100%;
+                min-height: 32px;
+                font-size: 0.8rem;
+                resize: none;
+                field-sizing: content;
+            }
+        }
+    </style>
+</head>
+<body class="sql">
+    <nav>
+        <a href="index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path fill="#ffffff"
+                    d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+            </svg>
+        </a>
+    </nav>
+    <main>
+        <header>
+            <h1>02- DML</h1>
+            <p>
+                Data Manipulation Language
+            </p>
+        </header>
+        <section>
+            <h3>INSERT  INTO (ShortHand)</h3>
+           <textarea>INSERT INTO gyms Values (DAFAULT, 'Saffrom')</textarea>
+           <h3>ALTER TABLE FK:</h3>
+           <textarea>ALTER TABLE pokemons
+ADD FOREIGN KEY(trainer_id) 
+REFERENCES trainers(id);
+           </textarea>
+           <h3>ALTER TABLE RENAME COLUMN:</h3>
+           <textarea>ALTER TABLE pokemons 
+CHANGE nickname name VARCHAR(32) NOT null
+UNIQUE;    
+           </textarea>
+           <h3>ALTER TABLE ADD COLUMN:</h3>
+           <textarea>ALTER TABLE pokemons 
+ADD COLUMN color VARCHAR(16);   
+           </textarea>
+           <h3>DROP TABLE:</h3>
+           <textarea>DROP TABLE gyms;
+           </textarea>
+           <h3>ALTER TABLE DROP COLUMN:</h3>
+           <textarea>ALTER TABLE pokemons 
+DROP COLUMN color;
+           </textarea>
+           <h3>ALTER TABLE ADD COLUMN AFTER COLUMN:</h3>
+           <textarea>ALTER TABLE pokemons 
+ADD COLUMN color VARCHAR(16) AFTER 
+accuracy
+           </textarea>
+        </section>
+    </main>
+</body>
+
+</html>
+
+
+
+
+-- Insert Short
+INSERT INTO trainers VALUES (
+DEFAULT, "Ash Ketchum", 2, 1);
+
+INSERT INTO trainers VALUES ( 
+DEFAULT, "Misty", 4, 2);
+
+INSERT INTO trainers VALUES ( 
+DEFAULT, "Brok", 6, 2);
+
+-- Insert Long
+INSERT INTO trainers (id, name, level, gym_id) VALUES ( 
+DEFAULT, "Serena", 4, 2);
+
+INSERT INTO trainers (id, name, level, gym_id) VALUES ( 
+DEFAULT, "Oak", 9, 1);
+
+
+
+INSERT INTO pokemons VALUES ( DEFAULT, 'pikachu', 'Electric', 90, 80, 96, 79, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'charmander', 'Fire', 95, 78, 80, 82, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'bulbasaour', 'Grass', 80, 88, 70, 75, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'squirtle', 'Water', 70, 90, 75, 90, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Snorlax', 'Normal', 180, 320, 50, 180, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Vaporeon', 'Water', 186, 260, 90, 168, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Lapras', 'Water', 111, 255, 100, 168, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Blastoise', 'Water', 720, 158, 70, 222, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Golem', 'Water', 500, 160, 80, 198, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Dragonite', 'Dragon', 900, 250, 120, 182, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Exeggutor', 'Grass', 596, 190, 90, 232, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Omaster', 'Rock', 1500, 140, 112, 202, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Muk', 'Poison', 1070, 210, 112, 180, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Onix', 'Rock', 662, 70, 80, 90, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Poliwag', 'Water', 815, 80, 70, 108, 1);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Mankey', 'Water', 563, 80, 70, 122, 2);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Magnemite', 'Electric', 750, 50, 40, 128, 2);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Pidgey', 'Normal', 818, 80, 95, 90, 2);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Gastly', 'Ghost', 750, 60, 60, 82, 2);
+INSERT INTO pokemons VALUES ( DEFAULT, 'Rattata', 'Normal', 810, 60, 65, 22, 2);
