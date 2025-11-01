@@ -102,6 +102,141 @@ accuracy
            <h3>SELECT SEARCH(IN)</h3>
            <textarea>SELECT id, name, type FROM pokemons WHERE name IN ('Fire', 'Electric'); 
            </textarea>
+           <!--- --->
+           <h3>SELECT (ALIAS: Two Tables)</h3>
+           <small> List all trainers with their pokemons</small>
+           <textarea> SELECT t.name AS name_trainer,
+p.name AS name_pokemon,
+p.type AS type_pokemon 
+FROM trainers AS t, pokemons AS p 
+WHERE t.id = p.trainer_id;
+           </textarea>
+           <!--- --->
+           <h3>SELECT (ALIAS: Two Tables with ORDER BY)</h3>
+           <small> List all trainers with their pokemons ordered desc</small>
+           <textarea> SELECT t.name AS name_trainer,
+p.name AS name_pokemon,
+p.type AS type_pokemon 
+FROM trainers AS t, pokemons AS p 
+WHERE t.id = p.trainer_id
+ORDER BY p.name DESC;
+           </textarea>
+           <!--- --->
+           <h3>SELECT (ALIAS: Two Tables with AND OR & ORDER BY)</h3>
+           <small> List all trainers with their pokemons type water or fire</small>
+           <textarea> SELECT t.name AS name_trainer,
+p.name AS name_pokemon,
+p.type AS type_pokemon 
+FROM trainers AS t, pokemons AS p 
+WHERE t.id = p.trainer_id
+AND p.type = 'Water' OR p.type = 'Fire'
+ORDER BY p.name DESC;
+           </textarea>
+           <!--- --->
+           <h3>SELECT (ALIAS: Two Tables - COUNT)</h3>
+           <small> List trainer with number of pokemons</small>
+           <textarea> SELECT t.name AS name_trainer,
+COUNT(p.id) AS number_pokemons
+FROM trainers AS t, pokemons AS p 
+WHERE t.id = p.trainer_id
+AND  t.id = 1;
+           </textarea>
+           <!--- --->
+           <h3>SELECT (ALIAS: Three Tables)</h3>
+           <small> List all trainers with their pokemons and gyms</small>
+           <textarea> SELECT t.name AS name_trainer,
+p.name AS name_pokemon,
+g.name AS name_gym
+FROM trainers AS t, pokemons AS p, gyms AS g
+WHERE t.id = p.trainer_id
+AND g.id = t.gym_id
+           </textarea>
+           <!--- --->
+           <h3>SELECT (INNER JOIN: Three Tables )</h3>
+           <small> List all trainers with their pokemons and gym</small>
+           <textarea> SELECT t.name AS name_trainer,
+p.name AS name_pokemon,
+g.name AS name_gym
+FROM trainers 
+INNER JOIN gyms
+ON pokemons.trainer_id = trainers.id
+ORDER BY trainers.name;
+           </textarea>
+           <!--- --->
+           <h3>SELECT (LEFT JOIN: Three Tables )</h3>
+           <small> List all trainers with their pokemons and gym</small>
+           <textarea> sELECT t.name AS name_trainer,
+p.name AS name_pokemon,
+g.name AS name_gym
+FROM trainers 
+LEFT JOIN gyms
+ON pokemons.trainer_id = trainers.id
+ORDER BY trainers.name;
+           </textarea>
+           <!--- --->
+           <h3>SELECT (RIGHT JOIN: Three Tables )</h3>
+           <small> List all trainers with their pokemons and gym</small>
+           <textarea> SELECT t.name AS name_trainer,
+p.name AS name_pokemon,
+g.name AS name_gym
+FROM trainers 
+RIGHT JOIN gyms
+ON trainers.gym_id = gyms.id
+RIGHT JOIN pokemons
+ON pokemons.trainer_id = trainers.id
+ORDER BY trainers.name;
+           </textarea>
+           <!--- --->
+           <h3>SELECT (UNION: Three Tables )</h3>
+           <small> List all trainers, pokemons and gym in one column</small>
+           <textarea> SELECT name FROM pokemons
+UNION 
+SELECT name FROM gyms 
+UNION 
+SELECT name FROM pokemons;
+           </textarea>
+           <!--- --->
+           <h3>CREATE VIEW</h3>
+           <small> Create a view that contains all trainers with their pokemons and gym</small>
+           <textarea> CREATE VIEW view_pokemons AS
+SELECT t.name AS name_trainer,
+p.name AS name_pokemon,
+g.name AS name_gym
+FROM trainers 
+INNER JOIN gyms
+ON pokemons.trainer_id = trainers.id
+ORDER BY trainers.name;
+           </textarea>
+           <!--- --->
+           <h3>SHOW VIEW</h3>
+           <small> Show a view that contains all trainers with their pokemons and gym</small>
+           <textarea>SELECT* FROM view_pokemons 
+           </textarea>
+           <!--- --->
+           <h3>UPDATE</h3>
+           <small> One field</small>
+           <textarea>UPDATE trainers SET level = 10 WHERE id = 1;
+           </textarea>
+           <small> Two or more fields</small>
+           <textarea>UPDATE pokemons SET trainer_id = 3 WHERE id = 1 OR id = 10 OR id = 15;
+           </textarea>
+           <!--- --->
+           <h3>DELETE</h3>
+           <small> One row</small>
+           <textarea>DELETE FROM pokemons WHERE id = 12;
+           </textarea>
+           <small> ALL rows</small>
+           <textarea>DELETE * FROM pokemons;
+           </textarea>
+           <textarea>TRUNCATE pokemons;
+           </textarea>
+           <!--- --->
+           <h3>TRANSACTION</h3>
+           <small>Begin a trnsaction, delete somethinf, rollback</small>
+           <textarea>BEGIN;
+DELETE FROM pokemons WHERE id = 13;
+ROLLBACK;                                                                                                                                                                                                                                        
+           </textarea>
 
         </section>
     </main>
