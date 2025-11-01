@@ -69,6 +69,40 @@ DROP COLUMN color;
 ADD COLUMN color VARCHAR(16) AFTER 
 accuracy
            </textarea>
+                      <h3>1 de noviemvbre</h3>
+           <h3>SELECT LIMIT (whith offset) </h3>
+           <textarea>SELECT id, name, type FROM pokemons 10, 5; 
+           </textarea>
+           <!--- --->
+            </textarea>
+           <h3>SELECT OFFSET </h3>
+           <textarea>SELECT id, name, type FROM pokemons LIMIT 10 OFFSET 5; 
+           </textarea>
+           <!--- --->
+           <h3>SELECT SEARCH(LIKE: Star with W)</h3>
+           <textarea>SELECT id, name, type FROM pokemons WHERE type like "W%"; 
+           </textarea>
+           <!--- --->
+           <h3>SELECT SEARCH(LIKE: End with e)</h3>
+           <textarea>SELECT id, name, type FROM pokemons WHERE type like "%e"; 
+           </textarea>
+           <!--- --->
+           <h3>SELECT SEARCH(LIKE: Contains)</h3>
+           <textarea>SELECT id, name, type FROM pokemons WHERE name like "%as%"; 
+           </textarea>
+           <!--- --->
+           <h3>SELECT SEARCH( NOT LIKE: Contains)</h3>
+           <textarea>SELECT id, name, type FROM pokemons WHERE name NOT like "%ma%"; 
+           </textarea>
+           <!--- --->
+           <h3>SELECT SEARCH(LIKE: Complete)</h3>
+           <textarea>SELECT id, name, type FROM pokemons WHERE name like "p_k_ch_"; 
+           </textarea>
+           <!--- --->
+           <h3>SELECT SEARCH(IN)</h3>
+           <textarea>SELECT id, name, type FROM pokemons WHERE name IN ('Fire', 'Electric'); 
+           </textarea>
+
         </section>
     </main>
 </body>
