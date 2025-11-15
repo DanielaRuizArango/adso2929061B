@@ -1,19 +1,14 @@
 "use strict";
-//Functions: declarar funciones con tipos y retornos
-function sum(a, b) {
-    return a + b;
+//Function with typed parameters & return type 
+function calculateAttack(baseDamage, multiplier) {
+    return baseDamage * multiplier;
 }
-function greet(name) {
-    return `Hello ${name}`;
-}
-const userName = 'Kevin';
-const result = sum(8, 5);
-const message = greet(userName);
-// Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li>${message}</li>
-        <li><strong>Sum result:</strong> ${result}</li>
-        `;
+const attack = calculateAttack(15, 20);
+const output03 = document.getElementById('output03');
+if (output03) {
+    output03.innerHTML = `
+    <li><strong>Base Damage: </strong>15</li>
+    <li><strong>Multiplier: </strong>3x</li>
+    <li><strong>Total Attack: </strong>${attack}</li>
+    `;
 }

@@ -1,17 +1,28 @@
-// Generics: crear funciones reutilizables con tipos genéricos
-function showItem<T>(item: T): string {
-    return `Item: ${item}`;
+// Generics: inventory for any type
+
+class inventory<T> {
+    private items: T[] = [];
+
+    addItem (item: T): void {
+        this.items.push(item);
+    }
+
+    getItem (): T[] {
+        return this.items;
+    }
+    
 }
-function combine<T, U>(first: T, second: U): string {
-    return `Combined: ${first} and ${second}`;
-}
-const msg1: string = showItem<number>(99);
-const msg2: string = combine<string, boolean>("Success", true);
-// Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li>${msg1}</li>
-        <li>${msg2}</li>
+
+const charmInventory = new inventory<string>();
+charmInventory.addItem('Mothwing Cloak');
+charmInventory.addItem('Crystal Heart');
+
+//Display in Browser
+const output05 = document.getElementById('output05');
+
+if (output05) {
+    output05.innerHTML = `
+    <li><strong>Charms Collected: </strong></li>
+    <ul>${charmInventory.getItem().map(c => `<li>${c}</li>`).join('')}</ul>
     `;
 }

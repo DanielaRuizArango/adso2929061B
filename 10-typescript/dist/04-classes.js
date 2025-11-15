@@ -1,21 +1,22 @@
 "use strict";
-//Classes: crear clases y metodos
-class Car {
-    constructor(brand, speed) {
-        this.brand = brand;
-        this.speed = speed;
+class Enemy {
+    constructor(name, health) {
+        this.name = name;
+        this.health = health;
     }
-    accelerate() {
-        return `${this.brand} is accelerating to ${this.speed} km/h`;
+    takeDamage(damage) {
+        this.health -= damage;
     }
 }
-const car = new Car('Toyota', 120);
-// Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-            <li><strrong>Car:</strong> ${car.brand}</li>
-            <li><strong>Speed:</strong> ${car.speed}</li>
-            <li>${car.accelerate()}</li>
-        `;
+const mosskin = new Enemy('Mosskin', 100);
+mosskin.takeDamage(10);
+mosskin.takeDamage(10);
+mosskin.takeDamage(10);
+//Display in Browser
+const output04 = document.getElementById('output04');
+if (output04) {
+    output04.innerHTML = `
+    <li><strong>Enemy: </strong>${mosskin.name}</li>
+    <li><strong>Health After Attack: </strong>${mosskin.health}</li>
+    `;
 }

@@ -2,11 +2,6 @@
 /* 01 F O N T S*/
 /*- - - - - - - - - - - - - */
 @font-face {
-    font-family: 'Poppins-200';
-    src: url(../fonts/Poppins-200.ttf);
-}
-
-@font-face {
     font-family: 'Poppins-400';
     src: url(../fonts/Poppins-400.ttf);
 }
@@ -87,7 +82,8 @@ html {
 :root {
     --color-1: #fff9;
     --color-2: #0009;
-    --font-bd: 'Poppins', sans-serif;
+    --font-400: 'Poppins-400', sans-serif;
+    --font-600: 'Poppins-600', sans-serif;
 }
 
 /*- - - - - - - - - - - - - */
@@ -97,7 +93,7 @@ body {
     align-items: center;
     color: var(--color-2);
     display: flex;
-    font-family: var(--font-bd);
+    font-family: var(--font-400);
     justify-content: center;
     flex-wrap: wrap;
     min-height: 100vh;
@@ -140,7 +136,7 @@ body {
             h1 {
                 font-size: 3rem;
                 color: var(--color-2);
-                font-weight: 400;
+                font-family: var(--font-400);
                 display: flex;
                 align-items: center;
                 gap: 0.6rem;
@@ -160,12 +156,12 @@ body {
 
             h2 {
                 font-size: 1.4rem;
-                font-weight: 600;
+                font-family: var(--font-600);
             }
 
             h3 {
                 font-size: 1rem;
-                font-weight: 400;
+                font-family: var(--font-400);
                 border-radius: 50px;
                 background-color: var(--color-2);
                 color: var(--color-1);
@@ -255,7 +251,7 @@ body {
                 border-radius: 20px;
                 background-color: var(--color-2);
                 color: #fff;
-                font-weight: 600;
+                font-family: var(--font-600);
                 height: 28px;
                 display: flex;
                 align-items: center;

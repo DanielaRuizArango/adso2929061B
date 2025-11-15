@@ -1,19 +1,17 @@
-//Functions: declarar funciones con tipos y retornos
-function sum(a: number, b: number): number {
-    return a + b;
+//Function with typed parameters & return type 
+function calculateAttack(baseDamage: number, multiplier: number) : number {
+    return baseDamage * multiplier;
 }
-function greet(name: string): string {
-    return `Hello ${name}`;
-}
-const userName: string = 'Kevin';
-const result: number = sum(8, 5);
-const message: string = greet(userName);
 
-// Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li>${message}</li>
-        <li><strong>Sum result:</strong> ${result}</li>
-        `;
+const attack = calculateAttack (15, 20);
+
+
+const output03 = document.getElementById('output03');
+
+if(output03) {
+    output03.innerHTML = `
+    <li><strong>Base Damage: </strong>15</li>
+    <li><strong>Multiplier: </strong>3x</li>
+    <li><strong>Total Attack: </strong>${attack}</li>
+    `
 }

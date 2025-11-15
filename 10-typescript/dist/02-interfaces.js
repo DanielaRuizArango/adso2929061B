@@ -1,19 +1,14 @@
 "use strict";
-const pet = {
-    name: 'tiger',
-    species: 'cat',
-    age: 3,
-    isDomestic: true,
-    sound: 'meow'
+const needle = {
+    name: 'Solken Needle',
+    damage: 15,
+    range: 3
 };
-// Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li><strong>Name:</strong> ${pet.name}</li>
-        <li><strong>Species:</strong> ${pet.species}</li>
-        <li><strong>Age:</strong> ${pet.age}</li>
-        <li><strong>Domestic:</strong> ${pet.isDomestic ? "Yes" : "No"}</li>
-        <li><strong>Sound:</strong> ${pet.sound}</li>
+const output02 = document.getElementById('output02');
+if (output02) {
+    output02.innerHTML = `
+    <li><strong>Weapon: </strong>${needle.name}</li>
+    <li><strong>Damage: </strong>${needle.damage}</li>
+    <li><strong>Range: </strong>${needle.range}</li>
     `;
 }
