@@ -24,6 +24,7 @@
         }
     </style>
 </head>
+
 <body class="sql">
     <nav>
         <a href="index.html">
@@ -41,57 +42,79 @@
             </p>
         </header>
         <section>
-           <h3>MySQL Version</h3>
-           <textarea>mysql --version</textarea>
-           <h3>Connect to MySQL</h3>
-           <textarea>mysql -u root -p</textarea>
-           <h3>Show All Databases</h3>
-           <textarea>show databases;</textarea>
+            <h3>Connect to MySQL</h3>
+            <textarea>mysql -u root -p</textarea>
+
+            <h3>MySQL Version</h3>
+            <textarea>mysql -version</textarea>
+
+            <h3>Show ALL databases</h3>
+            <textarea>show databases;</textarea>
+
+            <h3>Create databases</h3>
+            <textarea>create database pokeadso;</textarea>
+
+            <h3>Connect to database</h3>
+            <textarea>connect pokeadso;</textarea>
+
+            <h3>Use database</h3>
+            <textarea>use pokeadso;</textarea>
+
+            <h3>Create table gym</h3>
+            <textarea>create table gyms (
+id int auto_increment,
+name varchar(32) not null unique,
+primary key(id)
+);
+        </textarea>
+
+            <h3>Create table trainers</h3>
+            <textarea>create table trainers (
+id int auto_increment,
+name varchar(32) not null unique,
+level int not null,
+gym_id int,
+primary key(id),
+foreign key(gym_id) references gyms(id)
+);
+        </textarea>
+
+            <h3>Create table pokemons</h3>
+            <textarea>create table pokemons(
+id int auto_increment,
+name varchar(32) not null unique,
+type varchar(32) not null,
+strength int not null,
+stamina int not null,
+speed int not null,
+accuracy int not null,
+primary key(id),
+trainer_id int,
+foreign key(trainer_id) references trainers(id)
+);
+        </textarea>
+
+            <h3>Describe table</h3>
+            <textarea>describe pokemons;</textarea>
+
+            <h3>Create Backup database</h3>
+            <textarea>mysqldump -u root pokeadso > C:\Users\APRENDIZ\Desktop\pokeadso_backup.sql</textarea>
+
+            <h3>Drop database</h3>
+            <textarea>drop database pokeadso;</textarea>
+
+            <h3>Truncate table</h3>
+            <textarea>truncate table pokemons;</textarea>
+
+            <h3>Recovery database</h3>
+            <textarea>create database pokeadso;
+exit
+mysql -u root pokeadso  
+C:\Users\APRENDIZ\Desktop\adso2929061B\15-sql\pokeadso_backup.sql
+        </textarea>
+
         </section>
     </main>
 </body>
 
 </html>
-
-
-
-
-
-
-// Connect to MySQL
-> mysql -u root -p
-
-// MySQL Version
-> mysql --version
-
-// Show All Databases
-> show databases;
-
-// Create Databases
-> create database pokeadso;
-
-// Connect to Database
-> use pokeadso;
-
-// Create table gyms
-Create table gyms (
-id int auto_increment,
-nanme varchar(32) not null unique,
-PRIMARY KEY(id)
-);
-
-// Create tablea trainers
-
-// Create table pokemons
-create table pokemons(
-id int auto_increment,
-name varchar(32) not null unique,
-type varchar(32) not null,
-strength int not null,
-staming int not null,
-speed int not null,
-accuracy int not null,
-PRIMARY KEY(id),
-trainer_id int,
-FOREIGN KEY(trainer_id) REFERENCES trainers(id)
-);

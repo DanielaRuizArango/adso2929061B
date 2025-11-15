@@ -1,0 +1,14 @@
+{
+  "name": "typescript-silksong",
+  "version": "1.0.0",
+  "description": "TypeScript learning project with Hollow Knight Silksong theme",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "serve": "live-server --port=8080"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "live-server": "^1.2.2"
+  }
+}
