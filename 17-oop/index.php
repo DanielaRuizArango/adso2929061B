@@ -23,7 +23,7 @@
             <img src="../images/logo-oop.png" alt="oop">
         </header>
         <menu>
-            <a href="00-challende.php">
+            <a href="00-challenge.php">
                 <span>00</span>
                 High Cohesion & Low Coupling
             </a>

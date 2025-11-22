@@ -1,15 +1,14 @@
-// 06 - Enums: agrupar constantes con valores definidos
-enum Weather {
-    Sunny = "Sunny",
-    Rainy = "Rainy",
-    Cloudy = "Cloudy",
-    Windy = "Windy"
+enum UserRole {
+    Admin = "Admin",
+    Editor = "Editor",
+    Viewer = "Viewer"
 }
-const todayWeather: Weather = Weather.Sunny;
-// Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li><strong>Today's weather:</strong> ${todayWeather}</li>
+
+const currentUserRole: UserRole = UserRole.Editor;
+
+const output06 = document.getElementById('output06');
+if (output06) {
+    output06.innerHTML = `
+        <li><strong>User Role:</strong> ${currentUserRole}</li>
     `;
 }

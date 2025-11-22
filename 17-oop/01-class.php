@@ -1,7 +1,7 @@
 <?php
 
-    $tittle = "01 - Class";
-    $descripcion = "lorem ipsum dolor sit amet";
+    $tittle = "01- Class";
+    $descripcion = "Blueprint for creating objects with shared properties and behaviors.";
 
 include_once 'template/header.php';
 

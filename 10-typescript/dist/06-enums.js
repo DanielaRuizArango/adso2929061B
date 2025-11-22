@@ -1,17 +1,14 @@
 "use strict";
-// 06 - Enums: agrupar constantes con valores definidos
-var Weather;
-(function (Weather) {
-    Weather["Sunny"] = "Sunny";
-    Weather["Rainy"] = "Rainy";
-    Weather["Cloudy"] = "Cloudy";
-    Weather["Windy"] = "Windy";
-})(Weather || (Weather = {}));
-const todayWeather = Weather.Sunny;
-// Display in browser
-const output = document.getElementById('output');
-if (output) {
-    output.innerHTML = `
-        <li><strong>Today's weather:</strong> ${todayWeather}</li>
+var UserRole;
+(function (UserRole) {
+    UserRole["Admin"] = "Admin";
+    UserRole["Editor"] = "Editor";
+    UserRole["Viewer"] = "Viewer";
+})(UserRole || (UserRole = {}));
+const currentUserRole = UserRole.Editor;
+const output06 = document.getElementById('output06');
+if (output06) {
+    output06.innerHTML = `
+        <li><strong>User Role:</strong> ${currentUserRole}</li>
     `;
 }

@@ -1,28 +1,27 @@
-"use strict";
 // --- Declaración del namespace ---
-var Utils;
-(function (Utils) {
+namespace Utils {
     // Función dentro del namespace
-    function greet(name) {
+    export function greet(name: string): string {
         return `Hola, ${name}! Bienvenido a Namespaces.`;
     }
-    Utils.greet = greet;
+
     // Clase dentro del namespace
-    class Person {
-        constructor(name) {
-            this.name = name;
-        }
+    export class Person {
+        constructor(public name: string) {}
+
         sayHello() {
             return `Soy ${this.name} y uso namespaces 😊`;
         }
     }
-    Utils.Person = Person;
-})(Utils || (Utils = {}));
+}
+
 // Usando el namespace
 const message = Utils.greet("Daniela");
 const person = new Utils.Person("Carlos");
+
 // Mostrar en HTML
 const output10 = document.getElementById("output10");
+
 if (output10) {
     output10.innerHTML = `
         <li><strong>Namespace Function:</strong> ${message}</li>
