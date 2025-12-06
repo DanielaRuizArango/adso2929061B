@@ -1,81 +1,78 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 // Obtener el UL para mostrar resultados
-const output = document.getElementById("output");
+const output = document.getElementById("output") as HTMLUListElement;
+
 // Función auxiliar para imprimir en pantalla
-function print(msg) {
+function print(msg: string) {
     const li = document.createElement("li");
     li.textContent = msg;
     output.appendChild(li);
 }
+
 // --------------------------------------------------
 // Ejemplo 1: Manejo básico de errores con try/catch
 // --------------------------------------------------
-function dividir(a, b) {
+
+function dividir(a: number, b: number): number {
     if (b === 0) {
         throw new Error("No se puede dividir entre 0 ❌");
     }
     return a / b;
 }
+
 try {
     const resultado = dividir(10, 2);
     print(`Resultado de 10 / 2 = ${resultado}`);
+} catch (error) {
+    print(`Error: ${(error as Error).message}`);
 }
-catch (error) {
-    print(`Error: ${error.message}`);
-}
+
 try {
     const resultado2 = dividir(5, 0);
     print(`Resultado de 5 / 0 = ${resultado2}`);
+} catch (error) {
+    print(`Error: ${(error as Error).message}`);
 }
-catch (error) {
-    print(`Error: ${error.message}`);
-}
+
+
 // --------------------------------------------------
 // Ejemplo 2: Error personalizado
 // --------------------------------------------------
+
 class DatosNoEncontradosError extends Error {
     constructor() {
         super("Datos no encontrados en la base de datos 📁❌");
         this.name = "DatosNoEncontradosError";
     }
 }
-function obtenerDatos(id) {
+
+function obtenerDatos(id: number) {
     if (id !== 1) {
         throw new DatosNoEncontradosError();
     }
     return { id: 1, nombre: "Producto A" };
 }
+
 try {
     const datos = obtenerDatos(2);
     print(`Datos obtenidos: ${JSON.stringify(datos)}`);
-}
-catch (error) {
+} catch (error) {
     if (error instanceof DatosNoEncontradosError) {
         print(`Error personalizado: ${error.message}`);
-    }
-    else {
+    } else {
         print("Error desconocido");
     }
 }
+
+
 // --------------------------------------------------
 // Ejemplo 3: Manejo de errores en funciones async/await
 // --------------------------------------------------
-function fetchSimulado() {
+
+function fetchSimulado(): Promise<string> {
     return new Promise((_, reject) => {
         setTimeout(() => reject("Error al obtener datos del servidor 🌐❌"), 1500);
     });
 }
-function cargarDatos() {
-    return __awaiter(this, void 0, void 0, function* () {
-        pr;
-    });
-}
+
+async function cargarDatos() {
+    pr
