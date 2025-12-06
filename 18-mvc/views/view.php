@@ -15,7 +15,7 @@
         <p><strong>Fuerza:</strong> <?php echo htmlspecialchars($pokemon['strength']); ?></p>
         <p><strong>Resistencia:</strong> <?php echo htmlspecialchars($pokemon['stamina']); ?></p>
         <p><strong>Velocidad:</strong> <?php echo htmlspecialchars($pokemon['speed']); ?></p>
-        <p><strong>Precisión:</strong> <?php echo htmlspecialchars($pokemon['acurracy']); ?></p>
+        <p><strong>Precisión:</strong> <?php echo htmlspecialchars($pokemon['accuracy']); ?></p>
         <p><strong>ID del Entrenador:</strong> <?php echo htmlspecialchars($pokemon['trainer_id']); ?></p>
     </div>
     

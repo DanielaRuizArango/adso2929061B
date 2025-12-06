@@ -15,6 +15,11 @@ class Model extends Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function ListTrainers(){
+        $stmt = $this->db->query("SELECT * FROM trainers");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function viewPokemon($id)
     {
         $stmt = $this->db->prepare("SELECT * FROM pokemons WHERE id = ?");
@@ -23,10 +28,10 @@ class Model extends Database
     }
 
 
-    public function createPokemon($name, $type, $strength, $stamina, $speed, $acurracy, $trainer_id)
+    public function createPokemon($name, $type, $strength, $stamina, $speed, $accuracy, $trainer_id)
 {
-    $stmt = $this->db->prepare("INSERT INTO pokemons (name, type, strength, stamina, speed, acurracy, trainer_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    return $stmt->execute([$name, $type, $strength,$stamina,$speed, $acurracy, $trainer_id]);
+    $stmt = $this->db->prepare("INSERT INTO pokemons (name, type, strength, stamina, speed, accuracy, trainer_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    return $stmt->execute([$name, $type, $strength,$stamina,$speed, $accuracy, $trainer_id]);
 }
 
 
