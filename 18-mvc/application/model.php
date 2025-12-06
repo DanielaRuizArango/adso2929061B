@@ -30,10 +30,10 @@ class Model extends Database
 }
 
 
-    public function updatePokemon($id, $name, $type)
+    public function updatePokemon($id, $name, $type, $strength, $stamina, $speed, $acurracy, $trainer_id)
     {
-        $stmt = $this->db->prepare("UPDATE pokemons SET name = ?, type = ? WHERE id = ?");
-        return $stmt->execute([$name, $type, $id]);
+        $stmt = $this->db->prepare("UPDATE pokemons SET name = ?, type = ?, strength = ?, stamina = ?, speed = ?, acurracy = ?, trainer_id = ? WHERE id = ?");
+        return $stmt->execute([$name, $type, $strength, $stamina, $speed, $acurracy, $trainer_id, $id]);
     }
 
     // ELIMINAR

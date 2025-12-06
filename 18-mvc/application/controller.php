@@ -9,9 +9,6 @@ class Controller
     {
         $this->load = new Load;
         $this->model = new Model; // tu modelo Pokemon
-
-        // Acción por defecto
-        $this->index();
     }
 
     // LISTAR
@@ -53,7 +50,16 @@ class Controller
     public function edit($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->model->updatePokemon($id, $_POST['name'], $_POST['type']);
+            $this->model->updatePokemon(
+                $id, 
+                $_POST['name'], 
+                $_POST['type'],
+                $_POST['strength'],
+                $_POST['stamina'],
+                $_POST['speed'],
+                $_POST['acurracy'],
+                $_POST['trainer_id']
+            );
 
             header("Location: /pokemons");
             exit;
