@@ -76,13 +76,14 @@ class Controller
             exit;
         }
 
-        $this->load->view('create.php');
+        $trainers = $this->model->ListTrainers();
+        $this->load->view('create.php', ['trainers' => $trainers]);
     }
 
     public function edit($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->model->updatePokemon($id, $_POST['name'], $_POST['type'],$_POST['strength'],$_POST['stamina'],$_POST['speed'],$_POST['acurracy'],$_POST['trainer_id']
+            $this->model->updatePokemon($id, $_POST['name'], $_POST['type'],$_POST['strength'],$_POST['stamina'],$_POST['speed'],$_POST['accuracy'],$_POST['trainer_id']
             );
 
             header("Location: /pokemons");
@@ -90,7 +91,8 @@ class Controller
         }
 
         $pokemon = $this->model->viewPokemon($id);
-        $this->load->view('edit.php', ['pokemon' => $pokemon]);
+        $trainers = $this->model->ListTrainers();
+        $this->load->view('edit.php', ['pokemon' => $pokemon, 'trainers' => $trainers]);
     }
 
     public function delete($id)

@@ -22,7 +22,7 @@ class Model extends Database
 
     public function viewPokemon($id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM pokemons WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT p.*, t.name as trainer_name FROM pokemons p LEFT JOIN trainers t ON p.trainer_id = t.id WHERE p.id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -35,10 +35,10 @@ class Model extends Database
 }
 
 
-    public function updatePokemon($id, $name, $type, $strength, $stamina, $speed, $acurracy, $trainer_id)
+    public function updatePokemon($id, $name, $type, $strength, $stamina, $speed, $accuracy, $trainer_id)
     {
-        $stmt = $this->db->prepare("UPDATE pokemons SET name = ?, type = ?, strength = ?, stamina = ?, speed = ?, acurracy = ?, trainer_id = ? WHERE id = ?");
-        return $stmt->execute([$name, $type, $strength, $stamina, $speed, $acurracy, $trainer_id, $id]);
+        $stmt = $this->db->prepare("UPDATE pokemons SET name = ?, type = ?, strength = ?, stamina = ?, speed = ?, accuracy = ?, trainer_id = ? WHERE id = ?");
+        return $stmt->execute([$name, $type, $strength, $stamina, $speed, $accuracy, $trainer_id, $id]);
     }
 
     // ELIMINAR
