@@ -24,15 +24,28 @@
                     <div class="form-control">
                         <label for="type" class="label">
                             <span class="label-text font-semibold">Tipo</span>
+                            <span id="type-badge" class="badge badge-outline"></span>
                         </label>
-                        <input type="text" id="type" name="type" class="input input-bordered w-full" required />
+                        <select id="type" name="type" class="select select-bordered w-full" required>
+                            <option value="">Seleccione un tipo</option>
+                            <option value="Water">Water</option>
+                            <option value="Grass">Grass</option>
+                            <option value="Fire">Fire</option>
+                            <option value="Electric">Electric</option>
+                            <option value="Normal">Normal</option>
+                            <option value="Poison">Poison</option>
+                            <option value="Ghost">Ghost</option>
+                            <option value="Dragon">Dragon</option>
+                            <option value="Rock">Rock</option>
+                        </select>
                     </div>
 
                     <div class="form-control">
                         <label for="strength" class="label">
                             <span class="label-text font-semibold">Fuerza</span>
+                            <span class="label-text-alt" id="strength-val">0</span>
                         </label>
-                        <input type="number" id="strength" name="strength" class="input input-bordered w-full" required />
+                        <input type="range" min="0" max="250" value="0" id="strength" name="strength" class="range range-error" oninput="document.getElementById('strength-val').innerText = this.value" required />
                     </div>
                 </div>
 
@@ -40,15 +53,17 @@
                     <div class="form-control">
                         <label for="stamina" class="label">
                             <span class="label-text font-semibold">Resistencia</span>
+                            <span class="label-text-alt" id="stamina-val">0</span>
                         </label>
-                        <input type="number" id="stamina" name="stamina" class="input input-bordered w-full" required />
+                        <input type="range" min="0" max="250" value="0" id="stamina" name="stamina" class="range range-success" oninput="document.getElementById('stamina-val').innerText = this.value" required />
                     </div>
 
                     <div class="form-control">
                         <label for="speed" class="label">
                             <span class="label-text font-semibold">Velocidad</span>
+                            <span class="label-text-alt" id="speed-val">0</span>
                         </label>
-                        <input type="number" id="speed" name="speed" class="input input-bordered w-full" required />
+                        <input type="range" min="0" max="250" value="0" id="speed" name="speed" class="range range-warning" oninput="document.getElementById('speed-val').innerText = this.value" required />
                     </div>
                 </div>
 
@@ -56,8 +71,9 @@
                     <div class="form-control">
                         <label for="accuracy" class="label">
                             <span class="label-text font-semibold">Precisión</span>
+                            <span class="label-text-alt" id="accuracy-val">0</span>
                         </label>
-                        <input type="number" id="accuracy" name="accuracy" class="input input-bordered w-full" required />
+                        <input type="range" min="0" max="250" value="0" id="accuracy" name="accuracy" class="range range-info" oninput="document.getElementById('accuracy-val').innerText = this.value" required />
                     </div>
 
                     <div class="form-control">
@@ -82,5 +98,48 @@
             </form>
         </div>
     </div>
+    <script>
+        const typeSelect = document.getElementById('type');
+        const typeBadge = document.getElementById('type-badge');
+        const rangeInputs = document.querySelectorAll('input[type="range"]');
+
+        
+        const typeColors = {
+            'Water': 'info',
+            'Grass': 'success',
+            'Fire': 'error',
+            'Electric': 'warning',
+            'Normal': 'neutral',
+            'Poison': 'primary',
+            'Ghost': 'primary',
+            'Dragon': 'secondary',
+            'Rock': 'neutral'
+        };
+
+        function updateUI() {
+            const selectedType = typeSelect.value;
+            typeBadge.innerText = selectedType || 'None';
+            const colorName = typeColors[selectedType] || 'neutral';
+            
+            typeBadge.className = 'badge badge-outline'; 
+            typeBadge.classList.add('badge-' + colorName);
+
+            rangeInputs.forEach(input => {
+                input.classList.remove('range-info', 'range-success', 'range-error', 'range-warning', 'range-neutral', 'range-primary', 'range-secondary', 'range-accent');
+                input.classList.add('range-' + colorName);
+            });
+
+            
+            const submitBtn = document.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.classList.remove('btn-info', 'btn-success', 'btn-error', 'btn-warning', 'btn-neutral', 'btn-primary', 'btn-secondary', 'btn-accent');
+                submitBtn.classList.add('btn-' + colorName);
+            }
+        }
+
+        typeSelect.addEventListener('change', updateUI);
+     
+        updateUI();
+    </script>
 </body>
 </html>
