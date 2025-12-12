@@ -85,8 +85,44 @@ let TaskManager = class TaskManager extends BaseManager {
     }
     init() {
         const output = document.getElementById('output');
-        if (output)
-            output.innerHTML = "<h3>Initializing Task Manager...</h3>";
+        if (output) {
+            output.innerHTML = '';
+            // Controls Container
+            const controls = document.createElement('div');
+            controls.style.marginBottom = '20px';
+            controls.style.padding = '20px';
+            controls.style.background = 'rgba(255,255,255,0.05)';
+            controls.style.borderRadius = '8px';
+            controls.style.display = 'flex';
+            controls.style.gap = '10px';
+            // Button: Add Task
+            const btnAdd = document.createElement('button');
+            btnAdd.textContent = '✨ Add New Task';
+            btnAdd.style.padding = '12px 24px';
+            btnAdd.style.backgroundColor = '#4CAF50';
+            btnAdd.style.color = 'white';
+            btnAdd.style.border = 'none';
+            btnAdd.style.borderRadius = '4px';
+            btnAdd.style.cursor = 'pointer';
+            btnAdd.style.fontSize = '16px';
+            btnAdd.style.transition = 'background 0.3s';
+            btnAdd.onmouseover = () => btnAdd.style.backgroundColor = '#45a049';
+            btnAdd.onmouseout = () => btnAdd.style.backgroundColor = '#4CAF50';
+            btnAdd.onclick = () => {
+                const title = prompt('Enter a title for the new task:', 'New Task');
+                if (title) {
+                    this.createTask({ title, status: TaskStatus.Pending });
+                    this.renderTasks();
+                }
+            };
+            controls.appendChild(btnAdd);
+            output.appendChild(controls);
+            // Tasks Container
+            const listContainer = document.createElement('div');
+            listContainer.id = 'task-list-container';
+            output.appendChild(listContainer);
+            listContainer.innerHTML = '<p><em>Loading tasks...</em></p>';
+        }
     }
     // UTILITY TYPES: Omit
     createUser(user) {
@@ -116,25 +152,56 @@ let TaskManager = class TaskManager extends BaseManager {
         });
     }
     renderTasks() {
-        const output = document.getElementById('output');
-        if (!output)
+        const container = document.getElementById('task-list-container');
+        if (!container)
             return;
         const tasks = this.taskStorage.getItems();
-        let html = `<h3>Tasks (${tasks.length})</h3><ul>`;
+        let html = `<h3>Tasks List (${tasks.length})</h3><ul style="list-style: none; padding: 0;">`;
         tasks.forEach(task => {
             var _a;
             // Nullish Coalescing
             const assignee = (_a = task.assignedTo) !== null && _a !== void 0 ? _a : 'Unassigned';
+            // Status Color
+            let statusColor = '#888';
+            if (task.status === TaskStatus.Completed)
+                statusColor = '#4CAF50';
+            if (task.status === TaskStatus.InProgress)
+                statusColor = '#2196F3';
+            if (task.status === TaskStatus.Pending)
+                statusColor = '#FFC107';
             html += `
-                <li style="margin-bottom: 10px; padding: 10px; background: rgba(0,0,0,0.1); border-radius: 4px;">
-                    <strong>${task.title}</strong> [${task.status}] <br>
-                    <small>${task.description}</small> <br>
-                    <small>Assigned to: ${assignee}</small>
+                <li style="
+                    margin-bottom: 15px; 
+                    padding: 15px; 
+                    background: rgba(255,255,255,0.05); 
+                    border-left: 5px solid ${statusColor};
+                    border-radius: 4px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                ">
+                    <div>
+                        <strong style="font-size: 1.1em; display: block; margin-bottom: 4px;">${task.title}</strong>
+                        <div style="font-size: 0.9em; opacity: 0.8; margin-bottom: 4px;">${task.description || 'No description'}</div>
+                        <div style="font-size: 0.8em; opacity: 0.6;">
+                            Assigned to: <strong>${assignee}</strong> | Status: <span style="color:${statusColor}">${task.status}</span>
+                        </div>
+                    </div>
+                    <div>
+                         <button onclick="alert('Task ID: ${task.id}')" style="
+                            padding: 5px 10px;
+                            background: rgba(255,255,255,0.1);
+                            border: 1px solid rgba(255,255,255,0.2);
+                            color: white;
+                            cursor: pointer;
+                            border-radius: 4px;
+                         ">Info</button>
+                    </div>
                 </li>
             `;
         });
         html += '</ul>';
-        output.innerHTML = html;
+        container.innerHTML = html;
     }
     log(message) {
         console.log(`[TaskManager]: ${message}`);
