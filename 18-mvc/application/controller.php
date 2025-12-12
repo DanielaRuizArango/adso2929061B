@@ -43,7 +43,7 @@ class Controller
                 $this->edit($id);
                 break;
 
-            case preg_match('/^\/pokemons\/delete\/(\d+)$/', $requestUri, $matches) && $requestMethod === 'POST':
+            case preg_match('/^\/pokemons\/delete\/(\d+)$/', $requestUri, $matches):
                 $id = $matches[1];
                 $this->delete($id);
                 break;
