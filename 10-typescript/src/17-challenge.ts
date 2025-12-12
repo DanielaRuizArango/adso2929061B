@@ -1,5 +1,4 @@
 // 17-challenge.ts - TypeScript Features Project
-// Project: small Task Management System
 
 /**
  * DECORATORS
