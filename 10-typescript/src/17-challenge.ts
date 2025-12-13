@@ -22,12 +22,12 @@ function MeasureExecution(target: any, propertyKey: string, descriptor: Property
  * ENUMS
  */
 enum TaskStatus {
-    Pending = 'PENDING',
-    InProgress = 'IN_PROGRESS',
-    Completed = 'COMPLETED'
+    Pending = 'PENDIENTE',
+    InProgress = 'EN PROGRESO',
+    Completed = 'COMPLETADA'
 }
 
-enum UserRole {
+enum Role {
     Admin = 'ADMIN',
     User = 'USER',
     Guest = 'GUEST'
@@ -46,7 +46,7 @@ type ID = number | string;
 interface User extends IEntity {
     name: string;
     email: string;
-    role: UserRole;
+    role: Role;
 }
 
 interface Task extends IEntity {
@@ -108,31 +108,41 @@ class TaskManager extends BaseManager {
             // Controls Container
             const controls = document.createElement('div');
             controls.style.marginBottom = '20px';
-            controls.style.padding = '20px';
-            controls.style.background = 'rgba(255,255,255,0.05)';
-            controls.style.borderRadius = '8px';
+            controls.style.padding = '20px 0';
+            controls.style.borderBottom = '1px solid #444';
             controls.style.display = 'flex';
             controls.style.gap = '10px';
 
             // Button: Add Task
             const btnAdd = document.createElement('button');
-            btnAdd.textContent = '✨ Add New Task';
-            btnAdd.style.padding = '12px 24px';
-            btnAdd.style.backgroundColor = '#4CAF50';
+            btnAdd.textContent = 'Agregar Nueva Tarea';
+            btnAdd.style.padding = '10px 20px';
+            btnAdd.style.backgroundColor = '#2563EB'; // Formal Blue
             btnAdd.style.color = 'white';
             btnAdd.style.border = 'none';
-            btnAdd.style.borderRadius = '4px';
+            btnAdd.style.borderRadius = '6px';
             btnAdd.style.cursor = 'pointer';
-            btnAdd.style.fontSize = '16px';
-            btnAdd.style.transition = 'background 0.3s';
+            btnAdd.style.fontSize = '14px';
+            btnAdd.style.fontWeight = '500';
+            btnAdd.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+            btnAdd.style.transition = 'background 0.2s';
+            btnAdd.style.fontFamily = 'system-ui, -apple-system, sans-serif';
 
-            btnAdd.onmouseover = () => btnAdd.style.backgroundColor = '#45a049';
-            btnAdd.onmouseout = () => btnAdd.style.backgroundColor = '#4CAF50';
+            btnAdd.onmouseover = () => btnAdd.style.backgroundColor = '#1d4ed8';
+            btnAdd.onmouseout = () => btnAdd.style.backgroundColor = '#2563EB';
 
             btnAdd.onclick = () => {
-                const title = prompt('Enter a title for the new task:', 'New Task');
+                const title = prompt('Ingrese el título:', 'Nueva Tarea');
                 if (title) {
-                    this.createTask({ title, status: TaskStatus.Pending });
+                    const description = prompt('Ingrese descripción:', '');
+                    const assignedTo = prompt('Ingrese asignado a:', 'Sin asignar');
+
+                    this.createTask({
+                        title,
+                        description: description || undefined,
+                        assignedTo: assignedTo || null,
+                        status: TaskStatus.Pending
+                    });
                     this.renderTasks();
                 }
             };
@@ -145,7 +155,7 @@ class TaskManager extends BaseManager {
             listContainer.id = 'task-list-container';
             output.appendChild(listContainer);
 
-            listContainer.innerHTML = '<p><em>Loading tasks...</em></p>';
+            listContainer.innerHTML = '<p><em>Cargando tareas...</em></p>';
         }
     }
 
@@ -178,67 +188,180 @@ class TaskManager extends BaseManager {
 
     @MeasureExecution
     async fetchInitialData(): Promise<void> {
-        this.log("Fetching simulated external data...");
+        this.log("Obteniendo datos simulados...");
         return new Promise((resolve) => {
             setTimeout(() => {
-                this.createUser({ name: 'Alice', email: 'alice@example.com', role: UserRole.Admin });
-                this.createTask({ title: 'Learn TypeScript', description: 'Master all features' });
-                this.log("Data fetched.");
+                this.createUser({ name: 'Alice', email: 'alice@example.com', role: Role.Admin });
+                this.createTask({ title: 'Aprender TypeScript', description: 'Dominar todas las funciones' });
+                this.log("Datos obtenidos.");
                 resolve();
             }, 1500);
         });
+    }
+
+    updateTaskStatus(id: number, status: TaskStatus) {
+        const task = this.taskStorage.findById(id);
+        if (task) {
+            task.status = status;
+            this.renderTasks();
+        }
     }
 
     renderTasks() {
         const container = document.getElementById('task-list-container');
         if (!container) return;
 
+        container.innerHTML = '';
         const tasks = this.taskStorage.getItems();
-        let html = `<h3>Tasks List (${tasks.length})</h3><ul style="list-style: none; padding: 0;">`;
+
+        const title = document.createElement('h3');
+        title.textContent = `Lista de Tareas (${tasks.length})`;
+        container.appendChild(title);
+
+        const ul = document.createElement('ul');
+        ul.style.listStyle = 'none';
+        ul.style.padding = '0';
+        container.appendChild(ul);
 
         tasks.forEach(task => {
-            // Nullish Coalescing
-            const assignee = task.assignedTo ?? 'Unassigned';
-
-            // Status Color
+            // Determine colors based on status
             let statusColor = '#888';
-            if (task.status === TaskStatus.Completed) statusColor = '#4CAF50';
-            if (task.status === TaskStatus.InProgress) statusColor = '#2196F3';
-            if (task.status === TaskStatus.Pending) statusColor = '#FFC107';
+            let bgColor = 'rgba(255, 255, 255, 0.05)'; // Default
 
-            html += `
-                <li style="
-                    margin-bottom: 15px; 
-                    padding: 15px; 
-                    background: rgba(255,255,255,0.05); 
-                    border-left: 5px solid ${statusColor};
-                    border-radius: 4px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                ">
-                    <div>
-                        <strong style="font-size: 1.1em; display: block; margin-bottom: 4px;">${task.title}</strong>
-                        <div style="font-size: 0.9em; opacity: 0.8; margin-bottom: 4px;">${task.description || 'No description'}</div>
-                        <div style="font-size: 0.8em; opacity: 0.6;">
-                            Assigned to: <strong>${assignee}</strong> | Status: <span style="color:${statusColor}">${task.status}</span>
-                        </div>
-                    </div>
-                    <div>
-                         <button onclick="alert('Task ID: ${task.id}')" style="
-                            padding: 5px 10px;
-                            background: rgba(255,255,255,0.1);
-                            border: 1px solid rgba(255,255,255,0.2);
-                            color: white;
-                            cursor: pointer;
-                            border-radius: 4px;
-                         ">Info</button>
-                    </div>
-                </li>
-            `;
+            if (task.status === TaskStatus.Completed) {
+                statusColor = '#10B981'; // Formal Green
+                bgColor = 'rgba(16, 185, 129, 0.2)';
+            }
+            if (task.status === TaskStatus.InProgress) {
+                statusColor = '#3B82F6'; // Formal Blue
+                bgColor = 'rgba(59, 130, 246, 0.2)';
+            }
+            if (task.status === TaskStatus.Pending) {
+                statusColor = '#F59E0B'; // Formal Amber
+                bgColor = 'rgba(245, 158, 11, 0.2)';
+            }
+
+            const li = document.createElement('li');
+            li.style.marginBottom = '12px';
+            li.style.padding = '16px';
+            li.style.borderRadius = '6px';
+            li.style.background = bgColor;
+            li.style.border = '1px solid ' + statusColor; // Use status color for border too for better look
+            li.style.borderColor = 'rgba(255,255,255,0.1)'; // Keep subtle border but maybe tint it? actually let's stick to subtle.
+            li.style.border = '1px solid rgba(255,255,255,0.1)';
+            li.style.borderLeft = `4px solid ${statusColor}`;
+
+            li.style.display = 'flex';
+            li.style.justifyContent = 'space-between';
+            li.style.alignItems = 'center';
+            li.style.fontFamily = 'system-ui, -apple-system, sans-serif';
+            li.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            li.style.color = '#333'; // Black text
+
+            // Gray out if completed
+            if (task.status === TaskStatus.Completed) {
+                li.style.opacity = '0.5';
+                li.style.filter = 'grayscale(100%)';
+            }
+
+            // Left Section
+            const leftDiv = document.createElement('div');
+
+            // Title Row with Checkbox
+            const titleRow = document.createElement('div');
+            titleRow.style.display = 'flex';
+            titleRow.style.alignItems = 'center';
+            titleRow.style.gap = '10px';
+            titleRow.style.marginBottom = '4px';
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = task.status === TaskStatus.Completed;
+            checkbox.style.cursor = 'pointer';
+            checkbox.style.transform = 'scale(1.2)';
+            checkbox.onchange = (e) => {
+                const newStatus = (e.target as HTMLInputElement).checked
+                    ? TaskStatus.Completed
+                    : TaskStatus.Pending;
+                this.updateTaskStatus(task.id, newStatus);
+            };
+
+            const titleSpan = document.createElement('strong');
+            titleSpan.style.fontSize = '1.1em';
+            titleSpan.textContent = task.title;
+
+            titleRow.appendChild(checkbox);
+            titleRow.appendChild(titleSpan);
+            leftDiv.appendChild(titleRow);
+
+            // Description
+            const descDiv = document.createElement('div');
+            descDiv.style.fontSize = '0.9em';
+            descDiv.style.opacity = '0.8';
+            descDiv.style.marginBottom = '8px';
+            descDiv.style.marginLeft = '28px'; // Indent to align with text
+            descDiv.textContent = task.description || 'Sin descripción';
+            leftDiv.appendChild(descDiv);
+
+            // Assignee & Status Select
+            const metaDiv = document.createElement('div');
+            metaDiv.style.fontSize = '0.8em';
+            metaDiv.style.opacity = '0.6';
+            metaDiv.style.marginLeft = '28px';
+            metaDiv.style.display = 'flex';
+            metaDiv.style.alignItems = 'center';
+            metaDiv.style.gap = '10px';
+
+            const assigneeText = document.createElement('span');
+            // Re-using the logic from before: just the name, no label
+            assigneeText.innerHTML = `<strong>${task.assignedTo ?? 'Sin asignar'}</strong> | Estado: `;
+            metaDiv.appendChild(assigneeText);
+
+            const select = document.createElement('select');
+            select.style.background = '#fff';
+            select.style.color = '#333';
+            select.style.border = '1px solid #ccc';
+            select.style.borderRadius = '4px';
+            select.style.padding = '4px 8px';
+            select.style.fontSize = '0.85em';
+            select.style.cursor = 'pointer';
+
+            [TaskStatus.Pending, TaskStatus.InProgress, TaskStatus.Completed].forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                if (s === task.status) opt.selected = true;
+                select.appendChild(opt);
+            });
+
+            select.onchange = (e) => {
+                this.updateTaskStatus(task.id, (e.target as HTMLSelectElement).value as TaskStatus);
+            };
+
+            metaDiv.appendChild(select);
+            leftDiv.appendChild(metaDiv);
+
+            li.appendChild(leftDiv);
+
+            // Right Section (Info Button)
+            const rightDiv = document.createElement('div');
+            const infoBtn = document.createElement('button');
+            infoBtn.textContent = 'Info';
+            infoBtn.style.padding = '6px 12px';
+            infoBtn.style.background = 'transparent';
+            infoBtn.style.border = '1px solid #999';
+            infoBtn.style.color = '#333';
+            infoBtn.style.cursor = 'pointer';
+            infoBtn.style.borderRadius = '4px';
+            infoBtn.style.fontSize = '0.85em';
+            infoBtn.onmouseover = () => { infoBtn.style.background = 'rgba(0,0,0,0.05)'; infoBtn.style.borderColor = '#666'; };
+            infoBtn.onmouseout = () => { infoBtn.style.background = 'transparent'; infoBtn.style.borderColor = '#999'; };
+            infoBtn.onclick = () => alert(`ID Tarea: ${task.id}\nCreada: ${task.createdAt}`);
+            rightDiv.appendChild(infoBtn);
+            li.appendChild(rightDiv);
+
+            ul.appendChild(li);
         });
-        html += '</ul>';
-        container.innerHTML = html;
     }
 
     private log(message: string) {
@@ -254,7 +377,7 @@ class TaskManager extends BaseManager {
     await app.fetchInitialData();
 
     // Add some interaction
-    app.createTask({ title: 'Build Project', status: TaskStatus.InProgress, assignedTo: 'Alice' });
+    app.createTask({ title: 'Construir Proyecto', status: TaskStatus.InProgress, assignedTo: 'Ana' });
 
     app.renderTasks();
 })();
