@@ -1,4 +1,3 @@
-// 17-challenge.ts - TypeScript Features Project
 
 /**
  * DECORATORS
@@ -51,9 +50,9 @@ interface User extends IEntity {
 
 interface Task extends IEntity {
     title: string;
-    description?: string; // Optional
+    description?: string; 
     status: TaskStatus;
-    assignedTo: ID | null; // Union type
+    assignedTo: ID | null; 
 }
 
 /**
@@ -113,11 +112,10 @@ class TaskManager extends BaseManager {
             controls.style.display = 'flex';
             controls.style.gap = '10px';
 
-            // Button: Add Task
             const btnAdd = document.createElement('button');
             btnAdd.textContent = 'Agregar Nueva Tarea';
             btnAdd.style.padding = '10px 20px';
-            btnAdd.style.backgroundColor = '#2563EB'; // Formal Blue
+            btnAdd.style.backgroundColor = '#2563EB';
             btnAdd.style.color = 'white';
             btnAdd.style.border = 'none';
             btnAdd.style.borderRadius = '6px';
@@ -226,18 +224,18 @@ class TaskManager extends BaseManager {
         tasks.forEach(task => {
             // Determine colors based on status
             let statusColor = '#888';
-            let bgColor = 'rgba(255, 255, 255, 0.05)'; // Default
+            let bgColor = 'rgba(255, 255, 255, 0.05)';
 
             if (task.status === TaskStatus.Completed) {
-                statusColor = '#10B981'; // Formal Green
+                statusColor = '#10B981';
                 bgColor = 'rgba(16, 185, 129, 0.2)';
             }
             if (task.status === TaskStatus.InProgress) {
-                statusColor = '#3B82F6'; // Formal Blue
+                statusColor = '#3B82F6'; 
                 bgColor = 'rgba(59, 130, 246, 0.2)';
             }
             if (task.status === TaskStatus.Pending) {
-                statusColor = '#F59E0B'; // Formal Amber
+                statusColor = '#F59E0B'; 
                 bgColor = 'rgba(245, 158, 11, 0.2)';
             }
 
@@ -246,8 +244,8 @@ class TaskManager extends BaseManager {
             li.style.padding = '16px';
             li.style.borderRadius = '6px';
             li.style.background = bgColor;
-            li.style.border = '1px solid ' + statusColor; // Use status color for border too for better look
-            li.style.borderColor = 'rgba(255,255,255,0.1)'; // Keep subtle border but maybe tint it? actually let's stick to subtle.
+            li.style.border = '1px solid ' + statusColor; 
+            li.style.borderColor = 'rgba(255,255,255,0.1)'; 
             li.style.border = '1px solid rgba(255,255,255,0.1)';
             li.style.borderLeft = `4px solid ${statusColor}`;
 
@@ -256,7 +254,7 @@ class TaskManager extends BaseManager {
             li.style.alignItems = 'center';
             li.style.fontFamily = 'system-ui, -apple-system, sans-serif';
             li.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-            li.style.color = '#333'; // Black text
+            li.style.color = '#333';  
 
             // Gray out if completed
             if (task.status === TaskStatus.Completed) {
@@ -299,7 +297,7 @@ class TaskManager extends BaseManager {
             descDiv.style.fontSize = '0.9em';
             descDiv.style.opacity = '0.8';
             descDiv.style.marginBottom = '8px';
-            descDiv.style.marginLeft = '28px'; // Indent to align with text
+            descDiv.style.marginLeft = '28px'; 
             descDiv.textContent = task.description || 'Sin descripción';
             leftDiv.appendChild(descDiv);
 
@@ -313,7 +311,6 @@ class TaskManager extends BaseManager {
             metaDiv.style.gap = '10px';
 
             const assigneeText = document.createElement('span');
-            // Re-using the logic from before: just the name, no label
             assigneeText.innerHTML = `<strong>${task.assignedTo ?? 'Sin asignar'}</strong> | Estado: `;
             metaDiv.appendChild(assigneeText);
 
@@ -376,7 +373,6 @@ class TaskManager extends BaseManager {
 
     await app.fetchInitialData();
 
-    // Add some interaction
     app.createTask({ title: 'Construir Proyecto', status: TaskStatus.InProgress, assignedTo: 'Ana' });
 
     app.renderTasks();
