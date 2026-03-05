@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -44,4 +44,13 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+
+@extends('layout.app')
+
+@section('title', 'Larapets: Welcome')
+
+<section class="bg-white/60 p-4 rounded-md w-100 flex flex-col gap-4 justify-center items-center">
+
+@endsection
