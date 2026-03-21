@@ -65,22 +65,28 @@
         <thead class="text-white bg-black">
         <tr>
             <th class="hidden md:table-cell">ID</th>
+            <th>Photo</th>
             <th>Document</th>
             <th>Fullname</th>
             <th class="hidden md:table-cell">Email</th>
-            <th>Role</th>
+            <th class="hidden md:table-cell">Role</th>
             <th>Actions</th>
         </tr>
         </thead>
         <!-- head -->
         <tbody>
             @foreach($users as $user)
-            <tr>
+            <tr class="even:bg-white/10">
                 <td>{{ $user->id }}</td>
+                <td><div class="avatar">
+                <div class="mask mask-squircle w-24">
+                    <img src="{{asset('photos/'.$user->photo)}}" />
+                </div>
+                </div></td>
                 <td class="hidden md:table-cell">{{ $user->document }}</td>
                 <td>{{ $user->fullname }}</td>
                 <td class="hidden md:table-cell">{{ $user->email }}</td>
-                <td>
+                <td class="hidden md:table-cell">
                     @if($user->role == 'Admin')
                         <span class="badge badge-outline badge-accent">Admin</span>
                     @else
@@ -103,7 +109,21 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6">{{$users->links()}}</td>
+                <td colspan="6">{{$users->links('partials.pagination')}}</td>
             </tr>
         </tfoot>
+@endsection
+
+@section('js')
+<script>
+    @if(session('message'))
+        Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "{{session('message')}}",
+        showConfirmButton: false,
+        timer: 4500
+        });
+    @endif
+</script>
 @endsection

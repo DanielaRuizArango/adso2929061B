@@ -12,7 +12,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        // $users = User::all();
         $users = User::orderBy('id', 'desc')->paginate(12);
         return view('users.index')->with('users', $users);
     }
@@ -30,7 +30,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+
+        $validation = $request -> $validate
     }
 
     /**
@@ -38,7 +40,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        // dd($user->toArray());
+        return view('users.show')->with('user', $users);
     }
 
     /**
