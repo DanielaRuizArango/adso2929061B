@@ -46,7 +46,7 @@ class UserController extends Controller
             // dd($request->all());
             if($request->hasFile('photo')) {
                 $photo = time().'.'.$request->photo->extension();
-                $request->photo->move(public_path('images/users'), $photo);
+                $request->photo->move(public_path('photos/users'), $photo);
             }
         }
 
@@ -72,7 +72,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         // dd($user->toArray());
-        return view('users.show')->with('user', $users);
+        return view('users.show')->with('user', $user);
     }
 
     /**

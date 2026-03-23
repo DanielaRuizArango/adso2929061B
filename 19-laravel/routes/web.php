@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PetController;
+use App\Http\Controllers\AdoptionController;
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 use App\Models\User;
@@ -31,7 +34,7 @@ Route::get('sayhello/{name}', function () {
 
 Route::get('getall/pets', function () {
     $pet = App\Models\Pet::all();
-    dd($pets->toArray());
+    dd($pet->toArray());
 });
 
 Route::get('getall/pets/{id}', function () {
@@ -124,13 +127,12 @@ Route::middleware('auth')->group(function () {
 });
 
 // Resources
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group( function () {
     Route::resources([
         'users'    => UserController::class,
         'pets'     => PetController::class,
         'adoption' => AdoptionController::class
     ]);
 });
-
 
 require __DIR__ . '/auth.php';
