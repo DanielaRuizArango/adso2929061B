@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         $user->phone = "3100000001";
         $user->email = "john@email.com";
         $user->password = "admin";
-        $user->role = "admin";
+        $user->role = "Admin";
         $user->save();
 
         //Array 
