@@ -20,7 +20,7 @@
     @php $colors = '#000c,#0000'; @endphp
 @endauth
 
-<body class="bg-[linear-gradient(to_top,{{$colors}}),url('{{ asset('images/bg-welcome.png') }}')] bg-center bg-no-repeat bg-cover bg-fixed bg-black text-white pt-14 min-h-dvh flex flex-col gap-2 justify-center items-center">
+<body class="bg-[linear-gradient(to_top,{{$colors}}),url('{{ asset('images/welcome.jpg') }}')] bg-center bg-no-repeat bg-cover bg-fixed bg-black text-white pt-14 min-h-dvh flex flex-col gap-2 justify-center items-center">
     <main>
         @yield('content')
     </main>

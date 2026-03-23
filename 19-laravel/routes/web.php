@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Pet;
+use App\Models\Adoption;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,12 +30,12 @@ Route::get('sayhello/{name}', function () {
 });
 
 Route::get('getall/pets', function () {
-    $pet= App\Models\Pet::all();
+    $pet = App\Models\Pet::all();
     dd($pets->toArray());
 });
 
 Route::get('getall/pets/{id}', function () {
-    $pet= App\Models\Pet::find(request()->id);
+    $pet = App\Models\Pet::find(request()->id);
     dd($pet->toArray());
 });
 
@@ -74,7 +75,7 @@ Route::get('challenge', function () {
                 <th>Fullname</th>
                 <th>Age</th>
                 <th>Created (Years)</th>
-               </tr>";
+                </tr>";
 
     foreach ($users as $user) {
 
@@ -82,7 +83,7 @@ Route::get('challenge', function () {
         $created = Carbon::parse($user->created_at)->diffForHumans();
 
         $photo = "<img src='" . asset($user->photo) . "' width='50'>";
-   
+
 
         $table .= "<tr>
                     <td>{$user->id}</td>
@@ -90,7 +91,7 @@ Route::get('challenge', function () {
                     <td>{$user->fullname}</td>
                     <td>{$age}</td>
                     <td>{$created}</td>
-                   </tr>";
+                    </tr>";
     }
 
     $table .= "</table>";
@@ -98,12 +99,12 @@ Route::get('challenge', function () {
     return $style . $table;
 });
 
-Route::get('getall/pets', function() {
+Route::get('getall/pets', function () {
     $pets = App\Models\Pet::all();
     return view('getallpets')->with('pets', $pets);
 });
 
-Route::get('showpet/{id}', function() {
+Route::get('showpet/{id}', function () {
     $pet = App\Models\Pet::find(request()->id);
     return view('showpet')->with('pet', $pet);
 });
@@ -123,7 +124,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Resources
-Route::middleware('auth')->group( function () {
+Route::middleware('auth')->group(function () {
     Route::resources([
         'users'    => UserController::class,
         'pets'     => PetController::class,
@@ -132,4 +133,4 @@ Route::middleware('auth')->group( function () {
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
