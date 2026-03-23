@@ -55,7 +55,7 @@ class UserController extends Controller
         $user->fullname = $request->fullname;
         $user->gender = $request->gender;
         $user->birthdate = $request->birthdate;
-        $user->photo = $photo;
+        $user->photo = 'photos/users/'.$photo;
         $user->phone = $request->phone;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -80,7 +80,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit')->with('user', $user);
     }
 
     /**
@@ -88,7 +88,33 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'document'      => ['required', 'numeric', 'unique:users,document,'.$user->id],
+            'fullname'      => ['required', 'string'],
+            'gender'        => ['required'],
+            'birthdate'     => ['required', 'date'],
+            'photo'         => ['nullable', 'image'],
+            'phone'         => ['required', 'string'],
+            'email'         => ['required', 'string', 'lowercase', 'email', 'unique:users,email,'.$user->id],
+        ]);
+
+        if($request->hasFile('photo')) {
+            $photo = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('photos/users'), $photo);
+            $user->photo = 'photos/users/'.$photo;
+        }
+
+        $user->document = $request->document;
+        $user->fullname = $request->fullname;
+        $user->gender = $request->gender;
+        $user->birthdate = $request->birthdate;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+
+        if($user->save()) {
+            return redirect('users')
+                    ->with('message', 'The User: '.$user->fullname.' was updated successful!');
+        }
     }
 
     /**
