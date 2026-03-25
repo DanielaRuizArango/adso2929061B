@@ -89,13 +89,13 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'document'      => ['required', 'numeric', 'unique:users,document,'.$user->id],
+            'document'      => ['required', 'unique:'.User::class.',document,'.$user->id],
             'fullname'      => ['required', 'string'],
             'gender'        => ['required'],
             'birthdate'     => ['required', 'date'],
             'photo'         => ['nullable', 'image'],
             'phone'         => ['required', 'string'],
-            'email'         => ['required', 'string', 'lowercase', 'email', 'unique:users,email,'.$user->id],
+            'email'         => ['required', 'string', 'lowercase', 'email', 'unique:'.User::class.',email,'.$user->id],
         ]);
 
         if($request->hasFile('photo')) {
