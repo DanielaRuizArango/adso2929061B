@@ -125,8 +125,7 @@
             $('#photo').click()
         })
         $('#photo').change(function (e) { 
-            e.preventDefault()
-            $('#preview').attr('src', window.URL.createObjectURL($(this).prop('files')[0]))
+            $('#preview').attr('src', window.URL.createObjectURL(this.files[0]))
         })
     })
 </script>

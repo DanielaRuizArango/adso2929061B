@@ -24,7 +24,7 @@
     <li>
         <details>
             <summary>
-                <img src="{{ asset('images/users/'.Auth::user()->photo)}}" class="w-12 h-12 object-cover rounded-full border-2">
+                <img src="{{ asset(Auth::user()->photo) }}" class="w-12 h-12 object-cover rounded-full border-2">
                 {{ Auth::user()->fullname}}
             </summary>
             <ul class="bg-black/60 rounded-t-none m-0 w-48 -ms-7 absolute right-0">

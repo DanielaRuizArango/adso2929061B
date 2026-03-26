@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+// PDF
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -99,9 +101,15 @@ class UserController extends Controller
         ]);
 
         if($request->hasFile('photo')) {
+            //dd($request->all());
             $photo = time().'.'.$request->photo->extension();
-            $request->photo->move(public_path('photos/users'), $photo);
-            $user->photo = 'photos/users/'.$photo;
+            $request->photo->move(public_path('photos'), $photo);
+            //Delete old photo
+            if($request->originphoto != 'no-photo.png' && file_exists(public_path($request->originphoto))) {
+                unlink(public_path($request->originphoto));
+            }
+        } else{
+            $photo = $request->originphoto;
         }
 
         $user->document = $request->document;
@@ -110,6 +118,7 @@ class UserController extends Controller
         $user->birthdate = $request->birthdate;
         $user->phone = $request->phone;
         $user->email = $request->email;
+        $user->photo = $photo;
 
         if($user->save()) {
             return redirect('users')
@@ -122,6 +131,22 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if($user->photo != 'no-photo.png' && file_exists(public_path($user->photo))) {
+            unlink(public_path($user->photo));
+        }
+        if($user->delete()) {
+            return redirect('users')
+                    ->with('message', 'The User: '.$user->fullname.' was deleted successful!');
+        }
+    }
+
+    /**
+     * Generate PDF file
+     */
+        
+    public function pdf() {
+        $users = User::all();
+        $pdf = Pdf::loadView('users.pdf', compact('users'));
+        return $pdf->download('allusers.pdf');
     }
 }
