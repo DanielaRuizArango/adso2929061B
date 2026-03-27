@@ -6,6 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 // PDF
 use Barryvdh\DomPDF\Facade\Pdf;
+// Excel
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
 
 class UserController extends Controller
 {
@@ -148,5 +152,21 @@ class UserController extends Controller
         $users = User::all();
         $pdf = Pdf::loadView('users.pdf', compact('users'));
         return $pdf->download('allusers.pdf');
+    }
+
+    /**
+     * Generate Excel file
+     */
+    public function excel() {
+        return Excel::download(new UsersExport, 'allusers.xlsx');
+    }
+
+    /**
+     * Import Excel file
+     */
+    public function import(Request $request) {
+        $file = $request->file('file');
+        Excel::import(new UsersImport, $file);
+        return redirect('users')->with('message', 'Users imported successfully!');
     }
 }

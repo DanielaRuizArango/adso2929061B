@@ -139,6 +139,10 @@ Route::middleware('auth')->group( function () {
 
     //Export Excel
     Route::get('export/users/excel', [UserController::class, 'excel'])->name('users.excel');
+
+    //Import Excel
+    Route::post('import/users', [UserController::class, 'import'])->name('users.import');
+
 });
 
 require __DIR__ . '/auth.php';
