@@ -74,7 +74,7 @@
         </tr>
         </thead>
         <!-- head -->
-        <tbody>
+        <tbody class="datalist">
             @foreach($users as $user)
             <tr class="even:bg-white/10">
                 <td>{{ $user->id }}</td>
@@ -129,7 +129,7 @@
         timer: 4500
         });
     @endif
-    
+
  // Import File - - -
             $('.btn-import').click(function(e) {
                 $('#file').click()

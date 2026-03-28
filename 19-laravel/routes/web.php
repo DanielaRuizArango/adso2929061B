@@ -143,6 +143,9 @@ Route::middleware('auth')->group( function () {
     //Import Excel
     Route::post('import/users', [UserController::class, 'import'])->name('users.import');
 
+    //Search
+    Route::post('search/users', [UserController::class, 'search'])->name('users.search');
+
 });
 
 require __DIR__ . '/auth.php';

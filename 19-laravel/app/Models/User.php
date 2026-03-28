@@ -66,4 +66,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(Pet::class);
     }
+
+    //Search  by Scope
+    public function scopeNames($users, $q) {
+        if (trim($q) != "") {
+            $users->where('fullname', 'like', "%$q%")
+                // ->orWhere('document', 'like', '%'.$q.'%')
+                ->orWhere('email', 'like', "%$q%");
+        }
+    }
 }

@@ -169,4 +169,18 @@ class UserController extends Controller
         Excel::import(new UsersImport, $file);
         return redirect('users')->with('message', 'Users imported successfully!');
     }
+
+    /**
+     * Search users
+     */
+    public function search(Request $request) {
+        $users= User::names($request->q)->orderBy('id', 'desc')->paginate(12);
+        return view('users.search')->with('users', $users);
+        // $query = $request->q;
+        // $users = User::where('fullname', 'like', '%'.$query.'%')
+        //             ->orWhere('document', 'like', '%'.$query.'%')
+        //             ->orWhere('email', 'like', '%'.$query.'%')
+        //             ->get();
+        // return view('users.index')->with('users', $users);
+    }
 }
