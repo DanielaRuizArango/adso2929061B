@@ -83,6 +83,7 @@
             @foreach($pets as $pet)
             <tr class="even:bg-white/10">
                 <td>{{ $pet->id }}</td>
+                <td>{{ $pet->name }}</td>
                 <td><div class="avatar">
                 <div class="mask mask-squircle w-24">
                     <img src="{{ asset($pet->image) }}" />
@@ -95,10 +96,17 @@
                 <td class="hidden md:table-cell">{{ $pet->location }}</td>
                 <td class="hidden md:table-cell">{{ $pet->description }}</td>
                 <td class="hidden md:table-cell">
-                    @if($pet->active == 'Admin')
-                        <span class="badge badge-outline badge-accent">Admin</span>
+                    @if($pet->active == 1 )
+                        <span class="badge badge-outline badge-accent">Active</span>
                     @else
-                        <span class="badge badge-outline badge-info">Customer</span>
+                        <span class="badge badge-outline badge-info">Inactive</span>
+                    @endif
+                </td>
+                <td class="hidden md:table-cell">
+                    @if($pet->adopted == 1 )
+                        <span class="badge badge-outline badge-accent">Adopted</span>
+                    @else
+                        <span class="badge badge-outline badge-info">Not Adopted</span>
                     @endif
                 </td>
                 <td>

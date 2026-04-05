@@ -12,18 +12,21 @@
     </style>
 </head>
 <body>
-    <h1>All Users</h1>
+    <h1>All Pets</h1>
 
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Document</th>
-                <th>Full Name</th>
-                <th>Gender</th>
-                <th>Birthdate</th>
-                <th>Phone</th>
-                <th>Email</th>
+                <th>Name</th>
+                <th>Kind</th>
+                <th>Weight</th>
+                <th>Age</th>
+                <th>Breed</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Active</th>
+                <th>Adopted</th>
                 <th>Photo</th>
             </tr>
         </thead>

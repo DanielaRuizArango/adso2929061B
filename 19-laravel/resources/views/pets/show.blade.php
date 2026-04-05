@@ -9,7 +9,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="size-12" fill="currentColor" viewBox="0 0 256 256">
             <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM156,128a12,12,0,1,1-12-12A12,12,0,0,1,156,128Zm-40,0a12,12,0,1,1-12-12A12,12,0,0,1,116,128Zm68,32a4,4,0,0,1,0,8H72a4,4,0,0,1,0-8,40,40,0,0,1,80,0Z"></path>
         </svg>
-        Show User
+        Show Pet
     </h1>
 
     {{-- Breadcrumbs --}}
@@ -24,82 +24,87 @@
                 </a>
             </li>
             <li>
-                <a href="{{ url('users') }}">
+                <a href="{{ url('pets') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="currentColor" viewBox="0 0 256 256">
                         <path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"></path>
                     </svg>
-                    User Module
+                    Pet Module
                 </a>
             </li>
-            <li class="active text-neutral-400">Show User</li>
+            <li class="active text-neutral-400">Show Pet</li>
         </ul>
     </div>
 
     <div class="card lg:card-side bg-black/40 backdrop-blur-md shadow-2xl text-white overflow-hidden">
-        <figure class="lg:w-1/3">
+        <figure class="lg:w-1/3">   
             @php
-                $photoPath = $user->photo;
-                // Prepend path for manually created users or defaults
+                $photoPath = $pet->photo;
+                // Prepend path for manually created pets or defaults
                 if ($photoPath == 'no-photo.png') {
                     $src = asset('images/'.$photoPath);
                 } elseif (!str_contains($photoPath, 'photos/')) {
-                    $src = asset('photos/users/'.$photoPath);
+                    $src = asset('photos/pets/'.$photoPath);
                 } else {
                     $src = asset($photoPath);
                 }
             @endphp
-            <img src="{{ $src }}" alt="{{ $user->fullname }}" class="object-cover w-full h-full" />
+            <img src="{{ $src }}" alt="{{ $pet->name }}" class="object-cover w-full h-full" />
         </figure>
         <div class="card-body lg:w-2/3">
             <h2 class="card-title text-3xl font-bold mb-4 border-b border-neutral-700 pb-2">
-                {{ $user->fullname }}
+                {{ $pet->name }}
             </h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="flex flex-col">
-                    <span class="text-neutral-400 text-sm uppercase font-bold">Document</span>
-                    <span class="text-lg">{{ $user->document }}</span>
+                    <span class="text-neutral-400 text-sm uppercase font-bold">Name</span>
+                    <span class="text-lg">{{ $pet->name }}</span>
                 </div>
                 
                 <div class="flex flex-col">
-                    <span class="text-neutral-400 text-sm uppercase font-bold">Gender</span>
-                    <span class="text-lg">{{ $user->gender }}</span>
+                    <span class="text-neutral-400 text-sm uppercase font-bold"> Kind</span>
+                    <span class="text-lg">{{ $pet->kind }}</span>
+                </div>
+                
+                <div class="flex flex-col">
+                    <span class="text-neutral-400 text-sm uppercase font-bold">Weight</span>
+                    <span class="text-lg">{{ $pet->weight }}</span>
                 </div>
                 
                 <div class="flex flex-col">
                     <span class="text-neutral-400 text-sm uppercase font-bold">Age</span>
-                    <span class="text-lg">{{ \Carbon\Carbon::parse($user->birthdate)->age }} years</span>
+                    <span class="text-lg">{{ $pet->age }}</span>
                 </div>
                 
                 <div class="flex flex-col">
-                    <span class="text-neutral-400 text-sm uppercase font-bold">Phone Number</span>
-                    <span class="text-lg">{{ $user->phone }}</span>
+                    <span class="text-neutral-400 text-sm uppercase font-bold">Breed</span>
+                    <span class="text-lg font-mono text-purple-400">{{ $pet->breed }}</span>
                 </div>
                 
                 <div class="flex flex-col">
-                    <span class="text-neutral-400 text-sm uppercase font-bold">Email Address</span>
-                    <span class="text-lg font-mono text-purple-400">{{ $user->email }}</span>
-                </div>
-                
-                <div class="flex flex-col">
-                    <span class="text-neutral-400 text-sm uppercase font-bold">Role</span>
-                    <span class="badge badge-outline mt-1">{{ $user->role }}</span>
+                    <span class="text-neutral-400 text-sm uppercase font-bold">Location</span>
+                    <span class="badge badge-outline mt-1">{{ $pet->location }}</span>
                 </div>
 
                 <div class="flex flex-col">
-                    <span class="text-neutral-400 text-sm uppercase font-bold">Account Status</span>
+                    <span class="text-neutral-400 text-sm uppercase font-bold">Description</span>
                     <span class="mt-1">
-                        @if($user->active)
-                            <span class="badge badge-success gap-2">Active</span>
+                        @if($pet->description)
+                            <span class="badge badge-success gap-2">{{ $pet->description }}</span>
                         @else
-                            <span class="badge badge-error gap-2">Inactive</span>
+                            <span class="badge badge-error gap-2">No description</span>
                         @endif
                     </span>
                 </div>
 
                 <div class="flex flex-col">
-                    <span class="text-neutral-400 text-sm uppercase font-bold">Joined On</span>
-                    <span class="text-sm italic opacity-70">{{ $user->created_at->format('M d, Y') }} ({{ $user->created_at->diffForHumans() }})</span>
+                    <span class="text-neutral-400 text-sm uppercase font-bold">Active:</span>
+                    <span class="text-sm italic opacity-70">{{ $pet->active ? 'Yes' : 'No' }}</span>
+                </div>
+
+                <div class="flex flex-col">
+                    <span class="text-neutral-400 text-sm uppercase font-bold">Adopted:</span>
+                    <span class="text-sm italic opacity-70">{{ $pet->adopted ? 'Yes' : 'No' }}</span>
                 </div>
             </div>
 

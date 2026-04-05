@@ -4,31 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>All Users</title>
+    <title>All Pets</title>
 </head>
 <body>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Role</th>
-                <th>Photo</th>
+                <th>Name</th>
+                <th>Kind</th>
+                <th>Weight</th>
+                <th>Age</th>
+                <th>Breed</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Active</th>
+                <th>Adopted</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach ($pets as $pet)
             <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->fullname }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->phone }}</td>
-                <td>{{ $user->role }}</td>
-                <td>
-                    <img src="{{ public_path($user->photo) }}" width="50">
-                </td>
+                <td>{{ $pet->name }}</td>
+                <td>{{ $pet->kind }}</td>
+                <td>{{ $pet->weight }}</td>
+                <td>{{ $pet->age }}</td>
+                <td>{{ $pet->breed }}</td>
+                <td>{{ $pet->location }}</td>
+                <td>{{ $pet->description }}</td>
+                <td>{{ $pet->active }}</td>
+                <td>{{ $pet->adopted }}</td>
             </tr>
             @endforeach
         </tbody>
