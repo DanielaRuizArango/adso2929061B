@@ -40,96 +40,114 @@
         </ul>
         </div>
         <div class="card text-white md:w-[720px] w-[320px]">
-            <form method="POST" action="{{ url('pets') }}" class="flex flex-col md:flex-row gap-4 mt-4" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('pets') }}" class="flex flex-col gap-4 mt-4" enctype="multipart/form-data">
                 @csrf
-                <div class="w-full md:w-[320px]">
-                    <div class="avatar flex flex-col gap-1 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
-                        <div id="upload" class="mask mask-squircle w-48">
-                            <img id="preview" src="{{ asset('images/no-photo.png') }}" />
+                <div class="flex flex-col md:flex-row gap-4">
+                    {{-- Columna 1: Foto --}}
+                    <div class="w-full md:w-[320px]">
+                        <div class="avatar flex flex-col gap-1 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
+                            <div id="upload" class="mask mask-squircle w-48">
+                                <img id="preview" src="{{ asset('images/no-image.png') }}" />
+                            </div>
+                            <small class="pb-0 border-white border-b flex gap-1 items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" viewBox="0 0 256 256">
+                                    <path d="M208,40H48A24,24,0,0,0,24,64V176a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm-48,48a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,224ZM157.66,106.34a8,8,0,0,1-11.32,11.32L136,107.31V152a8,8,0,0,1-16,0V107.31l-10.34,10.35a8,8,0,0,1-11.32-11.32l24-24a8,8,0,0,1,11.32,0Z"></path>
+                                </svg>
+                                Upload Photo
+                            </small>
+                            @error('image')
+                                <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                            @enderror
                         </div>
-                        <small class="pb-0 border-white border-b flex gap-1 items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" viewBox="0 0 256 256">
-                                <path d="M208,40H48A24,24,0,0,0,24,64V176a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V64A24,24,0,0,0,208,40Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8Zm-48,48a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,224ZM157.66,106.34a8,8,0,0,1-11.32,11.32L136,107.31V152a8,8,0,0,1-16,0V107.31l-10.34,10.35a8,8,0,0,1-11.32-11.32l24-24a8,8,0,0,1,11.32,0Z"></path>
-                            </svg>
-                            Upload Photo
-                        </small>
-                        @error('photo')
+                        <input type="file" id="image" name="image" class="hidden" accept="image/*">
+                    </div>
+
+                    {{-- Columna 2: Name, Kind, Weight, Age --}}
+                    <div class="w-full md:w-[320px]">
+                        {{-- Name --}}
+                        <label class="label text-white">Name:</label>
+                        <input type="text" class="input bg-[#0009] outline-0" name="name" placeholder="75123123" value="{{ old('name') }}">
+                        @error('name')
+                            <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                        @enderror
+                        {{-- Kind --}}
+                        <label class="label text-white">Kind:</label>
+                        <input type="text" class="input bg-[#0009] outline-0" name="kind" placeholder="Jeremias Springfield" value="{{ old('kind') }}">
+                        @error('kind')
+                            <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                        @enderror
+                        {{-- Weight --}}
+                        <label class="label text-white">Weight:</label>
+                        <input type="number" class="input bg-[#0009] outline-0" name="weight" placeholder="75123123" value="{{ old('weight') }}">
+                        @error('weight')
+                            <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                        @enderror
+                        {{-- Age --}}
+                        <label class="label text-white">Age:</label>
+                        <input type="number" class="input bg-[#0009] outline-0" name="age" placeholder="1640-10-08" value="{{ old('age') }}">
+                        @error('age')
                             <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                         @enderror
                     </div>
-                    <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
-                </div>
-                <div class="w-full md:w-[320px]">
-                    {{-- Name --}}
-                    <label class="label text-white">Name:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="name" placeholder="75123123" value="{{ old('name') }}">
-                    @error('name')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                    @enderror
-                    {{-- Kind --}}
-                    <label class="label text-white">Kind:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="kind" placeholder="Jeremias Springfield" value="{{ old('kind') }}">
-                    @error('kind')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                    @enderror
-                    {{-- Weight --}}
-                    <label class="label text-white">Weight:</label>
-                    <input type="number" class="input bg-[#0009] outline-0" name="weight" placeholder="75123123" value="{{ old('weight') }}">
-                    @error('weight')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                    @enderror
-                    {{-- Age --}}
-                    <label class="label text-white">Age:</label>
-                    <input type="number" class="input bg-[#0009] outline-0" name="age" placeholder="1640-10-08" value="{{ old('age') }}">
-                    @error('age')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                    @enderror
-                </div>
-                <div class="w-full md:w-[320px]">
-                    {{-- Breed --}}
-                    <label class="label text-white">Breed:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="breed" placeholder="3101231234" value="{{ old('breed') }}">
-                    @error('breed')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                    @enderror
-                    {{-- Location --}}
-                    <label class="label text-white">Location:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="location" placeholder="Email" value="{{ old('location') }}">
-                    @error('location')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                    @enderror
-                    {{-- Description --}}
-                    <label class="label text-white">Description:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="description" placeholder="Secret">
-                    @error('description')
-                        <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
-                    @enderror
-                    {{-- Active --}}
-                    <label class="label text-white">Active:</label>
-                    <input type="checkbox" class="input bg-[#0009] outline-0" name="active" placeholder="Secret">
-                    @error('active')
-                        <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
-                    @enderror
-                    {{-- Adopted --}}
-                    <label class="label text-white">Adopted:</label>
-                    <input type="checkbox" class="input bg-[#0009] outline-0" name="adopted" placeholder="Secret">
-                    @error('adopted')
-                        <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
-                    @enderror
 
-                    <button class="btn btn-outline hover:bg-[#fff6] hover:text-white mt-3 w-full">Add</button>
+                    {{-- Columna 3: Breed, Location, Description, Active, Adopted --}}
+                    <div class="w-full md:w-[320px]">
+                        {{-- Breed --}}
+                        <label class="label text-white">Breed:</label>
+                        <input type="text" class="input bg-[#0009] outline-0" name="breed" placeholder="3101231234" value="{{ old('breed') }}">
+                        @error('breed')
+                            <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                        @enderror
+                        {{-- Location --}}
+                        <label class="label text-white">Location:</label>
+                        <input type="text" class="input bg-[#0009] outline-0" name="location" placeholder="Email" value="{{ old('location') }}">
+                        @error('location')
+                            <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                        @enderror
+                        {{-- Description --}}
+                        <label class="label text-white">Description:</label>
+                        <input type="text" class="input w-full bg-[#0009] outline-0 text-white" name="description" placeholder="Description">
+                        @error('description')
+                            <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
+                        @enderror
+                        {{-- Active --}}
+                        <label class="label text-white">Active:</label>
+                        <select class="select w-full bg-[#0009] outline-0 text-white" name="active" style="background-color: rgba(0,0,0,0.6); color: white;">
+                            <option value="1" selected style="background-color: #1a1a2e; color: white;">Active</option>
+                            <option value="0" style="background-color: #1a1a2e; color: white;">Inactive</option>
+                        </select>
+                        @error('active')
+                            <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
+                        @enderror
+                        {{-- Adopted --}}
+                        <label class="label text-white">Adopted:</label>
+                        <select class="select w-full bg-[#0009] outline-0 text-white" name="adopted" style="background-color: rgba(0,0,0,0.6); color: white;">
+                            <option value="0" selected style="background-color: #1a1a2e; color: white;">Not Adopted</option>
+                            <option value="1" style="background-color: #1a1a2e; color: white;">Adopted</option>
+                        </select>
+                        @error('adopted')
+                            <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
+
+                {{-- Botón centrado en la mitad --}}
+                <div class="w-full flex justify-center mt-2">
+                    <button class="btn btn-outline hover:bg-[#fff6] hover:text-white w-1/2">Add</button>
+                </div>
+
             </form>
         </div>
 @endsection
+
 @section('js')
 <script>
     $(document).ready(function () {
         $('#upload').click(function (e) { 
             e.preventDefault()
-            $('#photo').click()
+            $('#image').click()
         })
-        $('#photo').change(function (e) { 
+        $('#image').change(function (e) { 
             $('#preview').attr('src', window.URL.createObjectURL(this.files[0]))
         })
     })

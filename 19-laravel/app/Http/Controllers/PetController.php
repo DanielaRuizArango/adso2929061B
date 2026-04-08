@@ -29,31 +29,26 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = $request->validate([
+        $request->validate([
             'name' => ['required', 'string'],
-            'image' => ['required', 'image'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'kind' => ['required', 'string'],
             'weight' => ['required', 'numeric'],
             'age' => ['required', 'numeric'],
             'breed' => ['required', 'string'],
             'location' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'active' => ['required', 'boolean'],
-            'adopted' => ['required', 'boolean'],
+            'active' => ['required'],
+            'adopted' => ['required'],
         ]);
-
-        
-        if($validation) {
-            // dd($request->all());
-            if($request->hasFile('image')) {
-                $image = time().'.'.$request->image->extension();
-                $request->image->move(public_path('images/pets'), $image);
-            }
-        }
 
         $pet = new Pet;
         $pet->name = $request->name;
-        $pet->image = 'images/pets/'.$image;
+        if($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/pets'), $imageName);
+            $pet->image = 'images/pets/'.$imageName;
+        }
         $pet->kind = $request->kind;
         $pet->weight = $request->weight;
         $pet->age = $request->age;
@@ -90,30 +85,29 @@ class PetController extends Controller
      */
     public function update(Request $request, Pet $pet)
     {
-        $validation = $request->validate([
+        $request->validate([
             'name' => ['required', 'string'],
-            'image' => ['required', 'image'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'kind' => ['required', 'string'],
             'weight' => ['required', 'numeric'],
             'age' => ['required', 'numeric'],
             'breed' => ['required', 'string'],
             'location' => ['required', 'string'],
             'description' => ['required', 'string'],
-            'active' => ['required', 'boolean'],
-            'adopted' => ['required', 'boolean'],
+            'active' => ['required'],
+            'adopted' => ['required'],
         ]);
 
-        if($validation) {
-            // dd($request->all());
-            if($request->hasFile('image')) {
-                $image = time().'.'.$request->image->extension();
-                $request->image->move(public_path('images/pets'), $image);
-            }
-        }
-
-        $pet = new Pet;
         $pet->name = $request->name;
-        $pet->image = 'images/pets/'.$image;
+        if($request->hasFile('image')) {
+            // Delete old image
+            if($pet->image != 'images/no-image.png' && file_exists(public_path($pet->image))) {
+                unlink(public_path($pet->image));
+            }
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/pets'), $imageName);
+            $pet->image = 'images/pets/'.$imageName;
+        }
         $pet->kind = $request->kind;
         $pet->weight = $request->weight;
         $pet->age = $request->age;

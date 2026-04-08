@@ -46,7 +46,7 @@
                 <div class="w-full md:w-[320px]">
                     <div class="avatar flex flex-col gap-1 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
                         <div id="upload" class="mask mask-squircle w-48">
-                            <img id="preview" src="{{ asset('images/'.$pet->image) }}" />
+                            <img id="preview" src="{{ asset($pet->image) }}" />
                         </div>
                         <small class="pb-0 border-white border-b flex gap-1 items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" viewBox="0 0 256 256">
@@ -54,11 +54,11 @@
                             </svg>
                             Upload Photo
                         </small>
-                        @error('photo')
+                        @error('image')
                             <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                         @enderror
                     </div>
-                    <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
+                    <input type="file" id="image" name="image" class="hidden" accept="image/*">
                     <input type="hidden" name="originphoto" value="{{ $pet->image }}">
                 </div>
                 <div class="w-full md:w-[320px]">
@@ -108,24 +108,21 @@
                 <div class="w-full md:w-[320px]">
                     {{--  Active --}}
                     <label class="label text-white">Active:</label>
-                    <select name="active" class="select bg-[#0009] outline-0">
-                        <option value="">Select...</option>
-                        <option value="Yes" @if(old('active', $pet->active) == 'Yes') selected @endif>Yes</option>
-                        <option value="No" @if(old('active', $pet->active) == 'No') selected @endif>No</option>
+                    <select name="active" class="select w-full bg-[#0009] outline-0 text-white">
+                        <option value="1" @if(old('active', $pet->active) == 1) selected @endif>Active</option>
+                        <option value="0" @if(old('active', $pet->active) == 0) selected @endif>Inactive</option>
                     </select>
                     @error('active')
                         <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                     @enderror
+
                     {{--  Adopted --}}
-                    <label class="label text-white">Adopted:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="adopted" placeholder="75123123" value="{{ old('adopted', $pet->adopted) }}">
+                    <div class="flex items-center gap-4 mt-2 mb-2">
+                        <label class="label text-white cursor-pointer p-0">Adopted:</label>
+                        <input type="hidden" name="adopted" value="0">
+                        <input type="checkbox" class="checkbox bg-[#0009] outline-0" name="adopted" value="1" @if(old('adopted', $pet->adopted) == 1) checked @endif>
+                    </div>
                     @error('adopted')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
-                    @enderror
-                    {{-- Email --}}
-                    <label class="label text-white">Email:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="email" placeholder="Email" value="{{ old('email', $user->email) }}">
-                    @error('email')
                         <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                     @enderror
                     <button class="btn btn-outline hover:bg-[#fff6] hover:text-white mt-3 w-full">Edit</button>
@@ -139,9 +136,9 @@
     $(document).ready(function () {
         $('#upload').click(function (e) { 
             e.preventDefault()
-            $('#photo').click()
+            $('#image').click()
         })
-        $('#photo').change(function (e) { 
+        $('#image').change(function (e) { 
             e.preventDefault()
             $('#preview').attr('src', window.URL.createObjectURL($(this).prop('files')[0]))
         })

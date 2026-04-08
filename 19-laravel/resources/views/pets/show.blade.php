@@ -38,12 +38,9 @@
     <div class="card lg:card-side bg-black/40 backdrop-blur-md shadow-2xl text-white overflow-hidden">
         <figure class="lg:w-1/3">   
             @php
-                $photoPath = $pet->photo;
-                // Prepend path for manually created pets or defaults
-                if ($photoPath == 'no-photo.png') {
+                $photoPath = $pet->image;
+                if ($photoPath == 'no-image.png') {
                     $src = asset('images/'.$photoPath);
-                } elseif (!str_contains($photoPath, 'photos/')) {
-                    $src = asset('photos/pets/'.$photoPath);
                 } else {
                     $src = asset($photoPath);
                 }
