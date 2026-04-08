@@ -25,6 +25,7 @@
         <tbody>
             @foreach ($pets as $pet)
             <tr>
+                <td>{{ $pet->id }}</td>
                 <td>{{ $pet->name }}</td>
                 <td>{{ $pet->kind }}</td>
                 <td>{{ $pet->weight }}</td>

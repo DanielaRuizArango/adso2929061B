@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Larapets: Edit User')
+@section('title', 'Larapets: Edit Pet')
 
 @section('content')
     @include('partials.navbar')
@@ -38,11 +38,13 @@
             </span>
             </li>
         </ul>
-        </div>
-        <div class="card text-white md:w-[720px] w-[320px] bg-black/20 p-4 mb-4 rounded">
-            <form method="POST" action="{{ url('pets/'.$pet->id) }}" class="flex flex-col md:flex-row gap-4 mt-4" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+    </div>
+    <div class="card text-white md:w-[720px] w-[320px]">
+        <form method="POST" action="{{ url('pets/'.$pet->id) }}" class="flex flex-col gap-4 mt-4" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="flex flex-col md:flex-row gap-4">
+                {{-- Columna 1: Foto --}}
                 <div class="w-full md:w-[320px]">
                     <div class="avatar flex flex-col gap-1 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
                         <div id="upload" class="mask mask-squircle w-48">
@@ -61,74 +63,83 @@
                     <input type="file" id="image" name="image" class="hidden" accept="image/*">
                     <input type="hidden" name="originphoto" value="{{ $pet->image }}">
                 </div>
+
+                {{-- Columna 2: Name, Kind, Weight, Age --}}
                 <div class="w-full md:w-[320px]">
-                    {{--  Name --}}
+                    {{-- Name --}}
                     <label class="label text-white">Name:</label>
                     <input type="text" class="input bg-[#0009] outline-0" name="name" placeholder="75123123" value="{{ old('name', $pet->name) }}">
                     @error('name')
                         <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                     @enderror
-                    {{--  Kind --}}
+                    {{-- Kind --}}
                     <label class="label text-white">Kind:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="kind" placeholder="Dog" value="{{ old('kind', $pet->kind) }}">
+                    <input type="text" class="input bg-[#0009] outline-0" name="kind" placeholder="Jeremias Springfield" value="{{ old('kind', $pet->kind) }}">
                     @error('kind')
                         <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                     @enderror
-                    {{--  Weight --}}
+                    {{-- Weight --}}
                     <label class="label text-white">Weight:</label>
                     <input type="number" class="input bg-[#0009] outline-0" name="weight" placeholder="75123123" value="{{ old('weight', $pet->weight) }}">
                     @error('weight')
                         <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                     @enderror
-                    {{--  Age --}}
+                    {{-- Age --}}
                     <label class="label text-white">Age:</label>
-                    <input type="number" class="input bg-[#0009] outline-0" name="age" placeholder="75123123" value="{{ old('age', $pet->age) }}">
+                    <input type="number" class="input bg-[#0009] outline-0" name="age" placeholder="1640-10-08" value="{{ old('age', $pet->age) }}">
                     @error('age')
                         <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                     @enderror
-                    {{--  Breed --}}
+                </div>
+
+                {{-- Columna 3: Breed, Location, Description, Active, Adopted --}}
+                <div class="w-full md:w-[320px]">
+                    {{-- Breed --}}
                     <label class="label text-white">Breed:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="breed" placeholder="75123123" value="{{ old('breed', $pet->breed) }}">
+                    <input type="text" class="input bg-[#0009] outline-0" name="breed" placeholder="3101231234" value="{{ old('breed', $pet->breed) }}">
                     @error('breed')
                         <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                     @enderror
-                    {{--  Location --}}
+                    {{-- Location --}}
                     <label class="label text-white">Location:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="location" placeholder="75123123" value="{{ old('location', $pet->location) }}">
+                    <input type="text" class="input bg-[#0009] outline-0" name="location" placeholder="Email" value="{{ old('location', $pet->location) }}">
                     @error('location')
                         <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                     @enderror
-                    {{--  Description --}}
+                    {{-- Description --}}
                     <label class="label text-white">Description:</label>
-                    <input type="text" class="input bg-[#0009] outline-0" name="description" placeholder="75123123" value="{{ old('description', $pet->description) }}">
+                    <input type="text" class="input w-full bg-[#0009] outline-0 text-white" name="description" placeholder="Description" value="{{ old('description', $pet->description) }}">
                     @error('description')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                        <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
                     @enderror
-                </div>
-                <div class="w-full md:w-[320px]">
-                    {{--  Active --}}
+                    {{-- Active --}}
                     <label class="label text-white">Active:</label>
-                    <select name="active" class="select w-full bg-[#0009] outline-0 text-white">
-                        <option value="1" @if(old('active', $pet->active) == 1) selected @endif>Active</option>
-                        <option value="0" @if(old('active', $pet->active) == 0) selected @endif>Inactive</option>
+                    <select class="select w-full bg-[#0009] outline-0 text-white" name="active" style="background-color: rgba(0,0,0,0.6); color: white;">
+                        <option value="1" @if(old('active', $pet->active) == 1) selected @endif style="background-color: #1a1a2e; color: white;">Active</option>
+                        <option value="0" @if(old('active', $pet->active) == 0) selected @endif style="background-color: #1a1a2e; color: white;">Inactive</option>
                     </select>
                     @error('active')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                        <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
                     @enderror
-
-                    {{--  Adopted --}}
-                    <div class="flex items-center gap-4 mt-2 mb-2">
-                        <label class="label text-white cursor-pointer p-0">Adopted:</label>
-                        <input type="hidden" name="adopted" value="0">
-                        <input type="checkbox" class="checkbox bg-[#0009] outline-0" name="adopted" value="1" @if(old('adopted', $pet->adopted) == 1) checked @endif>
-                    </div>
+                    {{-- Adopted --}}
+                    <label class="label text-white">Adopted:</label>
+                    <select class="select w-full bg-[#0009] outline-0 text-white" name="adopted" style="background-color: rgba(0,0,0,0.6); color: white;">
+                        <option value="0" @if(old('adopted', $pet->adopted) == 0) selected @endif style="background-color: #1a1a2e; color: white;">Not Adopted</option>
+                        <option value="1" @if(old('adopted', $pet->adopted) == 1) selected @endif style="background-color: #1a1a2e; color: white;">Adopted</option>
+                    </select>
                     @error('adopted')
-                        <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                        <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
                     @enderror
-                    <button class="btn btn-outline hover:bg-[#fff6] hover:text-white mt-3 w-full">Edit</button>
                 </div>
-            </form>
-        </div>
+            </div>
+
+            {{-- Botón centrado en la mitad --}}
+            <div class="w-full flex justify-center mt-2">
+                <button class="btn btn-outline hover:bg-[#fff6] hover:text-white w-1/2">Edit</button>
+            </div>
+
+        </form>
+    </div>
 @endsection
 
 @section('js')

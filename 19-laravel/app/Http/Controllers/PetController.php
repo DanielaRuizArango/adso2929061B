@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Pet;
 use Illuminate\Http\Request;
+// PDF
+use Barryvdh\DomPDF\Facade\Pdf;
+// Excel
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PetsExport;
+use App\Imports\PetsImport;
 
 class PetController extends Controller
 {

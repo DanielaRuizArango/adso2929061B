@@ -21,4 +21,8 @@ class Pet extends Model
         'active',
         'adopted'
     ];
+
+    public function scopeNames($query, $q) {
+        return $query->where('name', 'like', '%'.$q.'%');
+    }
 }

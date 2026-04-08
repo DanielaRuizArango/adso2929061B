@@ -134,17 +134,22 @@ Route::middleware('auth')->group( function () {
         'pets'     => PetController::class,
         'adoption' => AdoptionController::class
     ]);
+    //Search Users
+    Route::post('search/users', [UserController::class, 'search'])->name('users.search');
+    //Search Pets
+    Route::post('search/pets', [PetController::class, 'search'])->name('pets.search');
+
     // Export PDF
     Route::get('export/users/pdf', [UserController::class, 'pdf'])->name('users.pdf');
+    Route::get('export/pets/pdf', [PetController::class, 'pdf'])->name('pets.pdf');
 
     //Export Excel
     Route::get('export/users/excel', [UserController::class, 'excel'])->name('users.excel');
+    Route::get('export/pets/excel', [PetController::class, 'excel'])->name('pets.excel');
 
     //Import Excel
     Route::post('import/users', [UserController::class, 'import'])->name('users.import');
-
-    //Search
-    Route::post('search/users', [UserController::class, 'search'])->name('users.search');
+    Route::post('import/pets', [PetController::class, 'import'])->name('pets.import');
 
 });
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>All Users</title>
+    <title>All Pets</title>
     <style>
         body { font-family: Arial, sans-serif; }
         table { width: 100%; border-collapse: collapse; }
@@ -31,17 +31,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($users as $user)
+            @foreach($pets as $pet) 
             <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->document }}</td>
-                <td>{{ $user->fullname }}</td>
-                <td>{{ $user->gender }}</td>
-                <td>{{ $user->birthdate }}</td>
-                <td>{{ $user->phone }}</td>
-                <td>{{ $user->email }}</td>
+                <td>{{ $pet->id }}</td>
+                <td>{{ $pet->name }}</td>
+                <td>{{ $pet->kind }}</td>
+                <td>{{ $pet->weight }}</td>
+                <td>{{ $pet->age }}</td>
+                <td>{{ $pet->breed }}</td>
+                <td>{{ $pet->location }}</td>
+                <td>{{ $pet->description }}</td>
+                <td>{{ $pet->active }}</td>
+                <td>{{ $pet->adopted }}</td>
                 <td>
-                    <img src="{{ public_path($user->photo) }}" width="50">
+                    <img src="{{ public_path($pet->image) }}" width="50">
                 </td>
             </tr>
             @endforeach
