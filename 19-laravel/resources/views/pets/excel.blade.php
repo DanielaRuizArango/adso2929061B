@@ -33,8 +33,8 @@
                 <td>{{ $pet->breed }}</td>
                 <td>{{ $pet->location }}</td>
                 <td>{{ $pet->description }}</td>
-                <td>{{ $pet->active }}</td>
-                <td>{{ $pet->adopted }}</td>
+                <td>{{ $pet->active == 1 ? 'Yes' : 'No' }}</td>
+                <td>{{ $pet->adopted == 1 ? 'Yes' : 'No' }}</td>
             </tr>
             @endforeach
         </tbody>

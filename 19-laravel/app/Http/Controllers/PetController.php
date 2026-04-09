@@ -107,7 +107,7 @@ class PetController extends Controller
         $pet->name = $request->name;
         if($request->hasFile('image')) {
             // Delete old image
-            if($pet->image != 'images/no-image.png' && file_exists(public_path($pet->image))) {
+            if($pet->image != 'no-image.png' && file_exists(public_path($pet->image))) {
                 unlink(public_path($pet->image));
             }
             $imageName = time().'.'.$request->image->extension();
