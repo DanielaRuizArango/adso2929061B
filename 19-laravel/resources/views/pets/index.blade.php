@@ -81,7 +81,7 @@
                         <td>
                             <div class="avatar">
                                 <div class="mask mask-squircle w-24 bg-white">
-                                    <img
+                                    <img class="object-contain w-full h-full"
                                         src="{{ asset($pet->image == 'no-image.png' ? 'images/pets/no-image.png' : $pet->image) }}" />
                                 </div>
                             </div>
@@ -96,14 +96,14 @@
                             @if($pet->active == 1)
                                 <span class="badge badge-outline badge-accent">Yes</span>
                             @else
-                                <span class="badge badge-outline badge-info">No</span>
+                                <span class="badge badge-outline badge-error">No</span>
                             @endif
                         </td>
                         <td class="hidden md:table-cell">
                             @if($pet->adopted == 1)
                                 <span class="badge badge-outline badge-accent">Yes</span>
                             @else
-                                <span class="badge badge-outline badge-info">No</span>
+                                <span class="badge badge-outline badge-error">No</span>
                             @endif
                         </td>
                         <td>
@@ -193,10 +193,10 @@
                     const query = $(this).val()
 
                     $('.datalist').html(`<tr>
-                                                    <td colspan="12" class="text-center py-18">
-                                                        <span class="loading loading-spinner loading-xl"></span>
-                                                    </td>
-                                                </tr>`)
+                                                                <td colspan="12" class="text-center py-18">
+                                                                    <span class="loading loading-spinner loading-xl"></span>
+                                                                </td>
+                                                            </tr>`)
                     if (query != '') {
                         search(query)
                     } else {

@@ -5,7 +5,8 @@
         <td>
             <div class="avatar">
                 <div class="mask mask-squircle w-24 bg-white">
-                    <img src="{{ asset($pet->image == 'no-image.png' ? 'images/pets/no-image.png' : $pet->image) }}" />
+                    <img class="object-contain w-full h-full"
+                        src="{{ asset($pet->image == 'no-image.png' ? 'images/pets/no-image.png' : $pet->image) }}" />
                 </div>
             </div>
         </td>
@@ -17,16 +18,16 @@
         <td class="hidden md:table-cell">{{ $pet->description }}</td>
         <td class="hidden md:table-cell">
             @if($pet->active == 1)
-                <span class="badge badge-outline badge-accent">Active</span>
+                <span class="badge badge-outline badge-accent">Yes</span>
             @else
-                <span class="badge badge-outline badge-info">Inactive</span>
+                <span class="badge badge-outline badge-error">No</span>
             @endif
         </td>
         <td class="hidden md:table-cell">
             @if($pet->adopted == 1)
-                <span class="badge badge-outline badge-accent">Adopted</span>
+                <span class="badge badge-outline badge-accent">Yes</span>
             @else
-                <span class="badge badge-outline badge-info">Not Adopted</span>
+                <span class="badge badge-outline badge-error">No</span>
             @endif
         </td>
         <td>

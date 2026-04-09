@@ -56,7 +56,8 @@
                     <div
                         class="avatar flex flex-col gap-1 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
                         <div id="upload" class="mask mask-squircle w-48 bg-white">
-                            <img id="preview" src="{{ asset('images/pets/no-image.png') }}" />
+                            <img id="preview" class="object-contain w-full h-full"
+                                src="{{ asset('images/pets/no-image.png') }}" />
                         </div>
                         <small class="pb-0 border-white border-b flex gap-1 items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor"

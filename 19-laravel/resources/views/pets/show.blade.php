@@ -51,7 +51,7 @@
                     $src = asset($photoPath);
                 }
             @endphp
-            <img src="{{ $src }}" alt="{{ $pet->name }}" class="object-cover w-full h-full" />
+            <img src="{{ $src }}" alt="{{ $pet->name }}" class="object-contain w-full h-full" />
         </figure>
         <div class="card-body lg:w-2/3">
             <h2 class="card-title text-3xl font-bold mb-4 border-b border-neutral-700 pb-2">
@@ -102,17 +102,29 @@
 
                 <div class="flex flex-col">
                     <span class="text-neutral-400 text-sm uppercase font-bold">Active:</span>
-                    <span class="text-sm italic opacity-70">{{ $pet->active ? 'Yes' : 'No' }}</span>
+                    <span class="mt-1">
+                        @if($pet->active == 1)
+                            <span class="badge badge-outline badge-accent">Yes</span>
+                        @else
+                            <span class="badge badge-outline badge-error">No</span>
+                        @endif
+                    </span>
                 </div>
 
                 <div class="flex flex-col">
                     <span class="text-neutral-400 text-sm uppercase font-bold">Adopted:</span>
-                    <span class="text-sm italic opacity-70">{{ $pet->adopted ? 'Yes' : 'No' }}</span>
+                    <span class="mt-1">
+                        @if($pet->adopted == 1)
+                            <span class="badge badge-outline badge-accent">Yes</span>
+                        @else
+                            <span class="badge badge-outline badge-error">No</span>
+                        @endif
+                    </span>
                 </div>
             </div>
 
             <div class="card-actions justify-end mt-8 border-t border-neutral-700 pt-4">
-                <a href="{{ route('users.index') }}" class="btn btn-outline hover:bg-white hover:text-black">
+                <a href="{{ route('pets.index') }}" class="btn btn-outline hover:bg-white hover:text-black">
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="currentColor" viewBox="0 0 256 256">
                         <path
                             d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z">

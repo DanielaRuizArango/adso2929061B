@@ -58,7 +58,7 @@
                     <div
                         class="avatar flex flex-col gap-1 items-center justify-center cursor-pointer hover:scale-105 transition ease-in">
                         <div id="upload" class="mask mask-squircle w-48 bg-white">
-                            <img id="preview"
+                            <img id="preview" class="object-contain w-full h-full"
                                 src="{{ asset($pet->image == 'no-image.png' ? 'images/pets/no-image.png' : $pet->image) }}" />
                         </div>
                         <small class="pb-0 border-white border-b flex gap-1 items-center justify-center">
@@ -138,9 +138,9 @@
                     <select class="select w-full bg-[#0009] outline-0 text-white" name="active"
                         style="background-color: rgba(0,0,0,0.6); color: white;">
                         <option value="1" @if(old('active', $pet->active) == 1) selected @endif
-                            style="background-color: #1a1a2e; color: white;">Active</option>
+                            style="background-color: #1a1a2e; color: white;">Yes</option>
                         <option value="0" @if(old('active', $pet->active) == 0) selected @endif
-                            style="background-color: #1a1a2e; color: white;">Inactive</option>
+                            style="background-color: #1a1a2e; color: white;">No</option>
                     </select>
                     @error('active')
                         <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
@@ -150,9 +150,9 @@
                     <select class="select w-full bg-[#0009] outline-0 text-white" name="adopted"
                         style="background-color: rgba(0,0,0,0.6); color: white;">
                         <option value="0" @if(old('adopted', $pet->adopted) == 0) selected @endif
-                            style="background-color: #1a1a2e; color: white;">Not Adopted</option>
+                            style="background-color: #1a1a2e; color: white;">No</option>
                         <option value="1" @if(old('adopted', $pet->adopted) == 1) selected @endif
-                            style="background-color: #1a1a2e; color: white;">Adopted</option>
+                            style="background-color: #1a1a2e; color: white;">Yes</option>
                     </select>
                     @error('adopted')
                         <small class="badge badge-error w-full mt-1 text-xs py-3">{{ $message }}</small>
