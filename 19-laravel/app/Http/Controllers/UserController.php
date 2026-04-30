@@ -42,7 +42,7 @@ class UserController extends Controller
             'fullname'      => ['required', 'string'],
             'gender'        => ['required'],
             'birthdate'     => ['required', 'date'],
-            'photo'         => ['required', 'image'],
+            'photo'         => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'phone'         => ['required', 'string'],
             'email'         => ['required', 'string', 'lowercase', 'email', 'unique:'.User::class],
             'password'      => ['required', 'confirmed'],
@@ -99,15 +99,16 @@ class UserController extends Controller
             'fullname'      => ['required', 'string'],
             'gender'        => ['required'],
             'birthdate'     => ['required', 'date'],
-            'photo'         => ['nullable', 'image'],
+            'photo'         => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'phone'         => ['required', 'string'],
             'email'         => ['required', 'string', 'lowercase', 'email', 'unique:'.User::class.',email,'.$user->id],
         ]);
 
         if($request->hasFile('photo')) {
             //dd($request->all());
-            $photo = time().'.'.$request->photo->extension();
-            $request->photo->move(public_path('photos'), $photo);
+            $photoName = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('photos/users'), $photoName);
+            $photo = 'photos/users/'.$photoName;
             //Delete old photo
             if($request->originphoto != 'no-photo.png' && file_exists(public_path($request->originphoto))) {
                 unlink(public_path($request->originphoto));
