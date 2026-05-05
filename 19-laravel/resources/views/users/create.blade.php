@@ -57,7 +57,7 @@
                             <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                         @enderror
                     </div>
-                    <input type="file" id="photo" name="photo" class="hidden" accept="image/*">
+                    <input type="file" id="photo" name="photo" class="hidden" accept=".jpeg,.png,.jpg,.gif,.svg">
                 </div>
                 <div class="w-full md:w-[320px]">
                     {{-- Document --}}

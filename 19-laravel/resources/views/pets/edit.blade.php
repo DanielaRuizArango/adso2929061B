@@ -74,7 +74,7 @@
                             <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
                         @enderror
                     </div>
-                    <input type="file" id="image" name="image" class="hidden" accept="image/*">
+                    <input type="file" id="image" name="image" class="hidden" accept=".jpeg,.png,.jpg,.gif,.svg">
                     <input type="hidden" name="originphoto" value="{{ $pet->image }}">
                 </div>
 
