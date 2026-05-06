@@ -50,12 +50,12 @@
             <div class="avatar-group mt-2 -space-x-6">
                 <div class="avatar">
                     <div class="w-36">
-                    <img src="{{ asset('images/'.$adopt->user->photo) }}" />
+                    <img src="{{ asset('images/users/'.$adopt->user->photo) }}" />
                     </div>
                 </div>
                 <div class="avatar">
                     <div class="w-36">
-                    <img src="{{ asset('images/'.$adopt->pet->image) }}" />
+                    <img src="{{ asset('images/pets/'.$adopt->pet->image) }}" />
                     </div>
                 </div>
             </div>
