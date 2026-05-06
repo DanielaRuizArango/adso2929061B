@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Adoption;
+use App\Models\User;
+use App\Models\Pet;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\AdoptionsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdoptionController extends Controller
 {
@@ -12,7 +17,8 @@ class AdoptionController extends Controller
      */
     public function index()
     {
-        //
+        $adopts = Adoption::all();
+        return view('adoptions.index')->with('adopts', $adopts);
     }
 
     /**
@@ -20,7 +26,10 @@ class AdoptionController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+        // Only get pets that are active and not yet adopted
+        $pets = Pet::where('active', 1)->where('status', 0)->get();
+        return view('adoptions.create')->with('users', $users)->with('pets', $pets);
     }
 
     /**
@@ -28,38 +37,54 @@ class AdoptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'user_id' => 'required',
+            'pet_id'  => 'required'
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
+        $adoption = new Adoption();
+        $adoption->user_id = $request->user_id;
+        $adoption->pet_id  = $request->pet_id;
+
+        if ($adoption->save()) {
+            $pet = Pet::find($request->pet_id);
+            if ($pet) {
+                $pet->status = 1; 
+                $pet->save();
+            }
+            return redirect('adoptions')->with('message', 'The adoption was created successfully!');
+        }
+    }
+    
     public function show(Adoption $adoption)
     {
-        //
+        return view('adoptions.show')->with('adopt', $adoption);
+    }
+
+
+
+    /**
+     * Generate a PDF file
+     */
+    public function pdf()
+    {
+        $adoptions = Adoption::all();
+        $pdf = Pdf::loadView('adoptions.pdf', compact('adoptions'));
+        return $pdf->download('adoptions.pdf');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Generate an Excel file
      */
-    public function edit(Adoption $adoption)
+    public function excel()
     {
-        //
+        $adoptions = Adoption::all();
+        return Excel::download(new AdoptionsExport, 'adoptions.xlsx');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Adoption $adoption)
+    public function search(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Adoption $adoption)
-    {
-        //
+        $adopts = Adoption::names($request->q)->get();
+        return view('adoptions.index')->with('adopts', $adopts)->with('searchQuery', $request->q);
     }
 }
