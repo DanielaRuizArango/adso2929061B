@@ -128,12 +128,14 @@ Route::middleware('auth')->group(function () {
 
 //Middleware Auth
 Route::middleware('auth')->group( function () {
-    // Resources
-    Route::resources([
-        'users'    => UserController::class,
-        'pets'     => PetController::class,
-        'adoption' => AdoptionController::class
-    ]);
+     // Resources with Admin Access
+    Route::middleware('admin')->group( function () {
+        Route::resources([
+            'users'    => UserController::class,
+            'pets'     => PetController::class,
+            'adoption' => AdoptionController::class
+        ]);
+    });
     //Search Users
     Route::post('search/users', [UserController::class, 'search'])->name('users.search');
     //Search Pets
