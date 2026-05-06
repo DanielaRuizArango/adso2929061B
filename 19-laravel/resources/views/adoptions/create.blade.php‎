@@ -1,0 +1,59 @@
+@extends('layouts.app')
+
+@section('title', 'Larapets: Add Adoption')
+
+@section('content')
+    @include('partials.navbar')
+    <h1 class="mt-6 text-4xl text-white flex gap-2 items-center justify-center pb-4 border-b-2 border-neutral-50 mb-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-12" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z"></path>
+        </svg>
+        Add Adoption
+    </h1>
+    {{-- Breadcrumbs --}}
+    <div class="breadcrumbs text-sm text-white mb-6">
+        <ul>
+            <li>
+                <a href="{{ url('dashboard') }}">Dashboard</a>
+            </li>
+            <li>
+                <a href="{{ url('adoptions') }}">Adoption Module</a>
+            </li>
+            <li>
+                <span class="inline-flex items-center gap-2">Add Adoption</span>
+            </li>
+        </ul>
+    </div>
+    <div class="card text-white md:w-[720px] w-[320px] bg-black/20 p-8 my-4">
+        <form method="POST" action="{{ url('adoptions') }}" class="flex flex-col gap-4 mt-4">
+            @csrf
+            <div class="w-full">
+                {{-- User --}}
+                <label class="label text-white">User (Customer):</label>
+                <select name="user_id" class="select bg-[#0009] outline-0 w-full">
+                    <option value="">Select...</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}" @if(old('user_id') == $user->id) selected @endif>{{ $user->fullname }} - {{ $user->document }}</option>
+                    @endforeach
+                </select>
+                @error('user_id')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                {{-- Pet --}}
+                <label class="label text-white mt-4">Pet (Available):</label>
+                <select name="pet_id" class="select bg-[#0009] outline-0 w-full">
+                    <option value="">Select...</option>
+                    @foreach($pets as $pet)
+                        <option value="{{ $pet->id }}" @if(old('pet_id') == $pet->id) selected @endif>{{ $pet->name }} - {{ $pet->kind }} ({{ $pet->breed }})</option>
+                    @endforeach
+                </select>
+                @error('pet_id')
+                    <small class="badge badge-error w-full mt-1 text-xs py-4">{{ $message }}</small>
+                @enderror
+
+                <button class="btn btn-outline hover:bg-[#fff6] hover:text-white mt-6 w-full">Add Adoption</button>
+            </div>
+        </form>
+    </div>
+@endsection

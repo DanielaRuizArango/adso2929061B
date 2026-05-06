@@ -6,9 +6,6 @@ use App\Models\Adoption;
 use App\Models\User;
 use App\Models\Pet;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Exports\AdoptionsExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class AdoptionController extends Controller
 {
@@ -63,28 +60,25 @@ class AdoptionController extends Controller
 
 
 
-    /**
-     * Generate a PDF file
-     */
     public function pdf()
     {
-        $adoptions = Adoption::all();
-        $pdf = Pdf::loadView('adoptions.pdf', compact('adoptions'));
-        return $pdf->download('adoptions.pdf');
+        // Implement PDF export
+        $adopts = Adoption::all();
     }
 
-    /**
-     * Generate an Excel file
-     */
     public function excel()
     {
-        $adoptions = Adoption::all();
-        return Excel::download(new AdoptionsExport, 'adoptions.xlsx');
+        // Implement Excel export
     }
 
     public function search(Request $request)
     {
-        $adopts = Adoption::names($request->q)->get();
-        return view('adoptions.index')->with('adopts', $adopts)->with('searchQuery', $request->q);
+        // Implement Search
+        $adopts = Adoption::whereHas('pet', function($q) use ($request) {
+            $q->where('name', 'like', "%" . $request->qsearch . "%");
+        })->orWhereHas('user', function($q) use ($request) {
+            $q->where('fullname', 'like', "%" . $request->qsearch . "%");
+        })->get();
+        return view('adoptions.search')->with('adopts', $adopts);
     }
 }
