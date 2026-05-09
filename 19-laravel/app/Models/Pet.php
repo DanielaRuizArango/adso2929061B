@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Pet extends Model
 {
-    use HasFactory;
 
-     protected $fillable = [
+    use HasFactory;
+        /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
         'name',
         'image',
         'kind',
@@ -22,7 +27,19 @@ class Pet extends Model
         'adopted'
     ];
 
-    public function scopeNames($query, $q) {
-        return $query->where('name', 'like', '%'.$q.'%');
+    // Search by Scope
+    public function scopenames($query, $q) {
+        if (trim($q)) {
+            return $query->where('name', 'LIKE', "%$q%")
+                  ->orWhere('breed', 'LIKE', "%$q%")
+                  ->orWhere('kind', 'LIKE', "%$q%");
+        }
+        return $query;
+    }
+
+    //Relationships
+    // Pet has one adoption
+    public function adoption(){
+        return $this->hasOne(Adoption::class);
     }
 }

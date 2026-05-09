@@ -184,4 +184,9 @@ class UserController extends Controller
         //             ->get();
         // return view('users.index')->with('users', $users);
     }
+
+    public function listpets() {
+        $pets = Pet::where('status', 0)->orderBy('id', 'desc')->paginate(12);
+        return view('customer.list')->with('pets', $pets);
+    }
 }

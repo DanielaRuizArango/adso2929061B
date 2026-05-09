@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Adoption;
+use App\Models\Pet;
 
 class CustomerController extends Controller
 {
@@ -58,8 +59,46 @@ class CustomerController extends Controller
         return view('customer.myadoptions')->with('adoptions', $adoptions);
     }
 
-    public function showmyadoption(Request $request) {
-        $adoption = Adoption::find($request->id);
+    public function showmyadoption($id) {
+        $adoption = Adoption::findOrFail($id);
         return view('customer.showmyadoption')->with('adopt', $adoption);
     }
+
+    public function search(Request $request) {
+        $pets = Pet::where('adopted', '!=', 1)->names($request->q)->orderBy('id','desc')->paginate(12);
+        return view('customer.search')->with('pets', $pets);
+    }
+
+    public function listpets() {
+        $pets = Pet::where('adopted', '!=', 1)->orderBy('id', 'desc')->paginate(12);
+        return view('customer.listpets')->with('pets', $pets);
+    }
+
+    public function showpet($id) {
+        $pet = Pet::findOrFail($id);
+        return view('customer.showpet')->with('pet', $pet);
+    }
+
+    public function makeadoption(Request $request) {
+        $counAdoptions = Adoption::where('user_id', Auth::user()->id)->count();
+
+        if($counAdoptions < 3) {
+            //save adoption
+            $adoption = new Adoption();
+            $adoption->user_id = Auth::user()->id;
+            $adoption->pet_id = $request->pet_id;
+            $adoption->save();
+            //update pet status
+            $pet = Pet::find($request->pet_id);
+            $pet->adopted = 1;
+            $pet->save();
+            //Redirect with message
+            return redirect('listpets')
+                ->with('message', 'Adoption request submitted successfully!');
+        } else {
+            return redirect('dashboard')
+            ->with('error', 'Its not possible, more than three adoptions per customer!');
+        }
+    }
+
 }

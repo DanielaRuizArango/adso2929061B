@@ -173,17 +173,19 @@ Route::post('search/users', [UserController::class, 'search']);
 Route::post('search/pets', [PetController::class, 'search']);
 Route::post('search/adoptions', [AdoptionController::class, 'search']);
 
-// Customer
-Route::get('myprofile/', [CustomerController::class, 'myprofile']);
-Route::put('myprofile/{id}', [CustomerController::class, 'updateprofile']);
+// Customer Routes (require authentication)
+Route::middleware('auth')->group(function () {
+    Route::get('myprofile/', [CustomerController::class, 'myprofile']);
+    Route::put('myprofile/{id}', [CustomerController::class, 'updateprofile']);
 
-Route::get('myadoptions/', [CustomerController::class, 'myadoptions']);
-Route::get('myadoption/{id}', [CustomerController::class, 'showmyadoption']);
+    Route::get('myadoptions/', [CustomerController::class, 'myadoptions']);
+    Route::get('myadoption/{id}', [CustomerController::class, 'showmyadoption']);
 
-Route::get('makeadoption/', [CustomerController::class, 'listpets']);
-Route::post('search/adoptionpets', [CustomerController::class, 'search']);
-Route::get('confirmadoption/{id}', [CustomerController::class, 'showpet']);
-Route::post('makeadoption/{id}', [CustomerController::class, 'makeadoption']);
+    Route::get('listpets/', [CustomerController::class, 'listpets']);
+    Route::post('search/adoptionpets', [CustomerController::class, 'search']);
+    Route::get('confirmadoption/{id}', [CustomerController::class, 'showpet']);
+    Route::post('makeadoption/{id}', [CustomerController::class, 'makeadoption']);
+});
 
 
 require __DIR__.'/auth.php';

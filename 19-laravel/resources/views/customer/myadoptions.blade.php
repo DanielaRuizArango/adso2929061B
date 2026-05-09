@@ -31,26 +31,6 @@
             </li>
         </ul>
         </div>
-
-        @if (count($adoptions) > 0)
-        {{-- Search --}}
-        <label class="input text-white bg-[#0009] w-44 md:w-84 outline outline-white mb-10">
-            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <g
-                stroke-linejoin="round"
-                stroke-linecap="round"
-                stroke-width="2.5"
-                fill="none"
-                stroke="currentColor"
-                >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-                </g>
-            </svg>
-            <input type="search" placeholder="Search..." name="qsearch" id="qsearch" />
-        </label>
-    </div>
-    @endif
     <div class="datalist flex flex-col gap-4 items-center justify-center">
         @forelse ($adoptions as $adopt)
             <div class="avatar-group mt-2 -space-x-6">
@@ -71,7 +51,7 @@
                 <span class="underline font-bold">{{ $adopt->user->fullname}}</span>
                 {{ $adopt->created_at->diffforhumans() }}
             </h4>
-            <a href="{{ url('myadoptions/'.$adopt->id) }}" class="btn btn-outline text-white hover:bg-[#fff6] hover:text-white">
+            <a href="{{ url('myadoption/'.$adopt->id) }}" class="btn btn-outline text-white hover:bg-[#fff6] hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-6" fill="currentColor" viewBox="0 0 256 256">
                     <path d="M152,112a8,8,0,0,1-8,8H120v24a8,8,0,0,1-16,0V120H80a8,8,0,0,1,0-16h24V80a8,8,0,0,1,16,0v24h24A8,8,0,0,1,152,112Zm77.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88.11,88.11,0,1,1,11.31-11.31l50.07,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z"></path>
                 </svg>
