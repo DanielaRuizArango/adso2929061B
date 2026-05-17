@@ -19,7 +19,7 @@
                 <figure class="h-[240px]">
                 <img
                     class="object-cover"
-                    src="{{ asset('images/dashboard/user.webp') }}" />
+                    src="{{ asset('images/dashboard/user.png') }}" />
             </figure>
             <div class="card-body">
                 <h2 class="card-title">
@@ -85,7 +85,7 @@
                 <figure class="h-[240px]">
                 <img
                     class="object-cover"
-                    src="{{ asset('images/dashboard/pet.webp') }}" />
+                    src="{{ asset('images/dashboard/pet.png') }}" />
             </figure>
             <div class="card-body">
                 <h2 class="card-title">
@@ -151,7 +151,7 @@
                 <figure class="h-[240px]">
                 <img
                     class="object-cover"
-                    src="{{ asset('images/dashboard/adoption.webp') }}" />
+                    src="{{ asset('images/dashboard/adoption.png') }}" />
             </figure>
             <div class="card-body">
                 <h2 class="card-title">
@@ -221,7 +221,7 @@
                 <figure class="h-[240px]">
                 <img
                     class="object-cover"
-                    src="{{ asset('images/bg-users.webp') }}" />
+                    src="{{ asset('images/dashboard/user.png') }}" />
             </figure>
             <div class="card-body">
                 <h2 class="card-title">
@@ -245,7 +245,7 @@
                 <figure class="h-[240px]">
                 <img
                     class="object-cover"
-                    src="{{ asset('images/bg-pets.webp') }}" />
+                    src="{{ asset('images/dashboard/pets.png') }}" />
             </figure>
             <div class="card-body">
                 <h2 class="card-title">
@@ -270,7 +270,7 @@
                 <figure class="h-[240px]">
                 <img
                     class="object-cover"
-                    src="{{ asset('images/bg-adoptions.webp') }}" />
+                    src="{{ asset('images/dashboard/adoptions.png') }}" />
             </figure>
             <div class="card-body">
                 <h2 class="card-title">
