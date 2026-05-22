@@ -4,10 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\PetController;
 use App\Http\Controllers\API\AuthController;
 
-# Endpoint: http://127.0.0.1:8000/login
+# Endpoint: http://127.0.0.1:8000/api/login
 Route::post('/login', [AuthController::class, 'login']);
 
-# Endpoint: http://127.0.0.1:8000/logout
+# Endpoint: http://127.0.0.1:8000/api/logout
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth.token');
 
 

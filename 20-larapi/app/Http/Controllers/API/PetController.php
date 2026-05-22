@@ -19,22 +19,24 @@ class PetController extends Controller
         ]);
     }
 
-    public function show($id) {
-        $pet = Pet::find($id);
-        if($pet){
+   public function show($id) {
+        try {
+            $pet = Pet::findOrFail($id); 
+            
             return response()->json([
-                "message"=> "✅ Query Succes!",
-                "data"=> $pet,
-                "status"=> "success",
-                "status_code"=> 200
-            ]);
-        }else{
+                "message" => "✅ Query Success!",
+                "data" => $pet,
+                "status" => "success",
+                "status_code" => 200
+            ], 200);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
-                "message"=> "❌ Query Not Found!",
-                "data"=> null,
-                "status"=> "error",
-                "status_code"=> 404
-            ]);
+                "message" => "❌ Mascota no encontrada!",
+                "data" => null,
+                "status" => "error",
+                "status_code" => 404
+            ], 404);
         }
     }
 
@@ -42,7 +44,6 @@ class PetController extends Controller
         try {
             $request->validate([
                 'name' => 'required',
-                'image' => 'required',
                 'kind' => 'required',
                 'weight' => 'required',
                 'age' => 'required',
@@ -67,62 +68,62 @@ class PetController extends Controller
         }
     }
 
-    public function update(Request $request, $id) {
+   public function update(Request $request, $id) {
         try {
             $request->validate([
-                'name' => 'required',
-                'image' => 'required',
-                'kind' => 'required',
-                'weight' => 'required',
-                'age' => 'required',
-                'breed' => 'required',
-                'location' => 'required',
-                'description' => 'required',
-                'active' => 'required',
-                'adopted' => 'required'
+                'name' => 'sometimes|required',
+                'kind' => 'sometimes|required',
+                'weight' => 'sometimes|required',
+                'age' => 'sometimes|required',
+                'breed' => 'sometimes|required',
+                'location' => 'sometimes|required',
+                'description' => 'sometimes|required',
+                'active' => 'sometimes|required',
+                'adopted' => 'sometimes|required'
             ]);
-            $pet = Pet::find($id);
-            if($pet){
-                $pet->update($request->all());
-                return response()->json([
-                    "message"=> "✅ Query Succes!",
-                    "data"=> $pet,
-                    "status"=> "success",
-                    "status_code"=> 200
-                ]);
-            }else{
-                return response()->json([
-                    "message"=> "❌ Query Not Found!",
-                    "data"=> null,
-                    "status"=> "error",
-                    "status_code"=> 404
-                ]);
-            }
+            $pet = Pet::findOrFail($id);
+        
+            $pet->update($request->all());
+
+            return response()->json([
+                "message" => "✅ ¡Mascota '{$pet->name}' actualizada con éxito!",
+                "data" => $pet,
+                "status" => "success",
+                "status_code" => 200
+            ], 200);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                "message" => "❌ ¡Mascota no encontrada!",
+                "data" => null,
+                "status" => "error",
+                "status_code" => 404
+            ], 404);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
-                "message"=> "❌ Something wrong!",
-                "errors"=> $e->errors()
+                "message" => "❌ ¡Campos inválidos!",
+                "errors" => $e->errors()
             ], 400);
         }
     }
 
     public function destroy($id) {
-        $pet = Pet::find($id);
-        if($pet){
+        try {
+            $pet = Pet::findOrFail($id);
+            $petName = $pet->name;
             $pet->delete();
+
             return response()->json([
-                "message"=> "✅ Query Succes!",
-                "data"=> null,
-                "status"=> "success",
-                "status_code"=> 200
-            ]);
-        }else{
+                "message" => "✅ ¡Mascota '{$petName}' eliminada con éxito!",
+                "data" => null,
+                "status" => "success",
+                "status_code" => 200
+            ], 200);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
-                "message"=> "❌ Query Not Found!",
-                "data"=> null,
-                "status"=> "error",
-                "status_code"=> 404
-            ]);
+                "message" => "❌ ¡Mascota no encontrada!"
+            ], 404);
         }
     }
 }

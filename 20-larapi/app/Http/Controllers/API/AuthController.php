@@ -39,18 +39,23 @@ class AuthController extends Controller
 
 }
 
-    public function logout(Request $request) {
-                $token = $request->header('Authorization');
-                $user = User::where('remember_token', $token)->first();
-                if ($user) {
-                    $user->update(['remember_token' => null]);
-                    return response()->json([
-                        'message' => '✅ Logout successful'
-                    ], 200);
-                } else {
-                    return response()->json([
-                        'message' => '❌ Invalid token'
-                    ], 401);
-                }
+public function logout(Request $request) {
+    $token = $request->bearerToken(); 
+    if (!$token) {
+        return response()->json([
+            'message' => '❌ Token not provided'
+        ], 401);
     }
+    $user = User::where('remember_token', $token)->first();
+    if ($user) {
+        $user->update(['remember_token' => null]);
+        return response()->json([
+            'message' => '✅ Logout successful'
+        ], 200);
+    } else {
+        return response()->json([
+            'message' => '❌ Invalid token'
+        ], 401);
+    }
+}
 }
