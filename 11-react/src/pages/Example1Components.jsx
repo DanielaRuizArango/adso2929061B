@@ -37,8 +37,10 @@ function Example1Components() {
             <BtnBack />
         <h2>Example1: Components</h2>
         <p>Create indepent a reusable UI pieces.</p>
-        <div style={{display:'flex', flexWrap:'wrap', jus}}>
-
+        <div style={{display: 'flex', flexwrap: 'wrap', gap: '1rem', marginTop: '2rem', justifyContent: 'center', alignItems: 'center', marginBottom: '2rem'}}>
+                <Bulbasaur />
+                <Charmander />
+                <Squirtle />
         </div>
         </div>
     );
