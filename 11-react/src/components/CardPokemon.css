@@ -1,0 +1,36 @@
+.card-pokemon {
+    position: relative;
+    width: 220px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    color: white;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px #0005;
+}
+
+.card-pokemon img {
+    width: 120px;
+    height: 120px;
+}
+
+.card-pokemon h3 {
+    margin: 10px 0;
+    font-size: 24px;
+}
+
+.card-pokemon p {
+    margin: 6px 0;
+    font-size: 16px;
+}
+
+.legendary-icon {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    z-index: 2;
+    color: yellow;
+    font-size: 28px;
+    text-shadow: 1px 1px 2px black;
+}
