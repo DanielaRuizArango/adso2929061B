@@ -76,7 +76,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 34px;
+  gap: 28px;
 }
 
 .input-group {
@@ -157,6 +157,11 @@
   transition: background 0.25s ease;
 }
 
+.challenge-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
 .button-icon {
   width: 24px;
   height: 24px;
@@ -174,6 +179,23 @@
 
 .challenge-button:hover {
   background: var(--primary-dark);
+}
+
+.login-message {
+  min-height: 20px;
+  margin: -10px 0 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.login-message.success {
+  color: var(--olive);
+}
+
+.login-message.error {
+  color: var(--primary-dark);
 }
 
 @media (max-width: 554px) {

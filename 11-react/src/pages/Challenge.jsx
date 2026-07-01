@@ -1,4 +1,8 @@
+import { useState } from 'react';
+import axios from 'axios';
 import './Challenge.css';
+
+const API_URL = 'http://127.0.0.1:8000/api/login';
 
 function PawIcon() {
   return (
@@ -32,6 +36,37 @@ function LockIcon() {
 }
 
 function Challenge() {
+  const [form, setForm] = useState({ email: '', password: '' });
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm((currentForm) => ({
+      ...currentForm,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const { data } = await axios.post(API_URL, form);
+
+      localStorage.setItem('larapets_token', data.token);
+      localStorage.setItem('larapets_user', JSON.stringify(data.user));
+      setStatus({ type: 'success', message: 'Inicio de sesión exitoso.' });
+    } catch (error) {
+      const message = error.response?.data?.message || 'No se pudo iniciar sesión. Revisa tus datos.';
+      setStatus({ type: 'error', message });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="challenge-page">
       <div className="challenge-card">
@@ -42,27 +77,49 @@ function Challenge() {
 
         <img className="hero-image" src="/images/image1.png" alt="Mascotas" />
 
-        <form className="challenge-form">
+        <form className="challenge-form" onSubmit={handleSubmit}>
           <label className="input-group">
             <span className="input-icon" aria-hidden="true">
               <MailIcon />
             </span>
-            <input type="email" placeholder="correo" />
+            <input
+              type="email"
+              name="email"
+              placeholder="correo"
+              value={form.email}
+              onChange={handleChange}
+              autoComplete="email"
+              required
+            />
           </label>
 
           <label className="input-group">
             <span className="input-icon" aria-hidden="true">
               <LockIcon />
             </span>
-            <input type="password" placeholder="contraseña" />
+            <input
+              type="password"
+              name="password"
+              placeholder="contraseña"
+              value={form.password}
+              onChange={handleChange}
+              autoComplete="current-password"
+              required
+            />
           </label>
 
-          <button className="challenge-button" type="submit">
+          <button className="challenge-button" type="submit" disabled={loading}>
             <span className="button-icon" aria-hidden="true">
               <PawIcon />
             </span>
-            Iniciar sesión
+            {loading ? 'Iniciando...' : 'Iniciar sesión'}
           </button>
+
+          {status.message && (
+            <p className={`login-message ${status.type}`}>
+              {status.message}
+            </p>
+          )}
         </form>
       </div>
     </div>
