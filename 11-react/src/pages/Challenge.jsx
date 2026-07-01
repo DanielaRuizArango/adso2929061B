@@ -329,10 +329,9 @@ function PetDetail({ pet, onBack, onEdit }) {
       </section>
 
       <section className="detail-info-grid">
-        <article>
+        <article className="detail-status-row">
           <h2><PawIcon /> Estado</h2>
-          <p>{getPetStatus(pet)}</p>
-          <p>{pet.adopted ? 'Ya fue adoptada.' : 'Lista para encontrar un hogar.'}</p>
+          <p>{pet.adopted ? 'Adoptada' : 'No adoptada'}</p>
         </article>
       </section>
 

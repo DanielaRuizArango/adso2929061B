@@ -676,15 +676,15 @@
 
 .detail-hero {
   display: grid;
-  grid-template-columns: 190px 1fr;
+  grid-template-columns: 230px 1fr;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   margin-top: 12px;
 }
 
 .detail-photo-wrap {
   width: 100%;
-  height: 128px;
+  height: 164px;
   margin: 0;
   position: relative;
   overflow: hidden;
@@ -829,6 +829,25 @@
   padding: 13px;
 }
 
+.detail-info-grid .detail-status-row {
+  min-height: 54px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.detail-info-grid .detail-status-row h2,
+.detail-info-grid .detail-status-row p {
+  margin: 0;
+}
+
+.detail-info-grid .detail-status-row p {
+  color: var(--primary-dark);
+  font-weight: 800;
+}
+
 .detail-edit-button {
   width: min(100%, 300px);
   min-height: 50px;
@@ -858,8 +877,8 @@
 }
 
 .pet-detail-footer {
-  width: 96%;
-  height: 118px;
+  width: 100%;
+  height: 185px;
   margin: 12px auto 0;
   display: block;
   object-fit: contain;
@@ -959,6 +978,6 @@
   }
 
   .pet-detail-footer {
-    max-height: 115px;
+    height: 150px;
   }
 }
