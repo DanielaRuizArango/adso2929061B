@@ -329,6 +329,23 @@
   z-index: 2;
 }
 
+.pets-message {
+  min-height: 34px;
+  margin: 0 0 18px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.pets-message.error {
+  color: var(--primary-dark);
+}
+
+.pets-message.loading {
+  color: var(--olive);
+}
+
 .pet-card {
   min-height: 342px;
   border: 1px solid var(--border);

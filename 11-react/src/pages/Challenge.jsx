@@ -1,26 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Challenge.css';
 
-const API_URL = 'http://127.0.0.1:8000/api/login';
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
+const LOGIN_URL = `${API_BASE_URL}/login`;
+const PETS_URL = `${API_BASE_URL}/pets/list`;
+const LOGOUT_URL = `${API_BASE_URL}/logout`;
 const PET_IMAGE = '/images/image2.png';
-
-const pets = [
-  {
-    id: 1,
-    name: 'Luna',
-    breed: 'Golden Retriever',
-    details: '2 años • Hembra',
-    status: 'Disponible',
-  },
-  {
-    id: 2,
-    name: 'Max',
-    breed: 'Beagle',
-    details: '3 años • Macho',
-    status: 'Disponible',
-  },
-];
 
 function PawIcon() {
   return (
@@ -92,12 +78,36 @@ function TrashIcon() {
   );
 }
 
+function getPetImage(image) {
+  if (!image) {
+    return PET_IMAGE;
+  }
+
+  if (image.startsWith('http') || image.startsWith('/')) {
+    return image;
+  }
+
+  return `http://127.0.0.1:8000/storage/${image}`;
+}
+
+function getPetStatus(pet) {
+  if (pet.adopted) {
+    return 'Adoptada';
+  }
+
+  if (pet.active === false || pet.active === 0) {
+    return 'No disponible';
+  }
+
+  return 'Disponible';
+}
+
 function PetCard({ pet }) {
   return (
     <article className="pet-card">
       <div className="pet-photo-wrap">
-        <img className="pet-photo" src={PET_IMAGE} alt={pet.name} />
-        <span className="pet-status">{pet.status}</span>
+        <img className="pet-photo" src={getPetImage(pet.image)} alt={pet.name} />
+        <span className="pet-status">{getPetStatus(pet)}</span>
       </div>
 
       <div className="pet-info">
@@ -107,8 +117,8 @@ function PetCard({ pet }) {
           </span>
           <h2>{pet.name}</h2>
         </div>
-        <p>{pet.breed}</p>
-        <p>{pet.details}</p>
+        <p>{pet.breed || pet.kind || 'Mascota'}</p>
+        <p>{pet.age ? `${pet.age} años` : 'Edad no registrada'}</p>
       </div>
 
       <div className="pet-actions" aria-label={`Acciones para ${pet.name}`}>
@@ -127,6 +137,31 @@ function PetCard({ pet }) {
 }
 
 function PetsView({ onLogout }) {
+  const [pets, setPets] = useState([]);
+  const [status, setStatus] = useState({ type: 'loading', message: 'Cargando mascotas...' });
+
+  useEffect(() => {
+    const loadPets = async () => {
+      const token = localStorage.getItem('larapets_token');
+
+      try {
+        const { data } = await axios.get(PETS_URL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setPets(data.data || []);
+        setStatus({ type: 'success', message: '' });
+      } catch (error) {
+        const message = error.response?.data?.message || 'No se pudo cargar la lista de mascotas.';
+        setStatus({ type: 'error', message });
+      }
+    };
+
+    loadPets();
+  }, []);
+
   return (
     <div className="pets-page">
       <main className="pets-shell">
@@ -149,11 +184,21 @@ function PetsView({ onLogout }) {
           Agregar mascota
         </button>
 
-        <section className="pets-grid" aria-label="Lista de mascotas">
-          {pets.map((pet) => (
-            <PetCard key={pet.id} pet={pet} />
-          ))}
-        </section>
+        {status.message && (
+          <p className={`pets-message ${status.type}`}>{status.message}</p>
+        )}
+
+        {!status.message && pets.length === 0 && (
+          <p className="pets-message">No hay mascotas registradas.</p>
+        )}
+
+        {pets.length > 0 && (
+          <section className="pets-grid" aria-label="Lista de mascotas">
+            {pets.map((pet) => (
+              <PetCard key={pet.id} pet={pet} />
+            ))}
+          </section>
+        )}
 
         <img className="pets-scene" src={PET_IMAGE} alt="" />
 
@@ -182,7 +227,7 @@ function Challenge() {
     setStatus({ type: '', message: '' });
 
     try {
-      const { data } = await axios.post(API_URL, form);
+      const { data } = await axios.post(LOGIN_URL, form);
 
       localStorage.setItem('larapets_token', data.token);
       localStorage.setItem('larapets_user', JSON.stringify(data.user));
@@ -196,7 +241,21 @@ function Challenge() {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const token = localStorage.getItem('larapets_token');
+
+    try {
+      if (token) {
+        await axios.post(LOGOUT_URL, null, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+    } catch (error) {
+      console.error('No se pudo cerrar sesión en el servidor.', error);
+    }
+
     localStorage.removeItem('larapets_token');
     localStorage.removeItem('larapets_user');
     setIsLoggedIn(false);
