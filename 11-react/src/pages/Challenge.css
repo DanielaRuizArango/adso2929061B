@@ -12,138 +12,172 @@
   --card: #FFFDF9;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .challenge-page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
-  padding: 2rem 1rem;
+  padding: 0;
 }
 
 .challenge-card {
   width: 554px;
   height: 840px;
-  background: rgba(255, 253, 249, 0.98);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 36px;
-  box-shadow: 0 24px 60px rgba(75, 52, 37, 0.18);
-  padding: 2rem;
-}
-
-.hero-illustration {
-  background: transparent;
-  border-radius: 0;
-  padding: 0;
-  border: none;
-  text-align: center;
-  margin: 0 0 1.5rem;
-}
-
-.hero-characters {
-  display: inline-flex;
-  gap: 0.8rem;
-  margin-bottom: 1rem;
-}
-
-.hero-pet {
-  width: 3rem;
-  height: 3rem;
-  display: inline-flex;
+  border-radius: 34px;
+  box-shadow: 0 18px 40px rgba(75, 52, 37, 0.12);
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border-radius: 1rem;
-  background: var(--accent);
-  color: var(--text);
-  font-size: 1.4rem;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+  padding-top: 60px;
 }
 
-.hero-illustration h2 {
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.brand-logo {
+  width: 190px;
+  height: 70px;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+.brand h1 {
   margin: 0;
-  font-size: 2rem;
   color: var(--text);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
 }
 
-.hero-illustration p {
-  margin: 0.65rem auto 0;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  max-width: 85%;
+.hero-image {
+  width: 386px;
+  height: 222px;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  margin: 0 0 62px;
 }
 
 .challenge-form {
-  display: grid;
-  gap: 1rem;
-}
-
-.challenge-form label {
-  display: grid;
-  gap: 0.65rem;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-  font-weight: 500;
+  width: 346px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 34px;
 }
 
 .input-group {
+  width: 100%;
+  height: 41px;
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 14px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.9rem 1rem;
+  border-radius: 15px;
+  padding: 0 22px;
 }
 
 .input-icon {
-  width: 2.3rem;
-  height: 2.3rem;
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--text);
-  font-size: 1rem;
+  flex: 0 0 28px;
+  color: var(--olive);
+}
+
+.input-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .challenge-form input {
   flex: 1;
+  min-width: 0;
   border: none;
   outline: none;
   background: transparent;
   color: var(--text);
-  font-size: 1rem;
+  caret-color: var(--primary-dark);
+  font-size: 14px;
+}
+
+.challenge-form input::placeholder {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+.challenge-form input::selection {
+  background: var(--accent);
+  color: var(--text);
+}
+
+.challenge-form input:-webkit-autofill,
+.challenge-form input:-webkit-autofill:hover,
+.challenge-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  box-shadow: 0 0 0 1000px var(--surface) inset;
 }
 
 .challenge-button {
   width: 100%;
-  padding: 1rem 1.2rem;
+  height: 54px;
+  margin-top: 19px;
   border: none;
-  border-radius: 999px;
+  border-radius: 15px;
   background: var(--primary);
-  color: white;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  color: #FFFDF9;
   cursor: pointer;
-  transition: background 0.25s ease, transform 0.25s ease;
-  box-shadow: 0 16px 28px rgba(233, 139, 66, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: background 0.25s ease;
+}
+
+.button-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFDF9;
+}
+
+.button-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
 }
 
 .challenge-button:hover {
   background: var(--primary-dark);
-  transform: translateY(-1px);
 }
 
-.challenge-note {
-  margin-top: 0.75rem;
-  color: var(--text-secondary);
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-.challenge-link {
-  color: var(--olive);
-  font-weight: 600;
-  text-decoration: none;
+@media (max-width: 554px) {
+  .challenge-card {
+    width: 100vw;
+  }
 }
