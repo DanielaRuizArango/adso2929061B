@@ -313,14 +313,15 @@ function PetDetail({ pet, onBack, onEdit }) {
             <h1>{pet.name}</h1>
           </div>
           <p>{pet.breed || pet.kind || 'Mascota'}</p>
-          <ul>
-            <li><span>Edad</span>{pet.age || 'No registrada'}</li>
-            <li><span>Especie</span>{pet.kind || 'No registrada'}</li>
-            <li><span>Peso</span>{pet.weight || 'No registrado'}</li>
-            <li><span>Ubicación</span>{pet.location || 'No registrada'}</li>
-          </ul>
         </div>
       </section>
+
+      <ul className="detail-data-list">
+        <li><span>Edad</span>{pet.age || 'No registrada'}</li>
+        <li><span>Especie</span>{pet.kind || 'No registrada'}</li>
+        <li><span>Peso</span>{pet.weight || 'No registrado'}</li>
+        <li><span>Ubicación</span>{pet.location || 'No registrada'}</li>
+      </ul>
 
       <section className="detail-panel">
         <h2><PawIcon /> Descripción</h2>
@@ -332,12 +333,6 @@ function PetDetail({ pet, onBack, onEdit }) {
           <h2><PawIcon /> Estado</h2>
           <p>{getPetStatus(pet)}</p>
           <p>{pet.adopted ? 'Ya fue adoptada.' : 'Lista para encontrar un hogar.'}</p>
-        </article>
-
-        <article>
-          <h2><PawIcon /> Contacto</h2>
-          <p>¿Interesado en {pet.name}?</p>
-          <p>Agenda una visita para conocerla.</p>
         </article>
       </section>
 

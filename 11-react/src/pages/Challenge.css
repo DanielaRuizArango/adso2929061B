@@ -401,11 +401,11 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  padding: 5px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
   background: rgba(101, 148, 61, 0.9);
   color: #fff;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -676,15 +676,16 @@
 
 .detail-hero {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
+  grid-template-columns: 190px 1fr;
+  align-items: center;
+  gap: 16px;
   margin-top: 12px;
 }
 
 .detail-photo-wrap {
-  width: 78%;
-  height: 136px;
-  margin: 0 auto;
+  width: 100%;
+  height: 128px;
+  margin: 0;
   position: relative;
   overflow: hidden;
   border-radius: 18px;
@@ -702,17 +703,21 @@
 .detail-status {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
+  top: 8px;
+  right: 8px;
+  padding: 4px 9px;
+  font-size: 10px;
 }
 
 .detail-status svg {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   fill: currentColor;
 }
 
 .detail-summary {
-  padding: 0 4px;
+  padding: 0;
 }
 
 .detail-title {
@@ -722,8 +727,8 @@
 }
 
 .detail-title svg {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   color: var(--primary-dark);
   fill: currentColor;
 }
@@ -731,27 +736,27 @@
 .detail-title h1 {
   margin: 0;
   color: var(--text);
-  font-size: 34px;
+  font-size: 32px;
   line-height: 1;
   text-align: left;
 }
 
 .detail-summary > p {
-  margin: 4px 0 10px 44px;
+  margin: 4px 0 10px 40px;
   color: var(--text-secondary);
   font-size: 18px;
 }
 
-.detail-summary ul {
+.detail-data-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px 12px;
-  margin: 0;
+  margin: 14px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.detail-summary li {
+.detail-data-list li {
   min-height: 42px;
   border: 1px solid #ecd7c1;
   border-radius: 12px;
@@ -765,7 +770,7 @@
   line-height: 1.15;
 }
 
-.detail-summary li span {
+.detail-data-list li span {
   color: var(--primary-dark);
   font-size: 11px;
   font-weight: 800;
@@ -814,7 +819,7 @@
 
 .detail-info-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 12px;
   margin-top: 12px;
 }
@@ -939,7 +944,16 @@
     font-size: 29px;
   }
 
-  .detail-summary ul,
+  .detail-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-photo-wrap {
+    width: 78%;
+    margin: 0 auto;
+  }
+
+  .detail-data-list,
   .detail-info-grid {
     grid-template-columns: 1fr;
   }
