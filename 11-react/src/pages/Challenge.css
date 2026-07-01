@@ -1,0 +1,149 @@
+:root {
+  --bg: #FFF8EE;
+  --surface: #F9F1E4;
+  --primary: #E98B42;
+  --primary-dark: #D9732B;
+  --accent: #F4B183;
+  --sage: #A8B58A;
+  --olive: #78885A;
+  --text: #4B3425;
+  --text-secondary: #7A6251;
+  --border: #E8D8C5;
+  --card: #FFFDF9;
+}
+
+.challenge-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 2rem 1rem;
+}
+
+.challenge-card {
+  width: 554px;
+  height: 840px;
+  background: rgba(255, 253, 249, 0.98);
+  border: 1px solid var(--border);
+  border-radius: 36px;
+  box-shadow: 0 24px 60px rgba(75, 52, 37, 0.18);
+  padding: 2rem;
+}
+
+.hero-illustration {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  border: none;
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+
+.hero-characters {
+  display: inline-flex;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.hero-pet {
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background: var(--accent);
+  color: var(--text);
+  font-size: 1.4rem;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+}
+
+.hero-illustration h2 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--text);
+}
+
+.hero-illustration p {
+  margin: 0.65rem auto 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 85%;
+}
+
+.challenge-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.challenge-form label {
+  display: grid;
+  gap: 0.65rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.9rem 1rem;
+}
+
+.input-icon {
+  width: 2.3rem;
+  height: 2.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.challenge-form input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.challenge-button {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border: none;
+  border-radius: 999px;
+  background: var(--primary);
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 16px 28px rgba(233, 139, 66, 0.25);
+}
+
+.challenge-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.challenge-note {
+  margin-top: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.challenge-link {
+  color: var(--olive);
+  font-weight: 600;
+  text-decoration: none;
+}

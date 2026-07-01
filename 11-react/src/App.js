@@ -9,6 +9,7 @@ import Example5Eventos from './pages/Example5Eventos';
 import Example6CondicionalListas from './pages/Example6CondicionalListas';
 import Example7Routing from './pages/Example7Routing';
 import Example8DataFetching from './pages/Example8DataFetching';
+import Challenge from './pages/Challenge';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/example6" element={<Example6CondicionalListas />} />
           <Route path="/example7/*" element={<Example7Routing />} />
           <Route path="/example8" element={<Example8DataFetching />} />
+          <Route path="/challenge" element={<Challenge />} />
         </Routes>
       </div>
     </BrowserRouter>
