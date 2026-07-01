@@ -4,9 +4,14 @@ import './Challenge.css';
 
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
 const LOGIN_URL = `${API_BASE_URL}/login`;
-const PETS_URL = `${API_BASE_URL}/pets/list`;
 const LOGOUT_URL = `${API_BASE_URL}/logout`;
+const PETS_URL = `${API_BASE_URL}/pets/list`;
+const PET_SHOW_URL = `${API_BASE_URL}/pets/show`;
+const PET_STORE_URL = `${API_BASE_URL}/pets/store`;
+const PET_EDIT_URL = `${API_BASE_URL}/pets/edit`;
+const PET_DELETE_URL = `${API_BASE_URL}/pets/delete`;
 const PET_IMAGE = '/images/image2.png';
+const FORM_FOOTER_IMAGE = '/images/image3.png';
 
 function PawIcon() {
   return (
@@ -49,10 +54,11 @@ function LogoutIcon() {
   );
 }
 
-function HeartIcon() {
+function BackIcon() {
   return (
     <svg viewBox="0 0 24 24" role="img">
-      <path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 1 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z" />
+      <path d="M19 12H5" />
+      <path d="M12 19l-7-7 7-7" />
     </svg>
   );
 }
@@ -76,6 +82,12 @@ function TrashIcon() {
       <path d="M14 11v6" />
     </svg>
   );
+}
+
+function getAuthHeaders() {
+  return {
+    Authorization: `Bearer ${localStorage.getItem('larapets_token')}`,
+  };
 }
 
 function getPetImage(image) {
@@ -102,7 +114,7 @@ function getPetStatus(pet) {
   return 'Disponible';
 }
 
-function PetCard({ pet }) {
+function PetCard({ pet, onView, onEdit, onDelete }) {
   return (
     <article className="pet-card">
       <div className="pet-photo-wrap">
@@ -122,13 +134,13 @@ function PetCard({ pet }) {
       </div>
 
       <div className="pet-actions" aria-label={`Acciones para ${pet.name}`}>
-        <button type="button" aria-label="Favorito">
-          <HeartIcon />
+        <button type="button" onClick={() => onView(pet.id)} aria-label="Ver mascota">
+          <PawIcon />
         </button>
-        <button type="button" aria-label="Editar">
+        <button type="button" onClick={() => onEdit(pet)} aria-label="Editar">
           <PencilIcon />
         </button>
-        <button type="button" aria-label="Eliminar">
+        <button type="button" onClick={() => onDelete(pet)} aria-label="Eliminar">
           <TrashIcon />
         </button>
       </div>
@@ -136,31 +148,226 @@ function PetCard({ pet }) {
   );
 }
 
+function PetForm({ pet, onBack, onSubmit }) {
+  const [form, setForm] = useState({
+    name: pet?.name || '',
+    kind: pet?.kind || '',
+    breed: pet?.breed || '',
+    age: pet?.age || '',
+    weight: pet?.weight || '',
+    location: pet?.location || '',
+    description: pet?.description || '',
+    active: pet?.active ?? 1,
+    adopted: pet?.adopted ?? 0,
+  });
+  const [saving, setSaving] = useState(false);
+  const isEditing = Boolean(pet);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm((currentForm) => ({
+      ...currentForm,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setSaving(true);
+
+    try {
+      await onSubmit({
+        ...form,
+        active: Number(form.active),
+        adopted: Number(form.adopted),
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <main className="pets-shell pet-form-shell">
+      <button className="back-button" type="button" onClick={onBack} aria-label="Volver">
+        <BackIcon />
+      </button>
+
+      <header className="pet-form-header">
+        <span className="form-title-icon" aria-hidden="true">
+          <PawIcon />
+        </span>
+        <div>
+          <h1>{isEditing ? 'Editar mascota' : 'Agregar mascota'}</h1>
+          <p>{isEditing ? 'Actualiza la información de la mascota.' : 'Completa la información para registrar una nueva mascota.'}</p>
+        </div>
+      </header>
+
+      <form className="pet-form" onSubmit={handleSubmit}>
+        <label>
+          <span><PawIcon /> Nombre *</span>
+          <input name="name" value={form.name} onChange={handleChange} placeholder="Ej. Milo" required />
+        </label>
+
+        <label>
+          <span><PawIcon /> Especie *</span>
+          <select name="kind" value={form.kind} onChange={handleChange} required>
+            <option value="">Selecciona la especie</option>
+            <option value="Perro">Perro</option>
+            <option value="Gato">Gato</option>
+            <option value="Ave">Ave</option>
+            <option value="Cerdo">Cerdo</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </label>
+
+        <label>
+          <span><PawIcon /> Raza</span>
+          <input name="breed" value={form.breed} onChange={handleChange} placeholder="Ej. Mestizo" />
+        </label>
+
+        <label>
+          <span><PawIcon /> Edad *</span>
+          <input name="age" value={form.age} onChange={handleChange} placeholder="Ej. 2 años" required />
+        </label>
+
+        <label>
+          <span><PawIcon /> Peso *</span>
+          <input name="weight" value={form.weight} onChange={handleChange} placeholder="Ej. 12 kg" required />
+        </label>
+
+        <label>
+          <span><PawIcon /> Ubicación *</span>
+          <input name="location" value={form.location} onChange={handleChange} placeholder="Ej. Bogotá" required />
+        </label>
+
+        <label>
+          <span><PawIcon /> Descripción *</span>
+          <textarea
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            placeholder="Cuéntanos sobre su personalidad, hábitos, lo que le gusta..."
+            maxLength="300"
+            required
+          />
+        </label>
+
+        <label>
+          <span><PawIcon /> Estado *</span>
+          <select name="active" value={form.active} onChange={handleChange} required>
+            <option value="1">Disponible para adopción</option>
+            <option value="0">No disponible</option>
+          </select>
+        </label>
+
+        <button className="save-pet-button" type="submit" disabled={saving}>
+          <PawIcon />
+          {saving ? 'Guardando...' : 'Guardar mascota'}
+        </button>
+      </form>
+
+      <img className="pet-form-footer" src={FORM_FOOTER_IMAGE} alt="" />
+    </main>
+  );
+}
+
 function PetsView({ onLogout }) {
   const [pets, setPets] = useState([]);
   const [status, setStatus] = useState({ type: 'loading', message: 'Cargando mascotas...' });
+  const [view, setView] = useState('list');
+  const [selectedPet, setSelectedPet] = useState(null);
+
+  const loadPets = async () => {
+    setStatus({ type: 'loading', message: 'Cargando mascotas...' });
+
+    try {
+      const { data } = await axios.get(PETS_URL, {
+        headers: getAuthHeaders(),
+      });
+
+      setPets(data.data || []);
+      setStatus({ type: 'success', message: '' });
+    } catch (error) {
+      const message = error.response?.data?.message || 'No se pudo cargar la lista de mascotas.';
+      setStatus({ type: 'error', message });
+    }
+  };
 
   useEffect(() => {
-    const loadPets = async () => {
-      const token = localStorage.getItem('larapets_token');
-
-      try {
-        const { data } = await axios.get(PETS_URL, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setPets(data.data || []);
-        setStatus({ type: 'success', message: '' });
-      } catch (error) {
-        const message = error.response?.data?.message || 'No se pudo cargar la lista de mascotas.';
-        setStatus({ type: 'error', message });
-      }
-    };
-
     loadPets();
   }, []);
+
+  const handleViewPet = async (id) => {
+    try {
+      const { data } = await axios.get(`${PET_SHOW_URL}/${id}`, {
+        headers: getAuthHeaders(),
+      });
+      const pet = data.data;
+      window.alert(`${pet.name}\n${pet.kind} - ${pet.breed}\nEdad: ${pet.age}\nUbicación: ${pet.location}\n\n${pet.description}`);
+    } catch (error) {
+      window.alert(error.response?.data?.message || 'No se pudo consultar la mascota.');
+    }
+  };
+
+  const handleCreatePet = async () => {
+    setSelectedPet(null);
+    setView('form');
+  };
+
+  const handleEditPet = (pet) => {
+    setSelectedPet(pet);
+    setView('form');
+  };
+
+  const handleSavePet = async (payload) => {
+    try {
+      if (selectedPet) {
+        await axios.put(`${PET_EDIT_URL}/${selectedPet.id}`, payload, {
+          headers: getAuthHeaders(),
+        });
+      } else {
+        await axios.post(PET_STORE_URL, payload, {
+          headers: getAuthHeaders(),
+        });
+      }
+
+      setView('list');
+      setSelectedPet(null);
+      await loadPets();
+    } catch (error) {
+      window.alert(error.response?.data?.message || 'No se pudo guardar la mascota.');
+      throw error;
+    }
+  };
+
+  const handleBackToList = () => {
+    setView('list');
+    setSelectedPet(null);
+  };
+
+  const handleDeletePet = async (pet) => {
+    const shouldDelete = window.confirm(`¿Eliminar a ${pet.name}?`);
+    if (!shouldDelete) {
+      return;
+    }
+
+    try {
+      await axios.delete(`${PET_DELETE_URL}/${pet.id}`, {
+        headers: getAuthHeaders(),
+      });
+      await loadPets();
+    } catch (error) {
+      window.alert(error.response?.data?.message || 'No se pudo eliminar la mascota.');
+    }
+  };
+
+  if (view === 'form') {
+    return (
+      <div className="pets-page">
+        <PetForm pet={selectedPet} onBack={handleBackToList} onSubmit={handleSavePet} />
+      </div>
+    );
+  }
 
   return (
     <div className="pets-page">
@@ -179,7 +386,7 @@ function PetsView({ onLogout }) {
           </button>
         </header>
 
-        <button className="add-pet-button" type="button">
+        <button className="add-pet-button" type="button" onClick={handleCreatePet}>
           <PawIcon />
           Agregar mascota
         </button>
@@ -195,13 +402,18 @@ function PetsView({ onLogout }) {
         {pets.length > 0 && (
           <section className="pets-grid" aria-label="Lista de mascotas">
             {pets.map((pet) => (
-              <PetCard key={pet.id} pet={pet} />
+              <PetCard
+                key={pet.id}
+                pet={pet}
+                onView={handleViewPet}
+                onEdit={handleEditPet}
+                onDelete={handleDeletePet}
+              />
             ))}
           </section>
         )}
 
         <img className="pets-scene" src={PET_IMAGE} alt="" />
-
       </main>
     </div>
   );
@@ -247,9 +459,7 @@ function Challenge() {
     try {
       if (token) {
         await axios.post(LOGOUT_URL, null, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: getAuthHeaders(),
         });
       }
     } catch (error) {
