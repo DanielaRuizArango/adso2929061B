@@ -118,7 +118,14 @@ function PetCard({ pet, onView, onEdit, onDelete }) {
   return (
     <article className="pet-card">
       <div className="pet-photo-wrap">
-        <img className="pet-photo" src={getPetImage(pet.image)} alt={pet.name} />
+        <img
+          className="pet-photo"
+          src={getPetImage(pet.image)}
+          alt={pet.name}
+          onError={(event) => {
+            event.currentTarget.src = PET_IMAGE;
+          }}
+        />
         <span className="pet-status">{getPetStatus(pet)}</span>
       </div>
 
@@ -159,15 +166,16 @@ function PetForm({ pet, onBack, onSubmit }) {
     description: pet?.description || '',
     active: pet?.active ?? 1,
     adopted: pet?.adopted ?? 0,
+    image: null,
   });
   const [saving, setSaving] = useState(false);
   const isEditing = Boolean(pet);
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { files, name, type, value } = event.target;
     setForm((currentForm) => ({
       ...currentForm,
-      [name]: value,
+      [name]: type === 'file' ? files[0] || null : value,
     }));
   };
 
@@ -203,6 +211,11 @@ function PetForm({ pet, onBack, onSubmit }) {
       </header>
 
       <form className="pet-form" onSubmit={handleSubmit}>
+        <label>
+          <span><PawIcon /> Foto</span>
+          <input name="image" type="file" accept="image/png,image/jpeg,image/webp" onChange={handleChange} />
+        </label>
+
         <label>
           <span><PawIcon /> Nombre *</span>
           <input name="name" value={form.name} onChange={handleChange} placeholder="Ej. Milo" required />
@@ -271,6 +284,73 @@ function PetForm({ pet, onBack, onSubmit }) {
   );
 }
 
+function PetDetail({ pet, onBack, onEdit }) {
+  return (
+    <main className="pets-shell pet-detail-shell">
+      <button className="back-button" type="button" onClick={onBack} aria-label="Volver">
+        <BackIcon />
+      </button>
+
+      <section className="detail-hero">
+        <div className="detail-photo-wrap">
+          <img
+            className="detail-photo"
+            src={getPetImage(pet.image)}
+            alt={pet.name}
+            onError={(event) => {
+              event.currentTarget.src = PET_IMAGE;
+            }}
+          />
+          <span className="pet-status detail-status">
+            <PawIcon />
+            {getPetStatus(pet)}
+          </span>
+        </div>
+
+        <div className="detail-summary">
+          <div className="detail-title">
+            <PawIcon />
+            <h1>{pet.name}</h1>
+          </div>
+          <p>{pet.breed || pet.kind || 'Mascota'}</p>
+          <ul>
+            <li><span>Edad</span>{pet.age || 'No registrada'}</li>
+            <li><span>Especie</span>{pet.kind || 'No registrada'}</li>
+            <li><span>Peso</span>{pet.weight || 'No registrado'}</li>
+            <li><span>Ubicación</span>{pet.location || 'No registrada'}</li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="detail-panel">
+        <h2><PawIcon /> Descripción</h2>
+        <p>{pet.description || 'Esta mascota todavía no tiene descripción.'}</p>
+      </section>
+
+      <section className="detail-info-grid">
+        <article>
+          <h2><PawIcon /> Estado</h2>
+          <p>{getPetStatus(pet)}</p>
+          <p>{pet.adopted ? 'Ya fue adoptada.' : 'Lista para encontrar un hogar.'}</p>
+        </article>
+
+        <article>
+          <h2><PawIcon /> Contacto</h2>
+          <p>¿Interesado en {pet.name}?</p>
+          <p>Agenda una visita para conocerla.</p>
+        </article>
+      </section>
+
+      <button className="detail-edit-button" type="button" onClick={() => onEdit(pet)}>
+        <PencilIcon />
+        Editar mascota
+      </button>
+
+      <img className="pet-detail-footer" src="/images/image1.png" alt="" />
+    </main>
+  );
+}
+
 function PetsView({ onLogout }) {
   const [pets, setPets] = useState([]);
   const [status, setStatus] = useState({ type: 'loading', message: 'Cargando mascotas...' });
@@ -302,8 +382,8 @@ function PetsView({ onLogout }) {
       const { data } = await axios.get(`${PET_SHOW_URL}/${id}`, {
         headers: getAuthHeaders(),
       });
-      const pet = data.data;
-      window.alert(`${pet.name}\n${pet.kind} - ${pet.breed}\nEdad: ${pet.age}\nUbicación: ${pet.location}\n\n${pet.description}`);
+      setSelectedPet(data.data);
+      setView('detail');
     } catch (error) {
       window.alert(error.response?.data?.message || 'No se pudo consultar la mascota.');
     }
@@ -320,14 +400,29 @@ function PetsView({ onLogout }) {
   };
 
   const handleSavePet = async (payload) => {
+    const formData = new FormData();
+
+    Object.entries(payload).forEach(([key, value]) => {
+      if (value !== null && value !== undefined && value !== '') {
+        formData.append(key, value);
+      }
+    });
+
     try {
       if (selectedPet) {
-        await axios.put(`${PET_EDIT_URL}/${selectedPet.id}`, payload, {
-          headers: getAuthHeaders(),
+        formData.append('_method', 'PUT');
+        await axios.post(`${PET_EDIT_URL}/${selectedPet.id}`, formData, {
+          headers: {
+            ...getAuthHeaders(),
+            'Content-Type': 'multipart/form-data',
+          },
         });
       } else {
-        await axios.post(PET_STORE_URL, payload, {
-          headers: getAuthHeaders(),
+        await axios.post(PET_STORE_URL, formData, {
+          headers: {
+            ...getAuthHeaders(),
+            'Content-Type': 'multipart/form-data',
+          },
         });
       }
 
@@ -365,6 +460,14 @@ function PetsView({ onLogout }) {
     return (
       <div className="pets-page">
         <PetForm pet={selectedPet} onBack={handleBackToList} onSubmit={handleSavePet} />
+      </div>
+    );
+  }
+
+  if (view === 'detail' && selectedPet) {
+    return (
+      <div className="pets-page">
+        <PetDetail pet={selectedPet} onBack={handleBackToList} onEdit={handleEditPet} />
       </div>
     );
   }

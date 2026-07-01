@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Pet;
 
 
@@ -51,9 +52,17 @@ class PetController extends Controller
                 'location' => 'required',
                 'description' => 'required',
                 'active' => 'required',
-                'adopted' => 'required'
+                'adopted' => 'required',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120'
             ]);
-            $pet = Pet::create($request->all());
+
+            $data = $request->except('image');
+
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image')->store('pets', 'public');
+            }
+
+            $pet = Pet::create($data);
             return response()->json([
                 "message"=> "✅ Query Succes!",
                 "data"=> $pet,
@@ -79,11 +88,22 @@ class PetController extends Controller
                 'location' => 'sometimes|required',
                 'description' => 'sometimes|required',
                 'active' => 'sometimes|required',
-                'adopted' => 'sometimes|required'
+                'adopted' => 'sometimes|required',
+                'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120'
             ]);
             $pet = Pet::findOrFail($id);
-        
-            $pet->update($request->all());
+
+            $data = $request->except('image');
+
+            if ($request->hasFile('image')) {
+                if ($pet->image) {
+                    Storage::disk('public')->delete($pet->image);
+                }
+
+                $data['image'] = $request->file('image')->store('pets', 'public');
+            }
+
+            $pet->update($data);
 
             return response()->json([
                 "message" => "✅ ¡Mascota '{$pet->name}' actualizada con éxito!",
