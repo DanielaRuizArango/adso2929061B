@@ -332,8 +332,11 @@
 
 .pets-title {
   display: flex;
-  align-items: flex-start;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
   gap: 14px;
+  text-align: center;
 }
 
 .pets-title img {
@@ -343,11 +346,11 @@
 }
 
 .pets-title h1 {
-  margin: 0 0 8px;
+  margin: 0;
   color: var(--text);
   font-size: 38px;
   line-height: 1;
-  text-align: left;
+  text-align: center;
 }
 
 .pets-title p {
@@ -392,7 +395,7 @@
   margin: 0 auto 24px;
   border: none;
   border-radius: 14px;
-  background: linear-gradient(180deg, #f57f24, var(--primary-dark));
+  background: var(--primary);
   color: #fffdf9;
   display: flex;
   align-items: center;
@@ -401,7 +404,7 @@
   cursor: pointer;
   font-size: 21px;
   font-weight: 800;
-  box-shadow: 0 12px 18px rgba(179, 91, 31, 0.28);
+  box-shadow: none;
 }
 
 .add-pet-button svg {
@@ -583,23 +586,20 @@
 
 .pet-form-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: 14px;
   margin: 10px 0 18px;
+  text-align: center;
 }
 
-.form-title-icon {
-  width: 40px;
-  height: 40px;
-  color: var(--primary-dark);
-  display: inline-flex;
-  flex: 0 0 40px;
-}
-
-.form-title-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: currentColor;
+.form-title-logo {
+  width: 84px;
+  height: 48px;
+  display: block;
+  flex: 0 0 84px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .pet-form-header h1 {
@@ -607,7 +607,7 @@
   color: var(--text);
   font-size: 34px;
   line-height: 1;
-  text-align: left;
+  text-align: center;
 }
 
 .pet-form-header p {
@@ -616,6 +616,7 @@
   color: var(--text-secondary);
   font-size: 15px;
   line-height: 1.35;
+  text-align: center;
 }
 
 .pet-form {
@@ -645,7 +646,11 @@
   width: 18px;
   height: 18px;
   color: var(--primary-dark);
-  fill: currentColor;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .pet-form input,
@@ -686,6 +691,24 @@
   font-weight: 700;
 }
 
+.pet-image-preview {
+  width: min(100%, 210px);
+  height: 118px;
+  margin: -2px auto 2px;
+  border: 1px solid #e8ceb5;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255, 253, 249, 0.88);
+}
+
+.pet-image-preview img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
 .pet-form textarea {
   min-height: 72px;
   max-height: 72px;
@@ -705,7 +728,7 @@
   margin: 8px auto 0;
   border: none;
   border-radius: 14px;
-  background: linear-gradient(180deg, #ff8429, #e96f21);
+  background: var(--primary);
   color: #fffdf9;
   display: inline-flex;
   align-items: center;
@@ -714,7 +737,7 @@
   cursor: pointer;
   font-size: 20px;
   font-weight: 800;
-  box-shadow: 0 12px 18px rgba(179, 91, 31, 0.28);
+  box-shadow: none;
 }
 
 .save-pet-button:disabled {

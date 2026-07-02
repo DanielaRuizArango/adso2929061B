@@ -114,6 +114,103 @@ function TrashIcon() {
   );
 }
 
+function CameraIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M4 8h4l2-3h4l2 3h4v11H4z" />
+      <circle cx="12" cy="13" r="3.5" />
+    </svg>
+  );
+}
+
+function BadgeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <rect x="5" y="4" width="14" height="16" rx="2" />
+      <path d="M9 9h6" />
+      <path d="M9 13h4" />
+    </svg>
+  );
+}
+
+function SpeciesIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M12 21c4-3.2 7-6.5 7-10a7 7 0 0 0-14 0c0 3.5 3 6.8 7 10Z" />
+      <path d="M9.5 10.5h.01" />
+      <path d="M14.5 10.5h.01" />
+      <path d="M10 14c1.2.9 2.8.9 4 0" />
+    </svg>
+  );
+}
+
+function TagIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M20 13 13 20 4 11V4h7l9 9Z" />
+      <circle cx="8.5" cy="8.5" r="1.2" />
+    </svg>
+  );
+}
+
+function CalendarIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <rect x="4" y="5" width="16" height="15" rx="2" />
+      <path d="M8 3v4" />
+      <path d="M16 3v4" />
+      <path d="M4 10h16" />
+    </svg>
+  );
+}
+
+function ScaleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M12 4v16" />
+      <path d="M6 7h12" />
+      <path d="m6 7-3 6h6L6 7Z" />
+      <path d="m18 7-3 6h6l-3-6Z" />
+    </svg>
+  );
+}
+
+function LocationIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M12 21s7-5.2 7-11a7 7 0 0 0-14 0c0 5.8 7 11 7 11Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
+function DescriptionIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M5 4h14v16H5z" />
+      <path d="M8 8h8" />
+      <path d="M8 12h8" />
+      <path d="M8 16h5" />
+    </svg>
+  );
+}
+
+function StatusIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img">
+      <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" />
+    </svg>
+  );
+}
+
 function getAuthHeaders() {
   return {
     Authorization: `Bearer ${localStorage.getItem('larapets_token')}`,
@@ -233,7 +330,22 @@ function PetForm({ pet, onBack, onSubmit }) {
     image: null,
   });
   const [saving, setSaving] = useState(false);
+  const [imagePreview, setImagePreview] = useState(() => getPetImage(pet?.image));
   const isEditing = Boolean(pet);
+
+  useEffect(() => {
+    if (!form.image) {
+      setImagePreview(getPetImage(pet?.image));
+      return undefined;
+    }
+
+    const previewUrl = URL.createObjectURL(form.image);
+    setImagePreview(previewUrl);
+
+    return () => {
+      URL.revokeObjectURL(previewUrl);
+    };
+  }, [form.image, pet?.image]);
 
   const handleChange = (event) => {
     const { files, name, type, value } = event.target;
@@ -267,9 +379,7 @@ function PetForm({ pet, onBack, onSubmit }) {
       </button>
 
       <header className="pet-form-header">
-        <span className="form-title-icon" aria-hidden="true">
-          <PawIcon />
-        </span>
+        <img className="form-title-logo" src="/images/logo1.png" alt="" />
         <div>
           <h1>{isEditing ? 'Editar mascota' : 'Agregar mascota'}</h1>
           <p>{isEditing ? 'Actualiza la información de la mascota.' : 'Completa la información para registrar una nueva mascota.'}</p>
@@ -278,17 +388,27 @@ function PetForm({ pet, onBack, onSubmit }) {
 
       <form className="pet-form" onSubmit={handleSubmit}>
         <label>
-          <span><PawIcon /> Foto</span>
+          <span><CameraIcon /> Foto</span>
           <input name="image" type="file" accept="image/png,image/jpeg,image/webp" onChange={handleChange} />
         </label>
 
+        <div className="pet-image-preview">
+          <img
+            src={imagePreview}
+            alt="Vista previa de la mascota"
+            onError={(event) => {
+              event.currentTarget.src = PET_IMAGE;
+            }}
+          />
+        </div>
+
         <label>
-          <span><PawIcon /> Nombre *</span>
+          <span><BadgeIcon /> Nombre *</span>
           <input name="name" value={form.name} onChange={handleChange} placeholder="Ej. Milo" required />
         </label>
 
         <label>
-          <span><PawIcon /> Especie *</span>
+          <span><SpeciesIcon /> Especie *</span>
           <select name="kind" value={form.kind} onChange={handleChange} required>
             <option value="">Selecciona la especie</option>
             {PET_KIND_OPTIONS.map((option) => (
@@ -300,27 +420,27 @@ function PetForm({ pet, onBack, onSubmit }) {
         </label>
 
         <label>
-          <span><PawIcon /> Raza</span>
+          <span><TagIcon /> Raza</span>
           <input name="breed" value={form.breed} onChange={handleChange} placeholder="Ej. Mestizo" />
         </label>
 
         <label>
-          <span><PawIcon /> Edad *</span>
+          <span><CalendarIcon /> Edad *</span>
           <input name="age" type="number" min="0" step="1" value={form.age} onChange={handleChange} placeholder="Ej. 2" required />
         </label>
 
         <label>
-          <span><PawIcon /> Peso *</span>
+          <span><ScaleIcon /> Peso *</span>
           <input name="weight" type="number" min="0" step="0.1" value={form.weight} onChange={handleChange} placeholder="Ej. 12" required />
         </label>
 
         <label>
-          <span><PawIcon /> Ubicación *</span>
+          <span><LocationIcon /> Ubicación *</span>
           <input name="location" value={form.location} onChange={handleChange} placeholder="Ej. Bogotá" required />
         </label>
 
         <label>
-          <span><PawIcon /> Descripción *</span>
+          <span><DescriptionIcon /> Descripción *</span>
           <textarea
             name="description"
             value={form.description}
@@ -332,7 +452,7 @@ function PetForm({ pet, onBack, onSubmit }) {
         </label>
 
         <label>
-          <span><PawIcon /> Status activo *</span>
+          <span><StatusIcon /> Status *</span>
           <select name="active" value={form.active} onChange={handleChange} required>
             <option value="1">Activo</option>
             <option value="0">Inactivo</option>
@@ -340,7 +460,7 @@ function PetForm({ pet, onBack, onSubmit }) {
         </label>
 
         <label>
-          <span><PawIcon /> Adopción *</span>
+          <span><HeartIcon /> Adopción *</span>
           <select name="adopted" value={form.adopted} onChange={handleChange} required>
             <option value="0">No adoptada</option>
             <option value="1">Adoptada</option>
@@ -404,7 +524,7 @@ function PetDetail({ pet, onBack, onEdit }) {
 
       <section className="detail-info-grid">
         <article className="detail-status-row">
-          <h2><PawIcon /> Status activo</h2>
+          <h2><PawIcon /> Status</h2>
           <p>{getFlagValue(pet.active, 1) === '1' ? 'Activo' : 'Inactivo'}</p>
         </article>
 
@@ -573,8 +693,7 @@ function PetsView({ onLogout }) {
           <div className="pets-title">
             <img src="/images/logo1.png" alt="" />
             <div>
-              <h1>Mis mascotas</h1>
-              <p>Gestiona las mascotas disponibles para adopción.</p>
+              <h1>Lista de Mascotas</h1>
             </div>
           </div>
 
