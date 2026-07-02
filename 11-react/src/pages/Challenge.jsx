@@ -133,11 +133,11 @@ function getPetImage(image) {
 }
 
 function getPetStatus(pet) {
-  if (pet.adopted) {
+  if (getFlagValue(pet.adopted, 0) === '1') {
     return 'Adoptada';
   }
 
-  if (pet.active === false || pet.active === 0) {
+  if (getFlagValue(pet.active, 1) === '0') {
     return 'No disponible';
   }
 
@@ -151,6 +151,14 @@ function getPetKindValue(kind) {
 function getPetKindLabel(kind) {
   const normalizedKind = getPetKindValue(kind);
   return PET_KIND_OPTIONS.find((option) => option.value === normalizedKind)?.label || kind || '';
+}
+
+function getFlagValue(value, defaultValue) {
+  if (value === undefined || value === null || value === '') {
+    return String(defaultValue);
+  }
+
+  return value === true || value === 1 || value === '1' ? '1' : '0';
 }
 
 function getApiErrorMessage(error, fallbackMessage) {
@@ -220,8 +228,8 @@ function PetForm({ pet, onBack, onSubmit }) {
     weight: pet?.weight || '',
     location: pet?.location || '',
     description: pet?.description || '',
-    active: pet?.active ?? 1,
-    adopted: pet?.adopted ?? 0,
+    active: getFlagValue(pet?.active, 1),
+    adopted: getFlagValue(pet?.adopted, 0),
     image: null,
   });
   const [saving, setSaving] = useState(false);
@@ -324,10 +332,18 @@ function PetForm({ pet, onBack, onSubmit }) {
         </label>
 
         <label>
-          <span><PawIcon /> Estado *</span>
+          <span><PawIcon /> Status activo *</span>
           <select name="active" value={form.active} onChange={handleChange} required>
-            <option value="1">Disponible para adopción</option>
-            <option value="0">No disponible</option>
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
+          </select>
+        </label>
+
+        <label>
+          <span><PawIcon /> Adopción *</span>
+          <select name="adopted" value={form.adopted} onChange={handleChange} required>
+            <option value="0">No adoptada</option>
+            <option value="1">Adoptada</option>
           </select>
         </label>
 
@@ -388,8 +404,13 @@ function PetDetail({ pet, onBack, onEdit }) {
 
       <section className="detail-info-grid">
         <article className="detail-status-row">
-          <h2><PawIcon /> Estado</h2>
-          <p>{pet.adopted ? 'Adoptada' : 'No adoptada'}</p>
+          <h2><PawIcon /> Status activo</h2>
+          <p>{getFlagValue(pet.active, 1) === '1' ? 'Activo' : 'Inactivo'}</p>
+        </article>
+
+        <article className="detail-status-row">
+          <h2><PawIcon /> Adopción</h2>
+          <p>{getFlagValue(pet.adopted, 0) === '1' ? 'Adoptada' : 'No adoptada'}</p>
         </article>
       </section>
 
