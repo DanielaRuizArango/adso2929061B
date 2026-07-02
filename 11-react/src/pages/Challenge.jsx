@@ -12,7 +12,7 @@ import PetFormPage from '../components/challenge/pages/PetFormPage';
 
 function ProtectedRoute({ isLoggedIn, children }) {
   if (!isLoggedIn) {
-    return <Navigate to="/challenge" replace />;
+    return <Navigate to="/challenge/login" replace />;
   }
 
   return children;
@@ -80,26 +80,30 @@ function Challenge() {
     setIsLoggedIn(false);
     setForm({ email: '', password: '' });
     setStatus({ type: '', message: '' });
-    navigate('/challenge');
+    navigate('/challenge/login');
   };
+
+  const loginRoute = isLoggedIn ? (
+    <Navigate to="/challenge/pets" replace />
+  ) : (
+    <LoginView
+      form={form}
+      loading={loading}
+      status={status}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+    />
+  );
 
   return (
     <Routes>
       <Route
         index
-        element={
-          isLoggedIn ? (
-            <Navigate to="pets" replace />
-          ) : (
-            <LoginView
-              form={form}
-              loading={loading}
-              status={status}
-              onChange={handleChange}
-              onSubmit={handleSubmit}
-            />
-          )
-        }
+        element={<Navigate to={isLoggedIn ? 'pets' : 'login'} replace />}
+      />
+      <Route
+        path="login"
+        element={loginRoute}
       />
       <Route
         path="pets"
@@ -133,7 +137,7 @@ function Challenge() {
           </ProtectedRoute>
         }
       />
-      <Route path="*" element={<Navigate to={isLoggedIn ? 'pets' : '/challenge'} replace />} />
+      <Route path="*" element={<Navigate to={isLoggedIn ? 'pets' : '/challenge/login'} replace />} />
     </Routes>
   );
 }
