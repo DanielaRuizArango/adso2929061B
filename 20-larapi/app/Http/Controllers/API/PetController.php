@@ -46,13 +46,13 @@ class PetController extends Controller
             $request->validate([
                 'name' => 'required',
                 'kind' => 'required',
-                'weight' => 'required',
-                'age' => 'required',
+                'weight' => 'required|numeric|min:0',
+                'age' => 'required|integer|min:0',
                 'breed' => 'required',
                 'location' => 'required',
                 'description' => 'required',
-                'active' => 'required',
-                'adopted' => 'required',
+                'active' => 'required|boolean',
+                'adopted' => 'required|boolean',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120'
             ]);
 
@@ -82,13 +82,13 @@ class PetController extends Controller
             $request->validate([
                 'name' => 'sometimes|required',
                 'kind' => 'sometimes|required',
-                'weight' => 'sometimes|required',
-                'age' => 'sometimes|required',
+                'weight' => 'sometimes|required|numeric|min:0',
+                'age' => 'sometimes|required|integer|min:0',
                 'breed' => 'sometimes|required',
                 'location' => 'sometimes|required',
                 'description' => 'sometimes|required',
-                'active' => 'sometimes|required',
-                'adopted' => 'sometimes|required',
+                'active' => 'sometimes|required|boolean',
+                'adopted' => 'sometimes|required|boolean',
                 'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120'
             ]);
             $pet = Pet::findOrFail($id);

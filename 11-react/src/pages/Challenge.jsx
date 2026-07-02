@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import './Challenge.css';
 
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
@@ -12,6 +14,34 @@ const PET_EDIT_URL = `${API_BASE_URL}/pets/edit`;
 const PET_DELETE_URL = `${API_BASE_URL}/pets/delete`;
 const PET_IMAGE = '/images/image2.png';
 const FORM_FOOTER_IMAGE = '/images/image3.png';
+const PET_KIND_OPTIONS = [
+  { value: 'Dog', label: 'Perro' },
+  { value: 'Cat', label: 'Gato' },
+  { value: 'Bird', label: 'Ave' },
+  { value: 'Pig', label: 'Cerdo' },
+  { value: 'Other', label: 'Otro' },
+];
+const PET_KIND_ALIASES = {
+  Perro: 'Dog',
+  Gato: 'Cat',
+  Ave: 'Bird',
+  Cerdo: 'Pig',
+  Otro: 'Other',
+};
+const swal = Swal.mixin({
+  background: '#FFFDF9',
+  color: '#4B3425',
+  confirmButtonColor: '#E98B42',
+  cancelButtonColor: '#78885A',
+  customClass: {
+    popup: 'larapets-alert',
+    title: 'larapets-alert-title',
+    htmlContainer: 'larapets-alert-text',
+    confirmButton: 'larapets-alert-confirm',
+    cancelButton: 'larapets-alert-cancel',
+  },
+  buttonsStyling: false,
+});
 
 function PawIcon() {
   return (
@@ -114,6 +144,32 @@ function getPetStatus(pet) {
   return 'Disponible';
 }
 
+function getPetKindValue(kind) {
+  return PET_KIND_ALIASES[kind] || kind || '';
+}
+
+function getPetKindLabel(kind) {
+  const normalizedKind = getPetKindValue(kind);
+  return PET_KIND_OPTIONS.find((option) => option.value === normalizedKind)?.label || kind || '';
+}
+
+function getApiErrorMessage(error, fallbackMessage) {
+  const errors = error.response?.data?.errors;
+  if (errors) {
+    return Object.values(errors).flat().join('<br>');
+  }
+
+  return error.response?.data?.message || fallbackMessage;
+}
+
+function showError(title, message) {
+  return swal.fire({
+    icon: 'error',
+    title,
+    html: message,
+  });
+}
+
 function PetCard({ pet, onView, onEdit, onDelete }) {
   return (
     <article className="pet-card">
@@ -136,7 +192,7 @@ function PetCard({ pet, onView, onEdit, onDelete }) {
           </span>
           <h2>{pet.name}</h2>
         </div>
-        <p>{pet.breed || pet.kind || 'Mascota'}</p>
+        <p>{pet.breed || getPetKindLabel(pet.kind) || 'Mascota'}</p>
         <p>{pet.age ? `${pet.age} años` : 'Edad no registrada'}</p>
       </div>
 
@@ -158,7 +214,7 @@ function PetCard({ pet, onView, onEdit, onDelete }) {
 function PetForm({ pet, onBack, onSubmit }) {
   const [form, setForm] = useState({
     name: pet?.name || '',
-    kind: pet?.kind || '',
+    kind: getPetKindValue(pet?.kind),
     breed: pet?.breed || '',
     age: pet?.age || '',
     weight: pet?.weight || '',
@@ -186,6 +242,8 @@ function PetForm({ pet, onBack, onSubmit }) {
     try {
       await onSubmit({
         ...form,
+        age: Number(form.age),
+        weight: Number(form.weight),
         active: Number(form.active),
         adopted: Number(form.adopted),
       });
@@ -225,11 +283,11 @@ function PetForm({ pet, onBack, onSubmit }) {
           <span><PawIcon /> Especie *</span>
           <select name="kind" value={form.kind} onChange={handleChange} required>
             <option value="">Selecciona la especie</option>
-            <option value="Perro">Perro</option>
-            <option value="Gato">Gato</option>
-            <option value="Ave">Ave</option>
-            <option value="Cerdo">Cerdo</option>
-            <option value="Otro">Otro</option>
+            {PET_KIND_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </label>
 
@@ -240,12 +298,12 @@ function PetForm({ pet, onBack, onSubmit }) {
 
         <label>
           <span><PawIcon /> Edad *</span>
-          <input name="age" value={form.age} onChange={handleChange} placeholder="Ej. 2 años" required />
+          <input name="age" type="number" min="0" step="1" value={form.age} onChange={handleChange} placeholder="Ej. 2" required />
         </label>
 
         <label>
           <span><PawIcon /> Peso *</span>
-          <input name="weight" value={form.weight} onChange={handleChange} placeholder="Ej. 12 kg" required />
+          <input name="weight" type="number" min="0" step="0.1" value={form.weight} onChange={handleChange} placeholder="Ej. 12" required />
         </label>
 
         <label>
@@ -312,13 +370,13 @@ function PetDetail({ pet, onBack, onEdit }) {
             <PawIcon />
             <h1>{pet.name}</h1>
           </div>
-          <p>{pet.breed || pet.kind || 'Mascota'}</p>
+          <p>{pet.breed || getPetKindLabel(pet.kind) || 'Mascota'}</p>
         </div>
       </section>
 
       <ul className="detail-data-list">
         <li><span>Edad</span>{pet.age || 'No registrada'}</li>
-        <li><span>Especie</span>{pet.kind || 'No registrada'}</li>
+        <li><span>Especie</span>{getPetKindLabel(pet.kind) || 'No registrada'}</li>
         <li><span>Peso</span>{pet.weight || 'No registrado'}</li>
         <li><span>Ubicación</span>{pet.location || 'No registrada'}</li>
       </ul>
@@ -379,7 +437,7 @@ function PetsView({ onLogout }) {
       setSelectedPet(data.data);
       setView('detail');
     } catch (error) {
-      window.alert(error.response?.data?.message || 'No se pudo consultar la mascota.');
+      showError('No se pudo consultar', error.response?.data?.message || 'No se pudo consultar la mascota.');
     }
   };
 
@@ -403,6 +461,8 @@ function PetsView({ onLogout }) {
     });
 
     try {
+      const isEditing = Boolean(selectedPet);
+
       if (selectedPet) {
         formData.append('_method', 'PUT');
         await axios.post(`${PET_EDIT_URL}/${selectedPet.id}`, formData, {
@@ -423,8 +483,13 @@ function PetsView({ onLogout }) {
       setView('list');
       setSelectedPet(null);
       await loadPets();
+      await swal.fire({
+        icon: 'success',
+        title: isEditing ? 'Mascota actualizada' : 'Mascota creada',
+        text: isEditing ? 'Los cambios quedaron guardados correctamente.' : 'La mascota fue registrada correctamente.',
+      });
     } catch (error) {
-      window.alert(error.response?.data?.message || 'No se pudo guardar la mascota.');
+      showError('No se pudo guardar', getApiErrorMessage(error, 'No se pudo guardar la mascota.'));
       throw error;
     }
   };
@@ -435,8 +500,17 @@ function PetsView({ onLogout }) {
   };
 
   const handleDeletePet = async (pet) => {
-    const shouldDelete = window.confirm(`¿Eliminar a ${pet.name}?`);
-    if (!shouldDelete) {
+    const result = await swal.fire({
+      icon: 'warning',
+      title: `Eliminar a ${pet.name}`,
+      text: 'Esta accion no se puede deshacer.',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+    });
+
+    if (!result.isConfirmed) {
       return;
     }
 
@@ -445,8 +519,13 @@ function PetsView({ onLogout }) {
         headers: getAuthHeaders(),
       });
       await loadPets();
+      await swal.fire({
+        icon: 'success',
+        title: 'Mascota eliminada',
+        text: `${pet.name} fue eliminada correctamente.`,
+      });
     } catch (error) {
-      window.alert(error.response?.data?.message || 'No se pudo eliminar la mascota.');
+      showError('No se pudo eliminar', error.response?.data?.message || 'No se pudo eliminar la mascota.');
     }
   };
 
@@ -542,9 +621,17 @@ function Challenge() {
       localStorage.setItem('larapets_user', JSON.stringify(data.user));
       setStatus({ type: 'success', message: 'Inicio de sesión exitoso.' });
       setIsLoggedIn(true);
+      swal.fire({
+        icon: 'success',
+        title: 'Bienvenida',
+        text: 'Inicio de sesion exitoso.',
+        timer: 1400,
+        showConfirmButton: false,
+      });
     } catch (error) {
       const message = error.response?.data?.message || 'No se pudo iniciar sesión. Revisa tus datos.';
       setStatus({ type: 'error', message });
+      showError('No se pudo iniciar sesion', message);
     } finally {
       setLoading(false);
     }
