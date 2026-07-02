@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Challenge.css';
@@ -24,6 +24,31 @@ function Challenge() {
   const [status, setStatus] = useState({ type: '', message: '' });
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(() => Boolean(localStorage.getItem('larapets_token')));
+
+  useEffect(() => {
+    const interceptorId = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        const statusCode = error.response?.status;
+        const hasToken = Boolean(localStorage.getItem('larapets_token'));
+
+        if (hasToken && (statusCode === 401 || statusCode === 403)) {
+          localStorage.removeItem('larapets_token');
+          localStorage.removeItem('larapets_user');
+          setIsLoggedIn(false);
+          setForm({ email: '', password: '' });
+          setStatus({ type: 'error', message: 'Tu sesión expiró. Inicia sesión nuevamente.' });
+          navigate('/challenge/login', { replace: true });
+        }
+
+        return Promise.reject(error);
+      },
+    );
+
+    return () => {
+      axios.interceptors.response.eject(interceptorId);
+    };
+  }, [navigate]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
