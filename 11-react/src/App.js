@@ -25,7 +25,7 @@ function App() {
           <Route path="/example6" element={<Example6CondicionalListas />} />
           <Route path="/example7/*" element={<Example7Routing />} />
           <Route path="/example8" element={<Example8DataFetching />} />
-          <Route path="/challenge" element={<Challenge />} />
+          <Route path="/challenge/*" element={<Challenge />} />
         </Routes>
       </div>
     </BrowserRouter>
